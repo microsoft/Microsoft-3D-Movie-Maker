@@ -1,0 +1,329 @@
+; The following should be set on the command line to diamond.exe
+; by SETUPREL.BAT like '/d SRCROOT=%SOC_ROOT% /d APP=%1 /d APP3=%APP3% /d LANG=%2 /d REL=%3 /d RELDATE= /d RELTIME= /d DEBUG=D /d OBJDIR=wind /d SRC_SHARE=\\sheila\release'
+;.Set SRCROOT=%SOC_ROOT%
+;.Set APP=3DMovie
+;.Set APP3=3DM
+;.Set LANG=U
+;.Set REL=\\sheila\cdrel
+;.Set RELDATE=1995-08-12
+;.Set RELTIME=01:02:22
+;.Set DEBUG=D (define DEBUG= to build non-debug)
+;.Set OBJDIR=wins
+;.Set SRC_SHARE=\\sheila\release
+
+;
+;NOTE:  This file is based on taking a standard release point (RELSRC_DIR) and a
+; setup enlistment point (SRCROOT) and making a cd layout to another destination
+; (REL\ROOT32).  It is not designed to take the current build on a local machine
+; and making a cd from that.
+;
+
+
+; Other places to grab stuff from.
+.Set SAMPLE_DIR=\\kgb1\tinman\src\users
+.Set RELSRC_DIR=%SRC_SHARE%
+.Set 3TH_DIR=%RELSRC_DIR%\3dmovie
+
+; This appears in the Acme setup progress meter dialog as the title.
+.Set DiskLabelTemplate=Microsoft 3D Movie Maker - %App%
+
+; The following are the locations on our release (CD) that we will place files
+.Set ROOT32=
+.Set DIR_APP32=%ROOT32%%APP%
+.Set DIR_SETUP32=%ROOT32%Setup
+.Set DIR_CATALOG=%ROOT32%MMCat
+.Set DIR_PSS=%ROOT32%Pss
+.Set DIR_SAMPLES=%ROOT32%Samples
+;.Set DIR_WINSYS=%ROOT32%Winsys
+;.Set DIR_LOGINADM=LoginAdm
+
+; This is the name of the INF file for the 32bit setup
+.Set InfFileName=%REL%\%DIR_SETUP32%\setup.inf
+
+;.Option Explicit
+.Set GenerateInf=OFF
+;.Set InfDateFormat=mm/dd/yy
+.Set InfDateFormat=yyyy-mm-dd
+.Set InfSectionOrder=DF
+.Set DiskDirectoryTemplate=%REL%
+
+.Set InfApp=
+.Set InfBack=
+.Set InfCopy=
+.Set InfDec=
+.Set InfOvr=
+.Set InfRO=
+.Set InfRmv=
+.Set InfRen=
+.Set InfRoot=
+.Set InfSetTimeStamp=
+.Set InfShr=
+.Set InfSys=
+.Set InfTimeToCopy=
+.Set InfReserved=
+.Set InfVital=
+.Set InfRefKey=
+.Set InfID=
+.Set InfGroup=
+
+.Set InfAttr=
+
+.Set MaxDiskSize=CDROM
+
+.Set Compress=Off
+.Set Cabinet=Off
+
+; Root of CD or release share
+%SRCROOT%\SETUP\TOOLS\%LANG%%DEBUG%\SETUP.EXE /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\%LANG%\SETUP.INI /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\SETUP.TDF /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\%LANG%\SETUP.LST /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\%LANG%\AUTORUN.INF /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+.Set DestinationDir=%DIR_PSS%
+%SRCROOT%\SETUP\BIN\PSS\3dmm.hlp /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\3dmm.gid /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\3dmm.fts /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\3dmm.cnt /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\IMGWALK.DLL /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\MSINF16H.EXE /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\MSINFO32.CNT /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\MSINFO32.EXE /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\MSINFO32.HLP /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\ADPCM11.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\PSS\ADPCM22.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+.Set DestinationDir=%DIR_CATALOG%
+%SRCROOT%\SETUP\BIN\MMCAT\BOTTOM.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\BTNBAR.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\CONTBTN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\END.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\INTRO.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\INTRO.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\MMCAT.EXE /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\MMDC.DAT /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\MMDC1.DAT /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\PICCLIP.VBX /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\SPLASH.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\SPUSH.VBX /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\TOC3DMVM.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\VBRUN300.DLL /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\VER.DLL /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+.Set DestinationDir=%DIR_CATALOG%\DIBS
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\BODYMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\BODYPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\BODYPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\BODYPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\BODYPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\CRTVMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\CRTVPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\CRTVPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\CRTVPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\CRTVPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DANGMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DANGPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DANGPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DANGPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DANGPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DINOMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DINOPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DINOPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DINOPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\DINOPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\FINEMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\FINEPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\FINEPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\FINEPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\FINEPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\LEOPMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\LEOPPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\LEOPPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\LEOPPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\LEOPPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\MSBOMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\MSBOPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\MSBOPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\MSBOPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\MSBOPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\SBUSMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\SBUSPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\SBUSPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\SBUSPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\SBUSPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\XPLNMAIN.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\XPLNPOPA.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\XPLNPOPB.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\XPLNPOPC.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\dibs\XPLNPOPD.DIB /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+.Set DestinationDir=%DIR_CATALOG%\WAVS
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\BD1027.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\BD3000.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\BD501.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\BODY.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\CRTV.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\DANG.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\DINO.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\HH.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\KIDS.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\LEOP.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\MSBOCEAN.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\SOLR.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\MMCAT\wavs\XPLN.WAV /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+.Set DestinationDir=%DIR_APP32%
+%RELSRC_DIR%\%OBJDIR%\soc\%APP%.EXE /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\3DMOVIE.3MM /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\3DMOVIE.MS /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\3dmovie.chk /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\bldghd.chk /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\building.chk /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\help.chk /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\helpaud.chk /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\shared.chk /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\sharecd.chk /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\studio.chk /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\bkgds.3cn /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\mtrls.3cn /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\snds.3cn /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\tdfs.3cn /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\tmpls.3cn /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\actor.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\actresl.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\bkgds.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\mtrl.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\prop.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\sound.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\tbox.3th /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\05logn4.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\backstag.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\cntdwn5.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\logn1.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\logn5.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\logn06.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\mhole2.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\bldgdata.chk /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\proj1.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\proj2.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\proj3.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\proj4.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\proj5.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\proj6.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\ticket1.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\ticket2.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\tools1.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\04logn3.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\goida.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\goprj.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\gostu.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\idea2.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\idea3.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\idea4.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%3TH_DIR%\projt2.avi /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+
+.Set DestinationDir=%DIR_SETUP32%
+%SRCROOT%\SETUP\TOOLS\%LANG%%DEBUG%\mssetup.dll /Inf=No
+%SRCROOT%\SETUP\TOOLS\%LANG%%DEBUG%\acmsetup.exe /Inf=No
+%SRCROOT%\SETUP\TOOLS\%LANG%%DEBUG%\acmsetup.hlp /Inf=No
+%SRCROOT%\SETUP\%LANG%\3DMSETUP.DLL /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\%LANG%\setup.stf /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\AUTORUN\OBJ\%OBJDIR%\AUTORUN.EXE /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\COMIC.TTF /Date=1995-04-03 /Time=%RELTIME%
+%SRCROOT%\SETUP\BIN\COMICBD.TTF /Date=1995-04-03 /Time=%RELTIME%
+%SAMPLE_DIR%\melanie\DIALOGUE.3MM /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\melanie\JOG.3MM /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\melanie\SURPRISE.3MM /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\melanie\MUMMY.3MM /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\melanie\BONGO.3MM /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\melanie\BRIDGE.3MM /Date=%RELDATE% /Time=%RELTIME%
+
+.Set DestinationDir=%DIR_SAMPLES%
+%SAMPLE_DIR%\mczee\Where.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Bongo.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Boooooo.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\CityTour.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Graveyrd.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Haunted.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Hospital.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Jungle.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Message.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Space.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Sprog.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Terror.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\TheBook.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\TheLodge.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\TheThief.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+%SAMPLE_DIR%\mczee\Venus31.3mm /Inf=No /Date=%RELDATE% /Time=%RELTIME%
+
+
+.Set GenerateInf=ON
+.Set InfDiskHeader=[Source Media Descriptions]
+.Set InfDiskHeader1="; <disk number>, <disk label>, <file>, <path>"
+.Set InfDiskName='"'%DIR_APP32%\%APP%.Exe"
+.Set InfDiskLineFormat="    ""*disk#*""","*label*",%InfDiskName%,"."
+.Set InfFileHeader=";************* INF File list *****************"
+.Set InfFileHeader1=";{ID=} disk,filename,Append,Backup,Copy,Date,Decompress,Language,Overwrite,Readonly,Remove,Rename,Root,SetTimeStamp,Shared,Size,System,TimeToCopy,Reserved,Ver,Vital"
+.Set InfFileLineFormat={"*ID*" =} *disk#*,*file*,*App*,*Back*,*Copy*,*Date*,*Dec*,*lang*,*Ovr*,*RO*,*Rmv*,*Ren*,*Root*,*SetTimeStamp*,*Shr*,*Size*,*Sys*,*TimeToCopy*,*Reserved*,*ver*,*Vital*
+
+.InfBegin Disk
+
+[Default File Settings]
+"STF_BACKUP" = ""
+"STF_COPY" = "YES"
+"STF_DECOMPRESS" = ""
+"STF_OVERWRITE" = "OLDER"
+"STF_READONLY" = ""
+"STF_ROOT" = "YES"
+"STF_SETTIME" = "YES"
+"STF_TIME" = ""
+"STF_VITAL" = ""
+"STF_DATE" = ""
+
+.Set ExeRename="3D Movie Maker-%APP%.Exe"
+.InfEnd
+.InfWrite [Root]
+%DIR_APP32%\%APP%.EXE /ID="app"
+
+.InfWrite
+.InfWrite [Templates]
+%DIR_APP32%\3DMOVIE.3MM /ID="tmpl"
+.InfWrite
+.InfWrite [Setup]
+SETUP.EXE /ID="setup.exe"
+SETUP.LST /ID="setup.lst" /Ren=MS%APP3%%LANG%.LST /Root="!ROOT"
+
+.InfWrite [Files]
+%DIR_APP32%\3dmovie.chk
+%DIR_APP32%\bldghd.chk
+%DIR_APP32%\help.chk
+%DIR_APP32%\shared.chk
+%DIR_APP32%\studio.chk
+%DIR_APP32%\actor.3th
+%DIR_APP32%\actresl.3th
+%DIR_APP32%\bkgds.3th
+%DIR_APP32%\mtrl.3th
+%DIR_APP32%\prop.3th
+%DIR_APP32%\sound.3th
+%DIR_APP32%\tbox.3th
+%DIR_PSS%\3dmm.hlp
+%DIR_PSS%\3dmm.gid
+%DIR_PSS%\3dmm.fts
+%DIR_PSS%\3dmm.cnt
+
+.InfWrite ;Write blank line
+.InfWrite [Users]
+%DIR_SETUP32%\DIALOGUE.3MM /ROOT="!ROOT" /Ren="Users\Melanie\DIALOGUE.3MM" /RO="READONLY"
+%DIR_SETUP32%\JOG.3MM /ROOT="!ROOT" /Ren="Users\Melanie\JOG.3MM" /RO="READONLY"
+%DIR_SETUP32%\SURPRISE.3MM /ROOT="!ROOT" /Ren="Users\Melanie\SURPRISE.3MM" /RO="READONLY"
+%DIR_SETUP32%\MUMMY.3MM /ROOT="!ROOT" /Ren="Users\Melanie\MUMMY.3MM" /RO="READONLY"
+%DIR_SETUP32%\BONGO.3MM /ROOT="!ROOT" /Ren="Users\Melanie\BONGO.3MM" /RO="READONLY"
+%DIR_SETUP32%\BRIDGE.3MM /ROOT="!ROOT" /Ren="Users\Melanie\BRIDGE.3MM" /RO="READONLY"
+
+.InfWrite
+.InfWrite [Fonts]
+%DIR_SETUP32%\COMIC.TTF /ID="comic" /Shr="SHARED" /Sys="SYSTEM"
+%DIR_SETUP32%\COMICBD.TTF /ID="comicbd" /Shr="SHARED" /Sys="SYSTEM"
+.InfWrite
+

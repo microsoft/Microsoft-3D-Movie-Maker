@@ -1,0 +1,69 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    STBL_APPPATHKEY          "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\3DMOVIE.EXE"
+    STBL_APPPATHKEY_VALUE    ""
+    STBL_APPINSTALLKEY       "SOFTWARE\\Microsoft\\Microsoft Kids\\3D Movie Maker"
+    STBL_APPINSTALLKEY_VALUE "InstallDirectory"
+    STBL_APPINSTALLSUBKEY_VALUE "InstallSubDir"
+    STBL_APPINSTALLNAME      "3DMOVIE.EXE"
+    STBL_SETUPFNAME          "..\\setup.exe"
+    STBL_SETUPCLASS         "Stuff-Shell"
+END
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

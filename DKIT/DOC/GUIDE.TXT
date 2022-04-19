@@ -1,0 +1,981 @@
+SOFTIMAGE
+Research & Development Department
+by:	Laurent Lauzon / Director of Research
+date:	March 7, 91.
+
+SOFTIMAGE Developer Kit: User's Manual	(DRAFT)
+--------------------------------------
+
+Introduction:
+-------------
+
+      The first release of the Developer Kit (DKit) is a set of 'libraries'
+   (in the form of C functions) giving the possibility of reading and
+   writing SOFTIMAGE files into a 'tiny' data structure, that a program-
+   mer will be able to manipulate, and/or create to use it back as an
+   input to SOFTIMAGE or transforming it to use it in any other program.
+      The 'tiny' data structure is NOT the one found in the SOFTIMAGE
+   4D Creative Environment, but a one describing the data structure found
+   in the different file types.
+
+      You will also find in this package some example programs showing
+   you how to use the differents functions to create your own file.
+
+
+Description of the data structure:
+----------------------------------
+
+      Each data structure has it own header file.  These header files
+   take care by themselves to include the other files needed to resolve
+   all definition.  In these files, all fields have a little description
+   and normally it corresponds to concepts familiar to SOFTIMAGE users.
+
+------
+Model:
+------
+
+      A model node is the basic SOFTIMAGE object.  This is the structure
+   that has all the animation, material and system parameters.  It's
+   geometry can be either a face, a mesh, a patch or at the limit be NULL.
+   We can also link several of them in a complex hierarchy structure.
+
+   /* environment for the following examples */
+
+	#include	"tinyModel.h"
+
+	Model		*mdl, *fth;
+	Mesh		*msh;
+	Patch		*ptch;
+	Face		*fac;
+	Vector		 vct;
+	int		 i;
+	Material	*mtrl, *pMtrl;
+
+
+   <> To allocate a model node:
+
+	mdl = modelAllocate();
+	
+
+   <> Name (or rename) of a model node:
+
+	if( mdl->name != NULL )
+           free( mdl->name );
+        mdl->name = strdup( "name" );	(*)
+
+        NOTES:  -   By default the name of a model node is assigned to NULL,
+		    but it is important to assign it one, because in SOFTIMAGE
+		    one is given by default
+		(*) A copy is important because the modelDispose will free
+		    this location.
+
+
+   <> To Add a definition
+
+	/* mesh */
+	mdl->type = MDL_MESH;
+	mdl->definition = (Pointer) msh;
+  
+	/* patch */
+	mdl->type = MDL_PTCH;
+	mdl->definition = (Pointer) ptch;
+
+	/* face */
+	mdl->type = MDL_FACE;
+	mdl->definition = (Pointer) fac;
+
+
+   <> To remove definition
+
+	if( mdl->type != MDL_NILL )
+        {
+	   switch( mdl->type )
+           {
+	      case MDL_MESH:
+	         meshDispose( (Mesh **) &mdl->definition );
+                 break;
+	      case MDL_PTCH:
+	         patchDispose( (Patch **) &mdl->definition );
+                 break;
+	      case MDL_FACE:
+	         faceDispose( (Face **) &mdl->definition );
+                 break;
+           }
+           mdl->type = MDL_NILL;
+           mdl->definition = NULL;
+        }
+
+
+   <> To change rotation, scaling and/or translation
+
+	_VectorInit( mdl->scaling, 1.0, 1.1, 1.2 );
+	   or
+	mdl->rotation = vct;
+	...
+
+
+   <> To add a material
+
+        NOTES:  -   The materials for an object are defined as a list.  The
+		    first entry on this list is the global material (0).
+		    The others that follow this are for polygons which have
+		    an index representing it. (normally this index is 0, so
+		    take the global one)
+		(*) if a polygon has a material index out-of-range, then 0
+		    is taken.
+
+	/* replace global */
+	if( mdl->nbMaterials == 1 )
+	{
+	   materialDispose( &mdl->materials );
+	   mdl->nbMaterials--;
+	}
+	mdl->materials = mtrl;
+	mdl->nbMaterials++;
+
+	/* add a local one */
+	if( mdl->nbMaterials == 0 )
+	   mdl->materials = mtrl;
+	else
+	{
+	   for( i = 0, pMtrl = mdl->materials;
+	           i < (mdl->nbMaterials - 1);
+	              i++, pMtrl = pMtrl->next )
+	      /* NOP */ ;
+	   pMtrl->next = mtrl;
+	}
+	mdl->nbMaterials++;
+
+
+   <> To remove all materials
+
+	for( mtrl = mdl->materials; mtrl != NULL; mtrl = pMtrl )
+	{
+	   pMtrl = mtrl->next;
+	   materialDispose( &mtrl );
+	}
+	mdl->materials = NULL;
+	mdl->nbMaterials = 0;
+
+
+   <> To add a global texture (2D map or Procedural 3D)
+
+        NOTES:  -   A global texture is one overlapping all possible
+		    materials that define an object.  The SOFTIMAGE 4D
+		    Creative Environment doesn't accept any textures
+		    without a material...
+	
+	... similar to material one ...
+
+
+   <> To create a hierarchy (preserving the order of the children)
+
+	/* fth will be parent of mdl */
+	modelCreateParentship( fth, mdl );
+
+
+   <> To cut a model (mdl), (no structures will be delete)
+
+        modelCut( mdl );
+
+
+   <> To dispose a model (mdl)
+
+	/* recursively */
+	modelDispose( &mdl );
+
+        NOTES:  -   If the model is inside a hierarchy, don't forget to cut it.
+		-   If you only want dispose geometry of a model node only,
+		    remove only the geometry, because if the model has
+		    some children, they inherit the transformation...
+	
+
+
+
+-----
+Mesh:
+-----
+
+      (Polygon Mesh) Organized structure of polygons and their related
+   vertices; the polygons can be multi-sided and can have multiple
+   holes.  There is no need for them to be exactly planar, but, to be
+   triangulated properly (and rendered) they need to be non-intersecting.
+   The contour and the holes must be in reverse order of the exterior.  The
+   visible side is the one with its exterior described as counter-clockwise
+   in order (holes are clock wise).
+
+   Basically it consists of:
+	 - an array of vertices (indexed between 0 & (nbVertices - 1)
+           included)
+	 - an array of polygons (indexed between 0 & (nbPolygons -1)
+	   included) as mentioned previously, they can be multi-sided and
+	   have holes.  A polygon is basically an array of vertice indexes,
+	   in options, you can describe the normal for each vertex at this
+	   polygon.
+	 - and optionally, an array of edges (index between 1 & nbEdges
+	   inclusively) the edge is defined by the extremity vertex index,
+	   enumeration of adjacent polygons and a user flag, there is no
+	   need to be present or complete; the SOFTIMAGE 4D Creative
+	   Environment use it only to attach a flag value to the one that
+	   it generates.
+
+      The system uses only consistent mesh: one edge (the one generated by
+   SOFTIMAGE) can only be shared by 2 polygons, in other words we can not
+   find a similar pair of vertices in two different polygons.
+
+      Another restriction is to disallow the merging of points where we
+   cannot cycle through all connecting polygons only with adjacent polygons,
+   i.e. two cubes that have one corner touching each other can not if
+   represented as one object use only 1 vertex at this location, they must
+   use 2.
+
+   /* environment for the following examples */
+
+	#include	"tinyMesh.h"
+
+	Mesh		*msh;
+	Polygon		*pol;
+	Edge		*edg;
+	Vertex		*vrt;
+	int		 i;
+	short		 v0, v1;
+	float		 angl;
+	Vector		 vct;
+
+
+   <> To allocate a mesh.
+
+	msh = meshAllocate();
+
+
+   <> To allocate vertices array (nb).
+
+	msh->vertices = vertexAllocate( nb );
+	msh->nbVertices = nb;
+
+   <> To allocate 1 more vertex to the array.
+
+	if( msh->nbVertex == 0 )
+	   msh->vertices = vertexAllocate( 1 );
+	else
+	{
+	   msh->vertices =
+	     realloc( msh->vertices, sizeof( Vertex ) * (msh->nbVertices + 1) );
+	   _VectorInit( msh->vertices[ msh->nbVertices ].position,
+							      0.0, 0.0, 0.0 );
+	   msh->vertices[ msh->nbVertices ].flag = 0;
+	}
+	msh->nbVertices ++;
+
+
+   <> To initialize Ith vertex (indexed from 0 to (nbVertices -1)).
+
+	vrt = &msh->vertices[ i ];
+
+	vrt->position = vct;
+	   or
+	_VectorInit( vrt->position,  1.0, 2.0, 3.0 );
+
+
+   <> To set an attribute (VRT_SELECTED) at vertex (vrt)
+
+	vrt->flag |= VRT_SELECTED;
+
+
+   <> To reset an attribute (VRT_SELECTED) at vertex (vrt)
+
+	vrt->flag &= ~VRT_SELECTED;
+
+
+   <> To allocate a polygons array.
+
+	msh->polygons = polygonAllocate( nb );
+	msh->nbPolygons = nb;
+
+
+   <> To initialize Ith polygon. (indexed from 0 to (nbPolygons -1)).
+      with (nb) index of vertex contained in ind[0] throuh ind[ nb -1 ]
+
+	pol = &msh->polygons[ i ];
+
+	/* without normal */
+	polygonInitializeVertex( pol, nb,  ind[0], ind[1], ..., ind[nb-1] );
+	   or
+	pol->nbNodes = nb;
+	pol->nodes = malloc( sizeof( short ) * nb );
+	for( i = 0; i < nb; i++ )
+	   pol->nodes[ i ].vertex = ind[ i ];
+
+	/* with normals */
+	polygonInitializeVertexNormal( pol, nb,   ind[0], vrt[0],
+						  ind[1], vrt[1], 
+						   ...
+						  ind[nb-1], vrt[nb-1] );
+	   or
+	pol->nbNodes = nb;
+	pol->nodes = malloc( sizeof( short ) * nb );
+	for( i = 0; i < nb; i++ )
+	{
+	   pol->nodes[ i ].vertex = ind[ i ];
+	   pol->nodes[ i ].position = vrt[ i ];
+	}
+
+        NOTES:  -   If you don't care about the normal and you want
+		    the SOFTIMAGE 4D Creative Environment to compute them,
+		    you just have to uncomment the #define NORMAL
+		    in the file h/tinySoftType.h
+
+	Holed polygon: a polygon can have any number of holes that can be
+		       multi-sided them self.  The way to represent this is
+		       to separate the contour list by a -1 in the nodes
+		       array.
+
+	i.e.	3---------------------------------------2
+	    	|					|
+	    	|	5-------6	9------10	|
+	    	|	|	|	|	|	|
+	    	|	|	|	|	|	|
+	    	|	4-------7	8------11	|
+	    	|					|
+		0---------------------------------------1
+
+	the polygon is:  0, 1, 2, 3,   -1,   4, 5, 6, 7,   -1,   8, 9, 10, 11
+
+	NB: The exterior contour is defined counter-clock wise, and the hole
+	    contours are defined in clock-wise order.
+
+   <> To assign the Ith material to a polygon
+
+        NOTES:  -   The materials definition is kept in the Model data
+		    structure, so at this point there is no way to know
+		    directly if the value we assign is valid (will be
+		    taken as 0 is invalid).
+
+	pol->material = i;
+	
+   <> To remove a polygon definition
+
+	free( pol->nodes );
+	pol->nbNodes = 0;
+
+
+   <> To allocate an edges array. (indexed form 1 to nbEdges)
+
+        NOTES:  -   There is no need in file for edges, or to be complete,
+		    or neither the polygons fields... and if there are some,
+		    their only purpose is carrying the flag value.
+	
+	msh->edges = edgeAllocate( nb );
+	msh->nbEdges = nb;
+
+   <> To define the Ith edge with 2 index vertices (v0, v1) and set flag
+      attribute (EDG_XXX).
+
+	edg = &msh->edges[ i ];
+	edg->vertices[0] = v0;
+	edg->vertices[1] = v1;
+	edg->flag |= EDG_XXX;
+
+
+   <> To change the discontinuity angle.
+
+	msh->discAngle = angl;
+
+
+   <> To dispose a mesh.
+
+	meshDispose( &msh );
+
+
+------
+Patch:
+------
+
+      Parametric surface described by a rectangular array of control points.
+   The interpretation of these control points follow one of these standard
+   types: LINEAR, BEZIER, CARDINAL, B-SPLINE (a explanation on these types can
+   be found in the SGI's "Graphics Library / Programming Guide".  The 2
+   directions (u, v) can have different types, curves or step in curve drawing, 
+
+   NB:   The control points array is represented in a ONE-dimension array
+         ordered like this: { u[0]v[0], u[0]v[1], ..., u[0]v[nbV-1], u[1]v[0],
+	 ..., u[nbU-1]v[nbV-1] }
+
+   /* environment for the following examples */
+
+	#include	"tinyPatch.h"
+
+	Patch		*ptch;
+	short		 nbu, nbv;
+	SplineType	 typ;
+
+   <> To allocate a patch.
+
+	ptch = patchAllocate();
+
+   <> To allocate control points (u = nbu, v = nbv)
+
+	ptch->uNbPoints = nbu;
+	ptch->vNbPoints = nbv;
+	ptch->points = patchAllocatePoints( nbu, nbv );
+
+   <> To initialize (or change) type of U interpolation to a specific type (typ)
+
+	ptch->uType = typ;
+
+	NOTES: - The minimum number of points in a direction (U or V) to
+		 have any representation is 2 for LINEAR.  In other cases,
+		 it is 4 when the patch is open, or 3 when it's closed.
+
+   <> To change drawing step.
+
+	ptch->vStep = 5;
+
+	NOTES: - To have a consistant display, keep these relationships:
+		 uCurve = k0 * vStep;   vCurve = k1 * UStep
+		 where k0 an k1 are any positive interger number.
+	       - In the case of LINEAR curve the step of 1 is sufficient.
+
+   <> To dispose a patch.
+
+	patchDispose( &ptch );
+
+
+-----
+Face:
+-----
+
+      'Planar' surface described by a closed spline representing its
+   exterior contour, and with the possibility of other closed splines
+   representing holes.  The splines can have different types and
+   differrent numbers of points as well.  Since there is no relation
+   between a face and any geometric objects, there is no need to
+   inverse the order of points in holes of a face, however
+   the 'visible' side of the face is the one where the order of
+   points on the exterior contour is counter-clock wise, like polygons.
+      There is no check done in SOFTIMAGE to see if a face is really
+   planar, the result can sometimes seem weird, but it will work in
+   almost all cases.  *Note:  The system won't render the face if the
+   splines are intersecting each other (or them-self), or if a hole
+   is outside the exterior contour.  *[SOFTIMAGE normally won't create
+   these types of objects]
+
+   /* environment for the following examples */
+
+	#include	"tinyFace.h"
+
+	Face		*fac;
+	Spline		*spl;
+	short		 i, ind;
+
+   <> To allocate a face.
+
+	fac = faceAllocate();
+
+   <> To define external contour.
+
+	fac->exterior = spl;
+
+	NOTES: - Be carefull to don't use anymore spl, or make a copy of it.
+
+   <> To add a hole.
+
+	if( fac->nbHoles != 0 )
+	   fac->holes = (Spline **) realloc( fac->holes,
+                                        sizeof( Spline * ) * (fac->nbHoles+1) );
+	else
+	   fac->holes = (Spline **) calloc( 1, sizeof( Spline * ) );
+
+	fac->holes[ spl->nbHoles ] = spl;
+	fac->nbHoles++;
+
+	NOTES: - Be carefull to not use anymore spl, or make a copy of it.
+
+
+   <> To remove a hole (ind th).
+
+	if( ind >= 0 && ind < fac->nbHoles )
+	{
+	   splineDispose( &fac->holes[ind] );
+	   if( fac->nbHoles == 1 )
+	      free( fac->holes );
+	   else
+	   {
+	      for( i = ind; i < (fac->nbHoles - 1); i++ )
+	         fac->holes[i] = fac->holes[i+1];
+	   }
+	   fac->nhHoles--;
+	}
+
+   <> To dispose a face.
+
+	faceDispose( &fac );
+
+      Spline	 *exterior;	/* outside contour */
+      short	  nbHoles;
+      Spline	**holes;	/* array of spline pointers defining holes */
+
+-------
+Spline:
+-------
+
+      Curve, defined by a series of control points.  Just like patches,
+   they can be one of the following types: LINEAR, CARDINAL, BEZIER or
+   B-SPLINE (a explanation on these types can be found in the SGI's
+   "Graphics Library / Programming Guide" ).  Users have have some control
+   to close flag, drawing step, etc...  This structure can serve as a path
+   in a scene, and is used directly into a face structure. 
+
+   /* environment for the following examples */
+
+	#include	"tinySpline.h"
+
+	Spline		*spl;
+	int		 i;
+	short		 nb;
+	SplineKey	 key;
+	Boolean		 flag;
+
+
+   <> To allocate a spline.
+
+	spl = splineAllocate();
+
+
+   <> To name (or rename) a spline
+
+	if( spl->name != NULL )
+           free( spl->name );
+        spl->name = strdup( "name" );	(*)
+
+        NOTES:  -   By default the name of the spline node is assigned to
+		    NULL, but it is important to assign it one, because
+		    in SOFTIMAGE one is given by default
+		(*) A copy is important because the splineDispose will free
+		    this location.
+
+
+   <> To allocate a control points array (nb points).
+
+	spl->keys = splineKeyAllocate( nb );
+	spl->nbKeys = nb;
+
+
+   <> To add a key.
+
+	if( spl->keys == NULL )
+	   spl->keys = splineKeyAllocate( 1 );
+	else
+	   spl->keys = (SplineKey *) realloc( spl->keys,
+				      sizeof( SplineKey ) * (spl->nbKeys + 1) );
+	spl->keys[ spl->nbKeys ] = key;
+	spl->nbKeys++;
+
+	NOTES: - With BEZIER curves the left and right tangent is
+		 stored in the fields previous and next that are point
+		 and not relative vector.  Their values are ignored in the
+		 case of BEZ_LINEAR segments.
+
+   <> to set an attribute (KEY_SELECTED) to ind(th) key.
+
+	key = &spl->keys[ ind ];
+	key->flag |= KEY_SELECTED;
+
+   <> to remove ind(th) key (indexed from 0 to (nbKeys -1)).
+
+	if( ind >= 0 && ind < spl->nbKeys )
+	{
+	   if( spl->nbKeys == 1 )
+	      free( spl->keys );
+	   else
+	   {
+	      for( i = ind; i < (spl->nbKeys - 1); i++ )
+	         spl->keys[i] = spl->keys[i+1];
+	   }
+	   spl->nhKeys--;
+	}
+
+   <> To close a spline
+
+	spl->close = TRUE;
+
+	NOTES: - The minimum number of keys to have any graphics repre-
+		 sentation is 2 for LINEAR in other cases it is 4 when the
+		 patch is open or 3 when it's closed.
+
+   <> To open a spline
+
+	spl->close = FALSE;
+
+   <> To set phantom flag to a value (flag).
+
+	spl->phantom = flag;
+
+	NOTES: - The phantom is a post-processing that controls the position
+		 of the key #0 & key #(nbKeys-1) to assure the curve is begin-
+		 ning at key #1 and finish at key #(nbKeys-2) for B-SPLINE
+		 curves, and they act similarly with CARDINAL to have a good
+		 shape.
+
+   <> To dispose a spline
+
+	splineDispose( &spl );
+
+---------
+Material:
+---------
+
+      The material is a set of visual physical properties.  In addition, we
+   included a list of textures that can modify locally some of these proper-
+   ties.  No special care should be take to construct or modify consis-
+   tent information, you just have to modify the fields with appropriate
+   values, (except for texture lists).  According MaterialType some fields
+   are no longer used (i.e. when model = MAT_LAMBERT, specular is not used...)
+
+   /* environment for the following examples */
+
+	#include	"tinyMaterial.h"
+
+	Material	*mtrl;
+	Texture		*txt, *pTxt;
+	Texture3D	*t3D;
+	int		 i, ind;
+	Colour24	 col;
+
+
+   <> To allocate a material.
+
+	mtrl = materialAllocate();
+
+   <> To name it.
+
+	if( mtrl->name != NULL )
+           free( mtrl->name );
+        mtrl->name = strdup( "name" );	(*)
+
+        NOTES:  -   By default, the name of the material node is assigned to
+		    NULL, but it is important to assign it one, because in
+		    SOFTIMAGE one is given by default.
+		(*) A copy is important because the materialDispose will free
+		    this location.
+
+
+   <> To modify one of its colours (ambient)
+
+	mtrl->ambient = col;
+	   or
+	mtrl->ambient.r = 1.0;
+	mtrl->ambient.g = 0.5;
+	mtrl->ambient.b = 0.0;
+
+   <> To add a local texture.
+
+	if( mtrl->nbTextures == 0 )
+	   mtrl->textures = txt;
+	else
+	{
+	   for( i = 0, pTxt = mtrl->textures;
+	           i < (mtrl->nbTextures - 1);
+	              i++, pTxt = pTxt->next )
+	      /* NOP */ ;
+	   pTxt->next = txt;
+	}
+	mtrl->nbTextures++;
+
+
+   <> To remove all 2D textures
+
+	for( txt = mtrl->textures; txt != NULL; txt = pTxt )
+	{
+	   pTxt = txt->next;
+	   textureDispose( &txt );
+	}
+	mtrl->textures = NULL;
+	mtrl->nbTextures = 0;
+
+
+   <> To remove the ind(th) texture from the list.
+
+        if( mtrl->textures != NULL )
+	{
+	   if( i == 0)
+	   {
+	      txt = mtrl->textures;
+	      mtrl->textures = txt->next;
+	      textureDispose( &txt );
+	   }
+	   else
+	   {
+	      pTxt = mtrl->textures;
+	      for( txt = pTxt->next, i = 1;
+	              txt != NULL && i < ind;
+	                 pTxt = txt, txt = txt->next, i++ )
+                 /* NOP */ ;
+	      if( txt != NULL )
+	      {
+	         pTxt = txt->next;
+	         textureDispose( &txt );
+	      }
+	   }
+	   mtrl->nbTextures--;
+	}
+
+   <> To dispose it (with all local textures).
+
+	materialDispose( &mtrl );
+
+-----------------
+Texture (2D Map):
+-----------------
+
+      A 2D texture is a basically a modification done to a material with
+   a picture file (.pic), (except for the bump map and 'Environment reflec-
+   tion map' that are totally created from the picture file, and that aren't
+   material properties.  Basically no special care should be taken for
+   affecting fields, except maybe for the name allocation.  You should
+   notice that scaling (normally from 0.0 to 1.0) and offset, are dependants
+   of the projection type, and the interpretation of the name depends of
+   the animation method; when anim == STATIC then picture = 'name' + (.pic),
+   when anim = SEQUENCE then picture = 'name' + (frame number) + (.pic) and
+   finally when anim = LIST then picture = name found at (frame number)th line
+   of the file 'name' + (.pic).
+
+   /* environment for the following examples */
+
+	#include	"tinyTexture.h"
+
+	Texture		*txt;
+
+   <> To allocate a texture.
+
+	txt = textureAllocate();
+
+   <> To name (or rename) it.
+
+	if( txt->name != NULL )
+           free( txt->name );
+        txt->name = strdup( "name" );	(*)
+
+        NOTES:  -   By default the name of the texture node is assigned to
+		    NULL, but it is important to assign it one, because in
+		    SOFTIMAGE one is given by default.
+		(*) A copy is important because the textureDispose will free
+		    this location.
+
+   <> To change any factor value. (normally between 0.0 and 1.0)
+
+	txt->ambientFct = 0.5;
+
+   <> To change animation type (i.e. SEQUENCE)
+
+	txt->animation = TXT_SEQUENCE;
+
+   <> To dispose it.
+
+	textureDispose( &txt );
+
+
+------------------------
+Texture (3D Procedural):
+------------------------
+
+      A 3D texture is a basically a modification done to a material with
+   a data volume and pertrubation functions, (except for the bump map
+   that is totally created from the texture, and that isn't using material
+   properties.  Basically no special care should be taken for affecting fields,
+   except maybe for the name allocation.  You should notice that some fields
+   are not used for all types of 3D textures.
+
+   /* environment for the following examples */
+
+	#include	"tinyTexture.h"
+
+	Texture3D	*txt;
+	Colour32	 col;
+
+   <> To allocate a 3D texture.
+
+	txt = texture3DAllocate();
+
+   <> To change it name.
+
+	if( txt->name != NULL )
+           free( txt->name );
+        txt->name = strdup( "name" );	(*)
+
+        NOTES:  -   By default the name of texture node is assigned to NULL,
+		    but it is important to assign it one, because in SOFTIMAGE
+		    one is given by default.
+		(*) A copy is important because the texture3DDispose will free
+		    this location.
+
+   <> To change it type.
+
+	txt->type = TXT_3D_WOOD;
+
+   <> To change any generator parameter.
+
+	txt->strength = 2.0;
+
+   <> To one 'colour' of the lookup table
+
+	txt->colour3 = col;
+	   or
+	txt->colour3.r = 1.0;
+	txt->colour3.g = 1.0;
+	txt->colour3.b = 1.0;
+	txt->colour3.a = 1.0;
+
+   <> To change any factor value. (normally between 0.0 and 1.0)
+
+	txt->ambientFct = 0.5;
+
+   <> To dispose it.
+
+	texture3DDispose( &txt );
+
+
+--------
+Picture:
+--------
+
+      The picture is a 2D rectangular array of pixels, these pixels are
+   separated by channels, and are kept in a ONE-dimensional of length
+   (width X height), with a possible pixel ratio to define what is the
+   real aspect of the image.  Normally the channels represent the full
+   picture but this can represent huge memory so the user is free to
+   use it as he wants, so thats why there are some functions reading and
+   writing one (virtual) scanline at a time, this scanline is pointed
+   by extra fields: ptrRed, ptrGreen, etc... (see the example negate2.c
+   that uses this flexibility to create the inverse of a picture file).  It's
+   also legitimate to use an array of a few scanlines, in case when each
+   scanline has an inter-relation with neighbouring ones.
+
+   /* environment for the following examples */
+
+	#include	"tinyPicture.h"
+
+	Picture		*pic;
+	ChannelPacket	*pck;
+
+   <> To allocate a picture.
+
+	pic = pictureAllocate();
+
+   <> To allocate channels. (Red, Green and Blue / full picture )
+
+	NOTES: - No functions are provided, it's let you the facilities
+		 to allocate desired channels (with or without alpha, 1 scan-
+		 line or full picture, etc...)
+	       - Memory is freed in picturedispose().
+
+	pic->red   = malloc( pic->width * pic->height );
+	pic->green = malloc( pic->width * pic->height );
+	pic->blue  = malloc( pic->width * pic->height );
+
+   <> To Read a picture (full frame)
+
+	pic = pictureReadFile( "filename" );
+
+   <> To Write a full picture.
+
+	/* doesn't care writing format */
+	pictureWriteFile( "filename", pic, NULL );
+
+	/* with specific writing format */
+	pictureWriteFile( "filename", pic, pck );
+
+	NOTES -	The internal structure of the picture file is flexible, this
+		flexibility permits some compaction of needed space, the
+		default format gives good results.  But in some case it can
+		be desired to use another one (i.e. if you pipe 2 programs
+		and process scanline by scanline, it is not useful to
+		compress and de-compress the data...)
+		   It doesn't matter the way you group channels together,
+		the scanline are written one after the other.  The
+		ChannelPacket describes how one scanline is constructed;
+		which channels are present, how they are grouped, and how
+		they are coded (raw, pure run length or mixed run lenght).
+		   You can ignore this information, but you have to transmit
+		it to function reading and writing header and scanlines.
+
+   <> To get scanline by scanline from a file.
+
+	pic = pictureAllocate();
+	file = pictureReadFileHeader( "filename", pic, &pck );
+	pic->red   = malloc( pic->width );
+	pic->green = malloc( pic->width );
+	pic->blue  = malloc( pic->width );
+	pic->alpha = malloc( pic->width );
+	for( i = 0; i < pic->height; i++ )
+	{
+	   pic->ptrRed   = pic->red;
+	   pic->ptrGreen = pic->green;
+	   pic->ptrBlue  = pic->blue;
+	   pic->ptrAlpha = pic->alpha;
+
+	   pictureReadScanline( file, pic, pck );
+
+	   /* proccess information here */
+	}
+	fclose( file );
+	channelPacketDispose( &pck );
+	pictureDispose( &pic );
+
+   <> To create a picture scanline by scanline.
+
+	pic = pictureAllocate();
+	pic->width  = width;
+	pic->height = height;
+	pic->red   = malloc( pic->width );
+	pic->green = malloc( pic->width );
+	pic->blue  = malloc( pic->width );
+	pic->alpha = malloc( pic->width );
+	pck = NULL;
+	file = pictureWriteFileHeader( "filename", pic, &pck );
+	for( i = 0; i < pic->height; i++ )
+	{
+	   /* proccess information here */
+
+	   pic->ptrRed   = pic->red;
+	   pic->ptrGreen = pic->green;
+	   pic->ptrBlue  = pic->blue;
+	   pic->ptrAlpha = pic->alpha;
+
+	   pictureWriteScanline( file, pic, pck );
+
+	}
+	fclose( file );
+	channelPacketDispose( &pck );
+	pictureDispose( &pic );
+
+   <> To dispose picture.
+
+	pictureDispose( &pic );
+
+-----------------
+DKit Environment:
+-----------------
+
+      The developer kit has been written in a way so you doesn't really have
+   to modify 'library' code, but it can happen that your needs are different
+   from the way the code has been written, so you will have to modify it.
+   It's in this goal that 3 control variables had be implemented: NORMAL,
+   VERSION and FM & FD, these 3 variables are in the file src/tinySoftType.c
+
+      If NORMAL is TRUE, then the system will write normals for polygon
+   meshes, and you will have to provide them.  If FALSE no normals will be
+   saved, and when loading it in SOFTIMAGE, the system will compute them.
+
+      If VERSION == v2_0 is defined, then the output file will be able to
+   be loaded in SOFTIMAGE version 2.0, since the file format has changed
+   (more information is now kept in version 2.1) you won't be able to load
+   a v_2.1 file in version 2.0.
+
+      The variables FM and FD are used with the printf() function to format
+   correctly the float value in ASCII file, printf( "%FM.FDf" ).
+
+      If you only want to add more useful functions, it is recommended to
+   have your own separate file to avoid some re-edition with new releases.  
+
+

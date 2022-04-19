@@ -1,0 +1,326 @@
+App Name	airsvc.exe							
+App Version	1.00.1004							
+Frame Bitmap	"CMSbb.dll, 121,122"							
+Frame Caption	Media Manager Setup							
+Dialog Caption Base	Media Manager							
+Usage String	Run Setup.exe \n Admin Mode not supported.							
+About Box String	Media Manager\n\nCopyright (C) 1996 Microsoft Corporation.							
+Check Modules								
+MSAPPS Mode	local							
+Inf File Name	Setup.inf							
+Suppress Copy Disincentive Dialogs								
+Suppress Serial Number Dialog								
+Maximum Object ID	3610							
+Floppy Mode Root Object ID	20:10							
+Maintenance Mode Root Object ID	30:10							
+Setup Version	1.20.0.1305							
+								
+ObjID	Install	During Batch Mode	Title	Descr	Type	Data	BMP Id	Vital	Shared	Dir Chang	Dest Dir	Check Dir	Installed By Us								
+=== AppSearch ===								
+10		Media Manager		AppSearch	"""%p\Media""<%p\Media Manager>,CMS.EXE,,128,yes,yes,"							
+								
+====Begin Install Logic====								
+==Install Modes===								
+20	yes	Floppy Installation		AppMainDlg	40 50 70				yes	%d		
+30		Maintenance		Group	40 50					%d		
+======Component Selection Begins======								
+40	Yes	C&omplete Install	Installs all of the Media Manager components.	Group	3610 80 90 100 120 210	"CMSbb.dll, 101"			yes	%d		
+***** billboards *****								
+50				Group	60							
+60				CustomAction	"cmsbbb.dll,AddBillboard,1100"							
+--- Begin EULA ---								
+70				CustomAction	"cmscah.dll,LicenseDlg,Setup Files;eula.txt"							
+--- End EULA ---
+								
+===Sub Begin ====								
+80				CustomAction	"cmscah.dll,StopifNT351,"							
+90				CustomAction	"cmscah.dll,VerifyUninstall,"							
+100		Media Manager	Installs the core files necessary to run Media Manager	Group	2810 3010 410 110					%d		
+=====Component Selection Ends====								
+110	yes			Group	2610 2410 2310 2210 2010 1910 1810 1710 1610 1510 1410 1310 1210 1010 910					%h\grphflt		
+120	yes	Setup Files	Installs Setup components necessary to reinstall/uninstall.	Group	2910					%d		
+====End Install Logic====								
+								
+**** Begin MM Files *****								
+210		Find Install Directory		Group	220 230 240 270 280 310 320					%d		
+220				CustomAction	"""cmscah.dll"",RootDir,"							
+230				CustomAction	"""cmscah.dll"",GetPathFromReg,""HKEY_LOCAL_MACHINE,SOFTWARE\Microsoft\Windows\CurrentVersion\MMFiles,"""							
+240				Depend	"230 ? : 250 260"							
+250				AddRegData	"""LOCAL"",""SOFTWARE\Microsoft\Windows\CurrentVersion\MMFiles"","""",""%s"","""""					%220\Multimedia Files		
+260				CreateDir	"Multimedia Files"					%220		
+270				CustomAction	"""cmscah.dll"",GetPathFromReg,""HKEY_LOCAL_MACHINE,SOFTWARE\Microsoft\Windows\CurrentVersion\MMFiles,MyMediaPath"""							
+280				Depend	"270 ? : 290 300"							
+290				AddRegData	"""LOCAL"",""SOFTWARE\Microsoft\Windows\CurrentVersion\MMFiles"",""MyMediaPath"",""%s"","""""					%220\Multimedia Files\My Media		
+300				CreateDir	"My Media"					%220\Multimedia Files		
+310				CustomAction	"""cmscah.dll"",GetPathFromReg,""HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\CurrentVersion\MMFiles,"""					%250		
+320				CustomAction	"""cmscah.dll"",GetPathFromReg,""HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\CurrentVersion\MMFiles,MyMediaPath"""					%290		
+**** End MM Files *****								
+**** CMS common File set *****								
+410	Yes			Group	420 430 440 450 460 470  480 490 500 510 520 530 540 550 560 570 580 590 600 610 620 630 640 650 660 670 680 690 700 710 720 730 740 750 760 770  780 790 800 810 820 830 840 850 860 870					%d		
+420				CopyFile	"common,airsvcu_exe"					%h\Media Manager		
+430				InstallShared	"srg_system,selfreg_dll,Selfreg,Selfreg,420 "					%m		
+440				InstallShared	"common,aircatu_dll,CMS\common,CMS,420 "					%h\Media Manager		
+450				CompanionFile	"440 : common,aircat_tlb"							
+460				CompanionFile	"440 : common,airlexu_dll"							
+470				CompanionFile	"440 : common,airqryu_dll"							
+480				CompanionFile	"440 : common,airquery_tlb"							
+490				CompanionFile	"440 : common,airstop_txt"							
+500				CompanionFile	"440 : common,airsvcu_exe"							
+510				CompanionFile	"440 : common,english_tbl"							
+520				CompanionFile	"440 : common,chinese_tbl"							
+530				CompanionFile	"440 : common,czech_tbl"							
+540				CompanionFile	"440 : common,danish_tbl"							
+550				CompanionFile	"440 : common,dutch_tbl"							
+560				CompanionFile	"440 : common,french_tbl"							
+570				CompanionFile	"440 : common,frncan_tbl"							
+580				CompanionFile	"440 : common,german_tbl"							
+590				CompanionFile	"440 : common,italian_tbl"							
+600				CompanionFile	"440 : common,japanese_tbl"							
+610				CompanionFile	"440 : common,korean_tbl"							
+620				CompanionFile	"440 : common,norway_tbl"							
+630				CompanionFile	"440 : common,polish_tbl"							
+640				CompanionFile	"440 : common,protugu_tbl"							
+650				CompanionFile	"440 : common,scandina_tbl"							
+660				CompanionFile	"440 : common,spanish_tbl"							
+670				CompanionFile	"440 : common,swedish_tbl"							
+680				CompanionFile	"440 : common,htmlfilt_dll"							
+690				CompanionFile	"440 : common,fltoffu_dll"							
+700				CompanionFile	"440 : common,mvbk20n_dll"							
+710				CompanionFile	"440 : common,mvjk20n_dll"							
+720				CompanionFile	"440 : common,wdbrkjpn_dll"							
+730				CompanionFile	"440 : common,test_tlb"							
+740				CopyFile	"common,readme_txt"					%d		
+750				InstallShared	"common_srg,cmsstg_srg,CMS\cmsstg,CMS,420 "					%m		
+760				InstallShared	"common system,cms_hlp,CMS\cmshlp,CMS,420 "					%m		
+770				CompanionFile	"760 : common system,cms_cnt"							
+780				InstallShared	"common_srg,air_srg,CMS\airsrg,CMS,420 "					%h\Media Manager		
+790				InstallShared	"common system,shmedext_tlb,CMS\shmedext.tlb,CMS,420 "					%m		
+800				CustomAction	"cmscah.dll,RegFile,750"							
+810				CustomAction	"cmscah.dll,RegFile,780"							
+820				CustomAction	"cmscah.dll,ForceAcmeRestart,"							
+830				InstallShared	"commonshared,untoansi_dll,CMS\untoansi,CMS,420 "					%m		
+840				CustomAction	"cmscahu.dll,InstallCMSIndexer,"							
+850				CustomAction	"cmscahu.dll,DetectAdminPrivileges,"					%m		
+860				InstallShared	"commonshared,cmsstgu_dll,CMS\cmsstgu,CMS,420 "					%m		
+870				InstallShared	"commonshared,defprpdb_wpd,CMS\annotations,CMS,420 "					%h\Media Manager		
+*** PICT ***								
+910	yes	Macintosh PICT Import	Imports graphics from Macintosh PICT format.	Group	920 930 940							
+920				InstallShared	"Graphics Filters,pictim32_flt,PICT,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+930				CompanionFile	"920 : Graphics Filters,ms_pct"					%920		
+940				Depend	"920 ? 950 960 970"							
+950				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PICT"",""Name"",""Macintosh PICT"","""""							
+960				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PICT"",""Path"",""%s\PICTIM32.FLT"","""""					%920		
+970				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PICT"",""Extensions"",""pct,pict"","""""							
+*** PNG ***								
+1010	No	GIF	Imports graphics from GIF format.	Group	1020 1030 1040							
+1020				InstallShared	"Graphics Filters,png32_flt,PNG,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+1030				CompanionFile	"1020 : Graphics Filters,ms_png"					%1020		
+1040				Depend	"1020 ? 1050 1060 1070 1080 1090 1110  1120 1130 1100 1140 1150"							
+1050				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PNG"",""Name"",""Portable Network Graphics"","""""							
+1060				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PNG"",""Path"",""%s\PNG32.FLT"","""""					%1020		
+1070				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PNG"",""Extensions"",""png"","""""							
+1080				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PNG\Options"",""ShowProgressDialog"",""Yes"","""""							
+1090				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PNG\Image API"","""","""","""""							
+1100				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\PNG\Image API"","""","""","""""							
+1110				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\PNG"",""Name"",""Portable Network Graphics"","""""							
+1120				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\PNG"",""Path"",""%s\PNG32.FLT"","""""					%1020		
+1130				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\PNG"",""Extensions"",""png"","""""							
+1140				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\PNG\Options"",""ShowProgressDialog"",""Yes"","""""							
+1150				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\PNG\Options"",""ShowMetafileBackgroundTransparent"",""No"","""""							
+===Windows DIB===								
+1210	Yes	Windows DIB Filter	Imports graphics from the Windows Bitmap (BMP and DIB) formats.	Group	1220 1230 1240							
+1220				InstallShared	"Graphics Filters,bmpimp_flt,WindowsDIB,GRPHFLT,420 "					%d,%d\OS\MSAPPS\Grphflt		
+1230				CompanionFile	"1220 : Graphics Filters,ms_bmp"					%1220		
+1240				Depend	"1220 ? 1250 1260 1270 1280"							
+1250				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\BMP"",""Name"",""Windows Bitmaps"","""""							
+1260				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\BMP"",""Path"",""%s\BMPIMP32.FLT"","""""					%1220		
+1270				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\BMP"",""Extensions"",""dib,bmp,rle"","""""							
+1280				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\BMP\Image API"","""","""","""""							
+*** PCXF ***								
+1310				Group	1320 1330 1340							
+1320				InstallShared	"Graphics Filters,pcximp32_flt,PCX,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+1330				CompanionFile	"1320 : Graphics Filters,ms_pcx"					%1320		
+1340				Depend	"1320 ? 1350 1360 1370"							
+1350				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCX"",""Name"",""PC Paintbrush"","""""							
+1360				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCX"",""Path"",""%s\PCXIMP32.FLT"","""""					%1320		
+1370				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCX"",""Extensions"",""pcx"","""""							
+*** EPS ***								
+1410	yes			Group	1420 1430 1440							
+1420				InstallShared	"Graphics Filters,epsimp32_flt,EPS,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+1430				CompanionFile	"1420 : Graphics Filters,ms_eps"					%1420		
+1440				Depend	"1420 ? 1450 1460 1470"							
+1450				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\EPS"",""Name"",""Encapsulated PostScript"","""""							
+1460				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\EPS"",""Path"",""%s\EPSIMP32.FLT"","""""					%1420		
+1470				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\EPS"",""Extensions"",""eps"","""""							
+*** DRW ***								
+1510	No			Group	1520 1530 1540							
+1520				InstallShared	"Graphics Filters,drwimp32_flt,DRW,GRPHFLT,420 "					%d,%d\OS\MSAPPS\Grphflt		
+1530				CompanionFile	"1520 : Graphics Filters,ms_drw"					%1520		
+1540				Depend	"1520 ? 1550 1560 1570"							
+1550				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\DRW"",""Name"",""Micrografx Designer/Draw"","""""							
+1560				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\DRW"",""Path"",""%s\DRWIMP32.FLT"","""""					%1520		
+1570				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\DRW"",""Extensions"",""drw"","""""							
+===Windows WMF===								
+1610	No	Windows Metafile Filter		Group	1620 1630							
+1620				InstallShared	"Graphics Filters,wmfimp_flt,WindowsMetafile,GRPHFLT,420 "					%d,%d\OS\MSAPPS\Grphflt		
+1630				Depend	"1620 ? 1640 1650 1660"							
+1640				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\WMF"",""Name"",""Windows Metafiles"","""""							
+1650				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\WMF"",""Path"",""%s\WMFIMP32.FLT"","""""					%1620		
+1660				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\WMF"",""Extensions"",""wmf"","""""							
+*** TGAF ***								
+1710	No	Truevision Targa Imports	Imports graphics from Truevision Targa TGA format.	Group	1720 1730							
+1720				InstallShared	"Graphics Filters,tgaimp,TGA,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+1730				Depend	"1720 ? 1740 1750 1760 1770"							
+1740				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TGA"",""Name"",""Targa"","""""							
+1750				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TGA"",""Path"",""%s\TGAIMP32.FLT"","""""					%1720		
+1760				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TGA"",""Extensions"",""tga"","""""							
+1770				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TGA\Image API"","""","""","""""							
+*** kpcd ***								
+1810	No	Kodak Photo CD Import	Imports graphics from Kodak Photo CD format	Group	1820 1830 1840							
+1820				InstallShared	"Graphics Filters,pcdimp32_flt,Kodak Photo CD Filter,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+1830				InstallSysFile	"Graphics Filters,pcdlib32_dll"					%d,%d\OS\System		
+1840				Depend	"1820 ? 1850 1860 1870 1880 1890"							
+1850				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCD"",""Name"",""Kodak Photo CD"","""""							
+1860				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCD"",""Path"",""%s\PCDIMP32.FLT"","""""					%1820		
+1870				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCD"",""Extensions"",""pcd"","""""							
+1880				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCD\Image API"","""","""","""""							
+1890				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\PCD\Options"",""ShowOptionsDialog"",""Yes"","""""							
+*** CDRF ***								
+1910	No	Corel Draw 3.0 Import	Imports graphics from Corel Draw CDR format.	Group	1920 1930							
+1920				InstallShared	"Graphics Filters,cdrimp32_flt,CDR,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+1930				Depend	"1920 ? 1940 1950 1960"							
+1940				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CDR"",""Name"",""Corel Draw"","""""							
+1950				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CDR"",""Path"",""%s\CDRIMP32.FLT"","""""					%1920		
+1960				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CDR"",""Extensions"",""cdr"","""""							
+*** CGM ***								
+2010	No	Computer Graphics Metafile Import	Imports graphics from Computer Graphics Metafile (CGM) format.	Group	2020 2030 2040 2050 2060							
+2020				InstallShared	"Graphics Filters,cgmimp32_flt,CGM,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+2030				CompanionFile	"2020 : Graphics Filters,ms_cgm"					%2020		
+2040				CompanionFile	"2020 : Graphics Filters,cgmtxt32_dll"					%2020		
+2050				CompanionFile	"2020 : Graphics Filters,cgmimp32_hlp"					%2020		
+2060				Depend	"2020 ? 2070 2080 2090 2100 2110 2120"							
+2070				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CGM"",""Name"",""Computer Graphics Metafile"","""""							
+2080				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CGM"",""Path"",""%s\CGMIMP32.FLT"","""""					%2020		
+2090				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CGM"",""Extensions"",""cgm"","""""							
+2100				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CGM\OPTIONS"",""ShowOptionsDialog"",""Yes"","""""							
+2110				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CGM"",""FontMap"",""%s\CGMIMP32.CFG"","""""							
+2120				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\CGM"",""ResourceDirectory"",""%s\"","""""							
+*** CADF ***								
+2210	No	AutoCAD DXF Import	Imports graphics from AutoCAD DXF format.	Group	2220 2240							
+2220				InstallShared	"Graphics Filters,dxfimp32_flt,DXF,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+2230				CompanionFile	"2220 : Graphics Filters,ms_dxf"					%2220		
+2240				Depend	"2220 ? 2250 2260 2270"							
+2250				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\DXF"",""Name"",""AutoCAD Format 2-D"","""""							
+2260				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\DXF"",""Path"",""%s\DXFIMP32.FLT"","""""					%2220		
+2270				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\DXF"",""Extensions"",""dxf"","""""							
+*** TIFF ***								
+2310	yes	Tagged Image File Format Import	Imports graphics from the Tag Image File Format (TIFF).	Group	2320 2330 2340							
+2320				InstallShared	"Graphics Filters,tiffimp,TIFF,GRPHFLT,420 "					%d,%d\OS\MSAPPS\Grphflt		
+2330				CompanionFile	"2320 : Graphics Filters,wordtif"					%2320		
+2340				Depend	"2320 ? 2350 2360 2370 2380"							
+2350				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TIFF"",""Name"",""Tagged Image File Format"","""""							
+2360				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TIFF"",""Path"",""%s\TIFFIM32.FLT"","""""					%2320		
+2370				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TIFF"",""Extensions"",""tif,tiff"","""""							
+2380				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\TIFF\Image API"","""","""","""""							
+===JPEG===								
+2410	Yes	JPEG File Interchange Format Import		Group	2420 2430							
+2420				InstallShared	"Graphics Filters,jpegim32_flt,JPEG,GRPHFLT,420 "					%d,%d\OS\MSAPPS\Grphflt		
+2430				Depend	"2420 ? 2440 2450 2460 2490 2470 2480 2500 2510 2520 2530 2540 2550"							
+2440				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\JPEG"",""Name"",""JPEG Filter"","""""							
+2450				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\JPEG"",""Path"",""%s\jpegim32.flt"","""""					%2420		
+2460				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\JPEG"",""Extensions"",""jpeg,jpg,jif"","""""							
+2470				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\JPEG\Options"",""ShowProgressDialog"",""Yes"","""""							
+2480				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPEG\Options"",""Quality"",""75"",""DWORD"""							
+2490				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\JPEG\Image API"","""","""","""""							
+2500				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPG"",""Name"",""JPEG Filter"","""""							
+2510				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPG"",""Path"",""%s\jpegim32.flt"","""""					%2420		
+2520				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPG"",""Extensions"",""jpg"","""""							
+2530				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPG\Image API"","""","""","""""							
+2540				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPG\Options"",""ShowProgressDialog"",""Yes"","""""							
+2550				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\JPG\Options"",""Quality"",""75"",""DWORD"""							
+*** GIFL ***								
+2610	No	GIF	Imports graphics from GIF format.	Group	2620 2630 2640							
+2620				InstallShared	"Graphics Filters,gifimp32_flt,GIF,GRPHFLT,420 "					%d, %d\OS\MSAPPS\Grphflt		
+2630				CompanionFile	"2620 : Graphics Filters,ms_gif"					%2620		
+2640				Depend	"2620 ? 2650 2660 2670 2680 2690 2700 2710 2720 2730 2740 2750 2760"							
+2650				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\GIF"",""Name"",""GIF"","""""							
+2660				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\GIF"",""Path"",""%s\gifimp32.flt"","""""					%2620		
+2670				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\GIF"",""Extensions"",""gif"","""""							
+2680				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\GIF\Options"",""ShowProgressDialog"",""Yes"","""""							
+2690				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Import\GIF\Image API"","""","""","""""							
+2700				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF"",""Name"",""GIF"","""""							
+2710				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF"",""Name"",""GIF"","""""							
+2720				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF"",""Path"",""%s\gifimp32.flt"","""""					%2620		
+2730				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF"",""Extensions"",""gif"","""""							
+2740				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF\Image API"","""","""","""""							
+2750				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF\Options"",""ShowProgressDialog"",""Yes"","""""							
+2760				AddRegData	"""LOCAL"",""Software\Microsoft\Shared Tools\Graphics Filters\Export\GIF\Options"",""ShowMetafileBackgroundTransparent"",""No"","""""							
+**** Select WPD db *****								
+2810	Yes			Group	 2820					%d		
+2820				CustomAction	"CMScah.dll,SelectDatabase,"					%h		
+**** Setup File set *****								
+2910	Yes			Group	2920 2930 2940 2950					%d\Setup		
+2920				CopySection	"Setup Files"							
+2930				WriteTableFile	"Setup.stf"							
+2940				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\CurrentVersion\Uninstall\Media Manager 1.0"",""DisplayName"",""Microsoft Media Manager 1.0"",""REG_SZ"""							
+2950				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\CurrentVersion\Uninstall\Media Manager 1.0"",""UninstallString"",""%s\Setup.exe"",""REG_SZ"""							
+**** CMS OS dependent File set *****								
+3010	Yes			Group	3020 3030 3040 3050					%d		
+3020				CustomAction	"cmscah.dll,GetPathFromReg,""HKEY_CURRENT_USER,Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders,StartUp"""							
+3030		NT shell?		CustomAction	"CMScah.dll,DetectOS,""winnt40"""							
+3040		NT shell?		CustomAction	"CMScah.dll,DetectOS,""win95"""							
+3050				Depend	"3030 ? 3170 3310:3060"							
+3060				Depend	"3040 ? 3070 3260 : 3170 3310"							
+3070				Group	3080 3090 3100 3110 3120 3130 3140 3150 3160					%d		
+3080				InstallShared	"ansi system,twdlla_dll,CMS\twdlla,CMS,420 "					%m		
+3090				InstallShared	"ansi system,twilansi_srg,CMS\twilansi,CMS,420 "					%m		
+3100				CustomAction	"cmscah.dll,RegFile,3090"							
+3110				InstallShared	"ansi system,shstgea_dll,CMS\shstgea,CMS,420 "					%m		
+3120				InstallShared	"ansi_cpl,twcpla_cpl,CMS\twcpla,CMS,420 "					%m		
+3130				InstallShared	"ansi system,shmedea_dll,CMS\shmedea.dll,CMS,420 "					%m		
+3140				InstallShared	"ansi system,shmedea_srg,CMS\shmedea.srg,CMS,420 "					%m		
+3150				CustomAction	"cmscah.dll,RegFile,3140"					%m		
+3160				InstallShortcut	"%420\%F420,MSMedia<Media Manager>,,,,,"					%3020		
+3170				Group	3180 3190 3200 3210 3220 3230 3240 3250							
+3180				InstallShared	"unicode system,shstgeu_dll,CMS\shstgeu,CMS,420 "					%m		
+3190				InstallShared	"unicode system,twdllu_dll,CMS\twdllu,CMS,420 "					%m		
+3200				InstallShared	"unicode system,twilunic_srg,CMS\twiluni,CMS,420 "					%m		
+3210				CustomAction	"cmscah.dll,RegFile,3200"							
+3220				InstallShared	"uni_cpl,twcplu_cpl,CMS\cpl,CMS,420 "					%m		
+3230				InstallShared	"unicode system,shmedeu_dll,CMS\shmedeu.dll,CMS,420 "					%m		
+3240				InstallShared	"unicode system,shmedeu_srg,CMS\shmedeu.srg,CMS,420 "					%m		
+3250				CustomAction	"cmscah.dll,RegFile,3240"					%m		
+3260				Group	3280 3290 3300 3360 3440 3500							
+3270				InstallShared	"ansi shared,cmsprxa_exe,CMS\ansi,CMS,420 "					%h\Media Manager		
+3280				InstallShared	"ansi shared,cmsfnda_exe,CMS\ansi,CMS,420 "					%h\Media Manager		
+3290				InstallShared	"ansi shared,twshansi_srg,CMS\twshansi,CMS,420 "					%h\Media Manager		
+3300				CustomAction	"cmscah.dll,RegFile,3290"					%h\Media Manager		
+3310				Group	3330 3340 3350  3400 3470 3530							
+3320				InstallShared	"unicode shared,cmsprxu_exe,CMS\unicode,CMS,420 "					%h\Media Manager		
+3330				InstallShared	"unicode shared,cmsfndu_exe,CMS\unicode,CMS,420 "					%h\Media Manager		
+3340				InstallShared	"unicode shared,twshunic_srg,CMS\twshunic,CMS,420 "					%h\Media Manager		
+3350				CustomAction	"cmscah.dll,RegFile,3340"					%h\Media Manager		
+3360				Group	3370 3380 3390							
+3370				InstallShared	"ansi shared,amvpla_dll,CMS\ansi,CMS,420 "					%h\Media Manager		
+3380				InstallShared	"ansi shared,amvpla_srg,CMS\ansi,CMS,420 "					%h\Media Manager		
+3390				CustomAction	"cmscah.dll,RegFile,3380"					%h\Media Manager		
+3400				Group	3410 3420 3430							
+3410				InstallShared	"unicode shared,amvplu_dll,CMS\unicode,CMS,420 "					%h\Media Manager		
+3420				InstallShared	"unicode shared,amvplu_srg,CMS\unicode,CMS,420 "					%h\Media Manager		
+3430				CustomAction	"cmscah.dll,RegFile,3420"					%h\Media Manager		
+3440				Group	3450 3460							
+3450				InstallShared	"common,splasha_exe,CMS\splasha.exe,CMS,420 "					%h\Media Manager		
+3460				InstallShortcut	"%3450\%F3450,MMSplash<Introducing Media Manager>,,,,,"					%3020		
+3470				Group	3480 3490							
+3480				InstallShared	"common,splasha_exe,CMS\splasha.exe,CMS,420 "					%h\Media Manager		
+3490				InstallShortcut	"%3480\%F3480,MMSplash<Introducing Media Manager>,,,,,"					%3020		
+3500				Group	3510 3520							
+3510				CopyFile	"common,mmconv_exe"					%h\Media Manager		
+3520				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\CurrentVersion\Runonce"",""MMConv"",""%s\mmconv.exe %310"","""""					%h\Media Manager		
+3530				Group	3540 3550							
+3540				CopyFile	"common,mmconv_exe"					%h\Media Manager		
+3550				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\CurrentVersion\Runonce"",""MMConv"",""%s\mmconv.exe %310"","""""					%h\Media Manager		
+--- Begin SelfExe Files ---								
+3610				CustomAction	"cmscah.dll,SyncEXECalloutCAH,%s\amovie.exe /q /r:n /c:""amremove /setup_q"""					%s		
+--- End SelfExe Files ---
+								

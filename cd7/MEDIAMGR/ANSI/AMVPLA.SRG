@@ -1,0 +1,55 @@
+# SRG file for the Twilight Components
+# Author: cdturner
+# date last modified: 3/5/96
+
+
+#################################################################
+#########CFXIMPLEMENT_OBJECT FACTORY's###########################
+#################################################################
+
+# Make sure these come before other registry information.
+
+[HKEY_CLASSES_ROOT\CLSID\{ED3AA560-77A1-11cf-8775-00AA00A206CA}\InprocServer32] 
+@="<product path>\\amvpla.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\ActiveMoviePlayer] 
+@="ActiveMoviePlayer" 
+
+[HKEY_CLASSES_ROOT\ActiveMoviePlayer\CLSID] 
+@="{ED3AA560-77A1-11cf-8775-00AA00A206CA}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{ED3AA560-77A1-11cf-8775-00AA00A206CA}] 
+@="ActiveMoviePlayer" 
+
+### thumbnail extractors....
+
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors\.MOV]
+"CLSID"="REG_SZ:{ED3AA560-77A1-11cf-8775-00AA00A206CA}"
+
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors\.QT]
+"CLSID"="REG_SZ:{ED3AA560-77A1-11cf-8775-00AA00A206CA}"
+
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors\.MPG]
+"CLSID"="REG_SZ:{ED3AA560-77A1-11cf-8775-00AA00A206CA}"
+
+#### CMS PLAYER stuff
+# /*[TODO]*/
+
+[HKEY_CLASSES_ROOT\AVIFile\shellex\CmsShellPlayer]
+@="ActiveMoviePlayer"
+"CLSID"="REG_SZ:{ED3AA560-77A1-11cf-8775-00AA00A206CA}"
+"Flags"="REG_DWORD:1"
+
+[HKEY_CLASSES_ROOT\MPEGFile\shellex\CmsShellPlayer]
+@="ActiveMoviePlayer"
+"CLSID"="REG_SZ:{ED3AA560-77A1-11cf-8775-00AA00A206CA}"
+"Flags"="REG_DWORD:1"
+
+[HKEY_CLASSES_ROOT\MOVFile\shellex\CmsShellPlayer]
+@="ActiveMoviePlayer"
+"CLSID"="REG_SZ:{ED3AA560-77A1-11cf-8775-00AA00A206CA}"
+"Flags"="REG_DWORD:1"
+
+
+

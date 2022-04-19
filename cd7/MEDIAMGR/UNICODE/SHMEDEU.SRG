@@ -1,0 +1,402 @@
+# SRG file for Shell Media Extensions.
+# author: pedrosi
+
+## registering format ids for media extension property schema.
+[HKEY_CLASSES_ROOT\FMTID\{7026EA40-C026-11cf-A0E5-00AA00A71191}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:Image Info"
+
+[HKEY_CLASSES_ROOT\FMTID\{7026EA40-C026-11cf-A0E5-00AA00A71191}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\shmedext.tlb"
+
+[HKEY_CLASSES_ROOT\FMTID\{7026EA41-C026-11cf-A0E5-00AA00A71191}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:Media Info"
+
+[HKEY_CLASSES_ROOT\FMTID\{7026EA41-C026-11cf-A0E5-00AA00A71191}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\shmedext.tlb"
+
+[HKEY_CLASSES_ROOT\FMTID\{A25C1DF0-C09F-11cf-A0E5-00AA00A71191}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:Audio Info"
+
+[HKEY_CLASSES_ROOT\FMTID\{A25C1DF0-C09F-11cf-A0E5-00AA00A71191}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\shmedext.tlb"
+
+[HKEY_CLASSES_ROOT\FMTID\{A25C1DF1-C09F-11cf-A0E5-00AA00A71191}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:Video Info"
+
+[HKEY_CLASSES_ROOT\FMTID\{A25C1DF1-C09F-11cf-A0E5-00AA00A71191}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\shmedext.tlb"
+
+
+## Registration for Image Property Page.
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Image]
+@="Asset.PropertyPage.Image"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Image\CLSID]
+@="{FA504FF0-BE2B-11CF-A0E2-00AA00A71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{FA504FF0-BE2B-11CF-A0E2-00AA00A71191}]
+@="Asset.PropertyPage.Image"
+
+[HKEY_CLASSES_ROOT\CLSID\{FA504FF0-BE2B-11CF-A0E2-00AA00A71191}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\*\shellex\PropertySheetHandlers\ImagePage]
+@="{FA504FF0-BE2B-11CF-A0E2-00AA00A71191}"
+
+
+
+## Registration for Image filter.
+[HKEY_CLASSES_ROOT\Asset.Filter.Image]
+@="Asset.Filter.Image"
+
+[HKEY_CLASSES_ROOT\Asset.Filter.Image\CLSID]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EF6D770-C00F-11cf-A0E5-00AA00A71191}]
+@="Asset.Filter.Image"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EF6D770-C00F-11cf-A0E5-00AA00A71191}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Register persistent handler for image filter
+##  "bmp, gif, jpg, jif, jpeg, pcx, png, tga, tif, tiff, pcd"
+[HKEY_CLASSES_ROOT\CLSID\{56616800-C154-11CE-8553-00AA00A1F95B}\PersistentHandler]  
+@="{48D8D500-E428-11cf-BD0B-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{48D8D500-E428-11cf-BD0B-00805FFCEAEA}\PersistentAddinsRegistered\{89BCB740-6119-101A-BCB7-00DD010655AF}]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+
+## Registration for Image Filter to be recognized by the Indexer.
+## Register fail-safe entry for CMS
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.bmp]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.gif]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.jpg]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.jif]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.jpeg]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.pcx]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.png]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.tga]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.tif]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.tiff]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.pcd]
+@="{2EF6D770-C00F-11cf-A0E5-00AA00A71191}"
+
+
+## Registration for Image Search Page.
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Image]
+@="Asset.SearchPage.Image"
+
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Image\CLSID]
+@="{6438D440-BDCB-11cf-BCED-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{6438D440-BDCB-11cf-BCED-00805FFCEAEA}]
+@="Asset.SearchPage.Image"
+
+[HKEY_CLASSES_ROOT\CLSID\{6438D440-BDCB-11cf-BCED-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Video query page registration.
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Video]
+@="Asset.SearchPage.Video"
+
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Video\CLSID]
+@="{0BBA04D0-C47E-11cf-BCF0-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{0BBA04D0-C47E-11cf-BCF0-00805FFCEAEA}]
+@="Asset.SearchPage.Video"
+
+[HKEY_CLASSES_ROOT\CLSID\{0BBA04D0-C47E-11cf-BCF0-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## query page type system registration.
+[HKEY_CLASSES_ROOT\Asset.TypeSystemExt] 
+@="CMS data type definition extention" 
+
+[HKEY_CLASSES_ROOT\Asset.TypeSystemExt\CLSID] 
+@="{61B31CA0-BFBA-11CF-BCEE-00805FFCEAEA}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{61B31CA0-BFBA-11CF-BCEE-00805FFCEAEA}]
+@="Asset.TypeSystemExt"
+
+[HKEY_CLASSES_ROOT\CLSID\{61B31CA0-BFBA-11CF-BCEE-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\CmsTypes\{61B31CA0-BFBA-11CF-BCEE-00805FFCEAEA}]
+@=""
+
+
+## Registration for Video Property Page.
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Video]
+@="Asset.PropertyPage.Video"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Video\CLSID]
+@="{16C01BB0-C0F2-11cf-A0E5-00AA00A71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{16C01BB0-C0F2-11cf-A0E5-00AA00A71191}]
+@="Asset.PropertyPage.Video"
+
+[HKEY_CLASSES_ROOT\CLSID\{16C01BB0-C0F2-11cf-A0E5-00AA00A71191}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\*\shellex\PropertySheetHandlers\VideoPage]
+@="{16C01BB0-C0F2-11cf-A0E5-00AA00A71191}"
+
+
+## Registration for Video filter.
+[HKEY_CLASSES_ROOT\Asset.Filter.Video]
+@="Asset.Filter.Video"
+
+[HKEY_CLASSES_ROOT\Asset.Filter.Video\CLSID]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{B555EC10-C609-11cf-A0E5-00AA00A71191}]
+@="Asset.Filter.Video"
+
+[HKEY_CLASSES_ROOT\CLSID\{B555EC10-C609-11cf-A0E5-00AA00A71191}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Register persistent handler for video filter
+## AVIFile "avi"				 
+[HKEY_CLASSES_ROOT\CLSID\{00022602-0000-0000-C000-000000000046}\PersistentHandler]  
+@="{48D8D501-E428-11cf-BD0B-00805FFCEAEA}"
+
+##  MPEGFile "mpg, mpeg, mpv, mp2, mpa, dat, m1v, mpe, mpm"			
+[HKEY_CLASSES_ROOT\CLSID\{00022601-0000-0000-C000-000000000046}\PersistentHandler]  
+@="{48D8D501-E428-11cf-BD0B-00805FFCEAEA}"
+  
+##  PlayerFrameClass "mov, qt"			
+[HKEY_CLASSES_ROOT\CLSID\{00044EBB-0000-0000-C000-000000000046}\PersistentHandler]  
+@="{48D8D501-E428-11cf-BD0B-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{48D8D501-E428-11cf-BD0B-00805FFCEAEA}\PersistentAddinsRegistered\{89BCB740-6119-101A-BCB7-00DD010655AF}]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+
+## Registration for Video Filter to be recognized by the Indexer.
+## all supported by ActiveMovie
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.avi]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mpg]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mpeg]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mpv]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mp2]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mpa]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.dat]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.m1v]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mpe]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mpm]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mov]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.qt]
+@="{B555EC10-C609-11cf-A0E5-00AA00A71191}"
+
+
+## Registration for Audio Search Page.
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Audio]
+@="Asset.SearchPage.Audio"
+
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Audio\CLSID]
+@="{9C8DBB20-C47E-11cf-BCF0-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{9C8DBB20-C47E-11cf-BCF0-00805FFCEAEA}]
+@="Asset.SearchPage.Audio"
+
+[HKEY_CLASSES_ROOT\CLSID\{9C8DBB20-C47E-11cf-BCF0-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Registration for Audio Property Page.
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Audio]
+@="Asset.PropertyPage.Audio"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Audio\CLSID]
+@="{877F76C0-D04E-11cf-BCFD-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{877F76C0-D04E-11cf-BCFD-00805FFCEAEA}]
+@="Asset.PropertyPage.Audio"
+
+[HKEY_CLASSES_ROOT\CLSID\{877F76C0-D04E-11cf-BCFD-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\*\shellex\PropertySheetHandlers\AudioPage]
+@="{877F76C0-D04E-11cf-BCFD-00805FFCEAEA}"
+
+
+## Registration for Audio filter.
+[HKEY_CLASSES_ROOT\Asset.Filter.Audio]
+@="Asset.Filter.Audio"
+
+[HKEY_CLASSES_ROOT\Asset.Filter.Audio\CLSID]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}]
+@="Asset.Filter.Audio
+
+[HKEY_CLASSES_ROOT\CLSID\{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Register persistent handler for audio filter
+## SoundRec "wav"				 
+[HKEY_CLASSES_ROOT\CLSID\{00020C01-0000-0000-C000-000000000046}\PersistentHandler]  
+@="{48D8D502-E428-11cf-BD0B-00805FFCEAEA}"
+
+## aufile "au, snd"			 
+[HKEY_CLASSES_ROOT\CLSID\{25336920-03F9-11cf-8FD0-00AA00686F13}\PersistentHandler]  
+@="{48D8D502-E428-11cf-BD0B-00805FFCEAEA}"
+
+## aifffile "aif, aiff, aifc"	 
+[HKEY_CLASSES_ROOT\CLSID\{25336920-03F9-11cf-8FD0-00AA00686F13}\PersistentHandler]  
+@="{48D8D502-E428-11cf-BD0B-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{48D8D502-E428-11cf-BD0B-00805FFCEAEA}\PersistentAddinsRegistered\{89BCB740-6119-101A-BCB7-00DD010655AF}]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+
+## Registration for Audio Filter to be recognized by the Indexer.
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.wav]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.au]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.snd]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.aif]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.aiff]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.aifc]
+@="{877F76C1-D04E-11cf-BCFD-00805FFCEAEA}"
+
+## Registration for midi Search Page.
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Midi]
+@="Asset.SearchPage.Midi"
+
+[HKEY_CLASSES_ROOT\Asset.SearchPage.Midi\CLSID]
+@="{F9EFFE21-D9DF-11cf-BD07-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{F9EFFE21-D9DF-11cf-BD07-00805FFCEAEA}]
+@="Asset.SearchPage.Midi"
+
+[HKEY_CLASSES_ROOT\CLSID\{F9EFFE21-D9DF-11cf-BD07-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Registration for Midi Property Page.
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Midi]
+@="Asset.PropertyPage.Midi"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Midi\CLSID]
+@="{F88C62C0-D9EE-11cf-BD07-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{F88C62C0-D9EE-11cf-BD07-00805FFCEAEA}]
+@="Asset.PropertyPage.Midi"
+
+[HKEY_CLASSES_ROOT\CLSID\{F88C62C0-D9EE-11cf-BD07-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\*\shellex\PropertySheetHandlers\MidiPage]
+@="{F88C62C0-D9EE-11cf-BD07-00805FFCEAEA}"
+
+
+## Registration for Midi filter.
+[HKEY_CLASSES_ROOT\Asset.Filter.Midi]
+@="Asset.Filter.Midi"
+
+[HKEY_CLASSES_ROOT\Asset.Filter.Midi\CLSID]
+@="{F9EFFE20-D9DF-11cf-BD07-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{F9EFFE20-D9DF-11cf-BD07-00805FFCEAEA}]
+@="Asset.Filter.Midi
+
+[HKEY_CLASSES_ROOT\CLSID\{F9EFFE20-D9DF-11cf-BD07-00805FFCEAEA}\InProcServer32]
+@="<product path>\\shmedeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Register persistent handler for midi filter
+## "mid"				 
+[HKEY_CLASSES_ROOT\CLSID\{00022603-0000-0000-C000-000000000046}\PersistentHandler]  
+@="{48D8D503-E428-11cf-BD0B-00805FFCEAEA}"
+
+[HKEY_CLASSES_ROOT\CLSID\{48D8D503-E428-11cf-BD0B-00805FFCEAEA}\PersistentAddinsRegistered\{89BCB740-6119-101A-BCB7-00DD010655AF}]
+@="{F9EFFE20-D9DF-11cf-BD07-00805FFCEAEA}"
+
+## Registration for Midi Filter to be recognized by the Indexer.
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.mid]
+@="{F9EFFE20-D9DF-11cf-BD07-00805FFCEAEA}"
+
+
+

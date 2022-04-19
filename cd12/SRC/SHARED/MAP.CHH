@@ -1,0 +1,94 @@
+/*****************************************************************************
+*
+*  MAP.CHH
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Constants used in the map object.  This is intended to be used only
+*  internally to the map object, not shared across other chunks.
+*
+******************************************************************************
+*
+*  Revision History:  Created 06/21/95 by BethF.
+*
+*****************************************************************************/
+
+#ifndef MAP_CHH
+#define MAP_CHH
+
+// -----------------------------------------------------
+// Map object ids
+// -----------------------------------------------------
+
+#define kgobMapProjMask		0x00012050
+#define kgobMapBackMask		0x00012051
+#define kgobMapLobbyMask	0x00012052
+#define kgobMapSnackMask	0x00012053
+#define kgobMapTicketMask	0x00012054
+#define kgobMapCancel		0x00012055
+#define kgobMapIdeaMask		0x00012056
+#define kgobMapStudioMask	0x00012057
+#define kgobMapTheatreMask	0x00012058
+#define kgobMapSplotMask	0x00012059
+#define kgobMapBioMask		0x0001205a
+#define kgobMapLogoMask		0x0001205b
+#define kgobMapSnippetMask	0x0001205c
+#define kgobMapToolsMask	0x0001205d
+#define kgobMapNoTalk		0x0001205e
+#define kgobMapVolumeSlider	0x0001205f
+#define kgobVolumePath		0x00012060
+#define kgobMapNoTalk		0x00012061
+#define kgobMapExit			0x00012062
+
+// -----------------------------------------------------
+// Coordinates defining map layout
+// -----------------------------------------------------
+
+#define kxpMapExit			571
+#define kypMapExit			426
+#define kxpregMapExit		0
+#define kypregMapExit		0
+
+#define kxpMapCancel		581
+#define kypMapCancel		365
+#define kxpregMapCancel		0
+#define kypregMapCancel		0
+
+#define kxpMapNoTalk		28
+#define kypMapNoTalk		365
+#define kxpregMapNoTalk		0
+#define kypregMapNoTalk		0
+
+#define kxpMapSlider		22
+#define kypMapSlider		294
+#define kdxpMapSlider		48
+#define kdypMapSlider		96
+
+#define kdypMapSliderTotal	104
+
+
+// -----------------------------------------------------
+// reg points for the "You are here" (YAH) sign
+// -----------------------------------------------------
+  
+#define kxpMapYAHStudio		322
+#define kypMapYAHStudio		61
+#define kxpMapYAHIdeas		238
+#define kypMapYAHIdeas		141
+#define kxpMapYAHBackstage	320
+#define kypMapYAHBackstage	147
+#define kxpMapYAHProjects	372
+#define kypMapYAHProjects	134
+#define kxpMapYAHTheatre	320
+#define kypMapYAHTheatre	256
+#define kxpMapYAHLobby		320
+#define kypMapYAHLobby		363
+#define kxpMapYAHTicket		346
+#define kypMapYAHTicket		428
+
+#endif	// !MAP_CHH

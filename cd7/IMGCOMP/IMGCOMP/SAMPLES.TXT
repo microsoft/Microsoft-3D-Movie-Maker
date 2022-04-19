@@ -1,0 +1,1128 @@
+This file contains the list of all the samples that ship with Microsoft Image Composer. They are listed in the following order:
+
+1. Fonts
+2. Web Art Samples
+3. Photo Samples
+
+1.  FONTS
+These files are installed in your C:\Windows\Fonts directory.
+
+FONT
+FILENAME
+
+
+SERIF
+
+Calisto MT
+calist.ttf
+Calisto MT Bold
+calistb.ttf
+Calisto MT Italic
+calisti.ttf
+Rockwell
+rock.ttf
+Rockwell Bold
+rockb.ttf
+Rockwell Extra Bold
+rockeb.ttf
+Rockwell Italic
+rocki.ttf
+
+SANS
+
+Eras Light
+eraslght.ttf
+Eras Medium 
+erasmd.ttf
+Eras Demi
+erasdemi.ttf
+Eras Bold
+erasbd.ttf
+Eras Ultra
+erasult.ttf
+Verdana 
+veranda.ttf
+Verdana Bold
+verandab.ttf
+Verdana Italic
+verandai.ttf
+Verdana Bold Italic
+verandaz.ttf
+
+SCRIPT
+
+Viner Hand ITC
+vineritc.ttf
+Comic Sans MS
+comic.tff
+Comic Sans MS Bold
+comicbd.tff
+Bradley Hand ITC
+Bradhitc.ttf
+
+
+FUN
+
+BeesKnees ITC
+BeesKnees.ttf
+Matisse ITC
+matisse_.ttf
+Juice ITC
+juice__.ttf
+Curlz MT
+curlz__.ttf
+Snap ITC
+snap___.ttf
+
+
+DISPLAY
+
+Impact
+impact.ttf
+Wide Latin
+latinwd.ttf
+Elephant
+elephnt.ttf
+Elephant Italic
+elephnti.ttf
+Tempus Sans ITC
+tempsitc.ttf
+
+
+2.  Web Art Samples
+The Web Art Samples are listed by theme and it is noted the type of Web Art component for each file. They may be one of the following types:
+* Background
+* Bullet
+* Button
+* Horizontal Rule
+* Navigational Control
+* Page Counter
+
+These files are installed under C:\Multimedia Files\Graphics\Web\Microsoft Image Composer.
+
+\DESIGN
+
+double.mic
+button
+space.mic
+button
+hoop.mic
+button
+spinner.mic
+button
+home.mic
+button
+boxarrow.mic
+button
+h_arrow.mic
+button
+arrow.mic
+button
+
+circuit.mic
+background
+raygun.mic
+background
+rabbit2.mic
+background
+washer.mic
+background
+
+blasto.mic
+horizontal rule
+blokrule.mic
+horizontal rule
+slatrule.mic
+horizontal rule
+
+glowcut.mic
+bullet
+gear.mic
+bullet
+golden.mic
+bullet
+flower.mic
+bullet
+window.mic
+bullet
+2ndgear.mic
+bullet
+
+homebar.mic
+navigational controls
+lockbars.mic
+navigational controls
+softbox.mic
+navigational controls
+
+
+\RETRO
+
+saturn.mic
+button
+sticker.mic
+button
+signpost.mic
+button
+splitoval.mic
+button
+sunspot.mic
+button
+redgear.mic
+button
+bluehome.mic
+button
+direct.mic
+button
+smiley.mic
+button
+greeting.mic
+button
+hot.mic
+button
+
+formica.mic
+background
+fabric.mic
+background
+tabletop.mic
+background
+softblu2.mic
+background
+softgren.mic
+background
+
+boxrule.mic
+horizontal rule
+ovalrule.mic
+horizontal rule
+flatrule.mic
+horizontal rule
+
+crossed.mic
+bullet
+oval.mic
+bullet
+pointer.mic
+bullet
+split.mic
+bullet
+
+diner.mic
+navigational controls
+roadsign.mic
+navigational controls
+label.mic
+navigational controls
+
+
+\PASTA
+
+bowtie.mic
+button
+ring.mic
+button
+crkscrw.mic
+button
+elbow.mic
+button
+shell.mic
+button
+rotelle.mic
+button
+cbowtie.mic
+button
+celbow.mic
+button
+cscrew.mic
+button
+cshell.mic
+button
+
+alfredo.mic
+background
+pesto.mic
+background
+saucy.mic
+background
+verde.mic
+background
+
+fusilli.mic
+horizontal rule
+fetta.mic
+horizontal rule
+spagheti.mic
+horizontal rule
+
+tomato.mic
+bullet
+red.mic
+bullet
+green2.mic
+bullet
+star.mic
+bullet
+
+forklift.mic
+navigation controls
+lasagna.mic
+navigation controls
+
+
+\MUSIC
+
+cddisc.mic
+button
+harp.mic
+button
+tape.mic
+button
+eguitar.mic
+button
+aguitar.mic
+button
+clap.mic
+button
+piano.mic
+button
+amp.mic
+button
+
+keys2.mic
+background
+sheet.mic
+background
+disc.mic
+background
+score.mic
+background
+
+pianobar.mic
+horizontal rule
+strings.mic
+horizontal rule
+bottom.mic
+horizontal rule
+top.mic
+horizontal rule
+
+bass.mic
+bullet
+treble.mic
+bullet
+mf_note.mic
+bullet
+notes.mic
+bullet
+
+keybar.mic
+navigation controls
+measure.mic
+navigation controls
+
+
+\WESTERN
+
+bottle.mic
+button
+saloon.mic
+button
+spurs.mic
+button
+cactus.mic
+button
+campfire.mic
+button
+poker.mic
+button
+earth.mic
+button
+
+dustbowl.mic
+background
+west.mic
+background
+wheels.mic
+background
+
+barbwire.mic
+horizontal rule
+rope.mic
+horizontal rule
+snake.mic
+horizontal rule
+
+cacti.mic
+bullet
+cards.mic
+bullet
+wagon.mic
+bullet
+
+westnav.mic
+navigation controls
+chuck.mic
+navigation controls
+
+
+\TECHNO
+
+solo.mic
+button
+eye.mic
+button
+plus.mic
+button
+single.mic
+button
+culture.mic
+button
+question.mic
+button
+blank.mic
+button
+go_left.mic
+button
+
+firefall.mic
+background
+aquafall.mic
+background
+forest.mic
+background
+hazy.mic
+background
+
+redbar.mic
+horizontal rule
+greenbar.mic
+horizontal rule
+bluebar.mic
+horizontal rule
+heavy.mic
+horizontal rule
+
+redball.mic
+bullet
+green1.mic
+bullet
+blueball.mic
+bullet
+fireball.mic
+bullet
+
+woodtek.mic
+navigation controls
+chromtek
+navigation controls
+
+
+\PAGE COUNTERS
+
+\Gold
+
+gold_0.mic
+gold_1.mic
+gold_2.mic
+gold_3.mic
+gold_4.mic
+gold_5.mic
+gold_6.mic
+gold_7.mic
+gold_8.mic
+gold_9.mic
+
+\LED
+
+LED_0.mic
+LED_1.mic
+LED_2.mic
+LED_3.mic
+LED_4.mic
+LED_5.mic
+LED_6.mic
+LED_7.mic
+LED_8.mic
+LED_9.mic
+
+\Circus
+
+circus_0.mic
+circus_1.mic
+circus_2.mic
+circus_3.mic
+circus_4.mic
+circus_5.mic
+circus_6.mic
+circus_7.mic
+circus_8.mic
+circus_9.mic
+
+\Plate
+
+plate_0.mic
+plate_1.mic
+plate_2.mic
+plate_3.mic
+plate_4.mic
+plate_5.mic
+plate_6.mic
+plate_7.mic
+plate_8.mic
+plate_9.mic
+
+\Typo
+
+typo_0.mic
+typo_1.mic
+typo_2.mic
+typo_3.mic
+typo_4.mic
+typo_5.mic
+typo_6.mic
+typo_7.mic
+typo_8.mic
+typo_9.mic
+
+\Roman
+
+roman_I.mic
+roman_C.mic
+roman_X.mic
+roman_L.mic
+roman_M.mic
+roman_V.mic
+roman_D.mic
+
+
+3.  Sprite Samples
+These files are installed under C:\Multimedia Files\Photos. The subdirectories below this level are listed below.
+	
+
+\Animals			
+	\Microsoft Image Composer		
+		adillo1.mic	
+		dog1.mic	
+		eagle.mic	
+		flamingo.mic	
+		macaw1.mic	
+		macaw2.mic	
+
+		\PhotoDisc	
+			dog2.mic
+
+\Backgrounds			
+	\Microsoft Image Composer	
+		bigpble.mic
+		blplster.mic
+		blue.mic
+		brick4.mic
+		buttrfly.mic
+		candle.mic
+		cherries.mic
+		city1.mic
+		city2.mic
+		clarinet.mic
+		eggs.mic
+		flag1.mic
+		flag2.mic
+		glsart1.mic
+		glsart2.mic
+		gnrlwood.mic
+		grass.mic
+		gravel.mic
+		grnmarbl.mic
+		gumballs.mic
+		horn1.mic
+		jade.mic
+		lace.mic
+		lattice1.mic
+		legs.mic
+		marble1.mic
+		marble2.mic
+		marble3.mic
+		mint.mic
+		orngpnt.mic
+		paper1.mic
+		paper10.mic
+		paper11.mic
+		paper12.mic
+		paper2.mic
+		paper3.mic
+		paper4.mic
+		paper5.mic
+		paper6.mic
+		paper7.mic
+		paper8.mic
+		paper9.mic
+		peaches.mic
+		pinmarbl.mic
+		plaster.mic
+		prchmnt1.mic
+		raspberr.mic
+		rattan.mic
+		redbrick.mic
+		rosewood.mic
+		sand1.mic
+		sand2.mic
+		sand3.mic
+		sand4.mic
+		sand5.mic
+		sand6.mic
+		scenic1.mic
+		scenic2.mic
+		scenic3.mic
+		scrdwall.mic
+		shipside.mic
+		shtmusic.mic
+		stucco2.mic
+		thinrock.mic	
+		violin.mic	
+		whtbump.mic	
+		wirscrn1.mic	
+		wirscrn2.mic	
+		woodwind.mic	
+		woodwork.mic	
+				
+		\PhotoDisc	
+			aerial.mic
+			barkpeel.mic
+			bentligh.mic
+			blbrnwht.mic
+			blkwht.mic
+			bluscrat.mic
+			bludigit.mic
+			bluedots.mic
+			bluegrn.mic
+			bluelght.mic
+			bluepurp.mic
+			bluewall.mic
+			blumarbl.mic
+			blupaint.mic
+			bluswirl.mic
+			blutwist.mic
+			bluwater.mic
+			bread.mic
+			brnpaper.mic
+			brstone.mic
+			brwnbags.mic
+			cactus.mic
+			chocolat.mic
+			clouds1.mic
+			clouds2.mic
+			corn.mic
+			crayons.mic
+			daisies.mic
+			dirt.mic
+			droplets.mic
+			gentllt.mic
+			goldbrck.mic
+			goldfoil.mic
+			grass2.mic
+			grleaves.mic
+			grmarbl.mic
+			grnshimr.mic
+			husks.mic
+			jellybns.mic
+			leaves.mic
+			lightnin.mic
+			lights.mic
+			litcube.mic
+			litpaper.mic
+			macaroni.mic
+			metalart.mic
+			mtlstrip.mic
+			metltube.mic
+			mirrorwp.mic
+			muddybr.mic
+			nails.mic
+			orgstrip.mic
+			orngcrkl.mic
+			orngpurp.mic
+			papclips.mic
+			paperart.mic
+			pastelsq.mic
+			pstlwal.mic
+			peanuts.mic
+			peas.mic
+			pencils2.mic
+			petals.mic
+			pntpeel.mic
+			popcorn.mic
+			purplght.mic
+			redpaint.mic
+			ribbons.mic
+			rooftile.mic
+			rwbstars.mic
+			sand.mic
+			sandbank.mic
+			sandwave.mic
+			scarf.mic
+			shadow.mic
+			skyclds.mic
+			snow.mic
+			softblue.mic
+			softbrwn.mic
+			softyell.mic
+			stamped.mic
+			sunplane.mic
+			sunset.mic
+			tornedge.mic
+			tornpapr.mic
+			wallart.mic
+			wallpain.mic
+			weaving.mic
+			whtembos.mic
+			whtmarbl.mic
+			whtpeel.mic
+			whtpills.mic
+			woodgran.mic
+			woodwall.mic
+			woven.mic
+
+\Buildings			
+	\Microsoft Image Composer	
+	
+		\PhotoDisc	
+			angel.mic
+			capital.mic
+			entblatr.mic
+			frieze.mic
+			goddess.mic
+			ioniccap.mic
+			lion.mic
+			mercury.mic
+			seanymph.mic
+			soldier.mic
+
+\Buttons and Icons			
+	\Microsoft Image Composer		
+		but_off.mic	
+		but_on.mic	
+		dntorus.mic	
+		fattorus.mic	
+		goldrose.mic	
+		rose.mic	
+		sphere.mic	
+		torus.mic	
+		uptorus.mic	
+
+\Clothes			
+	\Microsoft Image Composer		
+		boot1.mic	
+		boot2.mic	
+		boot3.mic	
+		redboot1.mic	
+		shoe1.mic	
+		shoe2.mic	
+		sunglas2.mic	
+
+		\ClassicPIO	
+			hiheels.mic
+			purse.mic
+
+		\PhotoDisc	
+			hat.mic
+			pilothat.mic
+			sunglass.mic
+
+\Dividers and Decorations			
+	\Microsoft Image Composer		
+		frame1.mic	
+		frame2.mic	
+		frame3.mic	
+		frame4.mic	
+
+\Entertainment			
+	\Microsoft Image Composer	
+	
+		\ClassicPIO	
+			microphn.mic
+			jukebox.mic
+
+\Flags			
+	\Microsoft Image Composer	
+	
+		\PhotoDisc	
+			usa.mic
+			canada.mic
+			germany.mic
+			gbritain.mic
+			china.mic
+			australi.mic
+			europe.mic
+			italy.mic
+			japan.mic
+			france.mic
+			mexico.mic
+
+\Food and Dining			
+	\Microsoft Image Composer		
+		pretzel.mic	
+
+		\PhotoDisc	
+			toast.mic
+\Gestures			
+	\Microsoft Image Composer	
+	
+		\PhotoDisc	
+			hand.mic
+			handbatn.mic
+			handcd.mic
+			handcup.mic
+			handdart.mic
+			handglob.mic
+			handkeyb.mic
+			handlens.mic
+			handmous.mic
+			handpenc.mic
+			handplan.mic
+			handprsd.mic
+			handrose.mic
+			handscis.mic
+			handshkr.mic
+			handstk1.mic
+			handstk2.mic
+			handwat.mic
+			manscrm.mic
+			mansmile.mic
+			mouthsmi.mic
+			tightlip.mic
+			wmnscrm.mic
+			wristcuf.mic
+
+\Healthcare and Medicine			
+	\Microsoft Image Composer	
+	
+		\PhotoDisc	
+			bandaid.mic
+			crutch.mic
+			icebag.mic
+			pills.mic
+			stethosc.mic
+
+\Household			
+	\Microsoft Image Composer		
+		basket2.mic	
+		bluvase.mic	
+		book1.mic	
+		book2.mic	
+		books.mic	
+		brass3.mic	
+		brnplate.mic	
+		brnvase.mic	
+		candlstk.mic	
+		chbowl.mic	
+		comb1.mic	
+		cup_sauc.mic
+		cup1.mic
+		cup2.mic
+		decoplat.mic
+		dirchair.mic
+		glass.mic
+		goblet.mic
+		iron.mic
+		knife.mic
+		mbrush.mic
+		paperbag.mic
+		pedstl.mic
+		pen.mic
+		pipe.mic
+		saucer.mic
+		shaker.mic
+		suitcase.mic	
+		vase.mic	
+		whtplat1.mic	
+		whtplat2.mic	
+		wineglas.mic	
+
+		\ClassicPIO	
+			blender.mic
+			rotrphon.mic
+			toaster.mic
+			lamp.mic
+			camera.mic
+			typewrit.mic
+			alrmclok.mic
+
+		\PhotoDisc	
+			binocul.mic
+			broom.mic
+			brwnbox.mic
+			carvfrm.mic
+			cd.mic
+			cds.mic
+			clippers.mic
+			clock.mic
+			clothpin.mic
+			comb2.mic
+			corkscrw.mic
+			deckchr.mic
+			dogbone.mic
+			flshligh.mic
+			gascan.mic
+			hedgtrim.mic
+			key.mic
+			keys.mic
+			hourglas.mic
+			jacksbal.mic
+			lifevest.mic
+			lighter.mic
+			lightswi.mic
+			mirror.mic
+			phone.mic
+			plasduck.mic
+			pltfrkkn.mic
+			plug.mic
+			plunger.mic
+			radio.mic
+			sftypin2.mic
+			socket.mic
+			toothbr.mic
+			trunk.mic
+			umbrella.mic
+			washbrd.mic
+			wskbroom.mic
+
+\Industry			
+	\Microsoft Image Composer	
+	
+		\PhotoDisc	
+			axe.mic
+			butknife.mic
+			can.mic
+			clamp.mic
+			copngsaw.mic
+			curvwren.mic
+			extruler.mic
+			fan.mic
+			fireext.mic
+			flathamr.mic
+			gearwhl1.mic
+			gearwhl2.mic
+			hammer.mic
+			hammers.mic
+			maglens.mic
+			oilcan.mic
+			paintcan.mic
+			palbrush.mic
+			pliers.mic
+			plumb.mic
+			plumwren.mic
+			ptbrush.mic
+			rulpener.mic
+			saw1.mic
+			saw2.mic
+			scale.mic
+			scrwdriv.mic
+			triangle.mic
+			vactubes.mic
+			whlbarro.mic
+			wirebrsh.mic
+			wrenches.mic
+
+\Metaphor			
+	\Microsoft Image Composer	
+	
+		\PhotoDisc	
+			balloon.mic
+			banapeel.mic
+			billiard.mic
+			boxglove.mic
+			brorecrd.mic
+			chainlnk.mic
+			champagn.mic
+			cherrbwl.mic
+			compass.mic
+			crown.mic
+			devilfrk.mic
+			doorknob.mic
+			egg.mic
+			eggbrokn.mic
+			eggcartn.mic
+			eightbal.mic
+			eyeball.mic
+			glsbottl.mic
+			goldfish.mic
+			groceri.mic
+			horsshoe.mic
+			ladder.mic
+			lifepres.mic
+			martini.mic
+			mask2.mic
+			masks.mic
+			megaphon.mic
+			nail.mic
+			nutbolt.mic
+			papermen.mic
+			paperwmn.mic
+			papplane.mic
+			paprfldr.mic
+			pie.mic
+			pinkeras.mic
+			pinkpig.mic
+			rabbit.mic
+			sftypin.mic
+			sawblade.mic
+			slate.mic
+			slinky.mic
+			soupbowl.mic
+			star.mic
+			trophy.mic
+			watergla.mic
+
+\Music			
+	\Microsoft Image Composer		
+		calyba.mic	
+		drum1.mic	
+		drum2.mic	
+		guitar1.mic	
+		guitar2.mic	
+		metronm2.mic	
+		metronm1.mic	
+
+		\PhotoDisc	
+			baritone.mic
+			bugle.mic
+
+\Nature			
+	\Microsoft Image Composer		
+		abshell.mic	
+		rock1.mic	
+		rock2.mic	
+
+		\PhotoDisc	
+			crab.mic
+			nesteggs.mic
+			shell.mic
+			starfish.mic
+			wing.mic
+
+\Office			
+	\Microsoft Image Composer		
+		blkpshpn.mic	
+		blupshpn.mic	
+		clrpshpn.mic	
+		cynpshpn.mic	
+		grnpshpn.mic	
+		magpshpn.mic	
+		redpshpn.mic	
+		scissor1.mic	
+		stapler.mic	
+		tape.mic	
+		yelpshpn.mic	
+
+		\PhotoDisc	
+			blkbrd1.mic
+			blkbrd2.mic
+			pencil.mic
+			pencils1.mic
+			scissor2.mic
+
+\Plants			
+	\Microsoft Image Composer		
+		almond.mic	
+		apple1.mic	
+		areca.mic	
+		banana1.mic	
+		bjfree.mic	
+		brom_lg.mic	
+		brome1.mic	
+		cane.mic	
+		chrysmum.mic	
+		croton.mic
+		daisy.mic
+		flowers.mic
+		forsinte.mic
+		glox_l.mic
+		grnapple.mic
+		hibiscus.mic
+		jc_larg.mic
+		leaf1.mic
+		leaf2.mic
+		leaf3.mic
+		lime.mic
+		mango.mic
+		margc_l.mic
+		marie.mic
+		neph_ob.mic
+		orange.mic
+		pear1.mic
+		pecan.mic
+		pepper.mic
+		petal1.mic
+		petal2.mic
+		petal3.mic
+		petal4.mic
+		petal5.mic
+		pointpk.mic
+		potato.mic
+		pumpkin1.mic
+		qsago.mic
+		raphis.mic
+		redlily.mic
+		rose1.mic
+		rose2.mic	
+		silkpalm.mic	
+		silktre1.mic	
+		sq_larg.mic	
+		sunflwr1.mic	
+		sunflwr2.mic	
+		tomato1.mic	
+		tulip.mic	
+		walnut.mic	
+		warn.mic	
+		wash.mic	
+
+		\PhotoDisc	
+			apple2.mic
+			banana2.mic
+			brocoli.mic
+			carrots.mic
+			cherris.mic
+			flwrfram.mic
+			garlic.mic
+			grapes.mic
+			lemon.mic
+			peanut.mic
+			pear2.mic
+			peppers.mic
+			pickles.mic
+			pumpkin2.mic
+			purpfl1.mic
+			purpfl2.mic
+			strawber.mic
+			sunflwr4.mic
+			tomato2.mic
+			wedbouq.mic
+
+\Shapes			
+	\Microsoft Image Composer		
+		ball2.mic	
+		chain1.mic	
+		chain2.mic	
+		chain3.mic	
+		coil1.mic	
+		coil2.mic	
+		cube1.mic	
+		cube2.mic	
+		triring.mic	
+
+\Sports			
+	\Microsoft Image Composer		
+		martlart.mic	
+		runner.mic	
+		winner.mic
+		hiker.mic
+
+\Symbols		
+	\Microsoft Image Composer	
+		bowlpin.mic
+		mask1.mic
+		world1a.mic
+		world1b.mic
+		world2a.mic
+		world2b.mic
+		world3a.mic
+		world3b.mic

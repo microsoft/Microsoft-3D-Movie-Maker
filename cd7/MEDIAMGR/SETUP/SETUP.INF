@@ -1,0 +1,166 @@
+;*** BEGIN **********************************************************
+;**                                                                **
+;** Automatically generated on: Sun Oct 06 02:37:13 1996           **
+;**                                                                **
+;** Diamond Version: (32) 1.00.0508 (08/12/94)                     **
+;**                                                                **
+;*** BEGIN **********************************************************
+[Source Media Descriptions]
+; <disk number>, <disk label>, <file>, <path>
+ "1","Media Manager Setup: Disk 1","Setup.exe","."
+
+[Default File Settings]
+"STF_BACKUP" = ""
+"STF_COPY" = "YES"
+"STF_DATE" = "1996-03-19"
+"STF_DECOMPRESS" = ""
+"STF_OVERWRITE" = "OLDER"
+"STF_READONLY" = ""
+"STF_ROOT" = "YES"
+"STF_SETTIME" = "YES"
+"STF_TIME" = "0"
+"STF_VITAL" = ""
+
+;************* INF File list *****************
+
+[Graphics Filters]
+"gifimp32_flt" = 1,filters\gifimp32.flt,,,,1996-08-24,,1033,,,,,,,,132096,,,,96.8.16.0,
+"ms_gif" = 1,filters\MS.GIF,,,,1996-04-26,,,,,,,,,,1069,,,,,
+"tiffimp" = 1,filters\TIFFIM32.FLT,,,,1996-08-23,,1033,,,,,,,,104448,,,,96.8.2.0,
+"wordtif" = 1,filters\MS.TIF,,,,1996-04-26,,,,,,,,,,2650,,,,,
+"dxfimp32_flt" = 1,filters\DXFIMP32.FLT,,,,1996-08-23,,,,,,,,,,280576,,,,1.9.11.4,
+"cgmimp32_flt" = 1,filters\CGMIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,516608,,,,3.1.29.0,
+"ms_cgm" = 1,filters\MS.CGM,,,,1996-04-26,,,,,,,,,,100,,,,,
+"cgmtxt32_dll" = 1,filters\CGMIMP32.FNT,,,,1996-04-26,,,,,,,,,,606062,,,,,
+"cgmcfg32_dll" = 1,filters\CGMIMP32.CFG,,,,1996-04-26,,,,,,,,,,6615,,,,,
+"cgmimp32_hlp" = 1,filters\CGMIMP32.HLP,,,,1996-04-26,,,,,,,,,,27369,,,,,
+"cdrimp32_flt" = 1,filters\CDRIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,205312,,,,96.8.5.0,
+"wpgexp_flt" = 1,filters\WPGEXP32.FLT,,,,1996-08-23,,1033,,,,,,,,68608,,,,94.9.17.1,
+"wpg2im32_flt" = 1,filters\WPGIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,149504,,,,96.6.29.0,
+"ms_wpg" = 1,filters\MS.WPG,,,,1996-04-26,,,,,,,,,,1382,,,,,
+"epsimp32_flt" = 1,filters\EPSIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,51712,,,,96.8.5.0,
+"ms_eps" = 1,filters\MS.EPS,,,,1996-04-26,,,,,,,,,,22698,,,,,
+"pcdimp32_flt" = 1,filters\PCDIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,69120,,,,96.8.2.0,
+"pcdlib32_dll" = 1,filters\PCDLIB32.DLL,,,,1996-04-26,,1033,,,,,,,,212480,,,,3.0.0.0,
+"pictim32_flt" = 1,filters\PICTIM32.FLT,,,,1996-08-23,,1033,,,,,,,,82432,,,,96.8.2.0,
+"ms_pct" = 1,filters\MS.PCT,,,,1996-04-26,,,,,,,,,,3314,,,,,
+"drwimp32_flt" = 1,filters\DRWIMP32.FLT,,,,1996-08-23,,,,,,,,,,265728,,,,1.9.11.4,
+"ms_drw" = 1,filters\MS.DRW,,,,1996-04-26,,,,,,,,,,2989,,,,,
+"pcximp32_flt" = 1,filters\PCXIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,57344,,,,96.8.2.0,
+"ms_pcx" = 1,filters\MS.PCX,,,,1996-04-26,,,,,,,,,,1359,,,,,
+"tgaimp" = 1,filters\TGAIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,55808,,,,96.8.2.0,
+"bmpimp_flt" = 1,filters\BMPIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,61952,,,,96.8.2.0,
+"wmfimp_flt" = 1,filters\WMFIMP32.FLT,,,,1996-08-23,,1033,,,,,,,,13312,,,,1995.4.3.0,
+"jpegim32_flt" = 1,filters\jpegim32.flt,,,,1996-08-24,,1033,,,,,,,,171520,,,,96.8.16.0,
+"ms_bmp" = 1,filters\ms.bmp,,,,1996-06-25,,,,,,,,,,2102,,,,,
+"ms_dxf" = 1,filters\ms.dxf,,,,1996-06-30,,,,,,,,,,104,,,,,
+"ms_png" = 1,filters\ms.png,,,,1996-06-30,,,,,,,,,,1682,,,,,
+"png32_flt" = 1,filters\png32.flt,,,,1996-08-23,,1033,,,,,,,,222720,,,,96.8.16.0,
+
+[Setup Files - Not Admin]
+"setup_lst" = 1,Setup.lst,,,,1996-10-03,!DECOMPRESS,,,,,Acme.lst,!ROOT,,,824,,,,,
+
+[Setup Files]
+"acmsetup_exe" = 1,Setup\ACMSETUP.EXE,,,,1996-10-01,,1033,,,,Setup.exe,!ROOT,,,352256,SYSTEM,,,3.0.0.925,
+"MSSETUP.DLL" = 1,Setup\MSSETUP.DLL,,,,1996-10-01,,1033,,,,,,,,255488,SYSTEM,,,3.0.0.925,
+"CMScah.dll" = 1,Setup\CMScah.dll,,,,1996-10-02,,1033,,,,,,,,174080,SYSTEM,,,1.20.0.2402,
+"CMScahu.dll" = 1,Setup\CMScahu.dll,,,,1996-10-06,,,,,,,,,,19456,SYSTEM,,,,
+"CMSbb.dll" = 1,Setup\CMSbb.dll,,,,1996-07-02,,,,,,,,,,283648,SYSTEM,,,,
+"CMSbbb.dll" = 1,Setup\CMSbbb.dll,,,,1996-08-29,,1033,,,,,,,,1286144,SYSTEM,,,5.0.0.3,
+"offsetup.ttf" = 1,Setup\offsetup.ttf,,,,1996-08-29,,,,,,,,,,41700,SYSTEM,,,0.50.0.0,
+"selfreg.dll" = 1,Setup\selfreg.dll,,,,1996-08-24,,1033,,,,,,,,34816,SYSTEM,,,8.0.0.3207,
+"eula.txt" = 1,Setup\eula.txt,,,,1996-10-04,,,,,,,,,,6114,SYSTEM,,,,
+"setup.inf" = 1,Setup\setup.inf,,,,1996-04-25,,,,,,,,,,29832,SYSTEM,,,,
+
+[commonshared]
+"untoansi_dll" = 1,common\untoansi.dll,,,,1996-10-06,,1033,,,,,,,,69632,SYSTEM,,,1.0.4.1006,
+"cmsstgu_dll" = 1,common\cmsstgu.dll,,,,1996-10-06,,1033,,,,,,,,297472,SYSTEM,,,1.0.16.1006,
+"defprpdb_wpd" = 1,common\defprpdb.wpd<Annotations.adb>,,,,1996-09-28,,,,,,,,,,3400,SYSTEM,,,,
+
+[common system]
+"cms_hlp" = 1,common\mm.hlp,,,,1996-10-03,,,,,,,,,,383140,,,,,
+"cms_cnt" = 1,common\mm.cnt,,,,1996-09-27,,,,,,,,,,3607,,,,,
+"cmsstg_srg" = 1,common\cmsstg.srg,,,,1996-03-20,,,,,,,,,,1438,,,,,
+"shmedext_tlb" = 1,common\shmedext.tlb,,,,1996-10-06,,,,,,,,,,4726,SYSTEM,,,,
+
+[ansi system]
+"shstgea_dll" = 1,ansi\shstgea.dll,,,,1996-10-06,,1033,,,,,,,,325632,SYSTEM,,,1.0.8.1006,
+"twdlla_dll" = 1,ansi\twdlla.dll,,,,1996-10-06,,1033,,,,,,,,568832,SYSTEM,,,1.0.8.1006,
+"twilansi_srg" = 1,ansi\twilansi.srg,,,,1996-10-06,,,,,,,,,,31053,SYSTEM,,,,
+"shmedea_dll" = 1,ansi\shmedea.dll,,,,1996-10-06,,1033,,,,,,,,216576,SYSTEM,,,1.0.8.1006,
+"shmedea_srg" = 1,ansi\shmedea.srg,,,,1996-10-06,,,,,,,,,,16221,SYSTEM,,,,
+
+[unicode system]
+"shstgeu_dll" = 1,unicode\shstgeu.dll,,,,1996-10-06,,1033,,,,,,,,325632,SYSTEM,,,1.0.8.1006,
+"twdllu_dll" = 1,unicode\twdllu.dll,,,,1996-10-06,,1033,,,,,,,,562176,SYSTEM,,,1.0.8.1006,
+"twilunic_srg" = 1,unicode\twilunic.srg,,,,1996-10-05,,,,,,,,,,31053,,,,,
+"shmedeu_dll" = 1,unicode\shmedeu.dll,,,,1996-10-06,,1033,,,,,,,,211456,SYSTEM,,,1.0.8.1006,
+"shmedeu_srg" = 1,unicode\shmedeu.srg,,,,1996-10-05,,,,,,,,,,16221,SYSTEM,,,,
+
+[ansi shared]
+"amvpla_dll" = 1,ansi\amvpla.dll,,,,1996-10-06,,1033,,,,,,,,77312,SYSTEM,,,1.0.0.0,
+"amvpla_srg" = 1,ansi\amvpla.srg,,,,1996-10-06,,,,,,,,,,1643,,,,,
+"cmsfnda_exe" = 1,ansi\cmsfnda.exe,,,,1996-10-06,,1033,,,,,,,,47616,,,,1.0.8.1006,
+"twshansi_srg" = 1,ansi\twshansi.srg,,,,1996-10-06,,,,,,,,,,6579,,,,,
+
+[ansi_cpl]
+"twcpla_cpl" = 1,ansi\twcpla.cpl,,,,1996-10-06,,1033,,,,,,,,68096,SYSTEM,,,1.0.8.1006,
+
+[uni_cpl]
+"twcplu_cpl" = 1,unicode\twcplu.cpl,,,,1996-10-06,,1033,,,,,,,,68096,SYSTEM,,,1.0.8.1006,
+
+[common_srg]
+"cmsstg_srg" = 1,common\cmsstg.srg,,,,1996-03-20,,,,,,,,,,1438,,,,,
+"air_srg" = 1,common\air.srg,,,,1996-10-05,,,,,,,,,,5061,,,,,
+
+[common]
+"aircat_tlb" = 1,common\aircat.tlb,,,,1996-10-06,,,,,,,,,,2713,,,,,
+"aircatu_dll" = 1,common\aircatu.dll,,,,1996-10-06,,1033,,,,,,,,250880,SYSTEM,,,1.0.16.1006,
+"airlexu_dll" = 1,common\airlexu.dll,,,,1996-10-06,,1033,,,,,,,,64000,SYSTEM,,,1.0.16.1006,
+"airqryu_dll" = 1,common\airqryu.dll,,,,1996-10-06,,1033,,,,,,,,216576,SYSTEM,,,1.0.16.1006,
+"airquery_tlb" = 1,common\airquery.tlb,,,,1996-10-06,,,,,,,,,,23974,,,,,
+"airstop_txt" = 1,common\airstop.txt,,,,1996-09-27,,,,,,,,,,591,SYSTEM,,,,
+"airsvcu_exe" = 1,common\airsvcu.exe,,,,1996-10-06,,1033,,,,,,,,105984,SYSTEM,,,1.0.16.1006,
+"english_tbl" = 1,common\english.tbl,,,,1996-03-20,,,,,,,,,,2615,,,,,
+"chinese_tbl" = 1,common\chinese.tbl,,,,1996-08-14,,,,,,,,,,2600,,,,,
+"czech_tbl" = 1,common\czech.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"danish_tbl" = 1,common\danish.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"dutch_tbl" = 1,common\dutch.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"french_tbl" = 1,common\french.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"frncan_tbl" = 1,common\frncan.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"german_tbl" = 1,common\german.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"italian_tbl" = 1,common\italian.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"japanese_tbl" = 1,common\japanese.tbl,,,,1996-08-14,,,,,,,,,,2600,,,,,
+"korean_tbl" = 1,common\korean.tbl,,,,1996-08-14,,,,,,,,,,2600,,,,,
+"norway_tbl" = 1,common\norway.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"polish_tbl" = 1,common\polish.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"protugu_tbl" = 1,common\protugu.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"scandina_tbl" = 1,common\scandina.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"spanish_tbl" = 1,common\spanish.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"swedish_tbl" = 1,common\swedish.tbl,,,,1996-08-14,,,,,,,,,,2615,,,,,
+"htmlfilt_dll" = 1,common\htmlfilt.dll,,,,1996-08-22,,,,,,,,,,71168,SYSTEM,,,,
+"fltoffu_dll" = 1,common\fltoffu.dll,,,,1996-10-06,,1033,,,,,,,,135680,SYSTEM,,,1.0.16.1006,
+"mvbk20n_dll" = 1,common\mvbk20n.dll,,,,1996-09-25,,1033,,,,,,,,12288,SYSTEM,,,2.0.0.923,
+"test_tlb" = 1,common\prop1033.tlb,,,,1996-10-06,,,,,,,,,,4390,SYSTEM,,,,
+"readme_txt" = 1,common\readme.txt,,,,1996-10-04,,,,,,,,,,6768,,,,,
+"mmconv_exe" = 1,common\MMCONV.EXE,,,,1996-10-06,,,,,,,,,,61440,,,,,
+"mvjk20n_dll" = 1,common\mvjk20n.dll,,,,1996-09-25,,,,,,,,,,6144,,,,,
+"wdbrkjpn_dll" = 1,common\wdbrkjpn.dll,,,,1996-09-25,,1041,,,,,,,,450048,SYSTEM,,,1.0.0.913,
+"splasha_exe" = 1,common\splasha.exe,,,,1996-10-06,,,,,,,,,,152576,SYSTEM,,,,
+
+[unicode shared]
+"amvplu_dll" = 1,unicode\amvplu.dll,,,,1996-10-06,,1033,,,,,,,,76800,SYSTEM,,,1.0.0.0,
+"amvplu_srg" = 1,unicode\amvplu.srg,,,,1996-09-13,,,,,,,,,,1643,,,,,
+"cmsfndu_exe" = 1,unicode\cmsfndu.exe,,,,1996-10-06,,1033,,,,,,,,48640,,,,1.0.8.1006,
+"twshunic_srg" = 1,unicode\twshunic.srg,,,,1996-10-06,,,,,,,,,,6579,,,,,
+
+[srg_system]
+"selfreg_dll" = 1,Setup\selfreg.dll,,,,1996-08-24,,1033,,,,,,,,34816,,,,8.0.0.3207,
+
+[bin]
+"amovie_exe" = 1,amovie.exe,,,,1996-08-12,,1033,,,,,,,,1054720,,,,4.70.0.1145,
+;*** END ************************************************************
+;**                                                                **
+;** Automatically generated on: Sun Oct 06 02:37:13 1996           **
+;**                                                                **
+;*** END ************************************************************

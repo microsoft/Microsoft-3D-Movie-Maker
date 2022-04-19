@@ -1,0 +1,37 @@
+#	v-donde 4/22/96
+#	I asked JFay if the keys should be
+#	[...\Software\Microsoft\Dali]
+# or	[...\Software\Microsoft\Microsoft Dali]
+#
+#	He said to leave it as 
+#	[...\Software\Microsoft\Microsoft Dali]
+#	for now and we can finalize it later.
+#	
+#	v-franky 6/12/96...fixing bug#605
+#	Per JFay, I deleted everything down from
+#	HKLM\Software\Classes\Dali.Document that
+#	has DDEExec stuff in it, and added
+#	new HKLM\Software\Classes\Dali.Document section.
+#
+#	v-franky 7-1-96...change "Dali" to "Image Composer"
+#
+#	v-franky 8-12-96: moved all of the HKCU keys to NewUser.reg
+#
+#	v-franky 8-22-96: added stud keys for removal on uninstall
+#
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Microsoft Image Composer]
+@=""
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Microsoft Image Composer\1.0]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\TypeLib\{443FF102-396E-11CF-B6E0-00AA00BBBA9E}]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Microsoft Image Composer]
+@=""
+
+[HKEY_LOCAL_MACHINE\Software\Classes\ImageComposer.Document]
+@=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{43249E20-2A2A-11CF-BE01-00AA00B58CD9}]
+@="Image Composer Document"

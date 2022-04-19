@@ -1,0 +1,1001 @@
+# SRG file for the Twilight Components
+# Author: cdturner
+# date last modified: 3/5/96
+
+
+#################################################################
+#########CFXIMPLEMENT_OBJECT FACTORY's###########################
+#################################################################
+
+# Make sure these come before other registry information.
+
+
+[HKEY_CLASSES_ROOT\Asset.Storage.CopyHook] 
+@="Asset.Storage.CopyHook" 
+
+[HKEY_CLASSES_ROOT\Asset.Storage.CopyHook\CLSID] 
+@="{aec64940-59e9-11cf-b3ef-00805f1408f3}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{aec64940-59e9-11cf-b3ef-00805f1408f3}] 
+@="Asset.Storage.CopyHook" 
+
+[HKEY_CLASSES_ROOT\CLSID\{aec64940-59e9-11cf-b3ef-00805f1408f3}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\ShellExt] 
+@="ShellExt" 
+
+[HKEY_CLASSES_ROOT\ShellExt\CLSID] 
+@="{54E939C0-BFB6-11CE-A9BC-00AA006C1395}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}] 
+@="ShellExt" 
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+[HKEY_CLASSES_ROOT\ShellExt] 
+@="ShellExt" 
+
+[HKEY_CLASSES_ROOT\ShellExt\CLSID] 
+@="{FE739673-5C03-11cf-B1E1-00AA00A74BFF}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{FE739673-5C03-11cf-B1E1-00AA00A74BFF}] 
+@="ShellExt" 
+
+[HKEY_CLASSES_ROOT\CLSID\{FE739673-5C03-11cf-B1E1-00AA00A74BFF}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\AviExtractor] 
+@="AviExtractor" 
+
+[HKEY_CLASSES_ROOT\AviExtractor\CLSID] 
+@="{0ddca1d0-7236-11cf-a0ac-00aa00a71191}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{0ddca1d0-7236-11cf-a0ac-00aa00a71191}] 
+@="AviExtractor" 
+
+[HKEY_CLASSES_ROOT\CLSID\{0ddca1d0-7236-11cf-a0ac-00aa00a71191}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors\.avi]
+"CLSID"="{0ddca1d0-7236-11cf-a0ac-00aa00a71191}"
+"Name"="Asset.AVI Thumbnail Extractor"
+
+
+[HKEY_CLASSES_ROOT\GrfxFilterExtractor] 
+@="GrfxFilterExtractor" 
+
+[HKEY_CLASSES_ROOT\GrfxFilterExtractor\CLSID] 
+@="{4854db60-75ef-11cf-a0af-00aa00a71191}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{4854db60-75ef-11cf-a0af-00aa00a71191}] 
+@="GrfxFilterExtractor" 
+
+[HKEY_CLASSES_ROOT\CLSID\{4854db60-75ef-11cf-a0af-00aa00a71191}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\DirToStorageCMHandler] 
+@="DirToStorageCMHandler" 
+
+[HKEY_CLASSES_ROOT\DirToStorageCMHandler\CLSID] 
+@="{09f28970-580f-11cf-a095-00aa00a71191}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{09f28970-580f-11cf-a095-00aa00a71191}] 
+@="DirToStorageCMHandler" 
+
+[HKEY_CLASSES_ROOT\CLSID\{09f28970-580f-11cf-a095-00aa00a71191}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"; 
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\FindMenu] 
+@="FindMenu" 
+
+[HKEY_CLASSES_ROOT\FindMenu\CLSID] 
+@="{53FAC1E0-F814-11CE-8C16-00805F1408F3}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{53FAC1E0-F814-11CE-8C16-00805F1408F3}] 
+@="FindMenu" 
+
+[HKEY_CLASSES_ROOT\CLSID\{53FAC1E0-F814-11CE-8C16-00805F1408F3}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.Storage.RootMenuHandler] 
+@="Asset.Storage.RootMenuHandler" 
+
+[HKEY_CLASSES_ROOT\Asset.Storage.RootMenuHandler\CLSID] 
+@="{06063f70-5b58-11cf-b3f2-00805f1408f3}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{06063f70-5b58-11cf-b3f2-00805f1408f3}] 
+@="Asset.Storage.RootMenuHandler" 
+
+[HKEY_CLASSES_ROOT\CLSID\{06063f70-5b58-11cf-b3f2-00805f1408f3}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.SearchFrame] 
+@="Asset.SearchFrame" 
+
+[HKEY_CLASSES_ROOT\Asset.SearchFrame\CLSID] 
+@="{87871910-f8e5-11ce-ba34-00608cebf927}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{87871910-f8e5-11ce-ba34-00608cebf927}] 
+@="Asset.SearchFrame" 
+
+[HKEY_CLASSES_ROOT\CLSID\{87871910-f8e5-11ce-ba34-00608cebf927}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\CmsPropertyDirectory] 
+@="CmsPropertyDirectory" 
+
+[HKEY_CLASSES_ROOT\CmsPropertyDirectory\CLSID] 
+@="{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}] 
+@="CmsPropertyDirectory" 
+
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageAdvanced] 
+@="Asset.CSearchPageAdvanced" 
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageAdvanced\CLSID] 
+@="{2d458ca2-fcf9-11ce-a35d-00aa006ebde5}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca2-fcf9-11ce-a35d-00aa006ebde5}] 
+@="Asset.CSearchPageAdvanced" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca2-fcf9-11ce-a35d-00aa006ebde5}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageDate] 
+@="Asset.CSearchPageDate" 
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageDate\CLSID] 
+@="{2d458ca1-fcf9-11ce-a35d-00aa006ebde5}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca1-fcf9-11ce-a35d-00aa006ebde5}] 
+@="Asset.CSearchPageDate" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca1-fcf9-11ce-a35d-00aa006ebde5}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageFind] 
+@="Asset.CSearchPageFind" 
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageFind\CLSID] 
+@="{abca8ff0-fcf7-11ce-a35d-00aa006ebde5}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{abca8ff0-fcf7-11ce-a35d-00aa006ebde5}] 
+@="Asset.CSearchPageFind" 
+
+[HKEY_CLASSES_ROOT\CLSID\{abca8ff0-fcf7-11ce-a35d-00aa006ebde5}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageOffice] 
+@="Asset.CSearchPageOffice" 
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageOffice\CLSID] 
+@="{db44c060-5cd7-11cf-96fb-00aa00b5ea4c}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{db44c060-5cd7-11cf-96fb-00aa00b5ea4c}] 
+@="Asset.CSearchPageOffice" 
+
+[HKEY_CLASSES_ROOT\CLSID\{db44c060-5cd7-11cf-96fb-00aa00b5ea4c}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageKeyword] 
+@="Asset.CSearchPageKeyword" 
+
+[HKEY_CLASSES_ROOT\Asset.CSearchPageKeyword\CLSID] 
+@="{2d458ca0-fcf9-11ce-a35d-00aa006ebde5}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca0-fcf9-11ce-a35d-00aa006ebde5}] 
+@="Asset.CSearchPageKeyword" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca0-fcf9-11ce-a35d-00aa006ebde5}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.TypeSystem] 
+@="Asset.TypeSystem" 
+
+[HKEY_CLASSES_ROOT\Asset.TypeSystem\CLSID] 
+@="{2a91d9a0-1304-11cf-a360-00aa006ebde5}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2a91d9a0-1304-11cf-a360-00aa006ebde5}] 
+@="Asset.TypeSystem" 
+
+[HKEY_CLASSES_ROOT\CLSID\{2a91d9a0-1304-11cf-a360-00aa006ebde5}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\CustomPropertyPage] 
+@="CustomPropertyPage" 
+
+[HKEY_CLASSES_ROOT\CustomPropertyPage\CLSID] 
+@="{8a137e94-e226-11ce-a91d-00aa004a9b5c}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{8a137e94-e226-11ce-a91d-00aa004a9b5c}] 
+@="CustomPropertyPage" 
+
+[HKEY_CLASSES_ROOT\CLSID\{8a137e94-e226-11ce-a91d-00aa004a9b5c}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CGeneralPage] 
+@="Asset.CGeneralPage" 
+
+[HKEY_CLASSES_ROOT\Asset.CGeneralPage\CLSID] 
+@="{CDBCB060-E79D-11CE-8C16-00805F1408F3}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}] 
+@="Asset.CGeneralPage" 
+
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Link] 
+@="Asset.PropertyPage.Link" 
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Link\CLSID] 
+@="{ea460e90-54f8-11cf-b3ee-00805f1408f3}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{ea460e90-54f8-11cf-b3ee-00805f1408f3}] 
+@="Asset.PropertyPage.Link" 
+
+[HKEY_CLASSES_ROOT\CLSID\{ea460e90-54f8-11cf-b3ee-00805f1408f3}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.CustomPropertyDirectory] 
+@="Asset.CustomPropertyDirectory" 
+
+[HKEY_CLASSES_ROOT\Asset.CustomPropertyDirectory\CLSID] 
+@="{ce0fa180-60cf-11cf-96fd-00aa00b5ea4c}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{ce0fa180-60cf-11cf-96fd-00aa00b5ea4c}] 
+@="Asset.CustomPropertyDirectory" 
+
+[HKEY_CLASSES_ROOT\CLSID\{ce0fa180-60cf-11cf-96fd-00aa00b5ea4c}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.DefaultFrame] 
+@="Asset.DefaultFrame" 
+
+[HKEY_CLASSES_ROOT\Asset.DefaultFrame\CLSID] 
+@="{e85eddc1-f24c-11ce-ba2d-00608cebf927}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{e85eddc1-f24c-11ce-ba2d-00608cebf927}] 
+@="Asset.DefaultFrame" 
+
+[HKEY_CLASSES_ROOT\CLSID\{e85eddc1-f24c-11ce-ba2d-00608cebf927}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+[HKEY_CLASSES_ROOT\Asset.DefaultPage] 
+@="Asset.DefaultPage" 
+
+[HKEY_CLASSES_ROOT\Asset.DefaultPage\CLSID] 
+@="{fd08a540-f9d9-11ce-ba34-00608cebf927}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{fd08a540-f9d9-11ce-ba34-00608cebf927}] 
+@="Asset.DefaultPage" 
+
+[HKEY_CLASSES_ROOT\CLSID\{fd08a540-f9d9-11ce-ba34-00608cebf927}\InprocServer32] 
+@="<product path>\\twdllu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+
+# This one is a CFXIMPLEMENT_AGG_OBJECT_FACTORY from NEWVIEW.CPP
+
+[HKEY_CLASSES_ROOT\DefView] 
+@="DefView" 
+
+[HKEY_CLASSES_ROOT\DefView\CLSID] 
+@="{5E57BBA0-FD3D-11CE-B397-00805F1408F3}" 
+
+[HKEY_CLASSES_ROOT\CLSID\{5E57BBA0-FD3D-11CE-B397-00805F1408F3}] 
+@="DefView" 
+
+[HKEY_CLASSES_ROOT\CLSID\{5E57BBA0-FD3D-11CE-B397-00805F1408F3}\InprocServer32] 
+@="<product path>\\shstgeu.dll" 
+"ThreadingModel"="REG_SZ:Apartment"
+ 
+ 
+
+
+
+
+#################################################################
+#########SHSTGEXT Registry Stuff#################################
+#################################################################
+
+# register the dummy file extension that gets us the file new menu
+[HKEY_CLASSES_ROOT\.ams]
+@="Asset.FileNew"
+
+[HKEY_CLASSES_ROOT\.ams\ShellNew]
+"Command"="REG_SZ:rundll32.exe shstgeu.dll,CreateStorage \%2"
+
+[HKEY_CLASSES_ROOT\.ams\ShellNew\Config]
+"NoExtension"="REG_SZ:"
+
+[HKEY_CLASSES_ROOT\Asset.FileNew]
+# LOC: needs localisation
+@="Media Manager Folder"
+
+[HKEY_CLASSES_ROOT\Asset.FileNew\DefaultIcon]
+@="<product path>\\shstgeu.dll,-130"
+
+[HKEY_CLASSES_ROOT\Asset.FileNew\ObjectFileNew]
+
+# dummy line to convince the shell we really want to be on the file new menu
+[HKEY_CLASSES_ROOT\Asset.FileNew\Shell\Open\Command]
+@="explorer.exe"
+
+
+
+# register the Storage Extension Shell Object Classid_CStorageShellFolder
+
+[HKEY_CLASSES_ROOT\Asset.Storage]
+@="Shell Extension For Asset Storage Folder System"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\CLSID]
+@="{54E939C0-BFB6-11CE-A9BC-00AA006C1395}"
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}]
+# LOC: needs localisation
+@="Media Manager Folder"
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\DefaultIcon]
+@="<product path>\\shstgeu.dll,-130"
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\ShellFolder]
+"Attributes"="REG_DWORD:0xF0000177"
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\ShellEx\ContextMenuHandlers\Asset.Storage.RootMenuHandler]
+@="{06063f70-5b58-11cf-b3f2-00805f1408f3}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Extensions\Approved]
+"{54E939C0-BFB6-11CE-A9BC-00AA006C1395}"="REG_SZ:Asset Storage ShellFolder extension"
+
+# register the storage root menu handler...
+
+[HKEY_CLASSES_ROOT\Asset.Storage.RootMenuHandler]
+@="Asset.Storage.RootMenuHandler"
+
+[HKEY_CLASSES_ROOT\Asset.Storage.RootMenuHandler\CLSID]
+@="{06063f70-5b58-11cf-b3f2-00805f1408f3}"
+
+[HKEY_CLASSES_ROOT\CLSID\{06063f70-5b58-11cf-b3f2-00805f1408f3}]
+@="Root Menu Extension for Asset Storage"
+
+[HKEY_CLASSES_ROOT\CLSID\{06063f70-5b58-11cf-b3f2-00805f1408f3}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Extensions\Approved]
+"{06063f70-5b58-11cf-b3f2-00805f1408f3}"="REG_SZ:Asset Storage ShellFolder extension"
+
+
+#### COPYHOOK STUFF
+
+[HKEY_CLASSES_ROOT\Asset.Storage.CopyHook]
+@="Asset Storage Copy Hook"
+
+[HKEY_CLASSES_ROOT\Asset.Storage.CopyHook\CLSID]
+@="{aec64940-59e9-11cf-b3ef-00805f1408f3}"
+
+[HKEY_CLASSES_ROOT\CLSID\{aec64940-59e9-11cf-b3ef-00805f1408f3}]
+@="Asset Storage CopyHook Extension"
+
+[HKEY_CLASSES_ROOT\CLSID\{aec64940-59e9-11cf-b3ef-00805f1408f3}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\Directory\ShellEx\CopyHookHandlers\AssetStorage]
+@="{aec64940-59e9-11cf-b3ef-00805f1408f3}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{aec64940-59e9-11cf-b3ef-00805f1408f3}"="REG_SZ:Asset Storage CopyHook Extension"
+
+
+#### the folder to storage converter
+
+[HKEY_CLASSES_ROOT\Asset.ContextMenuHandler.FolderToStorage]
+@="Folder to Storage Context Menu Handler"
+
+[HKEY_CLASSES_ROOT\Asset.ContextMenuHandler.FolderToStorage\CLSID]
+@="{09f28970-580f-11cf-a095-00aa00a71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{09f28970-580f-11cf-a095-00aa00a71191}]
+@="Folder to Storage Context Menu Handler"
+
+[HKEY_CLASSES_ROOT\CLSID\{09f28970-580f-11cf-a095-00aa00a71191}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{09f28970-580f-11cf-a095-00aa00a71191}\InprocServer32]
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\Folder\ShellEx\ContextMenuHandlers\FolderToAssetStorage]
+@="{09f28970-580f-11cf-a095-00aa00a71191}"
+
+
+### thumbnail extractors....
+
+[HKEY_CLASSES_ROOT\Asset.AVI Thumbnail Extractor]
+@="Asset AVI Thumbnail Extractor"
+
+[HKEY_CLASSES_ROOT\Asset.AVI Thumbnail Extractor\CLSID]
+@="{0ddca1d0-7236-11cf-a0ac-00aa00a71191}"
+
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors\.avi]
+"CLSID"="REG_SZ:{0ddca1d0-7236-11cf-a0ac-00aa00a71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{0ddca1d0-7236-11cf-a0ac-00aa00a71191}]
+@="Asset Storage Avi Thumbnail Extractor"
+
+[HKEY_CLASSES_ROOT\CLSID\{0ddca1d0-7236-11cf-a0ac-00aa00a71191}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+# the rest of this filter is done at run time...
+
+[HKEY_CLASSES_ROOT\Asset.Office Graphics Filter Thumbnail Extractor]
+@="Asset.Office Graphics Filter Thumbnail Extractor"
+
+[HKEY_CLASSES_ROOT\Asset.Office Graphics Filter Thumbnail Extractor\CLSID]
+@="{4854db60-75ef-11cf-a0af-00aa00a71191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{4854db60-75ef-11cf-a0af-00aa00a71191}]
+@="Asset Storage Shared Grafix Filters"
+
+[HKEY_CLASSES_ROOT\CLSID\{4854db60-75ef-11cf-a0af-00aa00a71191}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+#### Find Menu Extension
+[HKEY_CLASSES_ROOT\CLSID\{53FAC1E0-F814-11CE-8C16-00805F1408F3}]
+@="Asset Storage Find Menu Extension"
+
+[HKEY_CLASSES_ROOT\CLSID\{53FAC1E0-F814-11CE-8C16-00805F1408F3}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Extensions\Approved]
+"{53FAC1E0-F814-11CE-8C16-00805F1408F3}"="REG_SZ:Asset Storage Advanced Find Menu extension"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\FindExtensions\Static\AssetFindMenu]
+@="{53FAC1E0-F814-11CE-8C16-00805F1408F3}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\FindExtensions\Static\AssetFindMenu\0]
+# LOC: needs localisation (note the ampersand for the accelerator..
+@="Files or Folders in &Media Manager..."
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\FindExtensions\Static\AssetFindMenu\0\DefaultIcon]
+@="<product path>\\shstgeu.dll,-105"
+
+
+#### custom Database stuff
+# /*[TODO]*/ some better way of setting the path
+#
+# [frederw, 4/3/96]: commented out because of conflicts with ACME setup
+# Setup should be specifying the location now.
+# 
+#[HKEY_LOCAL_MACHINE\Software\Microsoft\Asset Storage System\Custom Property Database]
+#"Local"="REG_SZ:c:\\BigStorage"
+#"Workgroup"="REG_SZ:\\\\cmsstore\\public\\Property Database"
+#"Primary"="REG_SZ:\\\\cmsstore\\public\\Property Data.WPD"
+# 4274, frederw: on the other hand, putting the key here is the only way to 
+# get in uninstalled.  An ACME custom action is still in charge of adding the values.
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Asset Storage System\Custom Property Database]
+
+#### other keys which here only to support uninstall
+# bug 4275, frederw:
+[HKEY_CURRENT_USER\Software\Microsoft\Asset Storage System\MRU Finder Names]
+[HKEY_CURRENT_USER\Software\Microsoft\Asset Storage System\MRU Finder Storages]
+[HKEY_CURRENT_USER\Software\Microsoft\Asset Storage System\MRU Finder Types]
+#4274, frederw
+[HKEY_CURRENT_USER\Software\Microsoft\Asset Storage System\MRU Property Database]
+#4275, frederw
+[HKEY_CURRENT_USER\Software\Microsoft\Media Manager]
+[HKEY_CURRENT_USER\Software\Microsoft\Asset Storage System]
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Asset Storage System]
+[HKEY_LOCAL_MACHINE\Software\Classes\Annotations Database]
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Asset.ThumbnailExtractors]
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors]
+
+
+
+
+####### DefView
+
+[HKEY_CLASSES_ROOT\Asset.DefaultView]
+@="Asset Default Shell View"
+
+[HKEY_CLASSES_ROOT\Asset.DefaultView\CLSID]
+@="{5E57BBA0-FD3D-11CE-B397-00805F1408F3}"
+
+[HKEY_CLASSES_ROOT\CLSID\{5E57BBA0-FD3D-11CE-B397-00805F1408F3}]
+@="Asset Storage Folder Default View"
+
+[HKEY_CLASSES_ROOT\CLSID\{5E57BBA0-FD3D-11CE-B397-00805F1408F3}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+#### CMS PLAYER stuff
+# /*[TODO]*/
+
+
+##########################################################
+############TWDLL#########################################
+##########################################################
+
+
+# commented out as these are only needed for testing...
+####CLSID_CMSDEFAULTPROPERTYPAGE
+#[HKEY_CLASSES_ROOT\CLSID\{fd08a540-f9d9-11ce-ba34-00608cebf927}]
+#@="Asset Storage Default Property Page"
+#
+#[HKEY_CLASSES_ROOT\CLSID\{fd08a540-f9d9-11ce-ba34-00608cebf927}\InprocServer32]
+#@="<product path>\\twdllu.dll"
+#"ThreadingModel"="REG_SZ:Apartment"
+#
+####CLSID_CMSDEFAULTPROPERTYFRAME
+#[HKEY_CLASSES_ROOT\CLSID\{e85eddc1-f24c-11ce-ba2d-00608cebf927}]
+#@="Asset Storage Default Property Frame" 
+#
+#[HKEY_CLASSES_ROOT\CLSID\{e85eddc1-f24c-11ce-ba2d-00608cebf927}\InprocServer32]
+#@="<product path>\\twdllu.dll"
+#"ThreadingModel"="REG_SZ:Apartment"
+
+
+####CLSID_GENERALPROPPAGE
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}]
+@="Asset Storage General Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+####CLSID_CMSLINKPROPPAGE
+[HKEY_CLASSES_ROOT\CLSID\{ea460e90-54f8-11cf-b3ee-00805f1408f3}]
+@="Asset Storage Shortcut Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{ea460e90-54f8-11cf-b3ee-00805f1408f3}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\CLSID\{92becaf2-5d1c-11cf-b1e1-00aa00a74bff}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+######### Search Query Pages
+####CLSID_CMSSEARCHFRAME
+[HKEY_CLASSES_ROOT\CLSID\{87871910-f8e5-11ce-ba34-00608cebf927}]
+@="Asset Storage Search Frame"
+
+[HKEY_CLASSES_ROOT\CLSID\{87871910-f8e5-11ce-ba34-00608cebf927}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+####CLSID_CMSSEARCHPAGEFIND
+[HKEY_CLASSES_ROOT\CLSID\{abca8ff0-fcf7-11ce-a35d-00aa006ebde5}]
+@="Asset Storage Find Query Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{abca8ff0-fcf7-11ce-a35d-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+####CLSID_CMSSEARCHPAGEKEYWORD
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca0-fcf9-11ce-a35d-00aa006ebde5}]
+@="Asset Storage Keyword Query Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca0-fcf9-11ce-a35d-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+
+####CLSID_CMSSEARCHPAGEDATE
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca1-fcf9-11ce-a35d-00aa006ebde5}]
+@="Asset Storage Date Query Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca1-fcf9-11ce-a35d-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+####CLSID_CMSSEARCHPAGEADVANCED
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca2-fcf9-11ce-a35d-00aa006ebde5}]
+@="Asset Storage Advanced Query Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{2d458ca2-fcf9-11ce-a35d-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+####{db44c060-5cd7-11cf-96fb-00aa00b5ea4c}
+[HKEY_CLASSES_ROOT\CLSID\{db44c060-5cd7-11cf-96fb-00aa00b5ea4c}]
+@="Asset Storage Office Query Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{db44c060-5cd7-11cf-96fb-00aa00b5ea4c}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+#### CLSID_CMSTYPESYSTEM
+[HKEY_CLASSES_ROOT\CLSID\{2a91d9a0-1304-11cf-a360-00aa006ebde5}]
+@="Asset Storage Type system"
+
+[HKEY_CLASSES_ROOT\CLSID\{2a91d9a0-1304-11cf-a360-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+#### CLSID_CMSDATATYPE
+[HKEY_CLASSES_ROOT\CLSID\{d6bd5351-13b2-11cf-a360-00aa006ebde5}]
+@="Asset Storage Data Type"
+
+[HKEY_CLASSES_ROOT\CLSID\{d6bd5351-13b2-11cf-a360-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+#### CLSID_CMSPROPERTYDIRECTORY
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}]
+@="Asset Storage Property directory"
+
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+#### CLSID_CMSCUSTOMPROPERTYDIRECTORY
+[HKEY_CLASSES_ROOT\CLSID\{ce0fa180-60cf-11cf-96fd-00aa00b5ea4c}]
+@="Asset Storage Custom Property Directory"
+
+[HKEY_CLASSES_ROOT\CLSID\{ce0fa180-60cf-11cf-96fd-00aa00b5ea4c}\InprocServer32]
+@="<product path>\\twdllu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+
+
+######## FNIMPPRP.CPP
+[HKEY_CLASSES_ROOT\Asset.PropertyDirectory]
+@="Property Directory"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyDirectory\CLSID]
+@="{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}"
+
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}]
+@="CMS Property Directory"
+
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}\InprocServer32]
+@="<product path>\\twdllu.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{f6fcddc0-7601-11cf-8bb2-00aa006ebde5}\InprocServer32]
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+######## PPCUST.CPP
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Custom]
+@="CMS Custom Property Page"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.Custom\CLSID]
+@="{8a137e94-e226-11ce-a91d-00aa004a9b5c}"
+
+[HKEY_CLASSES_ROOT\CLSID\{8a137e94-e226-11ce-a91d-00aa004a9b5c}]
+@="CMS Custom Property Page"
+
+[HKEY_CLASSES_ROOT\CLSID\{8a137e94-e226-11ce-a91d-00aa004a9b5c}\InprocServer32]
+@="<product path>\\twdllu.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{8a137e94-e226-11ce-a91d-00aa004a9b5c}\InprocServer32]
+"ThreadingModel"="REG_SZ:Apartment"
+
+######## PPGEN.CPP
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.General]
+@="General PropertyPage"
+
+[HKEY_CLASSES_ROOT\Asset.PropertyPage.General\CLSID]
+@="{CDBCB060-E79D-11CE-8C16-00805F1408F3}"
+
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}]
+@="General PropertyPage"
+
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}\InprocServer32]
+@="<product path>\\twdllu.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{CDBCB060-E79D-11CE-8C16-00805F1408F3}\InprocServer32]
+"ThreadingModel"="REG_SZ:Apartment"
+
+######## CORE.CPP
+[HKEY_CLASSES_ROOT\Asset.Storage\ObjectFileNew]
+
+[HKEY_CLASSES_ROOT\Asset.ThumbnailExtractors\.avi]
+"CLSID"="REG_SZ:{0DDCA1D0-7236-11CF-A0AC-00aa00a71191}"
+"Name"="REG_SZ:Asset AVI Thumbnail Extractor"
+ 
+ [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+"{54E939C0-BFB6-11CE-A9BC-00AA006C1395}"="REG_SZ:Shell Extension For Asset Storage Folder System" 
+"{06063f70-5b58-11cf-b3f2-00805f1408f3}"="REG_SZ:Shell Extension Root Context Menu Handler" 
+"{53FAC1E0-F814-11CE-8C16-00805F1408F3}"="REG_SZ:Shell Extension For Asset Storage Find Dialog" 
+ 
+
+
+
+
+######## The find menu!
+
+[HKEY_CLASSES_ROOT\Asset.FindMenu]
+@="Asset Find Menu Extension"
+
+[HKEY_CLASSES_ROOT\Asset.FindMenu\CLSID]
+@="{53FAC1E0-F814-11CE-8C16-00805F1408F3}"
+
+[HKEY_CLASSES_ROOT\CLSID\{53FAC1E0-F814-11CE-8C16-00805F1408F3}]
+@="Asset Find Menu Extension"
+
+[HKEY_CLASSES_ROOT\CLSID\{53FAC1E0-F814-11CE-8C16-00805F1408F3}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+
+
+
+##### Now the Type system hierarchy
+# just create the base key .....
+[HKEY_CLASSES_ROOT\CmsTypes]
+@=""
+
+[HKEY_CLASSES_ROOT\CmsTypes\{2a91d9a0-1304-11cf-a360-00aa006ebde5}]
+@=""
+
+
+
+###################################################################
+#EXPLORER STUFF FOR PROVIDING THE DEFAULT VERBS FOR FOLDERS       #
+###################################################################
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\open]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\open\command]
+@="Explorer.exe /idlist,%I,%L"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\open\ddeexec]
+@="[ViewFolder(\"%l\", %I, %S)]"
+"NoActivateHandler"="REG_SZ:"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\open\ddeexec\application]
+@="Folders"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\open\ddeexec\topic]
+@="AppProperties"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\open\ddeexec\ifexec]
+@="[]"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\explore]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\explore\command]
+@="Explorer.exe /e,/idlist,%I,%L"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\explore\ddeexec]
+@="[ExploreFolder(\"%l\", %I, %S)]"
+"NoActivateHandler"="REG_SZ:"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\explore\ddeexec\application]
+@="Folders"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\explore\ddeexec\topic]
+@="AppProperties"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shell\explore\ddeexec\ifexec]
+@="[]"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell\openinto]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell\openinto\command]
+@="Explorer.exe /idlist,%I,%L"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell\openinto\ddeexec]
+@="[ViewFolder(\"%l\", %I, %S)]"
+"NoActivateHandler"="REG_SZ:"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell\openinto\ddeexec\application]
+@="Folders"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell\openinto\ddeexec\topic]
+@="AppProperties"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\OpenBrowsable\shell\openinto\ddeexec\ifexec]
+@="[]"
+
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable\shell\exploreinto]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable\shell\exploreinto\command]
+@="Explorer.exe /e,/idlist,%I,%L"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable\shell\exploreinto\ddeexec]
+@="[ExploreFolder(\"%l\", %I, %S)]"
+"NoActivateHandler"="REG_SZ:"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable\shell\exploreinto\ddeexec\application]
+@="Folders"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable\shell\exploreinto\ddeexec\topic]
+@="AppProperties"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\ExploreBrowsable\shell\exploreinto\ddeexec\ifexec]
+@="[]"
+
+###################################################################
+########################NASHVILLE SPECIFIC STUFF###################
+###################################################################
+# register the HTML view as an extension view for asset storage folders 
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder] 
+@="" 
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shellex] 
+@="" 
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\shellex\ExtShellFolderViews] 
+@="" 
+
+# the HTML extension view...
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\Shellex\ExtShellFolderViews\{5984FFE0-28D4-11CF-AE66-08002B2E1262}]
+@=""
+"PersistFile"="REG_SZ:<windows dir>\\web\\cms.htm"
+
+# the enhanced view extension...
+[HKEY_CLASSES_ROOT\Asset.Storage\Folder\Shellex\ExtShellFolderViews\{2EE61220-C2B6-11cf-89AA-00A0C9054129}]
+@=""
+
+#########################################################
+# CLSID of the Enhanced View
+#########################################################
+[HKEY_CLASSES_ROOT\Asset.Storage.EnhancedShellView]
+@="Asset Storage Enhanced View"
+
+[HKEY_CLASSES_ROOT\Asset.Storage.EnhancedShellView\CLSID]
+@="{2EE61220-C2B6-11cf-89AA-00A0C9054129}"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EE61220-C2B6-11cf-89AA-00A0C9054129}]
+@="Thumbnail"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EE61220-C2B6-11cf-89AA-00A0C9054129}\InprocServer32]
+@="<product path>\\shstgeu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EE61220-C2B6-11cf-89AA-00A0C9054129}\ToolbarBitmap]
+@="<product path>\\shstgeu.dll,144"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EE61220-C2B6-11cf-89AA-00A0C9054129}\TooltipText]
+@="Enhanced Thumbnails"
+
+[HKEY_CLASSES_ROOT\CLSID\{2EE61220-C2B6-11cf-89AA-00A0C9054129}\HelpText]
+@="Display items in Enhanced Thumbnail view."
+
+[HKEY_CLASSES_ROOT\CLSID\{2EE61220-C2B6-11cf-89AA-00A0C9054129}\StandardView]
+@=""
+
+######### the MFQ file extension....
+[HKEY_CLASSES_ROOT\.mfq]
+@="cmsfind"
+
+[HKEY_CLASSES_ROOT\cmsfind]
+# LOC: needs localisation
+@="Media Manager Query"
+
+[HKEY_CLASSES_ROOT\cmsfind\DefaultIcon]
+@="<product path>\\twdllu.dll, -3014"
+
+######### the ADB file extension....
+[HKEY_CLASSES_ROOT\.adb]
+@="AnnotationsDatabase"
+
+[HKEY_CLASSES_ROOT\AnnotationsDatabase]
+# LOC: needs localisation
+@="Media Manager Annotations Database"
+
+[HKEY_CLASSES_ROOT\AnnotationsDatabase\DefaultIcon]
+@="<product path>\\shstgeu.dll, -172"
+

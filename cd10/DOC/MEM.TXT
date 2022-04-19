@@ -1,0 +1,105 @@
+/***************************************************************************
+
+	Memory Management API doc.
+
+***************************************************************************/
+
+
+/****************************************
+	Types
+****************************************/
+
+	HQ
+		An opaque handle to a generic memory block.
+		Implementation is private.
+
+	HN
+		An operating system handle.  On Mac, these are Handles.
+		On Win, they are HGLOBAL.
+
+
+/****************************************
+	Constants
+****************************************/
+
+	const byte kbGarbage;
+		New blocks are filled with this (if they are not zeroed)
+
+	const long kcbMax;
+		Maximum size of an HQ.
+
+	HQ hqNil;
+	pNil
+	hNil
+		It is legal to assume these are zero.  Use hqNil to compare
+		against an explicit hq, pNil for pointers and hNil for any
+		other abstract handle.
+
+	fhqNil - default options
+	fhqClear - zero newly allocated memory
+
+
+/****************************************
+	Routines
+****************************************/
+
+	HQ HqAlloc(long cb, ushort grfhq);
+		Allocates an hq and optionally clears it.
+
+	void FreeHq(HQ hq);
+		Frees an hq.  Accepts hqNil.
+
+	void FreePhq(HQ *phq);
+		Calls FreeHq on *phq and sets *phq to hqNil.
+
+	long CbOfHq(HQ hq);
+		Returns the size of the hq.  This is guaranteed to be the
+		same as the cb passed to HqAlloc (or FResizePhq).
+
+	HQ HqCopyHq(HQ hq);
+		Duplicates the hq.
+
+	bool FResizePhq(HQ *phq, long cb, ushort grfhq);
+		Resizes *phq.  The value of *phq may change.
+
+	void *PvLockHq(HQ hq);
+		Lock the hq and return a pointer to the data.
+
+	void UnlockHq(HQ hq);
+		Unlock the hq.  Must balance a call to PvLockHq or LockHq.
+
+	void *QvFromHq(HQ hq);
+		Return a volatile pointer to the hq block.
+
+
+/****************************************
+	Generic pointer arithmetic
+****************************************/
+
+	void *PvAddBv(void *pv, long bv);
+		Add an offset to a pointer.
+
+	void *PvSubBv(void *pv, long bv);
+		Subtract an offset from a pointer.
+
+	long BvSubPvs(void *pv1, void *pv2)
+		Subtract two pointers to get the number of bytes between them.
+
+
+/****************************************
+	Debug only API
+****************************************/
+
+	void UnmarkAllHqs(void);
+		Clear the marks on all hq's.
+
+	void MarkHq(HQ hq);
+		Marks an hq.
+
+	void AssertUnmarkedHqs(void);
+		Asserts on any unmarked hqs.
+
+	void AssertHq(HQ hq);
+		Validate an hq.  hq should not be nil.
+
+

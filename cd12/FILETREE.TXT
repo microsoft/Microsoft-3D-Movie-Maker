@@ -1,0 +1,49 @@
+--------------
+File Hierarchy
+--------------
+
+Please update this file if you change the files that Socrates
+needs to run.
+
+
+c:\						// drive letter doesn't matter
+   mskids\
+           utest.exe    // can really be anywhere on hard drive
+           3dmovie\
+                   mhole2.avi
+		           logn1.avi
+		           05logn4.avi
+		           logn06.avi
+		           two.avi
+		           backstag.avi
+				   proj1.avi
+				   proj2.avi
+				   proj3.avi
+				   proj4.avi
+				   proj5.avi
+
+		           mtrls.3cn
+		           tmpls.3cn
+		           snds.3cn
+		           bkgds.3cn
+		           tdfs.3cn
+
+		           3dmovie.chk
+		           building.chk
+		           studio.chk
+		           shared.chk
+		           help.chk
+			   helpaud.chk
+
+		           bkgds.3th
+		           actor.3th
+		           actresl.3th
+		           mtrl.3th
+		           tbox.3th
+	          	   sound.3th
+	               prop.3th
+
+
+Notes
+-----
+(no notes at this time)

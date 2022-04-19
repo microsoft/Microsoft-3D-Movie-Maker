@@ -1,0 +1,26 @@
+[Params]
+	WndTitle   = Microsoft Media Manager Setup
+	WndMess    = Starting Microsoft Media Manager Setup...
+	TmpDirSize = 2000
+	TmpDirName = ~msstfqf.t
+	CmdLine    = acmsetup /Z cmsbbb.dll /T CMS.stf /S %s %s
+	DrvModName = ACMSETUP	
+	DrvWinClass = Stuff-Shell
+	Require31  = This program requires Windows (R) 3.5 or higher.
+	CabinetFile = ACCESS1.CAB
+	InsertCDMsg	= Please insert your Media Manager 1.0 CD.
+	
+[Files]
+	;Setup\cmssrg.dll = cmssrg.dll
+	Setup\acmsetup.exe = acmsetup.exe
+	Setup\mssetup.dll  = mssetup.dll
+	Setup\CMSbb.dll = CMSbb.dll
+	Setup\CMSbbb.dll = CMSbbb.dll
+	Setup\offsetup.ttf = offsetup.ttf
+	Setup\CMScah.dll = CMScah.dll
+	Setup\CMScahu.dll = CMScahu.dll
+	Setup\CMS.stf    = CMS.stf
+	Setup\Setup.inf   = Setup.inf
+	Setup\acmsetup.hlp = acmsetup.hlp
+	setup\eula.txt = eula.txt
+	

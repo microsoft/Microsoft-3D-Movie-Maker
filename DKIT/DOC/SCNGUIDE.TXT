@@ -1,0 +1,624 @@
+Introduction:
+
+    This document contains a description of the routines to read and write
+an ascii scene file.  Most of the routines that read/write from/to a 
+scene file ends with 'animation' in the name, for example, 
+modelReadAsciiAnimation and modelWriteAsciiAnimation.
+
+----------------
+Scene:
+----------------
+
+    A scene consists of linked list of models, lights, cameras, waves, 
+and unattached splines (for a scene file created before v2.5).  Play control
+parameters (e.g. first and last animation frame), rendering setups, and file
+paths are also stored in the scene file. 
+
+    The scene file is based on keyword tokens followed by parameter values. 
+All token keywords can be found in the file 'tinySceneToken.h'. The ones 
+that begin with 'A_' are the ascii scene format keywords whereas those 
+beginning with 'B_' are for the binary scene format.  For now, only the
+ascii scene format keywords are used. The most basic parameter 
+values are token strings, short, and float numbers. 
+
+    The scene file contains animation information as well as
+light, camera, lattice, and unattached spline definitions. In general, an
+animation parameter can either be saved as a value or as an fcurve. If the
+fcurve doesn't exists then the value is saved or else the fcurve is saved.
+
+<> To allocate a scene node:
+
+	scn = sceneAllocate();
+
+<> To read a scene file into a scene node:
+
+	float version;
+
+	scn->name = strdup("in_scene_filename");
+	sceneReadAsciiAnimation(&version, scn);
+	
+	NOTES: The scn (scene pointer) has to be allocated before this
+	       routine is called.
+	       The version number is returned to the calling routine.
+
+<> To change the object path to /usr/mydirectory:
+
+	scn->object_path = strdup("/usr/mydirectory");
+
+<> Add a new model to the scene:
+	
+	mdl = mdlAllocate();
+	mdl->name = strdup("obj19");
+	mdl->next = scn->model;
+	scn->model = mdl;
+
+<> To write a scene node to a file:
+
+	scn->name = strdup("out_scene_filename");
+	sceneWriteAsciiAnimation(comment, version, scn);
+
+<> To dispose a scene node:
+
+	sceneDispose(&scn);
+
+Multiple scenes can be read with the scene filename being saved in the
+name field of the scene data structure.
+
+
+----------------
+Object Display
+----------------
+
+Models, lights, and splines have 3 display parameters: wire colour,
+line type, and selection type.
+
+The wire colour is an index into the colour table specified in the desktop
+resource file. There are 12 colours with indexes going from 490 to 501
+inclusive. The default index is 490 which is black. The following are the
+wire colours:
+
+       index         colour
+                    r   g   b (0-255)
+
+	490	    0   0   0
+	491	    0   0   200
+	492	    0   200 0
+	493	    0   200 200
+	494	    200 0   0
+	495	    200 0   200
+	496	    200 200 0
+	497	    200 100 0
+	498	    100 0   0
+	499	    0   100 0
+	500	    0   0   100
+	501	    50  50  50
+
+The line types are:
+	
+	0 = hidden
+	1 = ghost
+	2 = visible
+
+The default line type is 2.
+
+The selection type can be 1 for a selected object or 0 for an unselected
+object.
+
+
+----------------
+Model:
+----------------
+
+The model data structure contains materials, 2D and 3D textures, lattices,
+spline and patch fitting, object substitution, transformations, dynamics,
+all of which are animatable.
+
+The scene file does not contain any model data definitions. These definitions
+are found in ".hrc" files.
+
+----------------
+material
+----------------
+
+The model's materials are stored in a linked list in the model data structure.
+The following parameters are animatable: ambient colour, diffuse colour,
+specular colour, specular exponent, transparency, transparency jitter,
+reflection jitter, attenuation colour, reflection, and motion transparency.
+
+<> To allocate a material
+
+	mat = materialAllocate();
+
+<> To add a material 
+
+	mat = materialAllocate();
+	/* add to the end of the list */
+	if (mdl->materials != NULL)
+	{
+	    mat2 = mdl->materials;
+	    while (mat2 != NULL && mat2->next != NULL)
+	        mat2 = mat2->next;
+	    mat2->next = mat;
+	}
+	else
+	    mdl->materials = mat;
+	mat->name = strdup("material1");
+	mat->fcv[FCV_MAT_AMB_R] = getFcurveFromSomeWhere(); /* red ambient */
+	mat->fcv[FCV_MAT_AMB_G] = getFcurveFromSomeWhere(); /* green ambient */
+	mat->fcv[FCV_MAT_AMB_B] = getFcurveFromSomeWhere(); /* blue ambient */
+
+	mdl->nbMaterials++;
+
+<> To dispose a material
+	
+	materialDispose(&mat);
+
+----------------
+2D texture
+----------------
+
+A model can have local and global 2D textures. The field "textures" in the
+model data structure contains the list of global textures. Local texture
+lists are found in the model's material list, i.e. material->textures.
+The texture name is the name of the picture file (less than 30 characters
+long). The following parameters are animatable: U scaling, V scaling,
+U offset, V offset, ambient factor, diffuse factor, specular factor,
+roughness factor, transparency, reflection mapping factor, environment 
+rotation, blending, and reflection.
+
+<> To allocate a texture
+
+	txt = textureAllocate();
+
+<> To add a global texture with a specular fcurve
+	
+	txt = textureAllocate();
+	/* add to the end of the list */
+	if (mdl->textures != NULL)
+	{
+	    txt2 = mdl->textures;
+	    while (txt2 != NULL && txt2->next != NULL)
+	        txt2 = txt2->next;
+	    txt2->next = txt;
+	}
+	else
+	    mdl->textures = txt;
+	txt->name = strdup("picture1");
+	txt->fcv[FCV_TXT_SPEC] = getFcurveFromSomeWhere();
+
+	mdl->nbTextures++;
+
+<> To dispose a texture
+
+	textureDispose(&txt);
+
+----------------
+3D texture
+----------------
+
+Like 2D textures, there are both local and global 3D textures.  The model and 
+material fields "textures3D" contain the list of global and local 3D textures 
+respectively.  The method for manipulating the parameter animation is 
+similar to 2D textures.
+
+----------------
+lattice
+----------------
+
+The lattice information is kept in the scene file. It consists of a list
+of lattice data definitions and an animation fcurve. Each lattice data
+definition has an active field, the number of points in the x, y, z axis,
+the interpolation type in each axis, the points, the point selection flags,
+the minimum and maximum vectors, and the scaling.
+
+The fcurve values interpolate between the lattice data definitions. For
+example, a fcurve values of 2.5 means that the resulting lattice is the
+midpoint between the second and third lattice data definitions.
+
+The interpolation values are:
+	0 = linear
+	1 = curve
+
+The flag values are:
+	0 = point unselected
+	1 = point selected
+
+<> To allocate a lattice
+
+	lat = latticeAllocate();
+
+<> To add a node lattice to a model
+	
+	lat = latticeAllocate();
+	lat->active = TRUE; /* 1 */
+	nbx = lat->nbx = 2;
+	nby = lat->nby = 2;
+	nbz = lat->nbz = 2;
+	lat->interpx = LAT_LINEAR;
+	lat->interpy = LAT_LINEAR;
+	lat->interpz = LAT_LINEAR;
+	lat->array = (Vector *) malloc(lat->nbx * lat->nby * lat->nbz *
+			sizeof (Vector));
+	lat->flag = (short *) malloc(lat->nbx * lat->nby * lat->nbz *
+			sizeof (short));
+
+
+	/* find the minimum of the model and assign to lat->min */
+	/* find the maximum of the model and assign to lat->max */
+
+        scl.x = lat->scl.x = (lat->max.x - lat->min.x) / (lat->nbx - 1);
+        scl.y = lat->scl.y = (lat->max.y - lat->min.y) / (lat->nby - 1);
+        scl.z = lat->scl.z = (lat->max.z - lat->min.z) / (lat->nbz - 1);
+
+	/* assign array values here */
+	v = lat->array;
+        for( i = 0, vct.x = lat->min.x; i < nbx; i++, vct.x += scl.x )
+           for( j = 0, vct.y = lat->min.y; j < nby; j++, vct.y += scl.y )
+              for( k = 0, vct.z = lat->min.z; k < nbz; k++, vct.z += scl.z, v++ )
+                 *v = vct;
+
+	/* assign flag values here */
+	for (i = 0; i < (nbx * nby * nbz); i++)
+	    lat->flag[i] = 0;
+
+	mdl->nbnodelat = 1;
+	mdl->nodelat = lat;
+	mdl->fcv[FCV_MDL_NLAT] = getFcurveFromSomeWhere();
+
+<> To dispose a lattice
+	
+	latticeDispose(&lat);
+
+
+----------------
+spline/patch fitting
+----------------
+
+Spline and patch fitting can be done either to a node or a branch of a model.
+The data fields "nodefit" "brchfit" and "nodepfit" brchpfit" distinguish
+between the two for spline and patch fitting respectively.
+
+For spline fitting, the scale, roll, and translation are animatable.
+If saved with a version previous to 2.5, the spline path that the object is
+fitted to is keep in the scene file.  Otherwise, the name of the spline
+that the object is fitted to is specified in the spline fitting data
+structure.
+
+For patch fitting, the scale, rotation, and translation are animatble.
+The name of the model that the object is fitted to is specified in the
+patch fitting data structure.
+
+<> To allocate a spline fit
+
+	splFit = spl_fittingAllocate();
+
+<> To add a node spline fit to a model
+
+	splFit = spl_fittingAllocate();
+	splFit->fcv[FCV_SFIT_SCLX] = getFcurveFromSomeWhere();
+	splFit->fcv[FCV_SFIT_SCLY] = getFcurveFromSomeWhere();
+	splFit->fcv[FCV_SFIT_SCLZ] = getFcurveFromSomeWhere();
+	spl->spl = getSplineFromSomeWhere();
+	spl->roll = 0.0;
+	spl->trans.x = 0.0;
+	spl->trans.y = 0.0;
+	spl->trans.z = 0.0;
+
+	mdl->nodefit = splFit;
+
+<> To dispose a spline fit
+
+	spl_fittingDispose(&splFit);
+
+----------------
+shape 
+----------------
+
+The model's shape can be animated by specifying the shape file that contains
+the model shape definition, the shape interpolation type and number, and the
+shape animation fcurve(s). The shape can be animated either with the standard
+single shape fcurve or with the weight fcurves. 
+
+The shape fcurve permits the user to interpolate between two shapes in the 
+order they were created, i.e.  the interpolation is done between shapes 
+1 and 2, shapes 2 and 3, shapes 3 and 4, etc. 
+
+The weight fcurves permit the user to interpolation between any or all of the
+shapes at a given frame. There MUST be one weight fcurve per shape. Each
+shape is weighted by the weight fcurve and the resulting shape is the
+sum of these weighted shapes.
+
+The values for the shape interpolation type are:
+	0 = linear
+	1 = cardinal
+	2 = weight
+
+<> To create a weight shape animation with 2 shapes in the file "obj19.shp"
+
+	mdl->shape_filename = strdup("obj19");
+	mdl->nbshape = 2;
+	mdl->shape_interp_type = WEIGHT_SHAPE_INTERP;
+	mdl->wfcv = (struct fcurve *) malloc(mdl->nbshape * 
+			sizeof(struct fcurve *));
+	mdl->wfcv[0] = getFcurveFromSomeWhere(); /* FCV_TYPE_MDL_WFCV type */
+	mdl->wfcv[1] = getFcurveFromSomeWhere(); /* FCV_TYPE_MDL_WFCV type */
+
+<> To create a standard shape animation with 2 shapes in the file "obj19.shp"
+
+	mdl->shape_filename = strdup("obj19");
+	mdl->nbshape = 2;
+	mdl->shape_interp_type = CARDINAL_SHAPE_INTERP; 
+	mdl->fcv[FCV_MDL_SHAPE] = getFcurveFromSomeWhere();
+
+Both the standard shape fcurve and the weight fcurves can exist in the model.
+
+----------------
+object substitution
+----------------
+
+During the animation, a model data definition can be substituted with another
+data definition of the same type (e.g mesh) and the same hierarchy. 
+The parameters that specified the substitution should be assigned only to
+the parent of the hierarchy.
+
+A value of 1 in the model's data field "sub_active" indicates that the 
+substitution is active (0 = inactive). The "sub_model_name" field contains the 
+substitution model filename.  The "sub_start" and "sub_end" fields specify 
+the start and end frames of the substitution. The end frame must be greater 
+or equal to the start frame.
+
+Giving the substitution filename and the start/end frames, the files that
+are read in are the ones with the filename concatenated with the frame number.
+For example, if the substitution filename is "obj19" and the start/end frames
+are 1 and 5 respectively, then the model file "obj19.1.hrc" is read in at
+frame 1, "obj19.2.hrc" at frame 2, etc.
+
+The "sub_inmemory" field specifies whether or not the substitution models
+are read into memory (value of 1) or is read on the fly (value of 0) 
+during the animation. The advantage of reading the models into memory, is
+a quicker playback.
+
+Before and after each substitution file is read in, a pre and post script
+file can be executed. These files are specified by the "sub_pre_script_file"
+and "sub_post_script_file" fields.
+
+----------------
+Light:
+----------------
+
+The light definition consists of the name, light type, colour, position, etc.
+Most of the parameters are animatable with a single fcurve. 
+The exceptions are: light type, display wire colour, display line type, 
+display selected, shadow type, shadow map resolution, shadow filter size, 
+and shadow filter step. These parameters are short values. 
+
+The values for the light type are:
+	1 = point light 
+	2 = spot light
+	3 = infinite light
+The values for the shadow type are:
+	1 = no shadows
+	2 = shadows
+	3 = z shadows
+	4 = soft shadows
+
+Lights are not saved in a light file but are saved only in the scene file.
+
+<> To allocate a light
+
+	lit = lightAllocate();
+
+<> Add a point light at (1.0, 0.0, 0.0) to the scene
+
+	lit = lightAllocate();
+	if (scn->light != NULL)
+	    lit->next = scn->light;
+	scn->light = lit;
+
+	lit->name = strdup("light1");
+	lit->type = LIGHT_POINT;
+	lit->position.x = 1.0;
+	lit->position.y = 0.0;
+	lit->position.z = 0.0;
+
+<> To dispose a light:
+
+	lightDispose(&lit);
+
+----------------
+Camera:
+----------------
+
+Like lights, cameras are saved only in the scene file. All but two parameters
+are animatable. The exceptions are the depth of field type and enlarge near
+object parameter.
+
+The values for the depth of field type are:
+	0 = depth of field off
+	1 = automatic depth of field
+	2 = custom depth of field
+
+The values for enlarge near object:
+	0 = not active
+	1 = active
+
+The camera does not have a name. Only one camera is saved in the scene file. 
+At the moment, SOFTIMAGE does not have or use more than one camera. 
+Thus, there are no routines to allocate or dispose cameras. 
+
+<> To change the position of the camera to (1.0, 0.0, 0.0)
+
+	scn.camera.x = 1.0;
+	scn.camera.y = 0.0;
+	scn.camera.z = 0.0;
+
+----------------
+Wave:
+----------------
+
+The wave definition consists of a number of animatable parameters. These
+include location, scale, rotate, decay, and spread. A wave can be attached
+to any number of models or branches of a hierarachy. 
+A wave attached to a model affects the points defining the object by
+propagating a disturbance through space.  The attached
+models are specified in a linked list associated with each wave. All that
+is needed to attached wave to a model is the model's name and 
+whether or not the model is a branch. The model has to exist in the scene.
+Additionally, the wave has to exist in the wave file which is specified with
+the wave_filename field in the scene.
+
+<> To allocate a wave node
+
+	wave_node =  waveAllocate();
+
+<> To add an attached models "model1" and "model2" to the wave node "wave1"
+
+	wave_node =  waveAllocate();
+	/* add to the head of the list */
+	if (scene->wave != NULL)
+	    wave_node->next = scene->wave;
+	scene->wave = wave_node;
+	wave_node->wave_name = strdup("wave1");
+
+	amodel = amodelAllocate();
+	amodel->model_name = strdup("model1");
+	amodel->branch = 0; /* not a branch */
+
+	/* first attach model */
+	wave_node->w_amodel = amodel;
+
+	amodel = amodelAllocate();
+	amodel->model_name = strdup("model2");
+	amodel->branch = 1; /* is a branch */
+
+	/* add to head of the list */
+	amodel->next = wave_node->w_amodel;
+	wave_node->w_amodel = amodel;
+
+<> To dispose a wave node
+
+	waveDispose(&wave_node);
+
+----------------
+Spline: (scene file format previous to v2.5)
+----------------
+
+All non-path splines are keep in a linked list pointed to by the 
+scene data structure "spline" field. A spline is defined by a series of
+control points. Depending on the type, parameters such as tension and
+segment are used to control the shape of the spline. The spline definition
+does not contain any parameters that are animatable.
+
+The values for the spline type are:
+	0 = linear
+	1 = bezier
+	2 = bspline
+	3 = cardinal
+
+<> To allocate a spline
+
+	spl = splineAllocate();
+
+<> To add a linear spline with 2 keys to the scene
+
+	spl = splineAllocate();
+	spl->name = strdup("spline1");
+	spl->keys = splineKeyAllocate(4);
+	spl->nbKeys = 2;
+	spl->type = SPL_LINEAR;
+	spl->keys[0].position.x = 1.0;
+	spl->keys[0].position.y = 0.0;
+	spl->keys[0].position.z = 0.0;
+	spl->keys[1].position.x = 0.0;
+	spl->keys[1].position.y = 1.0;
+	spl->keys[1].position.z = 1.0;
+	
+	/* add to the head of the list */
+	if (scene->spline != NULL)
+	    spl->next = scene->spline;
+	scene->spline = spl;
+
+<> To add a model translation spline path
+
+	spl = getSplineFromSomewhere(); 
+	fcv = getFcurveFromSomewhere();
+	mdl->path = spl;
+	mdl->fcv[FCV_MDL_POS] = fcv;
+
+<> To dispose a spline
+
+	splineDispose(&spl);
+
+----------------
+Fcurve:
+----------------
+
+A parameter is animated with a fcurve. A fcurve is defined by:
+
+a) type, an unique non-negative number up to 179 (see FCURVE_TYPE enum in
+   tinyFcurve.h file)
+b) size, the number of keys in the fcurve
+c) keys, a pointer to the key array
+d) pre_extrap, pre-extrapolation type (0 = constant, 1 = gradient, 2 = cycle)
+e) post_extrap, post-extrapolation type (0 = constant, 1 = gradient, 2 = cycle)
+f) slopeFlag, the first bit is the user slope (i.e bit value of 0 = system
+   slope, 1 = user) and the second bit is the double slope (i.e. bit value of
+   0 = single slope, 1 = double slope). The combinations currently used are
+   single system slope, single user slope, and double user slope.
+g) interp, the global interpolation type for the fcurve (0 = constant,
+   1 = linear, 2 = hermite)
+
+A key is defined by:
+
+a) time, (in seconds)
+b) value
+c) rslope, right slope value
+d) lslope, left slope value
+e) slopeFlag, local version of the fcurve's slopeFlag field
+f) interp, local version of the fcurve's interp field
+g) keyType, (0 = freeform, 1 = keyframe, 2 = keypath, 3 = rawkey)
+h) spIndex, spline index if this is a keypath key
+
+Each key in the fcurve can have different slope and interpolation types.
+The slopeFlag and interp fcurve fields are the default types.
+
+
+<> To allocate a fcurve:
+
+	fcv = fcurveAllocate();
+
+<> To allocate a fkey
+
+	fcvkey = fkeyAllocate(n);
+
+	NOTES: The keys are allocated in blocks of KEY_MASK (7). 
+	       If n is 11 then 14 keys will be allocated.
+
+<> To create a model's x rotation fcurve with two keys at time = 0.0 and 3.0
+   linearly interpolated:
+
+	fcv = fcurveAllocate();
+	fcv->type = FCV_TYPE_MDL_ROT_X;
+	fcv->size = 2;
+	fcv->interp = LINEAR_INTERP;
+
+	fcv->keys = fcvkeyAllocate(2);
+
+	/* first key */
+	fcv->keys[0].time = 0.0;
+	fcv->keys[0].value = 0.0;
+	fcv->keys[0].interp = LINEAR_INTERP;
+
+	/* second key */
+	fcv->keys[1].time = 3.0;
+	fcv->keys[1].value = 1.0;
+	fcv->keys[1].interp = LINEAR_INTERP;
+
+<> To dispose a fcurve:
+
+	fcurveDispose(&fcv);
+
+<> To dispose a fcvkey
+	
+	fcvkeyDispose();
+

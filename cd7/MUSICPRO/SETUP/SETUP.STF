@@ -1,0 +1,94 @@
+App Name	MuscProd.exe							
+App Version	1.00.1003(1033)							
+Frame Bitmap	Muscbb.dll,121,122							
+Frame Caption	Microsoft Music Producer Setup							
+Dialog Caption Base	Microsoft Music Producer							
+Usage String	Run Setup.exe \n Admin Mode not supported.							
+About Box String	Microsoft Music Producer\n\nCopyright (C) 1996 Microsoft Corporation.							
+Check Modules								
+MSAPPS Mode	local							
+Inf File Name	Setup.inf							
+Suppress Serial Number Dialog								
+Maximum Object ID	830							
+Floppy Mode Root Object ID	20:10							
+Maintenance Mode Root Object ID	60 : 10							
+Batch Mode Root Object ID	40:10							
+Setup Version	3.00.0.0314							
+								
+ObjID	Install	During Batch Mode	Title	Descr	Type	Data	BMP Id	Vital	Shared	Dir Chang	Dest Dir	Check Dir	Installed By Us								
+
+ ********** RETAIL VERSION ********** 
+								
+--- Begin Search ---								
+10		Microsoft Music Producer		AppSearch	"%p\Microsoft Music Producer,MuscProd.exe,,128,yes,no,"							
+--- End Search ---
+								
+--- Begin Modes ---								
+20	yes	Floppy Install		AppMainDlg	50 60 80				yes	%d		
+30		Maintenance Mode		CustomDlg	130 150 : 70 140 160							
+40		Batch Install		Group	50					%d		
+--- End Modes ---
+								
+--- Begin Components ---								
+50	yes	&Typical Install	Installs the Typical Microsoft Music Producer components.	Group	70 130 150 140 160	"muscbb.dll, 101"			no	%d		
+60	yes	&Custom Install	Install all of the Microsoft Music Producer and the option to remove components.	CustomDlg	130 150 : 70 140 160	"muscbb.dll, 102"			no	%d		
+70				Group	90 100 110 120					%m		
+80				CustomAction	"muscah.dll,LicenseDlg,Setup Files;EULA_TXT"							
+90				CustomAction	"muscah.dll,RootDir,%m"							
+100		OnWindows95		CustomAction	"muscah.dll,OnWindows95,"							
+110				CustomAction	"muscah.dll,GetPathFromReg,""HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\CurrentVersion\MMFiles,"""							
+120				CustomAction	"muscah.dll,GetPathFromReg,""HKEY_LOCAL_MACHINE,Software\Microsoft\InteractiveMusic,InteractiveMusicPath"""					%110		
+--- End Components ---
+								
+130	yes	Microsoft Music Producer	Installs the core files necessary to run Microsoft Music Producer	Group	610 510					%d		
+140		MFC Files	Installs MFC Files	Group	810					%d		
+150	yes	IMusic Files	Installs IMusic Files	Group	310					%d		
+160	yes	Setup Files	Install Setup Files	Group	210 520					%d		
+--- Begin Setup Files ---								
+210				Group	220 270 230 240							
+220				CopySection	"Setup Files"					%d\setup		
+230				WriteTableFile	"setup.stf"					%d\setup		
+240				Group	250 260							
+250				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Music Producer 1.0"",""DisplayName"",""Microsoft Music Producer 1.0"",""REG_SZ"""							
+260				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Music Producer 1.0"",""UninstallString"",""%s\setup\Setup.exe"",""REG_SZ"""							
+270				CustomAction	"muscah.dll,DeleteRegTree,""CURRENT,Software\Microsoft\Music Producer"""							
+--- End Setup Files ---
+								
+**** IMusic Core File set *****								
+310	Yes			Group	320 350							
+320				Depend	"110 ? 330 : 390 340"							
+330				CopySection	"IMusic"					%110\Music\Interactive Music		
+340				CopySection	"IMusic"					%90\Multimedia Files\Music\Interactive Music		
+350				Depend	"120 ?  : 360"							
+360				Depend	"110 ? 370 : 380"							
+370				AddRegData	"""LOCAL"",""Software\Microsoft\InteractiveMusic"",""InteractiveMusicPath"",""%s"","""""					%330		
+380				AddRegData	"""LOCAL"",""Software\Microsoft\InteractiveMusic"",""InteractiveMusicPath"",""%s"","""""					%340		
+390				CustomAction	"muscah.dll,FloppyAndAdminModeGroup,400 410"							
+400				AddRegData	"""HKEY_LOCAL_MACHINE"",""Software\Microsoft\Windows\CurrentVersion\MMFiles"","""",""%s"","""""					%90\Multimedia Files		
+410				CreateDir	"Multimedia Files"					%90		
+--- Begin Program Manager Items ---								
+510				AddProgmanItem	"Microsoft Music Producer,Microsoft Music Producer,%630\MuscProd.exe,,,,,,,"							
+520				AddProgmanItem	"Microsoft Music Producer,Music Producer 1.0 Setup,%220\setup.exe,,,,,,,"							
+--- End Program Manager Items ---
+								
+
+**** Core File set *****								
+610	Yes			Group	620 720 730 740					%d		
+620				Group	630 640 650 660 710							
+630				CopyFile	"Producer,Opus_exe"							
+640				CopyFile	"Producer,Opus_hlp"							
+650				CopyFile	"Producer,Opus_cnt"							
+660				Depend	"100 ? 670 680 690 700 :  670 680"					%m		
+670				InstallShared	"Producer,msimusic_dll,Msimusic.dll,,630 "							
+680				InstallShared	"Producer,msimrt_dll,Msimrt.dll,,630 "							
+690				InstallShared	"Producer,msimrt16_dll,Msimrt16.dll,,630 "							
+700				InstallShared	"Producer,msimrt32_dll,Msimrt32.dll,,630 "							
+710				CopyFile	"Producer,readme_txt"							
+720				AddRegData	"""LOCAL"",""Software\Microsoft\InteractiveMusic\IMusicPathClients"",""Microsoft Music Producer"",""%630\muscprod.exe"","""""							
+730				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\Help"",""MuscProd.hlp"",""%610"","""""							
+740				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\Help"",""MuscProd.cnt"",""%610"","""""							
+
+**** MFC File set *****								
+810	Yes			Group	820 830					%d		
+820				InstallSysFile	"Redist,Mfc40_dll"							
+830				InstallSysFile	"Redist,Msvcrt40_dll"							

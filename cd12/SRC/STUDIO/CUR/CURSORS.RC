@@ -1,0 +1,103 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_TURNRIGHT2          CURSOR  DISCARDABLE     "TURNRIGT.CUR"
+IDC_TURNLEFT2           CURSOR  DISCARDABLE     "TURNLEFT.cur"
+IDC_TURNAROUND          CURSOR  DISCARDABLE     "turnarnd.cur"
+IDC_DEFAULT             CURSOR  DISCARDABLE     "default.cur"
+IDC_HTSPOT3             CURSOR  DISCARDABLE     "hotspot.cur"
+IDC_OBJECTINMAP         CURSOR  DISCARDABLE     "hotspot2.cur"
+IDC_WAIT                CURSOR  DISCARDABLE     "wait.cur"
+IDC_CUTACTOR            CURSOR  DISCARDABLE     "cutactor.cur"
+IDC_COPY                CURSOR  DISCARDABLE     "copy.cur"
+IDC_PASTE               CURSOR  DISCARDABLE     "paste.cur"
+IDC_NUKACTOR2           CURSOR  DISCARDABLE     "nukeactr.cur"
+IDC_NUKTEXT             CURSOR  DISCARDABLE     "nuktext.cur"
+IDC_NUKSCEN             CURSOR  DISCARDABLE     "nukscen.cur"
+IDC_REMOVBEF            CURSOR  DISCARDABLE     "removbef.cur"
+IDC_REMOVAFTER          CURSOR  DISCARDABLE     "removaft.cur"
+IDC_CUTEXT              CURSOR  DISCARDABLE     "cutext.cur"
+IDC_COPYTEXT            CURSOR  DISCARDABLE     "copytext.cur"
+IDC_PASTEPATH2          CURSOR  DISCARDABLE     "pastepth.cur"
+IDC_PASTETEXT2          CURSOR  DISCARDABLE     "pastetex.cur"
+IDC_COPYPATH            CURSOR  DISCARDABLE     "copypath.cur"
+IDC_ACTION2             CURSOR  DISCARDABLE     "action2.cur"
+IDC_REPOSITION          CURSOR  DISCARDABLE     "repositi.cur"
+SELECTEDSCENE           CURSOR  DISCARDABLE     "selected.cur"
+IDC_COSTUMECHANGER      CURSOR  DISCARDABLE     "costume.cur"
+IDC_SIZEVENLY           CURSOR  DISCARDABLE     "sizevenl.cur"
+IDC_SQUASHSTRETCH       CURSOR  DISCARDABLE     "squashst.cur"
+IDC_ROTATEX             CURSOR  DISCARDABLE     "rotatex.cur"
+IDC_ROTATEY             CURSOR  DISCARDABLE     "rotatey.cur"
+IDC_ROTATEZ             CURSOR  DISCARDABLE     "rotatez.cur"
+IDC_ATTACHSOUND         CURSOR  DISCARDABLE     "attachso.cur"
+IDC_LISTEN              CURSOR  DISCARDABLE     "listen.cur"
+IDC_CREATEXTBOX         CURSOR  DISCARDABLE     "creatbox.cur"
+RESIZETEXTBOX           CURSOR  DISCARDABLE     "tboxfall.cur"
+IDC_RESIZETEXTBOX       CURSOR  DISCARDABLE     "tboxrise.cur"
+IDC_RESIZETEXTBOXVERT   CURSOR  DISCARDABLE     "tboxvert.cur"
+RESIZETEXTBOXHOR        CURSOR  DISCARDABLE     "tboxhor.cur"
+IDC_IBEAM               CURSOR  DISCARDABLE     "ibeam.cur"
+IDC_FONTEXTCOLOR        CURSOR  DISCARDABLE     "fontextc.cur"
+IDC_TEXTBACKGROUNDCOL   CURSOR  DISCARDABLE     "textback.cur"
+IDC_ACTIONS2            CURSOR  DISCARDABLE     "actions2.cur"
+IDC_NUKACTOR3           CURSOR  DISCARDABLE     "nukeactr.cur"
+IDC_NORMALIZE           CURSOR  DISCARDABLE     "normaliz.cur"
+IDC_CURSOR1             CURSOR  DISCARDABLE     "cur00001.cur"
+IDC_CURSOR2             CURSOR  DISCARDABLE     "cur00002.cur"
+IDC_CURSOR3             CURSOR  DISCARDABLE     "cur00003.cur"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

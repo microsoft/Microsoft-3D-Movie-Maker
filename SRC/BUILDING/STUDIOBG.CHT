@@ -1,0 +1,357 @@
+// -----------------------------------------------------
+//
+// Revisions:
+// 
+// mm-dd-yy
+// ??-??-94     GlenMac         - Created
+// 05-16-95		GlenMac			- cleanup
+// -----------------------------------------------------
+
+WAVE_CHUNK( "building\sound\studio\tvpop.wav", kwavStudioTVPop)
+OBJECT( "studio1: toolbox",  kgobStudio1Tools, 120, kcrsHand1 )
+	REP_PPMBMP( CHID1( krepDefault), "building\pbm\studio\st1tbx.pbm" )
+	REP_ANIM(CHID(kst2, krepDefault), "Studio: Toolbox TV")
+ 		// disable hotspots and play the toolbox pop out.
+ 		DISABLEHOTSPOTS(kflgBuildingMin);
+		ENDVOICE();
+ 		cnt = kcell1;
+		Cell( cnt++, 0,0, 6 );
+		VOICE( kwavStudioTVPop, 0 );
+		CreateChildGob( kgobStudio1, kgobStudio1TV, kgobStudio1TV );
+		While (cnt <= kcell6);
+			Cell(cnt++, 0,0, 6);
+		End;
+	ENDCHUNK
+	CLICK_SCRIPT( "studio1: tbox click" )
+		// Go to the studio. - intro sequence it
+		ChangeStateThis( kst2 );
+	ENDCHUNK
+	#include "studioBx.seq"
+
+												 // Z depth above help balloons which have depth of 800.
+OBJECT( "studio1: toolbox anim",  kgobStudio1TV, 810, kcrsHand1 )
+	REP_ANIM(CHID(kst1, krepDefault), "Studio: Toolbox TV")
+ 		cnt = kcell1;
+		SetNoSlipThis( fTrue );		// we can now drop frames!
+		While (cnt <= kcell22);
+			Cell(cnt++, 0,0, 6);
+		End;
+		SetNoSlipThis( fFalse );	// don't drop frames!
+		Cell( cnt, 0,0, 6 );		// be sure and draw the last frame		
+		ChangeStateGob( kgobStudio1McZee, kst4 );// played the intro
+	ENDCHUNK
+	#include "studioTv.seq"
+
+// -----------------------------------------------------
+// Studio Main McZee
+// -----------------------------------------------------
+
+// Talking on the phone sounds.
+WAVE_CHUNK( "building\sound\studio\Std1A.wav", kwavStd1A )
+WAVE_CHUNK( "building\sound\studio\VO97A.wav", kwavVO97A )
+WAVE_CHUNK( "building\sound\studio\VO97B.wav", kwavVO97B )
+// Intro sounds.
+WAVE_CHUNK( "building\sound\studio\Std1B.wav", kwavStd1B )
+
+// intro in front of studio sound
+WAVE_CHUNK( "building\sound\studio\STD4.wav", kwavStudioIntro )
+
+
+OBJECT("studio1: TOOLS INTRO ", kgobToolsIntroAVI, 999, kcrsHand1)
+	REP_VIDEO( CHID1( krepDefault ), "tools1.avi", fTrue )
+	CLICK_SCRIPT( "clicked tools intro" )
+		// stop playing... the polling will catch and throw
+		// us to the tools
+		StopThis();	
+	ENDCHUNK
+
+
+
+OBJECT("studio1: mczee", kgobStudio1McZee, 111, kcrsHand1)
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 1: Default and hidden state.
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_RECT(CHID(kst1, krepDefault), "studio1:mczee", 0, 0, 0, 0)
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 2: Wait state.
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_ANIM(CHID(kst2, krepDefault), "mczee talking on phone")
+		Cell(kcell69, 0, 0, 120);
+		WAIT_FOR_TRANSITION();
+		While (fTrue);
+			// Select one of the three phone animations at random.
+			iAnimRnd = Rnd(3);
+			If (iAnimRnd == 0);		// book talent
+				kcellStart = kcell1;
+				kcellEnd = kcell67;
+			Elif (iAnimRnd == 1);	// on hold
+				kcellStart = kcell36;
+				kcellEnd = kcell67;
+			Else;					// deal
+				kcellStart = kcell1;
+				kcellEnd = kcell42;
+			End;
+
+			VOICE(kwavStd1A + iAnimRnd, ktpcStd1A + iAnimRnd);
+
+ 			i = kcellStart;
+			Cell(i++, 0, 0, 6);
+			SetNoSlipThis( fTrue );		// we can now drop frames!
+			While (i < kcellEnd);
+				Cell(i, 0, 0, 6);
+				i++;
+			End;
+			SetNoSlipThis( fFalse );		// we can now drop frames!
+			Cell( kcellEnd, 0,0, 6 );
+
+			// McZee listening to the phone.
+			i=kcell451;
+			While (i <= kcell518);
+				Cell(i, 0, 0, 6);
+				i++;
+			End;
+			ENDVOICE();
+		End;
+	ENDCHUNK
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 3: McZee Studio Intro/Help.  "Hey --welcome to the studio!"
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_ANIM(CHID(kst3, krepDefault), "mczee intro")
+		VOICE(kwavStd1B, ktpcStd1B);
+ 		i = kcell69;
+		While (i <= kcell138);
+			Cell(i, 0,0, 6);
+			i++;
+		End;
+		ENDVOICE();
+  		SETGLOBAL(fHelpOn, fFalse);
+  		DestroyGob(kgobBalloon1d);   // This destroys the balloon that holds the tip
+		ChangeStateThis(kst2);	// Back to wait state.
+	ENDCHUNK
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 4: McZee - take us into the tools (play intro anim of 
+	// talking in front of the tools if necessary)
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_ANIM(CHID(kst4, krepDefault), "mczee intro")
+		PLAYMIDI( cnoNil );	// stop midi
+		//WAIT_FOR_TRANSITION();
+		Cell( CHID(kst1, krepDefault), 0,0, 1 );	// hide mczee
+		DestroyGob( kgobStudio1TV );
+		DestroyGob( kgobStudio1Tools );
+		ChangeStateGob( kgobStudio1, kst2 );		// switch to tools background in case AVI goes
+
+		If( ::fStdIntro );
+			// if the users have already seen the studio intro, skip to tools
+			// and make a new movie
+			ChangeStateGob( kgobStudio1McZee, kst5 );
+			Exit();
+		End;
+ 			
+ 		DISABLEHOTSPOTS(kflgBuildingMin);
+		::fStdIntro = fTrue;
+		ENDVOICE();
+		CreateChildGob( GidParThis(), kgobToolsIntroAVI, kgobToolsIntroAVI );
+		Cell( CHID(kst1, krepDefault),0,0, 100 );	// pause for sufficient cue-up 
+		While( PlayingGob( kgobToolsIntroAVI ));
+			Cell( CHID(kst1, krepDefault), 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		SETGLOBAL( fStudioPS, fFalse );
+		ChangeStateThis( kst5 );
+	ENDCHUNK
+	
+	REP_ANIM( CHID(kst5, krepDefault), "start tools")
+		DestroyThis();	// Erase McZee to prevent palette flash
+		ENDVOICE();		// Make sure McZee isn't talking
+		
+		// set a flag to tell the tools to play the annoying guided help sequence
+		SetProp(kpridStudioFlags, GetProp(kpridStudioFlags) | 1);
+		LOADTOOLS(kgobStudio1, kst1, chidNil);
+	ENDCHUNK
+
+	CLICK_SCRIPT("Clicked McZee: Do help")
+		If (!GLOBAL(fHelpOn));	// Turning help on
+			SETGLOBAL(fHelpOn, fTrue);
+   			CreateHelpGob(kgobStudio1, ktpcStudio1);
+			ChangeStateThis(kst3);
+		Else;					// Turning help off
+  			DestroyGob(kgobBalloon1d);   // This destroys the balloon that holds the tip
+			ENDVOICE();
+			SETGLOBAL(fHelpOn, fFalse);
+			ChangeStateThis(kst2);	// Back to wait state.
+		End;
+	ENDCHUNK
+#include "mzstudio.seq"		// include all mczee cells
+
+
+OBJECT( "doors out", kgobStudio2Doors, 33, kcrsHand1 )
+REP_MASK(CHID1(krepDefault), "building\bitmaps\studio\st2doors.bmp", 0, 0)
+CLICK_SCRIPT( "doors out clicked" )
+	NEXTPLACE1( kgobBackstage1, kst2 );
+ENDCHUNK
+
+OBJECT( "studio2 map", kgobStudio2Map, 44, kcrsHand1 )
+REP_MASK(CHID1(krepDefault), "building\bitmaps\studio\st2map.bmp", 0, 0)
+CLICK_SCRIPT( "studio 2 map clicked" ) 
+	CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+ENDCHUNK
+
+OBJECT( "studio2 exit",  kgobStudio2Exit, 45, kcrsHand1 )
+REP_MASK( CHID1( krepDefault), "building\bitmaps\studio\st2exit.bmp" )
+CLICK_SCRIPT( "studio 2 exit clicked" ) 
+	QUITAPP();
+ENDCHUNK
+
+OBJECT( "studio2 exit word",  kgobStudio2ExitWord, 44, kcrsHand1 )
+REP_PPMBMP( CHID1( krepDefault), "building\pbm\studio\st2exit.pbm" )
+
+
+//------------------------------------------------------------
+//	Bio page hotspots
+//----------------------------------------------------------
+OBJECT( "Biopage 38 mask",  kgobStdo1m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo1m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 38 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 38 );
+			BIO_CREATEBOOK( 38, fFalse, kgobStudio1 );
+		End;		
+	ENDCHUNK
+
+
+
+OBJECT( "Biopage 14 mask",  kgobStdo4m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo4m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 14 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 14 );
+			BIO_CREATEBOOK( 14, fFalse, kgobStudio4 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 15 mask",  kgobStdo4m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo4m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 15 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 15 );
+			BIO_CREATEBOOK( 15, fFalse, kgobStudio4 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 16 mask",  kgobStdo4m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo4m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 16 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 16 );
+			BIO_CREATEBOOK( 16, fFalse, kgobStudio4 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 17 mask",  kgobStdo4m4, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo4m4.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 17 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 17 );
+			BIO_CREATEBOOK( 17, fFalse, kgobStudio4);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 18 mask",  kgobStdo3m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo3m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 18 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 18 );
+			BIO_CREATEBOOK( 18, fFalse, kgobStudio3 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 19 mask",  kgobStdo3m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo3m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 19 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 19 );
+			BIO_CREATEBOOK( 19, fFalse, kgobStudio3 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 20 mask",  kgobStdo3m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo3m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 20 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 20 );
+			BIO_CREATEBOOK( 20, fFalse, kgobStudio3 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 21 mask",  kgobStdo2m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo2m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 21 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 21 );
+			BIO_CREATEBOOK( 21, fFalse, kgobStudio2 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 22 mask",  kgobStdo2m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo2m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 22 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 22 );
+			BIO_CREATEBOOK( 22, fFalse, kgobStudio2 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 23 mask",  kgobStdo2m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\studio\stdo2m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 23 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 23 );
+			BIO_CREATEBOOK( 23, fFalse, kgobStudio2 );
+		End;		
+	ENDCHUNK

@@ -1,0 +1,1283 @@
+/*****************************************************************************\
+ *
+ *	popdn.cht
+ *
+ *	All pop-downs that appear in the studio.  "Popdowns" are browser type of
+ *  popups.
+ *
+ *	Author: Sean Selitrennikoff
+ *
+ * 	Status: Not Reviewed
+ *
+\*****************************************************************************/
+
+
+//
+// Press and hold button constants
+//
+#define klwPressDelayMax             45
+#define klwPressDelayMin             10
+#define kdlwPressDelay               7
+
+ANIMATION(kidPressPageFwd, "Page Fwd Pressed")
+	lwDelay = klwPressDelayMax;
+	EnqueueCid(cidBrowserFwd, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+	Cell(CHID(kstBrowserEnabled, krepMouseDnOn), 0, 0, lwDelay);
+	While();
+		If(lwDelay > klwPressDelayMin);
+			lwDelay -= kdlwPressDelay;
+		End;
+		EnqueueCid(cidBrowserFwd, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+		Cell(chidNil, 0, 0, lwDelay);
+	End;
+ENDCHUNK
+
+
+ANIMATION(kidPressPageBack, "Page Back Pressed")
+	lwDelay = klwPressDelayMax;
+	EnqueueCid(cidBrowserBack, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+	Cell(CHID(kstBrowserEnabled, krepMouseDnOn), 0, 0, lwDelay);
+	While();
+		If(lwDelay > klwPressDelayMin);
+			lwDelay -= kdlwPressDelay;
+		End;
+		EnqueueCid(cidBrowserBack, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+		Cell(chidNil, 0, 0, lwDelay);
+	End;
+ENDCHUNK
+
+
+
+//
+//
+// Spletter Easel, Color Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Spletter Easel, Color Popdown", kidSpltsColor, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpSpltsColorLeft, kypSpltsColorTop,
+		 kxpSpltsColorRight, kypSpltsColorBottom
+		 )
+CREATE_SCRIPT("Spletter color parent")
+	CreateChildThis(kidSpltsColorBackground, kidSpltsColorBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Spletter Easel, Color Popdown", kidSpltsColorBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_FILL(CHID(kstDefault, krepDefault), "Sizer", 0, 0,kdxpSpltsColor, kdypSpltsColor, Palette( 21 ), Palette( 21 ) )
+	PATTERN_100
+ENDCHUNK
+
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Spletter color created")
+	CreateChildThis(kidSpltsColorPageDown, kidSpltsColorPageDown);
+	ChangeStateGob(kidSpltsColorPageDown, kstBrowserEnabled);
+	CreateChildThis(kidSpltsColorPageUp, kidSpltsColorPageUp);
+	ChangeStateGob(kidSpltsColorPageUp, kstBrowserEnabled);
+
+	yp = kdypSpltsColorTop;
+	nFrame = 0;
+
+	While(yp <= (kdypSpltsColor - kdypSpltsColorFrame - kdypSpltsColorBottom));
+
+		xp = kdxpSpltsColorLeft;
+
+		While(xp <= (kdxpSpltsColor - kdxpSpltsColorRight - kdxpSpltsColorFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidSpltsColorFrame + nFrame, kidSpltsColorFrame);
+			MoveAbsGob(kidSpltsColorFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpSpltsColorSpacing + kdxpSpltsColorFrame;
+        End;
+		
+		yp += kdypSpltsColorSpacing + kdypSpltsColorFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Spletter Color, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(((kid >= kidSpltsColorFrame) && (kid < kidSpltsColorFrameLim)) ||
+	   (kid == kidSpltsColorPageDown) ||
+	   (kid == kidSpltsColorPageUp));
+	   Return(fFalse);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidSpltsColor, 0, 0, 0, 0);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Spletter Color, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+//
+// Spletters color frame
+//
+GOBCHUNK("Spletters Color Frame", kidSpltsColorFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d1frm.bmp",
+	kxpregSpltsColorFrame, kypregSpltsColorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d1frmh.bmp",
+	kxpregSpltsColorFrame, kypregSpltsColorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Frame clicked")
+	PlaySoundGob(kidBackground, kctgWave, kcnoPSelectWav, 0, 0x10000, 1, 0, 1);
+	EnqueueCid(cidBrowserSelect, kidSpltsColor, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidSpltsColor, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Spletters color page down
+//
+GOBCHUNK("Spletters Color page down", kidSpltsColorPageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpSpltsColorPageDown, kypSpltsColorPageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d1dn.bmp",
+	kxpregSpltsColorPageDown, kypregSpltsColorPageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d1dns.bmp",
+	kxpregSpltsColorPageDown, kypregSpltsColorPageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Spletters color page up
+//
+GOBCHUNK("Spletters Color page up", kidSpltsColorPageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpSpltsColorPageUp, kypSpltsColorPageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d1up.bmp",
+	kxpregSpltsColorPageUp, kypregSpltsColorPageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d1ups.bmp",
+    kxpregSpltsColorPageUp, kypregSpltsColorPageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+
+
+//
+//
+// Spletter Easel, Shape Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Spletter Easel, Shape Popdown", kidSpltsShape, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpSpltsShapeLeft, kypSpltsShapeTop,
+		 kxpSpltsShapeRight, kypSpltsShapeBottom
+		 )
+CREATE_SCRIPT("Spletter Shape parent")
+	CreateChildThis(kidSpltsShapeBackground, kidSpltsShapeBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Spletter Easel, Shape Popdown", kidSpltsShapeBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_FILL(CHID(kstDefault, krepDefault), "Sizer", 0, 0,kdxpSpltsShape, kdypSpltsShape, Palette( 21 ), Palette( 21 ) )
+	PATTERN_100
+ENDCHUNK
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Spletter Shape created")
+	CreateChildThis(kidSpltsShapePageDown, kidSpltsShapePageDown);
+	ChangeStateGob(kidSpltsShapePageDown, kstBrowserEnabled);
+	CreateChildThis(kidSpltsShapePageUp, kidSpltsShapePageUp);
+	ChangeStateGob(kidSpltsShapePageUp, kstBrowserEnabled);
+
+	yp = kdypSpltsShapeTop;
+	nFrame = 0;
+
+	While(yp <= (kdypSpltsShape - kdypSpltsShapeFrame - kdypSpltsShapeBottom));
+
+		xp = kdxpSpltsShapeLeft;
+
+		While(xp <= (kdxpSpltsShape - kdxpSpltsShapeRight - kdxpSpltsShapeFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidSpltsShapeFrame + nFrame, kidSpltsShapeFrame);
+			MoveAbsGob(kidSpltsShapeFrame + nFrame, xp, yp);
+			ChangeStateGob(kidSpltsShapeFrame + nFrame, kstBrowserEnabled);
+			nFrame++;
+			xp += kdxpSpltsShapeSpacing + kdxpSpltsShapeFrame;
+        End;
+		
+		yp += kdypSpltsShapeSpacing + kdypSpltsShapeFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Spletter Shape, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(((kid >= kidSpltsShapeFrame) && (kid < kidSpltsShapeFrameLim)) ||
+	   (kid == kidSpltsShapePageDown) ||
+	   (kid == kidSpltsShapePageUp));
+	   Return(fFalse);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidSpltsShape, 0, 0, 0, 0);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Spletter Shape, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Spletters Shape frame
+//
+GOBCHUNK("Spletters Shape Frame", kidSpltsShapeFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d2frm.bmp",
+	kxpregSpltsShapeFrame, kypregSpltsShapeFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d2frmh.bmp",
+	kxpregSpltsShapeFrame, kypregSpltsShapeFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Frame clicked")
+	PlaySoundGob(kidBackground, kctgWave, kcnoPSelectWav, 0, 0x10000, 1, 0, 1);
+	EnqueueCid(cidBrowserSelect,kidSpltsShape, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidSpltsShape, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Spletters Shape page down
+//
+GOBCHUNK("Spletters Shape page down", kidSpltsShapePageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpSpltsShapePageDown, kypSpltsShapePageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d2dn.bmp",
+	kxpregSpltsShapePageDown, kypregSpltsShapePageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d2dns.bmp",
+	kxpregSpltsShapePageDown, kypregSpltsShapePageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Spletters Shape page up
+//
+GOBCHUNK("Spletters Shape page up", kidSpltsShapePageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpSpltsShapePageUp, kypSpltsShapePageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d2up.bmp",
+	kxpregSpltsShapePageUp, kypregSpltsShapePageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d2ups.bmp",
+    kxpregSpltsShapePageUp, kypregSpltsShapePageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+//
+// Spletter Easel, Font Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Spletter Easel, Font Popdown", kidSpltsFont, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpSpltsFontLeft, kypSpltsFontTop,
+		 kxpSpltsFontRight, kypSpltsFontBottom
+		 )
+CREATE_SCRIPT("Spletter Font parent")
+	CreateChildThis(kidSpltsFontBackground, kidSpltsFontBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Spletter Easel, Font Popdown", kidSpltsFontBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_FILL(CHID(kstDefault, krepDefault), "Sizer", 0, 0,kdxpSpltsFont, kdypSpltsFont, Palette( 21 ), Palette( 21 ) )
+	PATTERN_100
+ENDCHUNK
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Spletter Font created")
+	CreateChildThis(kidSpltsFontPageDown, kidSpltsFontPageDown);
+	ChangeStateGob(kidSpltsFontPageDown, kstBrowserEnabled);
+	CreateChildThis(kidSpltsFontPageUp, kidSpltsFontPageUp);
+	ChangeStateGob(kidSpltsFontPageUp, kstBrowserEnabled);
+
+	yp = kdypSpltsFontTop;
+	nFrame = 0;
+
+	While(yp <= (kdypSpltsFont - kdypSpltsFontFrame - kdypSpltsFontBottom));
+
+		xp = kdxpSpltsFontLeft;
+
+		While(xp <= (kdxpSpltsFont - kdxpSpltsFontRight - kdxpSpltsFontFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidSpltsFontFrame + nFrame, kidSpltsFontFrame);
+			MoveAbsGob(kidSpltsFontFrame + nFrame, xp, yp);
+			ChangeStateGob(kidSpltsFontFrame + nFrame, kstBrowserEnabled);
+			nFrame++;
+			xp += kdxpSpltsFontSpacing + kdxpSpltsFontFrame;
+        End;
+		
+		yp += kdypSpltsFontSpacing + kdypSpltsFontFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Spletter Font, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(((kid >= kidSpltsFontFrame) && (kid < kidSpltsFontFrameLim)) ||
+	   (kid == kidSpltsFontPageDown) ||
+	   (kid == kidSpltsFontPageUp));
+	   Return(fFalse);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidSpltsFont, 0, 0, 0, 0);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Spletter Font, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Spletters Font frame
+//
+GOBCHUNK("Spletters Font Frame", kidSpltsFontFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d3frm.bmp",
+	kxpregSpltsFontFrame, kypregSpltsFontFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d3frmh.bmp",
+	kxpregSpltsFontFrame, kypregSpltsFontFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Frame clicked")
+	PlaySoundGob(kidBackground, kctgWave, kcnoPSelectWav, 0, 0x10000, 1, 0, 1);
+	EnqueueCid(cidBrowserSelect, kidSpltsFont, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidSpltsFont, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Spletters Font page down
+//
+GOBCHUNK("Spletters Font page down", kidSpltsFontPageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpSpltsFontPageDown, kypSpltsFontPageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d3dn.bmp",
+	kxpregSpltsFontPageDown, kypregSpltsFontPageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d3dns.bmp",
+	kxpregSpltsFontPageDown, kypregSpltsFontPageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Spletters Font page up
+//
+GOBCHUNK("Spletters Font page up", kidSpltsFontPageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpSpltsFontPageUp, kypSpltsFontPageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d3up.bmp",
+	kxpregSpltsFontPageUp, kypregSpltsFontPageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d3ups.bmp",
+    kxpregSpltsFontPageUp, kypregSpltsFontPageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+//
+//
+// Text Font Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Text Font Popdown", kidTextFont, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpTextFontLeft, kypTextFontTop,
+		 kxpTextFontRight, kypTextFontBottom
+		 )
+CREATE_SCRIPT("Text Font parent")
+	CreateChildThis(kidTextFontBackground, kidTextFontBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Text Font Popdown", kidTextFontBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMP(CHID(kstDefault, krepDefault), "studio\bmp\d5par.bmp")
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Text Font created")
+	CreateChildThis(kidTextFontPageDown, kidTextFontPageDown);
+	ChangeStateGob(kidTextFontPageDown, kstBrowserEnabled);
+	CreateChildThis(kidTextFontPageUp, kidTextFontPageUp);
+	ChangeStateGob(kidTextFontPageUp, kstBrowserEnabled);
+
+	yp = kdypTextFontTop;
+	.kidThumb = kidTextFontFrame;
+
+	While(yp <= (kdypTextFont - kdypTextFontFrame - kdypTextFontBottom));
+
+		xp = kdxpTextFontLeft;
+
+		While(xp <= (kdxpTextFont - kdxpTextFontRight - kdxpTextFontFrame));
+
+			//
+			// create and position frames
+			//
+			ASSERT(.kidThumb <= kidTextFontFrameLim);
+			kidFrame = GidUnique();
+			CreateChildThis(kidFrame, kidTextFontFrame);
+			MoveAbsGob(kidFrame, xp, yp);
+			.kidThumb++;
+			xp += kdxpTextFontSpacing + kdxpTextFontFrame;
+        End;
+		
+		yp += kdypTextFontSpacing + kdypTextFontFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, hidNil, kchidScript1);
+	FilterCmdsThis(cidKey, hidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Text Font, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(kid == kidTextsFont);
+		Return(fTrue);
+	End;
+
+	If(GidParGob(kid) == kidTextFontBackground);
+		Return(fFalse);
+	End;
+
+	If(((kid >= kidTextFontFrame) && (kid < kidTextFontFrameLim)) ||
+	   (kid == kidTextFontPageDown) ||
+	   (kid == kidTextFontPageUp));
+	   DEBUGCMD( AlertStr("Handling kid the old way");)
+	   Return(fFalse);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidTextFont, 0, 0, 0, 0);
+	ChangeStateGob(kidTextsFont, kstDefault);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Text Font, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Text Font frame
+//
+GOBCHUNK("Text Font Frame", kidTextFontFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d5frm.bmp",
+	kxpregTextFontFrame, kypregTextFontFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d5frmh.bmp",
+	kxpregTextFontFrame, kypregTextFontFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSecToolWav, CHID(kstBrowserEnabled, krepClicked))
+CREATE_SCRIPT("Frame created")
+	CreateChildThis(GidParThis()->kidThumb, kidTextFontThumb);
+ENDCHUNK
+CLICK_SCRIPT("Frame clicked")
+	If(kidBackground->idtbxDown != kidTextsFont);
+		ChangeStateGob(kidBackground->idtbxDown, kstDefault);
+		kidBackground->idtbxDown = kidTextsFont;	
+		kidBackground->chttTbox = chttTboxSelect;
+	End;
+	EnqueueCid(cidBrowserSelect, kidTextFont, GidChild(GidThis()), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidTextFont, 0, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Text Font Thumb Frame", kidTextFontThumb, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "default", 16, 4, 156, 17)
+REP_ANIM(CHID(kstBrowserEnabled, krepEnterAnimation), "Font frame state change")
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserDisabled, krepEnterAnimation))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepEnterAnimation))
+
+
+
+//
+// Text Font page down
+//
+GOBCHUNK("Text Font page down", kidTextFontPageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpTextFontPageDown, kypTextFontPageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d5dn.bmp",
+	kxpregTextFontPageDown, kypregTextFontPageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d5dns.bmp",
+	kxpregTextFontPageDown, kypregTextFontPageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Text Font page up
+//
+GOBCHUNK("Text Font page up", kidTextFontPageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpTextFontPageUp, kypTextFontPageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d5up.bmp",
+	kxpregTextFontPageUp, kypregTextFontPageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d5ups.bmp",
+    kxpregTextFontPageUp, kypregTextFontPageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+
+
+
+//
+//
+// Text Style Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Text Style Popdown", kidTextStyle, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpTextStyleLeft, kypTextStyleTop,
+		 kxpTextStyleRight, kypTextStyleBottom
+		 )
+CREATE_SCRIPT("Text Style parent")
+	CreateChildThis(kidTextStyleBackground, kidTextStyleBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Text Style Popdown", kidTextStyleBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMP(CHID(kstDefault, krepDefault), "studio\bmp\d6par.bmp")
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Text Style created")
+	CreateChildThis(kidTextStylePageDown, kidTextStylePageDown);
+	ChangeStateGob(kidTextStylePageDown, kstBrowserEnabled);
+	CreateChildThis(kidTextStylePageUp, kidTextStylePageUp);
+	ChangeStateGob(kidTextStylePageUp, kstBrowserEnabled);
+
+	yp = kdypTextStyleTop;
+	nFrame = 0;
+
+	While(yp <= (kdypTextStyle - kdypTextStyleFrame - kdypTextStyleBottom));
+
+		xp = kdxpTextStyleLeft;
+
+		While(xp <= (kdxpTextStyle - kdxpTextStyleRight - kdxpTextStyleFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidTextStyleFrame + nFrame, kidTextStyleFrame);
+			MoveAbsGob(kidTextStyleFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpTextStyleSpacing + kdxpTextStyleFrame;
+        End;
+		
+		yp += kdypTextStyleSpacing + kdypTextStyleFrame;
+	End;
+	ASSERT(!FGobExists(kidTextStyleFrame + nFrame));
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Text Style, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(kid == kidTextsFontShape);
+		Return(fTrue);
+	End;
+
+	If(((kid >= kidTextStyleFrame) && (kid < kidTextStyleFrameLim)) ||
+	   (kid == kidTextStylePageDown) ||
+	   (kid == kidTextStylePageUp));
+	   Return(fFalse);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidTextStyle, 0, 0, 0, 0);
+	ChangeStateGob(kidTextsFontShape, kstDefault);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Text Style, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Text Style frame
+//
+GOBCHUNK("Text Style Frame", kidTextStyleFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d6frm.bmp",
+	kxpregTextStyleFrame, kypregTextStyleFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d6frmh.bmp",
+	kxpregTextStyleFrame, kypregTextStyleFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSecToolWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Frame clicked")
+	If(kidBackground->idtbxDown != kidTextsFontShape);
+		ChangeStateGob(kidBackground->idtbxDown, kstDefault);
+		kidBackground->idtbxDown = kidTextsFontShape;	
+		kidBackground->chttTbox = chttTboxSelect;
+	End;
+	EnqueueCid(cidBrowserSelect, kidTextStyle, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidTextStyle, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Text Style page down
+//
+GOBCHUNK("Text Style page down", kidTextStylePageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpTextStylePageDown, kypTextStylePageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d6dn.bmp",
+	kxpregTextStylePageDown, kypregTextStylePageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d6dns.bmp",
+	kxpregTextStylePageDown, kypregTextStylePageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+//
+// Text Style page up
+//
+GOBCHUNK("Text Style page up", kidTextStylePageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpTextStylePageUp, kypTextStylePageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d6up.bmp",
+	kxpregTextStylePageUp, kypregTextStylePageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d6ups.bmp",
+    kxpregTextStylePageUp, kypregTextStylePageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+
+
+
+//
+//
+// Text Size Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Text Size Popdown", kidTextSize, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpTextSizeLeft, kypTextSizeTop,
+		 kxpTextSizeRight, kypTextSizeBottom
+		 )
+CREATE_SCRIPT("Text Size parent")
+	CreateChildThis(kidTextSizeBackground, kidTextSizeBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Text Size Popdown", kidTextSizeBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMP(CHID(kstDefault, krepDefault), "studio\bmp\d7par.bmp")
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Text Size created")
+	CreateChildThis(kidTextSizePageDown, kidTextSizePageDown);
+	ChangeStateGob(kidTextSizePageDown, kstBrowserEnabled);
+	CreateChildThis(kidTextSizePageUp, kidTextSizePageUp);
+	ChangeStateGob(kidTextSizePageUp, kstBrowserEnabled);
+
+	yp = kdypTextSizeTop;
+	nFrame = 0;
+
+	While(yp <= (kdypTextSize - kdypTextSizeFrame - kdypTextSizeBottom));
+
+		xp = kdxpTextSizeLeft;
+
+		While(xp <= (kdxpTextSize - kdxpTextSizeRight - kdxpTextSizeFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidTextSizeFrame + nFrame, kidTextSizeFrame);
+			MoveAbsGob(kidTextSizeFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpTextSizeSpacing + kdxpTextSizeFrame;
+        End;
+		
+		yp += kdypTextSizeSpacing + kdypTextSizeFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Text Size, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(kid == kidTextsFontSize);
+		Return(fTrue);
+	End;
+
+	If(((kid >= kidTextSizeFrame) && (kid < kidTextSizeFrameLim)) ||
+	   (kid == kidTextSizePageDown) ||
+	   (kid == kidTextSizePageUp));
+	   Return(fFalse);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidTextSize, 0, 0, 0, 0);
+	ChangeStateGob(kidTextsFontSize, kstDefault);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Text Size, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Text Size frame
+//
+GOBCHUNK("Text Size Frame", kidTextSizeFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d7frm.bmp",
+	kxpregTextSizeFrame, kypregTextSizeFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d7frmh.bmp",
+	kxpregTextSizeFrame, kypregTextSizeFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSecToolWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Frame clicked")
+	If(kidBackground->idtbxDown != kidTextsFontSize);
+		ChangeStateGob(kidBackground->idtbxDown, kstDefault);
+		kidBackground->idtbxDown = kidTextsFontSize;	
+		kidBackground->chttTbox = chttTboxSelect;
+	End;
+	EnqueueCid(cidBrowserSelect, kidTextSize, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidTextSize, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Text Size page down
+//
+GOBCHUNK("Text Size page down", kidTextSizePageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpTextSizePageDown, kypTextSizePageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d7dn.bmp",
+	kxpregTextSizePageDown, kypregTextSizePageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d7dns.bmp",
+	kxpregTextSizePageDown, kypregTextSizePageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Text Size page up
+//
+GOBCHUNK("Text Size page up", kidTextSizePageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpTextSizePageUp, kypTextSizePageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d7up.bmp",
+	kxpregTextSizePageUp, kypregTextSizePageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d7ups.bmp",
+    kxpregTextSizePageUp, kypregTextSizePageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+
+//
+//
+// Text Color Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Text Color Popdown", kidTextColor, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpTextColorLeft, kypTextColorTop,
+		 kxpTextColorRight, kypTextColorBottom
+		 )
+CREATE_SCRIPT("Text Color parent")
+	CreateChildThis(kidTextColorBackground, kidTextColorBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Text Color Popdown", kidTextColorBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_FILL(CHID(kstDefault, krepDefault), "Color", 0, 0, kdxpTextColor, kdypTextColor, Palette( 21 ), Palette( 21 ) )
+	PATTERN_100
+ENDCHUNK
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Text Color created")
+	CreateChildThis(kidTextColorPageDown, kidTextColorPageDown);
+	ChangeStateGob(kidTextColorPageDown, kstBrowserEnabled);
+	CreateChildThis(kidTextColorPageUp, kidTextColorPageUp);
+	ChangeStateGob(kidTextColorPageUp, kstBrowserEnabled);
+
+	yp = kdypTextColorTop;
+	nFrame = 0;
+
+	While(yp <= (kdypTextColor - kdypTextColorFrame - kdypTextColorBottom));
+
+		xp = kdxpTextColorLeft;
+
+		While(xp <= (kdxpTextColor - kdxpTextColorRight - kdxpTextColorFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidTextColorFrame + nFrame, kidTextColorFrame);
+			MoveAbsGob(kidTextColorFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpTextColorSpacing + kdxpTextColorFrame;
+        End;
+		
+		yp += kdypTextColorSpacing + kdypTextColorFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Text Color, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(kid == kidTextsFontColor);
+		Return(fTrue);
+	End;
+
+	If(((kid >= kidTextColorFrame) && (kid < kidTextColorFrameLim)) ||
+	   (kid == kidTextColorPageDown) ||
+	   (kid == kidTextColorPageUp));
+	   Return(fFalse);
+	End;
+
+	If (kid == kidTextsFontColor);
+		Return(fTrue);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	EnqueueCid(cidBrowserCancel, kidTextColor, 0, 0, 0, 0);
+	ChangeStateGob(kidTextsFontColor, kstDefault);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Text Color, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Text Color frame
+//
+GOBCHUNK("Text Color Frame", kidTextColorFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d8frm.bmp",
+	kxpregTextColorFrame, kypregTextColorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d8frmh.bmp",
+	kxpregTextColorFrame, kypregTextColorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSecToolWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Frame clicked")
+	If(kidBackground->idtbxDown != kidTextsFontColor);
+		ChangeStateGob(kidBackground->idtbxDown, kstDefault);
+		kidBackground->idtbxDown = kidTextsFontColor;	
+		kidBackground->chttTbox = chttTboxSelect;
+	End;
+	EnqueueCid(cidBrowserSelect, kidTextColor, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidTextColor, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Text Color page down
+//
+GOBCHUNK("Text Color page down", kidTextColorPageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpTextColorPageDown, kypTextColorPageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d8dn.bmp",
+	kxpregTextColorPageDown, kypregTextColorPageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d8dns.bmp",
+	kxpregTextColorPageDown, kypregTextColorPageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Text Color page up
+//
+GOBCHUNK("Text Color page up", kidTextColorPageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpTextColorPageUp, kypTextColorPageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d8up.bmp",
+	kxpregTextColorPageUp, kypregTextColorPageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d8ups.bmp",
+    kxpregTextColorPageUp, kypregTextColorPageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+
+//
+//
+// Text BkgdColor Popdown
+//
+//
+
+//
+//		Parent
+//
+GOBCHUNK("Text BkgdColor Popdown", kidTextBkgdColor, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault), "Sizer",
+		 kxpTextBkgdColorLeft, kypTextBkgdColorTop,
+		 kxpTextBkgdColorRight, kypTextBkgdColorBottom
+		 )
+CREATE_SCRIPT("Text BkgdColor parent")
+	CreateChildThis(kidTextBkgdColorBackground, kidTextBkgdColorBackground);
+ENDCHUNK
+
+//
+// 		Background
+//
+GOBCHUNK("Text BkgdColor Popdown", kidTextBkgdColorBackground, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMP(CHID(kstDefault, krepDefault), "studio\bmp\d9par.bmp")
+ADOPT_WAVE(kcnoDropDnWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Text BkgdColor created")
+	CreateChildThis(kidTextBkgdColorPageDown, kidTextBkgdColorPageDown);
+	ChangeStateGob(kidTextBkgdColorPageDown, kstBrowserEnabled);
+	CreateChildThis(kidTextBkgdColorPageUp, kidTextBkgdColorPageUp);
+	ChangeStateGob(kidTextBkgdColorPageUp, kstBrowserEnabled);
+
+	yp = kdypTextBkgdColorTop;
+	nFrame = 0;
+
+	While(yp <= (kdypTextBkgdColor - kdypTextBkgdColorFrame - kdypTextBkgdColorBottom));
+
+		xp = kdxpTextBkgdColorLeft;
+
+		While(xp <= (kdxpTextBkgdColor - kdxpTextBkgdColorRight - kdxpTextBkgdColorFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidTextBkgdColorFrame + nFrame, kidTextBkgdColorFrame);
+			MoveAbsGob(kidTextBkgdColorFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpTextBkgdColorSpacing + kdxpTextBkgdColorFrame;
+        End;
+		
+		yp += kdypTextBkgdColorSpacing + kdypTextBkgdColorFrame;
+	End;
+
+	//
+	// This shuts when a mouse down occurs.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Text BkgdColor, track mouse", kchidScript1)
+	kid = _parm[0];
+
+	If(kid == kidTextsBkgdColor);
+		Return(fTrue);
+	End;
+
+	If(((kid >= kidTextBkgdColorFrame) && (kid < kidTextBkgdColorFrameLim)) ||
+	   (kid == kidTextBkgdColorPageDown) ||
+	   (kid == kidTextBkgdColorPageUp));
+	   Return(fFalse);
+	End;
+
+	If (kid == kidTextsBkgdColor);
+		Return(fTrue);
+	End;
+
+	//
+	// Tell the parent to cancel the popup and pass the click thru.
+	//
+	ASSERT(FGobExists(kidTextBkgdColor));
+	EnqueueCid(cidBrowserCancel, kidTextBkgdColor, 0, 0, 0, 0);
+	ChangeStateGob(kidTextsBkgdColor, kstDefault);
+	Return(fFalse);
+ENDCHUNK
+CHILD_SCRIPT("Text BkgdColor, disable keys", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+
+
+//
+// Text BkgdColor frame
+//
+GOBCHUNK("Text BkgdColor Frame", kidTextBkgdColorFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\d9frm.bmp",
+	kxpregTextBkgdColorFrame, kypregTextBkgdColorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d9frmh.bmp",
+	kxpregTextBkgdColorFrame, kypregTextBkgdColorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSecToolWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Frame clicked")
+	If(kidBackground->idtbxDown != kidTextsBkgdColor);
+		ChangeStateGob(kidBackground->idtbxDown, kstDefault);
+		kidBackground->idtbxDown = kidTextsBkgdColor;	
+		kidBackground->chttTbox = chttTboxSelect;
+	End;
+	EnqueueCid(cidBrowserSelect, kidTextBkgdColor, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidTextBkgdColor, 0, 0, 0, 0);
+ENDCHUNK
+
+//
+// Text BkgdColor page down
+//
+GOBCHUNK("Text BkgdColor page down", kidTextBkgdColorPageDown, kgokkNormal)
+	DEFAULT_POSITION(kxpTextBkgdColorPageDown, kypTextBkgdColorPageDown, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d9dn.bmp",
+	kxpregTextBkgdColorPageDown, kypregTextBkgdColorPageDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d9dns.bmp",
+	kxpregTextBkgdColorPageDown, kypregTextBkgdColorPageDown)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageDnWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageFwd, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+//
+// Text BkgdColor page up
+//
+GOBCHUNK("Text BkgdColor page up", kidTextBkgdColorPageUp, kgokkNormal)
+	DEFAULT_POSITION(kxpTextBkgdColorPageUp, kypTextBkgdColorPageUp, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, chidNil, cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\d9up.bmp",
+	kxpregTextBkgdColorPageUp, kypregTextBkgdColorPageUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\d9ups.bmp",
+    kxpregTextBkgdColorPageUp, kypregTextBkgdColorPageUp)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPageUpWav, CHID(kstBrowserEnabled, krepClicked))
+ADOPT_ANIM(kidPressPageBack, CHID(kstBrowserEnabled, krepMouseDnOn))
+
+
+
+

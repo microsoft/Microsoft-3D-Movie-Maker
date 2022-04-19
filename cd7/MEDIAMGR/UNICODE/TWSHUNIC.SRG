@@ -1,0 +1,174 @@
+# SRG file for twilight shared components.
+# similar to twilunic.srg
+# Created: frederw 5/2/96
+
+######## Custom Database properties
+# this is where the property sets get registers so that they can be used in the finder...
+# Note, the value number is local id
+[HKEY_CLASSES_ROOT\FMTID\{3E5C6950-EA0B-11ce-A065-00AA00A71191}\SchemaHandlerCLSID]
+"1033"="REG_SZ:{ce0fa180-60cf-11cf-96fd-00aa00b5ea4c}"
+
+# summary info property set
+[HKEY_CLASSES_ROOT\FMTID\{F29F85E0-4FF9-1068-AB91-08002B27B3D9}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:Summary Info"
+
+[HKEY_CLASSES_ROOT\FMTID\{F29F85E0-4FF9-1068-AB91-08002B27B3D9}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\prop1033.tlb"
+
+# file system property set
+[HKEY_CLASSES_ROOT\FMTID\{AEC56610-07DB-11cf-80D6-00AA006C2CAC}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:File System"
+
+[HKEY_CLASSES_ROOT\FMTID\{AEC56610-07DB-11cf-80D6-00AA006C2CAC}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\prop1033.tlb"
+
+# HTML info property set
+[HKEY_CLASSES_ROOT\FMTID\{70EB7A10-55D9-11CF-B75B-00AA0051FE20}\PropertySetDisplayName]
+# LOC : needs text localisation, plus
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:HTML Information"
+
+[HKEY_CLASSES_ROOT\FMTID\{70EB7A10-55D9-11CF-B75B-00AA0051FE20}\SchemaTLIB]
+# LOC : the number needs to be changed. The number represents the LANGID
+# LOC : so 1033 is (0x0409) LANG_ENGLISH, SUBLANG_ENGLISH_US
+# LOC : so 1031 is (0x0407) LANG_GERMAN, SUBLANG_GERMAN
+# LOC : so   17 is (0x0011) LANG_JAPANESE, SUBLANG_NEUTRAL 
+"1033"="REG_SZ:<product path>\\prop1033.tlb"
+
+
+######### The NT HTML Filter
+
+## Add persistent handler to IE 3.0 install, HTML handler CLSID
+[HKEY_CLASSES_ROOT\CLSID\{25336920-03F9-11cf-8FD0-00AA00686F13}\PersistentHandler]
+@="{EEC97550-47A9-11CF-B952-00AA0051FE20}"
+
+[HKEY_CLASSES_ROOT\CLSID\{EEC97550-47A9-11CF-B952-00AA0051FE20}\PersistentAddinsRegistered\{89BCB740-6119-101A-BCB7-00DD010655AF}]
+@="{E0CA5340-4534-11CF-B952-00AA0051FE20}"
+
+## Register filter object itself
+
+[HKEY_CLASSES_ROOT\HtmlFilter]
+@="HTML Filter"
+
+[HKEY_CLASSES_ROOT\HtmlFilter\CLSID]
+@="{E0CA5340-4534-11CF-B952-00AA0051FE20}"
+
+
+[HKEY_CLASSES_ROOT\CLSID\{E0CA5340-4534-11CF-B952-00AA0051FE20}]
+@="HTML Filter"
+
+[HKEY_CLASSES_ROOT\CLSID\{E0CA5340-4534-11CF-B952-00AA0051FE20}\ProgID]
+@="HtmlFilter"
+
+[HKEY_CLASSES_ROOT\CLSID\{E0CA5340-4534-11CF-B952-00AA0051FE20}\InprocServer32]
+@="<product path>\\htmlfilt.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Register fail-safe entry so that CMS will still find the filter if intermediate keys are
+## installed over.
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.htm]
+@="{E0CA5340-4534-11CF-B952-00AA0051FE20}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.html]
+@="{E0CA5340-4534-11CF-B952-00AA0051FE20}"
+
+######## filters\office, office filters
+
+[HKEY_CLASSES_ROOT\Excel.Sheet.5\CmsFilter]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+[HKEY_CLASSES_ROOT\Powerpoint.Show.7\CmsFilter]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+[HKEY_CLASSES_ROOT\Word.Document.6\CmsFilter]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+[HKEY_CLASSES_ROOT\Asset.OfficeFilter]
+@="CMS Office Filter"
+
+[HKEY_CLASSES_ROOT\Asset.OfficeFilter\CLSID]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+[HKEY_CLASSES_ROOT\CLSID\{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}]
+@="CMS Office Filter"
+
+[HKEY_CLASSES_ROOT\CLSID\{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}\InprocServer32]
+@="<product path>\\fltoffu.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}\InprocServer32]
+"ThreadingModel"="REG_SZ:Apartment"
+
+## Register fail-safe entry so that CMS will still find the filter if intermediate keys are
+## installed over (or if Office is not installed).
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.doc]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.xls]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\FilterExtensions\.ppt]
+@="{8ba3dc72-3038-11cf-96de-00aa00b5ea4c}"
+
+########## register the find verb so that it appears on root storages...
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\shell]
+@=""
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\shell\find]
+@=""
+
+[HKEY_CLASSES_ROOT\CLSID\{54E939C0-BFB6-11CE-A9BC-00AA006C1395}\shell\find\command]
+@="<product path>\\cmsfndu.exe /S %L"
+
+########## and sub-folders....
+[HKEY_CLASSES_ROOT\Asset.Storage\Directory]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Directory\shell]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Directory\shell\find]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Directory\shell\find\command]
+@="<product path>\\cmsfndu.exe /S %L"
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Storage]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Storage\shell]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Storage\shell\find]
+@=""
+
+[HKEY_CLASSES_ROOT\Asset.Storage\Storage\shell\find\command]
+@="<product path>\\cmsfndu.exe /S %L"
+
+
+############ Finder launch...
+[HKEY_CLASSES_ROOT\cmsfind\shell\open\Command]
+@="<product path>\\cmsfndu.exe \%1"
+

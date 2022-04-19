@@ -1,0 +1,38 @@
+; ================================================================
+; File: mmdc.dat in the mmcat directory
+; Contains data read in for the multimedia catalog
+; Specifies the other MMDC files -- one for each TOC page
+; ================================================================
+
+[catalog]
+nTOCs=1
+appCaption=Microsoft Kids Catalog
+ 
+;----------------------------------------------------------------------
+; the following files are assumed to be in the same directory as 
+; mmdc.dat.
+
+
+; ======== intro sound and animation names ===========
+introSndFile=intro.wav
+splashScreen=splash.dib
+endScreen=end.dib
+
+; product page buttons and popup text background image
+navBtn=btnbar.dib
+pshBtn=contbtn.dib
+txtBkgd=bottom.dib
+
+;----------------------------------------------------------------------
+; dibs and sound files for product pages are split into subdirectories 
+; (dibs1, dibs2, and dibs3, &c.) under the main catalog directory.
+;
+; There is a .DAT file for each of these subdirectories (in main directory).
+
+dibs1dat=mmdc1.dat
+
+[CurrentLanguage]
+language=default
+
+[Message1]
+default=Please insert the CD.

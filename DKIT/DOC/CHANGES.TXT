@@ -1,0 +1,354 @@
+
+SOFTIMAGE
+Research & Development
+Developer's Toolkit
+
+                           *** CHANGES ***
+
+
+   This file contains the changes made to the developer's toolkit since the
+first official release.
+
+- Examples programs were moved from the `src' directory to the new `examples'
+  directory.
+- New `examples/sceneDumpMatrix.c' file.  This new program dumps the transfor-
+  mation matrix (4x4) of each models in the given scene in standard output.
+  The real purpose of this program is to show how to build the global matrix
+  of sub-models.
+- New local Makefiles were added in the `src' and `examples' directories.
+  To compile everything, you still type `make' in the `DKit' directory.
+- The `obj' directory have been replaced by the `lib' directory and contains
+  the developer's toolkit library `libdkit.a'.
+- The new `doc' directory contains the documentation files.
+- The new `tinyActor.{c,h}' files contains inverse-kinematics and flexible
+  skin information (taken from `tinyDynamics.{c,h}').
+
+---------------------------
+
+DKit for Release of Creative v2.6
+
+- Scene files have been changed with Creative Environment v2.6. A library
+  called 'libdbdk.a' has been added to read/write those scene into/from
+  a DKit scene structure. Functions are also provided to do a bit of 
+  database/file management. Details are found in 'libdbdk.h'.
+  Code source is not available for this library, as we progressively
+  want to provide better access to Softimage functions through the DKit.
+
+---------------------------
+
+DKit for Release of Creative v2.62
+
+- Various fixes, mainly for shapes interpolated with weights.
+- Added fields in DK_Model, DK_Camera and DK_Light structures
+  to keep the schematic view position information.
+- libdbdk.a has been compiled under IRIX 5.1 and is available in 'lib5_1'.
+
+- *** A new version number has been introduced, to identify releases of
+  the DKit itself. The version is to be found in the file libdbdk.h
+  header.
+
+---------------------------
+
+DKit for Release of Creative v2.65 (DKit 1.1)
+
+========================================================================
+========================================================================
+
+             DKit version 1.1 - Changes from v1.03
+
+	       --> Compatible with CREATIVE ENV version 2.65
+
+========================================================================
+========================================================================
+
+
+A) SUMMARY OF CHANGES ACCORDING TO VARIOUS FILES
+------------------------------------------------
+
+	h/tinyTexture.h		new fields for texture supports
+
+	h/tinyModel.h
+	h/tinyCamera.h
+	h/tinyLight.h
+	h/tinyWave.h		new fields for a
+				- list of constraints,
+				- activation curves
+
+	h/tinyConstr.h    	new file for constraint lists types
+
+	h/tinyFcurve.h    	new structure for activation fcurves
+
+	h/tinyScnDump.h		new header file for tinyScnDump.c
+
+	src/tinyConstr.c	new file for constraint list creation
+
+        custom			new directory of examples
+
+B) DETAILS ON EACH MODIFICATION
+----------------------------------
+
+1) New texture support 
+
+  In tinyTexture.h, the 'DK_Texture' structure contains these new fields:
+      :
+      :
+      DK_Vector          geo;           /* Geometry of txtsup        */
+      DK_Vector          ctr;           /* Center of txtsup          */
+      DK_Vector          rot;           /* Rotation of txtsup        */
+      DK_Vector          trans;         /* Translation of txtsup     */
+      DK_Vector          scal;          /* Scaling of txtsup         */
+      DK_Matrix          txtsup;        /* Matrix of transformation  */
+      short              blkwht;        /* mapping Black and/or White*/
+      :
+      :
+
+   'txtsup' is used to keep intermediate calculation: it will not be saved.
+
+   Details on each new field:
+   --------------------------
+
+   where :
+   
+	o 'geo':	Geometry for the texture support.
+
+			If the type of mapping is the following:
+
+			- mapping XY, XZ, or YZ, then:
+
+				geo.x = (x length)/2
+				geo.y = (y length)/2
+				geo.z = (z length)/2
+
+			- mapping Cylindrical, then:
+
+				geo.x = geo.z = radius of the cylinder
+				geo.y = (y length)/2
+
+			- mapping Spherical, then:
+
+				geo.x = geo.y = geo.z = radius of the sphere
+
+	o 'ctr':	Center of projection for cylindrical and
+			spherical mappings.
+			This is equal to the position of the center of
+			the bounding box of the object.
+
+	o 'rot':	Angle of rotation of the texture support,
+			expressed in RADIANS.
+
+	o 'trans':	Translation of the center of the texture support
+			(in 'Softimage' units)
+
+	o 'scal':	Scaling factor applied on the texture support.
+			(A scaling of (1.0, 1.0, 1.0) will equal the
+			bounding box).
+
+	o 'txtsup':	Will handle the inverse transformation matrix
+			for the texture coordinates calculation.
+
+	o 'blkwht':	Black and White Transparent Key (boolean)
+
+			If it is:
+
+			- TRUE, then:
+
+				PURE white AND PURE black are fully 
+				transparent(as texture transparency)
+
+			- FALSE, then:
+
+				normal processing of texture values.
+
+
+
+2) New constraint structure
+
+
+  There was, in v2.62, only one possible type of constraint:
+
+  (example taken from the DK_Model structure)
+	:
+	:
+      /* constraints */
+      DK_String  pos_constraint_name;   /* position constraint name */
+      short      pos_constraint_type;   /* position constraint type */
+
+      /* translation path */
+      DK_Spline          *path;         /* old scene file format */
+      DK_String          path_name;     /* new v2.5 scene file format */
+	:
+	:
+
+
+  The 'pos_constraint_name' field was retaining the name of the constraint,
+  while 'pos_constraint_type' was handling its type (model, light, etc..)
+
+  Now there are several types of constraints, and there can be more
+  than one constraint of the same type in some cases.
+  (example: many position constraint).
+
+  To keep track of these constraints, a new structure has been put in 
+  place. It consists in a list of constraint nodes (of type DK_Constraint).
+  However, the previous 'pos_constraint_' fields will be kept for 
+  compatibility purposes, for scenes preceeding v2.65 (they will be set 
+  like before, and one element of the 'constr_list' field will correspond 
+  to them);
+
+
+      /* constraints and other relations */
+      DK_Constraint	*constr_list;
+
+	where
+
+      DK_Constraint is:
+
+	typedef struct
+	{
+	   int		reltype;/* type of constraint or relation */
+	   int		cnstype;/* type of element we're pointing to */ 
+	   DK_String	prefix;	/* constraint element prefix  */
+	   DK_String	name;	/* constraint element name  */
+	   DK_actFcurve *actfcv;/* boolean activation curve */
+	   DK_Pointer   reldata;/* data associated with the relation, if any */
+	   DK_Constraint *next;	/* next constraint node in the list */
+	} DK_Constraint;
+
+
+   This structure can also be found in tinyCamera.h, tinyLight.h and
+   tinyWave.h.
+
+
+     i) Possible reltype values:
+
+	 All the following types of constraints (or relation between
+	 various elements) will be handled in the constraint list.
+
+	 In some cases, there is extra data attached to the constraint
+	 node, depending on the constraint type. (See 'data' in the comments
+	 below).
+
+	 #define DK_REL_CNSPOSLIM	102  /* Position limit (data) */
+	 #define DK_REL_CNSROTLIM	103  /* Rotation limit (data) */
+	 #define DK_REL_CNSPOS		111  /* Position cns */
+	 #define DK_REL_PATH		112  /* Path */
+	 #define DK_REL_CNSORI		114  /* Orientation cns */
+	 #define DK_REL_CNSSCL		115  /* Scaling cns */
+	 #define DK_REL_CNSDIR		116  /* Direction cns */
+	 #define DK_REL_CNSPLN		117  /* Bounding Plane */
+	 #define DK_REL_CNSPIVPLN	118  /* Pivot plane */
+	 #define DK_REL_SYMMETRY	150  /* Symmetry relation (data) */
+	 #define DK_REL_PATHEXPL	160  /* (plotted) trajectory (data) */
+
+	 #define DK_REL_WAVPATH		612  /* Path */
+
+	 #define DK_REL_CAM_CNSPOS	1111 /* Position cns */
+	 #define DK_REL_CAMPATH		1112 /* Path */
+	 #define DK_REL_CAM_INTPATH	1114 /* Interest path */
+	 #define DK_REL_CAM_INTCNSPOS	1116 /* Interest position cns */
+
+	 #define DK_REL_LIG_CNSPOS	2111 /* Position cns */
+	 #define DK_REL_LIGPATH		2112 /* Path */
+	 #define DK_REL_LIGINTPATH	2114 /* Interest path */
+	 #define DK_REL_LIGINTCNSPOS	2116 /* Interest position cns */
+
+	 #define DK_REL_LIGSELECTION	2200 /* Light selection */
+
+
+       NOTES:
+       - The old position constraint corresponds now to 'reltype':
+	    o on models  : DK_REL_CNSPOS
+	    o on cameras : DK_REL_CAM_CNSPOS
+	    o on cam_int : DK_REL_CAM_INTCNSPOS
+	    o on lights  : DK_REL_LIG_CNSPOS
+	    o on lig_int : DK_REL_LIG_INTCNSPOS
+	    o on wave    : DK_REL_CNSPOS
+
+       - The old path now is retained in the type :
+	    o on models  : DK_REL_PATH
+	    o on cameras : DK_REL_CAMPATH
+	    o on cam_int : DK_REL_CAM_INTPATH
+	    o on lights  : DK_REL_LIGPATH
+	    o on lig_int : DK_REL_LIG_INTPATH
+	    o on wave    : DK_REL_WAVPATH
+
+       - Relations can be in any order in the list, it doesn't matter.
+     
+     ii) Possible reldata pointers: (as found in tinyConstr.h)
+
+	 DK_REL_CNSPOSLIM --> (DK_RelPoslimData   *) reldata
+	 DK_REL_CNSROTLIM --> (DK_RelRotlimData   *) reldata
+	 DK_REL_SYMMETRY  --> (DK_RelSymmData     *) reldata
+	 DK_REL_PATHEXPL  --> (DK_RelPathExplData *) reldata
+	    
+
+3) Activation Function curves
+
+   Each function curve and constraint might have an associated Activation
+   function curve. These curves are created, in CREATIVE (v2.65 and up), 
+   with the 'ACTIV' and 'DEACT' commands from the dopesheet.
+
+   The value of each key in an activation fcv is either TRUE or FALSE.
+   It indicates weather at this particular time, the corresponding
+   function curve or constraint is active or not.
+
+   Also, each function curve / constraint can be completely
+   desactivated.  This is represented by the flag 'active' in the 
+   DK_actFcurve structure.
+
+   Refer to the Creative Environment User's Guide for more details
+   on the dopesheet and the possibility to deactivation portions
+   of animation or constraints in a sequences.
+
+
+4) New functions for Custom Effects
+
+     Custom Effects often require that models be read from or written
+     to a pipe (File pointer), instead of an actual file on disk.
+     So far, Custom Effects developers had to create their own version
+     of the functions DK_modelReadBinary() and DK_modelWriteBinary(),
+     foud in tinyModel.c.
+
+     Now two new functions have been added for that purpose, where, 
+     instead of a filename, a file descriptor (fd) is passed. It can
+     be stdin or stdout.
+
+	DK_fdmodelReadBinary()
+	DK_fdmodelWriteBinary()
+
+
+5) New functions for Constraints
+
+     The two following constraints have been added (in a new file
+     called tinyConstr.c) to be able to create a constraint list
+     node element and add it in front of the list, as well as to
+     dispose the entire constraint list.
+
+	DK_constraintAllocate(...)
+	DK_constraintDispose(...)
+
+6) Miscelleanous...
+
+   o in tinyMaterial.h : the shading type DK_MAT_BLINN has been added in
+	the DK_MaterialType 'enum' type.
+
+   o in tinyFile.c : when allocating/freeing a DK_FileProt structure,
+	all the fields are now considered.  There was some problems 
+	with memory leaks.
+
+   o in tinyTexture.c : In the 2D texture structure, the field
+	'reflectMappingFct' was never read/saved!  This has been fixed
+	in this release.
+
+   o in tinyScene.h :
+	- the 'enum' DK_RenderType has been upgraded for v2.65
+	- 3 more fields have beed added into the DK_RenderingSetup
+	  structure: 'do_dither', 'add_noise', 'noise_amount'
+
+---------------------------------------------------------
+
+
+DKit for Release of Creative v2.7 (DKit 2.0)
+
+	Source files will not be provided anymore. Functions will be available 
+ through libraries, and fully documented with examples. The new DKit will
+ not support scene formats below v2.6 (v2.5 and below).

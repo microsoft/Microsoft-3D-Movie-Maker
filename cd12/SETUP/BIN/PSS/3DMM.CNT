@@ -1,0 +1,46 @@
+:Base 3dmm.hlp>contents
+:Title 3D Movie Maker Help
+1 Getting Started
+2 Setting up Microsoft 3D Movie Maker=socrates_start>start
+1 System Requirements
+2 What do I need to run Microsoft 3D Movie Maker?=socrates_sys_req>sys_req
+1 Windows 95 Tips
+2 Increasing the performance of Microsoft 3D Movie Maker=win95_tips>tips
+1 Troubleshooting
+2 Setup Problems
+3 Not enough disk space=socrates_setup_1>setup
+3 Setup freezes or hangs=win95_setup_1>setup
+3 This program requires 256 or more colors=win95_setup_2>setup
+3 I'm getting a WAVE error=win95_setup_3>setup
+3 My problem is not listed here=win95_setup_4>setup
+2 Troubleshooting Errors
+3 I'm getting an error about my display=win95_errors_1>errors
+3 I'm getting a WAVE error=win95_errors_2>errors
+3 I'm getting a MIDI error=socrates_errors_1>errors
+3 I'm getting a "CD Read" error=win95_errors_3>errors
+3 I'm getting a "block device" error=win95_errors_4>errors
+3 My problem is not listed here=win95_setup_4>setup
+2 Audio Problems
+3 I don't hear any sounds=win95_audio_1>audio
+3 I'm getting a WAVE error=win95_audio_5>audio
+3 Sounds are "fuzzy" or distorted=win95_audio_2>audio
+3 Sounds skip=win95_audio_3>audio
+3 Sounds get cut off while they're playing=win95_audio_4>audio
+3 I don't hear any music=socrates_midi_1>audio
+3 I'm getting a MIDI error=socrates_midi_2>audio
+3 When I change the volume, the music volume stays the same=socrates_midi_3>audio
+3 My problem is not listed here=win95_setup_4>setup
+2 Display Problems
+3 General display troubleshooting=win95_video_1>display
+3 I need to display 256 colors=win95_video_2>display
+3 The program doesn't fill the entire screen=socrates_video_1>display
+3 My problem is not listed here=win95_setup_4>setup
+2 CD Problems
+3 I'm having problems with my CD-ROM=win95_cd_1>cd
+2 Performance Problems
+3 The program is running slowly=win95_perform_1>perf
+3 My problem is not listed here=win95_setup_4>setup
+1 Technical Support
+2 When you have a question . . .=pss_question>pss
+2 Contacting Microsoft Product Support in the United States and Canada=pss_us>pss
+2 Contacting Microsoft Product Support Worldwide=pss_worldwide>pss

@@ -1,0 +1,215 @@
+
+/* tinydefine.h */
+
+#define tinycameraInitialize 		DK_cameraInitialize
+#define tinycameraWriteAsciiAnimation	DK_cameraWriteAsciiAnimation
+#define tinycameraReadAsciiAnimation    DK_cameraReadAsciiAnimation
+
+#define tinydynaMatterInfoAllocate	DK_dynaMatterInfoAllocate
+#define tinydynaJntInfoAllocate		DK_dynaJntInfoAllocate
+#define tinydynaConstrInfoAllocate	DK_dynaConstrInfoAllocate	
+#define tinydynaChnVarAllocate		DK_dynaChnVarAllocate	
+#define tinyinvKinAllocate		DK_invKinAllocate	
+#define tinyenvelopDataAllocate		DK_envelopDataAllocate
+#define tinyenvelopListVertAllocate	DK_envelopListVertAllocate	
+#define tinyenvelopVertAllocate		DK_envelopVertAllocate
+#define tinydynaMatterInfoDispose	DK_dynaMatterInfoDispose	
+#define tinydynaJntInfoDispose		DK_dynaJntInfoDispose
+#define tinydynaConstrInfoDispose	DK_dynaConstrInfoDispose
+#define tinydynaChnVarDispose		DK_dynaChnVarDispose		
+#define tinyinvKinDispose		DK_invKinDispose		
+#define tinyenvelopDataDispose		DK_envelopDataDispose	
+#define tinyenvelopVertDispose		DK_envelopVertDispose
+#define tinymodelActorDataWriteAscii	DK_modelActorDataWriteAscii
+#define tinymodelActorDataReadAscii	DK_modelActorDataReadAscii	
+#define tinydynamatterWriteBinaryChunk	DK_dynamatterWriteBinaryChunk
+#define tinydynamatterReadBinaryChunk	DK_dynamatterReadBinaryChunk
+#define tinydynajntpropWriteBinaryChunk	DK_dynajntpropWriteBinaryChunk
+#define tinydynajntpropReadBinaryChunk	DK_dynajntpropReadBinaryChunk
+#define tinydynaConstraintWriteAsciiChunk DK_dynaConstraintWriteAsciiChunk
+#define tinydynaConstraintReadAsciiChunk	DK_dynaConstraintReadAsciiChunk
+#define tinydynachnvarWriteAsciiChunk	DK_dynachnvarWriteAsciiChunk
+#define tinydynachnvarReadAsciiChunk	DK_dynachnvarReadAsciiChunk	
+#define tinyodynamicWriteBinaryChunk	DK_odynamicWriteBinaryChunk
+#define tinyodynamicReadBinaryChunk	DK_odynamicReadBinaryChunk
+#define tinyinvKinWriteBinaryChunk	DK_invKinWriteBinaryChunk
+#define tinyinvKinReadBinaryChunk	DK_invKinReadBinaryChunk
+#define tinyenvelopWriteBinaryChunk	DK_envelopWriteBinaryChunk
+#define tinyenvelopReadBinaryChunk	DK_envelopReadBinaryChunk
+#define tinyoEnvelopeReadBinaryChunk	DK_oEnvelopeReadBinaryChunk
+
+#define tinyfaceAllocate		DK_faceAllocate
+#define tinyfaceDispose			DK_faceDispose
+#define tinyfaceWriteBinary		DK_faceWriteBinary
+#define tinyfaceReadBinary		DK_faceReadBinary	
+#define tinyfaceWriteAscii		DK_faceWriteAscii
+#define tinyfaceReadAscii		DK_faceReadAscii
+
+#define tinyfcvkeyAllocate		DK_fcvkeyAllocate
+#define tinyfcvkeyDispose		DK_fcvkeyDispose
+#define tinyfcurveAllocate		DK_fcurveAllocate
+#define tinyfcurveDispose		DK_fcurveDispose
+#define tinyfcurveWriteAsciiAnimation	DK_fcurveWriteAsciiAnimation
+#define tinyfcurveReadAsciiAnimation	DK_fcurveReadAsciiAnimation
+
+#define tinyprototypeAllocate		DK_prototypeAllocate
+#define tinyprototypeRead		DK_prototypeRead
+#define tinyprototypeWrite		DK_prototypeWrite
+#define tinyprototypeDispose		DK_prototypeDispose
+#define tinyprototypeInitModel		DK_prototypeInitModel
+#define tinyprototypeInitFace		DK_prototypeInitFace
+#define tinyprototypeInitSpline		DK_prototypeInitSpline
+#define tinyprototypeInitMesh		DK_prototypeInitMesh	
+#define tinyprototypeInitPatch		DK_prototypeInitPatch
+#define tinyprototypeInitMaterial	DK_prototypeInitMaterial	
+#define tinyprototypeInitTexture3D	DK_prototypeInitTexture3D
+#define tinyprototypeInitTexture	DK_prototypeInitTexture
+#define tinyprototypeInitPhysical	DK_prototypeInitPhysical
+#define tinyprototypeInitJoint		DK_prototypeInitJoint
+#define tinyprototypeInitEnvelopeData	DK_prototypeInitEnvelopeData
+#define tinyprototypeInitEnvelopeVertex	DK_prototypeInitEnvelopeVertex
+#define tinyprototypeWrite		DK_prototypeWrite
+#define tinystringReadBinary		DK_stringReadBinary
+#define tinystringReadAscii		DK_stringReadAscii
+#define tinyheaderWriteAscii		DK_headerWriteAscii
+#define tinyheaderWriteBinary		DK_headerWriteBinary
+#define tinyheaderReadAscii		DK_headerReadAscii
+#define tinyheaderReadBinary		DK_headerReadBinary
+#define tinystringWriteBinary		DK_stringWriteBinary
+
+#define tinyspl_fittingAllocate		DK_spl_fittingAllocate
+#define tinyspl_fittingDispose		DK_spl_fittingDispose
+#define tinysplineFitWriteAsciiAnimation	DK_splineFitWriteAsciiAnimation
+#define tinysplineFitReadAsciiAnimation	DK_splineFitReadAsciiAnimation
+#define tinyptch_fittingAllocate	DK_ptch_fittingAllocate
+#define tinyptch_fittingDispose		DK_ptch_fittingDispose
+#define tinypatchFitWriteAsciiAnimation	DK_patchFitWriteAsciiAnimation
+#define tinypatchFitReadAsciiAnimation	DK_patchFitReadAsciiAnimation
+
+#define tinylatticeAllocate		DK_latticeAllocate
+#define tinylatticeDispose		DK_latticeDispose
+#define tinylatticeWriteAsciiAnimation	DK_latticeWriteAsciiAnimation
+#define tinylatticeReadAsciiAnimation	DK_latticeReadAsciiAnimation
+
+#define tinylightAllocate		DK_lightAllocate
+#define tinylightDispose		DK_lightDispose
+#define tinylightReadAsciiAnimation	DK_lightReadAsciiAnimation
+#define tinylightWriteAsciiAnimation	DK_lightWriteAsciiAnimation
+
+#define tinymaterialReadBinary		DK_materialReadBinary
+#define tinymaterialReadAscii		DK_materialReadAscii
+#define tinymaterialAllocate		DK_materialAllocate
+#define tinymaterialDispose		DK_materialDispose
+#define tinymaterialWriteAscii		DK_materialWriteAscii
+#define tinymaterialWriteBinary		DK_materialWriteBinary
+#define tinymaterialReadFile		DK_materialReadFile
+#define tinymaterialWriteFile		DK_materialWriteFile
+#define tinymaterialWriteAsciiAnimation	DK_materialWriteAsciiAnimation
+#define tinymaterialReadAsciiAnimation	DK_materialReadAsciiAnimation
+
+#define tinymeshAllocate		DK_meshAllocate
+#define tinymeshDispose			DK_meshDispose
+#define tinyvertexAllocate		DK_vertexAllocate
+#define tinypolygonAllocate		DK_polygonAllocate
+#define tinyedgeAllocate		DK_edgeAllocate
+#define tinypolygonInitializeVertex	DK_polygonInitializeVertex
+#define tinymeshWriteBinary		DK_meshWriteBinary
+#define tinymeshReadBinary		DK_meshReadBinary
+#define tinymeshWriteAscii		DK_meshWriteAscii
+#define tinymeshReadAscii		DK_meshReadAscii
+
+#define tinymodelAllocate		DK_modelAllocate
+#define tinymodelDispose		DK_modelDispose
+#define tinymodelReadFile		DK_modelReadFile
+#define tinymodelWriteFile		DK_modelWriteFile
+#define tinymodelCreateParentship	DK_modelCreateParentship
+#define tinymodelCut			DK_modelCut
+#define tinymodelNextNode		DK_modelNextNode
+#define tinymodelNodeFindByName		DK_modelNodeFindByName
+#define tinyobjectWriteAsciiAnimation	DK_objectWriteAsciiAnimation
+#define tinyobjectReadAsciiAnimation	DK_objectReadAsciiAnimation
+
+#define tinypatchAllocate		DK_patchAllocate
+#define tinypatchDispose		DK_patchDispose
+#define tinypatchAllocateDK_Points	DK_patchAllocateDK_Points
+#define tinypatchReadAscii		DK_patchReadAscii
+#define tinypatchReadBinary		DK_patchReadBinary
+#define tinypatchWriteAscii		DK_patchWriteAscii
+#define tinypatchWriteBinary		DK_patchWriteBinary
+
+#define tinypictureAllocate		DK_pictureAllocate
+#define tinypictureDispose		DK_pictureDispose
+#define tinypictureReadFile		DK_pictureReadFile
+#define tinypictureWriteFile		DK_pictureWriteFile
+#define tinypictureWriteFileHeader	DK_pictureWriteFileHeader
+#define tinypictureReadFileHeader	DK_pictureReadFileHeader
+#define tinypictureReadScanline		DK_pictureReadScanline
+#define tinypictureWriteScanline	DK_pictureWriteScanline
+#define tinychannelPacketDispose	DK_channelPacketDispose
+
+#define tinysceneAllocate		DK_sceneAllocate
+#define tinysceneDispose		DK_sceneDispose
+#define tinysceneReadAsciiAnimation	DK_sceneReadAsciiAnimation
+#define tinysceneWriteAsciiAnimation	DK_sceneWriteAsciiAnimation	
+
+#define tinysplineAllocate		DK_splineAllocate
+#define tinysplineKeyAllocate		DK_splineKeyAllocate
+#define tinysplineDispose		DK_splineDispose
+#define tinysplineWriteBinary		DK_splineWriteBinary
+#define tinysplineWriteAscii		DK_splineWriteAscii
+#define tinysplineReadBinary		DK_splineReadBinary
+#define tinysplineReadAscii		DK_splineReadAscii
+#define tinysplineGetTypeByName		DK_splineGetTypeByName
+#define tinysplineReadFile		DK_splineReadFile
+#define tinysplineWriteFile		DK_splineWriteFile
+#define tinysplineShrinkBezier		DK_splineShrinkBezier
+#define tinysplineReadAsciiAnimation	DK_splineReadAsciiAnimation	
+#define tinysplineWriteAsciiAnimation	DK_splineWriteAsciiAnimation	
+
+#define tinytextureAllocate		DK_textureAllocate
+#define tinytextureDispose		DK_textureDispose
+#define tinytextureWriteAscii		DK_textureWriteAscii
+#define tinytextureWriteBinary		DK_textureWriteBinary
+#define tinytextureReadBinary		DK_textureReadBinary
+#define tinytextureReadAscii		DK_textureReadAscii
+#define tinytextureReadFile		DK_textureReadFile
+#define tinytextureWriteFile		DK_textureWriteFile
+
+#define tinytexture3DAllocate		DK_texture3DAllocate
+#define tinytexture3DDispose		DK_texture3DDispose
+#define tinytexture3DWriteBinary	DK_texture3DWriteBinary
+#define tinytexture3DWriteAscii		DK_texture3DWriteAscii
+#define tinytexture3DReadBinary		DK_texture3DReadBinary
+#define tinytexture3DReadAscii		DK_texture3DReadAscii
+#define tinytexture3DReadFile		DK_texture3DReadFile
+#define tinytexture3DWriteFile		DK_texture3DWriteFile
+#define tinytexture3DWriteAsciiAnimation	DK_texture3DWriteAsciiAnimation
+#define tinytexture3DReadAsciiAnimation	DK_texture3DReadAsciiAnimation	
+#define tinytextureWriteAsciiAnimation	DK_textureWriteAsciiAnimation
+#define tinytextureReadAsciiAnimation	DK_textureReadAsciiAnimation	
+
+#define tinystringReadAsciiAnimation	DK_stringReadAsciiAnimation
+#define tinyin_animFValue_na		DK_in_animFValue_na
+#define tinyin_animFValue		DK_in_animFValue
+#define tinyin_animSValue		DK_in_animSValue
+#define tinyin_animSValue_na		DK_in_animSValue_na
+#define tinyin_animToken		DK_in_animToken
+#define tinyincIndent			DK_incIndent
+#define tinysetIndentLength		DK_setIndentLength
+#define tinyvectorWriteAsciiAnimation	DK_vectorWriteAsciiAnimation	
+#define tinyvectorReadAsciiAnimation	DK_vectorReadAsciiAnimation
+#define tinyhvectorWriteAsciiAnimation	DK_hvectorWriteAsciiAnimation	
+#define tinyhvectorReadAsciiAnimation	DK_hvectorReadAsciiAnimation	
+#define tinyvalueReadAsciiAnimation	DK_valueReadAsciiAnimation
+#define tinyvalueWriteAsciiAnimation	DK_valueWriteAsciiAnimation	
+#define tinyvalue3WriteAsciiAnimation	DK_value3WriteAsciiAnimation	
+#define tinyvalue3ReadAsciiAnimation	DK_value3ReadAsciiAnimation	
+#define tinypositionWriteAsciiAnimation	DK_positionWriteAsciiAnimation	
+#define tinypositionReadAsciiAnimation	DK_positionReadAsciiAnimation	
+
+#define tinywave_amodelAllocate		DK_wave_amodelAllocate
+#define tinywave_amodelDispose		DK_wave_amodelDispose
+#define tinywaveAllocate		DK_waveAllocate
+#define tinywaveDispose			DK_waveDispose		
+#define tinywaveWriteAsciiAnimation	DK_waveWriteAsciiAnimation		
+#define tinywaveReadAsciiAnimation	DK_waveReadAsciiAnimation	

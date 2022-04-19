@@ -1,0 +1,52 @@
+ADDENDUM TO  END-USER LICENSE
+AGREEMENT FOR MICROSOFT  SOFTWARE      
+
+IMPORTANT - READ CAREFULLY:  
+This Addendum supplements the End User License Agreement  provided with the SOFTWARE ("EULA") and sets forth the following additional  provisions for use of that certain software product identified as Microsoft Image Composer 1.0, which may include "on-line" or  electronic documentation  (the "IMAGE COMPOSER SOFTWARE").  By exercising the rights to make and use copies of the IMAGE COMPOSER SOFTWARE (as may be provided for below), you agree to be bound by the terms of this Addendum. If you do not agree to the terms of this Addendum, you may not install or use the IMAGE COMPOSER SOFTWARE.
+
+
+IMAGE COMPOSER SOFTWARE LICENSE
+	
+The IMAGE COMPOSER SOFTWARE is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties.  The IMAGE COMPOSER SOFTWARE is licensed, not sold.
+
+1.  GRANT OF LICENSE.  This Addendum grants you the following rights:
+
+	Image Composer Software. You may install and use one copy of the IMAGE COMPOSER SOFTWARE, or in its place, any prior version for the same operating system, on a single computer. The primary user of the computer on which the IMAGE COMPOSER SOFTWARE is installed may make a second copy for his or her exclusive use on a portable computer.
+
+	Storage/Network Use. You may also store or install a copy of the IMAGE COMPOSER SOFTWARE on a storage device, such as a network server, used only to install or run the IMAGE COMPOSER SOFTWARE on your other computers over an internal network; however, you must acquire and dedicate a license for each separate computer on which the IMAGE COMPOSER SOFTWARE is installed or run from the storage device. A license for the IMAGE COMPOSER SOFTWARE may not be shared or used concurrently on different computers.
+
+	License Pak. If you have acquired the EULA in a Microsoft License Pak, you may make the number of additional copies of the computer software portion of the IMAGE COMPOSER SOFTWARE authorized on the printed copy of this EULA, and you may use each copy in the manner specified above. You are also entitled to make a corresponding number of secondary copies for portable computer use as specified above.
+
+2.  DESCRIPTION OF RIGHTS TO SAMPLES.  You may use, copy, modify, adapt and adjust the size, color, brightness, etc. of the samples that are included in the "Samples.txt" file of the IMAGE COMPOSER SOFTWARE ("Samples"), (b) combine the Samples with other images, text, animation, video, sound, and software to create documents, products, materials and services (collectively, "Products"); and (c) manufacture, market, sell, lease, rent, transmit, license and otherwise distribute, directly or indirectly, the Products containing the Samples, subject to the following restrictions:
+
+	Distribution.   You may not distribute the Samples using the 'ftp' (file transfer protocol) for the internet;
+
+	Reproduction of Samples.  You may not grant end users of Products any rights to reproduce the Samples;
+
+	Integration into Products.  You may not sell or license the Samples on a stand alone basis or transmit or distribute the Samples as part of any Product for resale; however, you may transmit and distribute the Samples as part of any promotional, marketing or advertising documents, materials, products and services distributed through any medium, including but not limited to the following:
+
+		Corporate brochures
+		Trade show materials
+		Newspaper advertisements
+		Presentation handouts
+		Product catalogs
+		TV/Cable advertising
+		Worldwide Web pages
+		Corporate identity materials
+		Corporate logos
+		Annual reports
+		Newsletters
+		Promotional multimedia titles and games
+		Direct mail materials
+		Magazine advertisements
+		Exhibit designs
+
+	Certain Uses Prohibited.  You  may not use the Samples in any pornographic, defamatory, libelous or other unlawful manner.
+
+3.  All other terms and conditions of the EULA you received with the SOFTWARE shall apply to the IMAGE COMPOSER SOFTWARE.
+
+
+
+
+
+

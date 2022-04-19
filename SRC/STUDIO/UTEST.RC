@@ -1,0 +1,324 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "utestres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "framedef.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "utestres.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""framedef.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""frame.rc""\r\n"
+    "#include ""utest.rc2""\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+acidMain ACCELERATORS DISCARDABLE 
+BEGIN
+    "C",            cidCopy,                VIRTKEY, CONTROL, NOINVERT
+    "C",            cidShiftCopy,           VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "I",            cidInfo,                VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "M",            cidMap,                 VIRTKEY, CONTROL, NOINVERT
+    "N",            cidNew,                 VIRTKEY, CONTROL, NOINVERT
+    "O",            cidOpen,                VIRTKEY, CONTROL, NOINVERT
+    "Q",            cidQuit,                VIRTKEY, CONTROL, NOINVERT
+    "S",            cidSave,                VIRTKEY, CONTROL, NOINVERT
+    "V",            cidPaste,               VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          cidHelpBook,            VIRTKEY, NOINVERT
+    VK_F9,          cidToggleXY,            VIRTKEY, NOINVERT
+    VK_F10,         cidWriteBmps,           VIRTKEY, CONTROL, NOINVERT
+    "X",            cidCut,                 VIRTKEY, CONTROL, NOINVERT
+    "X",            cidShiftCut,            VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "Y",            cidRedo,                VIRTKEY, CONTROL, NOINVERT
+    "Z",            cidUndo,                VIRTKEY, CONTROL, NOINVERT
+END
+
+acidGlobal ACCELERATORS DISCARDABLE 
+BEGIN
+    "I",            cidInfo,                VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "Q",            cidQuit,                VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+IDI_APP                 ICON    DISCARDABLE     "studio\\bmp\\app.ico"
+IDI_DOC                 ICON    DISCARDABLE     "studio\\bmp\\doc.ico"
+IDI_CD                  ICON    DISCARDABLE     "studio\\bmp\\cd.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+dlidBadOS DIALOG DISCARDABLE  0, 0, 185, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Invalid Operating System Version"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,67,72,50,14
+    LTEXT           "3D Movie Maker requires at least Windows95 or Windows NT version 3.51 to run.",
+                    IDC_STATIC,12,12,160,50
+END
+
+dlidNotEnoughColors DIALOG DISCARDABLE  0, 0, 185, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Invalid Display Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,67,72,50,14
+    LTEXT           "3D Movie Maker requires your display to be set to at least 256 colors.  Please use your display control panel to set your display to 256 colors.",
+                    IDC_STATIC,7,10,171,46
+END
+
+dlidTooManyColors DIALOG DISCARDABLE  0, 0, 185, 114
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Display Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,67,94,50,14
+    CONTROL         "Don't show me this message again.",IDC_CHECK1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,9,78,165,10
+    LTEXT           "Your display is set to more than 256 colors.  3D Movie Maker will run faster on displays configured for 256 colors.  If you want maximum performance, use the Display control panel to set your display to 256 colors.",
+                    IDC_STATIC,11,10,162,65
+END
+
+dlidDesktopResizing DIALOG DISCARDABLE  0, 0, 274, 133
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Desktop Size"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,145,113,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,79,113,50,14
+    LTEXT           "3D Movie Maker will now attempt to resize your desktop.  This could take a few seconds, during which your screen might flicker.",
+                    IDC_STATIC,10,8,255,23
+    LTEXT           "If you do not want 3D Movie Maker to resize your desktop when it starts, press the Cancel button below.",
+                    IDC_STATIC,10,71,254,16
+    LTEXT           "If your screen does not stop flickering, wait 15 seconds and your original settings will be restored.",
+                    IDC_STATIC,10,38,255,28
+END
+
+dlidDesktopResized DIALOG DISCARDABLE  0, 0, 185, 119
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Display Size"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,100,99,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,34,99,50,14
+    LTEXT           "3D Movie Maker will switch your desktop down to this size when it starts.  This makes the program look better.",
+                    IDC_STATIC,10,11,166,26
+    LTEXT           "If you do not want 3D Movie Maker to resize your desktop when it starts, press the Cancel button below.",
+                    IDC_STATIC,9,43,163,29
+END
+
+dlidDesktopWontResize DIALOG DISCARDABLE  0, 0, 185, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Desktop Size"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,67,72,50,14
+    LTEXT           "3D Movie Maker has restored your original desktop size.  It will not attempt to automatically switch resolutions again.",
+                    IDC_STATIC,9,10,165,37
+END
+
+dlidInfo DIALOG DISCARDABLE  0, 0, 200, 238
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Product Info"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,68,222,50,14
+    LTEXT           "Product Identification Number:",IDC_STATIC,10,40,141,8
+    EDITTEXT        IDC_EDIT4,10,54,145,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_BORDER
+    CONTROL         "Fullscreen",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,15,87,156,10
+    CONTROL         "Run in Window",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,
+                    15,103,156,10
+#ifdef DEBUG
+    LTEXT           "cactAV:",IDC_STATIC,123,223,27,10
+    EDITTEXT        IDC_EDIT3,152,223,35,12,ES_AUTOHSCROLL
+#endif
+    LTEXT           "(c) and (p) 1995 Microsoft Corporation.  All rights reserved.",
+                    IDC_STATIC,10,27,192,8
+    EDITTEXT        IDC_EDIT2,11,6,149,13,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
+    GROUPBOX        "Display Options",IDC_STATIC,10,74,170,49
+    CONTROL         "Make these the default settings",IDC_CHECK1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,193,170,18
+    GROUPBOX        "Performance Options",IDC_STATIC,10,129,170,50
+    CONTROL         "Better Quality",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,15,145,156,10
+    CONTROL         "Better Speed",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,15,
+                    161,156,10
+END
+
+dlidInitFailed DIALOG DISCARDABLE  0, 0, 187, 71
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Initialization Failed"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,68,51,50,14
+    LTEXT           "3D Movie maker could not start.  You may need to run Setup again.",
+                    IDC_STATIC,8,11,166,25
+END
+
+dlidInitFailedOOM DIALOG DISCARDABLE  0, 0, 187, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Out of Memory"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,68,75,50,14
+    LTEXT           "3D Movie Maker could not start because there is not enough memory available.",
+                    IDC_STATIC,15,9,157,56
+END
+
+dlidNoWaveOut DIALOG DISCARDABLE  0, 0, 185, 114
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Audio Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,67,94,50,14
+    CONTROL         "Don't show me this message again.",IDC_CHECK1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,9,78,165,10
+    LTEXT           "Your computer does not have the ability to play WAVE sounds.  You will not hear a lot of the sounds in 3D Movie Maker including audible help and character voices.",
+                    IDC_STATIC,9,10,165,38
+    LTEXT           "We strongly recommend using a sound card with the ability to play WAVE sounds.",
+                    IDC_STATIC,9,50,165,22
+END
+
+dlidNoMidiOut DIALOG DISCARDABLE  0, 0, 185, 114
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Audio Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,67,94,50,14
+    CONTROL         "Don't show me this message again.",IDC_CHECK1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,9,78,165,10
+    LTEXT           "Your computer does not have the ability to play MIDI sounds.  You will not hear a lot of the music in 3D Movie Maker.",
+                    IDC_STATIC,9,10,165,38
+    LTEXT           "We strongly recommend using a sound card with the ability to play MIDI sounds.",
+                    IDC_STATIC,9,50,165,22
+END
+
+dlidPortfolio DIALOG DISCARDABLE  0, 0, 426, 296
+STYLE WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "",1119,2,13,371,161,NOT WS_VISIBLE
+    CONTROL         "",IDC_PREVIEW,"Static",SS_SIMPLE,37,148,96,50
+    CONTROL         "",IDC_BUTTON1,"Button",BS_OWNERDRAW,369,257,33,26
+    CONTROL         "",IDC_BUTTON2,"Button",BS_OWNERDRAW,335,257,33,26
+    CONTROL         "",IDC_BUTTON3,"Button",BS_OWNERDRAW,283,257,33,26
+END
+
+dlidCantFindFile DIALOG DISCARDABLE  0, 0, 243, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Can't Find File"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,96,75,50,14
+    EDITTEXT        IDC_EDIT1,10,41,225,29,ES_MULTILINE | ES_READONLY | NOT 
+                    WS_BORDER
+    LTEXT           "Oops.  The following file or folder that we need was missing or unreadable.  To fix this problem, please Exit, and then run Microsoft 3D Movie Maker Setup again. (See your jewelcase booklet for instructions.)",
+                    IDC_STATIC,10,6,225,34
+END
+
+dlidAbnormalExit DIALOG DISCARDABLE  0, 0, 243, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Unexpected Exit"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDCANCEL,96,75,50,14
+    LTEXT           "3D Movie Maker ended unexpectedly.  Attempting to clean up.",
+                    IDC_STATIC,9,9,225,26
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    stidAppName             "Microsoft 3D Movie Maker"
+    stid3DMovieNameLong     "3D Movie Maker"
+    stid3DMovieNameShort    "3DMovie"
+
+    stidInstallDriverWin95  "You do not have a multimedia driver needed by this application.  We will now try to to install the driver for you.  Once it is installed, you will need to restart the application."
+    stidInstallDriverNT     "You do not have a multimedia driver needed by this application.  To install, select the drivers applet in the control panel. Press the ADD button and select the driver named above."
+    stidInstallCmdLine      "RunDll.exe setupx.dll,InstallHinfSection " // <section> <reboot mode> <inf name>
+
+    stidSectionName         "MCIWAVE"
+    stidSectionName + 1     "MCIAVI"
+    stidSectionName + 2     "media_acm"
+    stidSectionName + 3     "media_acm"
+    stidSectionName + 4     "media_icm"
+    stidSectionName + 5     "media_icm"
+
+    stidDriverName          "[MCI] Sound"
+    stidDriverName + 1      "[MCI] Microsoft Video for Windows"
+    stidDriverName + 2      "Microsoft Audio Compression Manager"
+    stidDriverName + 3      "Microsoft ADPCM Audio CODEC"
+    stidDriverName + 4      "Microsoft Video 1"
+    stidDriverName + 5      "Indeo codec by Intel"
+END
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "frame.rc"
+#include "utest.rc2"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

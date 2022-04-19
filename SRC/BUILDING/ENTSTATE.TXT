@@ -1,0 +1,128 @@
+Description of entry states for building rooms.  **Indicates this state is
+used in the MAPENTRY and NAVBARENTRY macros.
+
+
+TICKET2
+=======
+kst2            Entry from Ticket1.
+kst3    **      Map entry.
+
+McZee States:
+kst1            Dispatch state.
+kst2            Air guitar animation.
+kst3            Wait state, intro/help animation.
+
+
+LOBBY1
+======
+kst2    **      Wait state.
+kst3            Do lobby intro -- coming from ticket booth.
+kst5            Passing through the lobby.
+
+McZee States:
+kst1            Dispatch state.
+kst2            Wait state.
+kst3            Unicycle ride.
+kst4            Lobby welcome.
+kst5            Passing through the Lobby.
+kst6            Lobby=>Theatre transition.
+
+
+THEATRE1
+========
+kst4    **      Wait state.
+kst5            Movie loaded before coming to theatre.
+kst7            Lean onto stage ==> moves into wait state.
+
+McZee States:
+kst1            Dispatch state.
+kst2            McZee leans onto stage animation.
+kst3            McZee leaves the stage animation.
+kst4            Wait state.
+kst5            Movie loaded? Shadow puppet animation; else dispatch.
+kst6            Help1 animation.
+kst7            Open the portfolio.
+kst8            Movie paused animation.
+kst9            Movie done animation.
+kst10           Close the portfolio.
+kst11           Let's explore animation.
+kst12           McZee Null representation.
+
+Movie Object States:
+kst1			Dispatch state.
+kst2			Entry state -- There is a movie ready to be played.
+kst3			Entry state -- Count down to movie playing.
+kst4			Movie playing.
+kst5			Movie done.
+kst6			Movie paused.
+
+
+THEATRE4
+========
+kst2	**		Wait state.
+kst3			Passing through on the way to Backstage with state kst3.
+kst4			Passing through on the way to Backstage with state kst7.
+
+
+BACKSTAGE1
+==========
+kst2    **      Wait state.
+kst3            Passing through to Studio state kst2.
+kst4            Passing through to Ideas Room.
+kst5            Passing through to Projects Room.
+kst6			Short pass through to Studio state kst2.
+kst10			Animate into wait state.
+
+McZee States:
+kst1            Dispatch state.
+kst2            Wait state.
+kst3            Passing through to Studio state kst2.
+kst4            Passing through to Ideas Room.
+kst5            Passing through to Projects Room.
+kst6            Backstage=>Studio transition.
+kst8            Backstage=>Ideas Room transition.
+kst9            Backstage=>Projects Room transition.
+kst10			McZee animates from offstage into wait state.
+
+
+STUDIO1
+=======
+kst1    **      Normal entry.
+kst2            Pass through to tools.  Do tools intro if necessary.
+
+McZee States:
+kst1            NULL representation.
+kst2            Wait state.
+kst3            McZee Studio Intro.
+kst4            McZee anim to Tools, Tools Intro.
+kst5			Load tools.
+
+
+INSPIRATION1
+============
+kst2			Wait state.
+kst6	**		Enter via map or navbars -- leave help in current state.
+				Otherwise, same as kst2.
+kst7			Start the Splot Machine.
+kst8			Start the Talent Book.
+
+McZee States:
+kst1			Dispatch state.
+kst2			Wait state.
+kst3			Ideas Room intro.
+kst5			NULL representation.
+kst7			Ideas Room=>Splot Machine transition.
+kst8			Ideas Room=>Talent Book transition.
+
+
+PROJECTS1
+=========
+kst1    **      Entry from another room -- turn help off on entry.
+kst2			Entry from elsewhere in Projects room -- leave help in
+				current state.
+
+Melanie States:
+kst1            NULL representation.
+kst2            Wait state.
+kst3            Projects Room intro.
+

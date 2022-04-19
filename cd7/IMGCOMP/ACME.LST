@@ -1,0 +1,53 @@
+[Windows 95 Params]
+	WndTitle   = Microsoft Image Composer 1.0 Setup
+	WndMess    = Starting Microsoft Image Composer 1.0 Setup...
+	TmpDirSize = 2000
+	TmpDirName = ~msstfqf.t
+	CmdLine    = acmsetup /T Setup.stf /S %s %s
+	DrvModName = ACMSETUP	
+	DrvWinClass = Stuff-Shell
+	Require31  = This program requires Windows 95 or higher.
+	InsertCDMsg = Please insert your Microsoft Image Composer 1.0 CD.
+	InsertDiskMsg = Please insert your Microsoft Image Composer 1.0 disk 1.
+
+[Windows 95 Files]
+	setup\acmsetup.exe = acmsetup.exe
+	setup\acmsetup.hlp = acmsetup.hlp
+	setup\mssetup.dll  = mssetup.dll
+
+	setup\setup.stf = setup.stf
+	setup\setup.inf = setup.inf
+	setup\msadtusa.dll = msadtusa.dll
+	setup\ic_cah.dll = ic_cah.dll
+	setup\sfregcah.dll = sfregcah.dll
+	setup\icbb.dll = icbb.dll
+	setup\offsetup.ttf = offsetup.ttf
+	setup\eula.txt = eula.txt
+
+
+[NT3.51 Intel Params]
+	WndTitle   = Microsoft Image Composer 1.0 Setup
+	WndMess    = Starting Microsoft Image Composer 1.0 Setup...
+	TmpDirSize = 2000
+	TmpDirName = ~msstfqf.t
+	CmdLine    = acmsetup /T Setup.stf /S %s %s
+	DrvModName = ACMSETUP	
+	DrvWinClass = Stuff-Shell
+	Require31  = This program requires Windows NT 3.51 or higher for the Intel platform.
+	InsertCDMsg = Please insert your Microsoft Image Composer 1.0 CD.
+	InsertDiskMsg = Please insert your Microsoft Image Composer 1.0 disk 1.
+
+
+[NT3.51 Intel Files]
+	setup\acmsetup.exe = acmsetup.exe
+	setup\acmsetup.hlp = acmsetup.hlp
+	setup\mssetup.dll  = mssetup.dll
+
+	setup\setup.stf = setup.stf
+	setup\setup.inf = setup.inf
+	setup\msadtusa.dll = msadtusa.dll
+	setup\ic_cah.dll = ic_cah.dll
+	setup\sfregcah.dll = sfregcah.dll
+	setup\icbb.dll = icbb.dll
+	setup\offsetup.ttf = offsetup.ttf
+	setup\eula.txt = eula.txt

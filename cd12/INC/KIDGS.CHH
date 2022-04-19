@@ -1,0 +1,594 @@
+// Module: KIDGS.CHH
+//
+// Purpose:   Cool defines for making chomp text into something readable
+//
+// Comments:
+//
+// #define the following to turn this stuff ON or OFF
+//
+// PACKALL  --> pack all files
+// NONAMES      --> don't put names in for chunks defined using these macros
+// SKIP --> kidspace animations eg. OBJECT()'s --- will slip if this is defined
+//
+//
+
+#ifndef KIDSGS_CHH
+#define KIDSGS_CHH
+
+#include "assert.chh"
+#include "kidgsdef.h"
+
+// ------ -------- ------ -------- ------ -------- ------ --------
+#ifdef PACKALL
+	#define __PACK  PACK
+#else
+	#define __PACK
+#endif
+
+// ------ -------- ------ -------- ------ -------- ------ --------
+#ifdef NAMES
+	#define __NAME(x)  x
+#else
+	#define __NAME(x)
+#endif
+
+
+// ------ -------- ------ -------- ------ -------- ------ --------
+#ifdef DEBUG
+	#define Debug(x) x
+#else
+	#define Debug(x)
+#endif
+
+// ------ -------- ------ -------- ------ -------- ------ --------
+#ifndef fTrue
+	#define fTrue 1
+#endif
+
+// ------ -------- ------ -------- ------ -------- ------ --------
+#ifndef fFalse
+	#define fFalse 0
+#endif
+
+
+// ---------------------------------------------------------
+// the following chids get affected by the state the gob is in
+// the default state for a gob is 1  which means chids
+// not referenced in the CUME are determined as follows:
+// hiword = state  loword = chid
+//
+// e.g. for a mouse rollon in state 2  KAUAI looks at chid
+//  0x000200011 (0x0002=state  0x0011 = rollon)
+// ---------------------------------------------------------
+// The following are relative chids  ie. the state is the highword
+// combine these with the state defn's to make the real chid
+// ---------------------------------------------------------
+
+#define kchidCreate                             0x0000
+#define kchidClick                              0x0001
+
+// Mouse tracking button states/ representations
+#define krepDefault             kchidUpOff
+#define krepMouseUpOff          kchidUpOff
+#define krepMouseUpOn           kchidUpOn
+#define krepMouseDnOff          kchidDownOff
+#define krepMouseDnOn           kchidDownOn
+
+#define krepEnterAnimation      kchidTransBase
+#define krepRollOn              kchidUpOffOn
+#define krepRollOff             kchidUpOnOff
+#define krepMouseDn             kchidUpDownOn
+#define krepClicked             kchidDownUpOn
+#define krepDragOff             kchidDownOnOff
+#define krepDragOn              kchidDownOffOn
+#define krepDrop                kchidDownUpOff
+
+
+// ---------------------------------------------------------
+// the following are bit masks for the CUME entry
+// ---------------------------------------------------------
+#define fgrfstNil                               0x00000001
+#define fgrfst1                                 0x00000002
+#define fgrfst2                                 0x00000004
+#define fgrfst3                                 0x00000008
+#define fgrfst4                                 0x00000010
+#define fgrfst5                                 0x00000020
+#define fgrfst6                                 0x00000040
+#define fgrfst7                                 0x00000080
+#define fgrfst8                                 0x00000100
+#define fgrfst9                                 0x00000200
+#define fgrfst10                                0x00000400
+#define fgrfst11                                0x00000800
+#define fgrfst12                                0x00001000
+#define fgrfst13                                0x00002000
+#define fgrfst14                                0x00004000
+#define fgrfst15                                0x00008000
+#define fgrfst16                                0x00010000
+#define fgrfst17                                0x00020000
+#define fgrfst18                                0x00040000
+#define fgrfst19                                0x00080000
+#define fgrfst20                                0x00100000
+#define fgrfst21                                0x00200000
+#define fgrfst22                                0x00400000
+#define fgrfst23                                0x00800000
+#define fgrfst24                                0x01000000
+#define fgrfst25                                0x02000000
+#define fgrfst26                                0x04000000
+#define fgrfst27                                0x08000000
+#define fgrfst28                                0x10000000
+#define fgrfst29                                0x20000000
+#define fgrfst30                                0x40000000
+#define fgrfst31                                0x80000000
+
+#define fgrfstAll                               0xffffffff
+#define fgrfstNone                              0x00000000
+
+
+// "types" of Gobs
+
+#define kgokkNormal                             gokkNil
+#define kgokkRectHit                    gokkRectangle
+#if (gokkRectangle | gokkNoHitThis) == 3
+#define kgokkRectNoHit          3
+#else
+#error Can't define kgokkRectNoHit
+#endif
+#if (gokkRectangle | gokkNoHitKids) == 5
+#define kgokkRectNoKids          5
+#else
+#error Can't define kgokkRectNoKids
+#endif
+
+// the following is the type used for GOKD's created with OBJECT() macros
+
+
+
+
+// ---------------------------------------------------------
+// Macro required to initialize variables and stuff.
+//  --- these parms _df* are used to provide unique cno's
+//      for various classes of chunks  eg. _dfmbmp for MBMP
+// ---------------------------------------------------------
+#define STARTCHUNKY \
+	SET _dfmbmp = 10 \
+	SET _dfscr = 10 \
+	SET _dfanm = 10 \
+	SET _dffill = 10 \
+	SET _curgok = 10 \
+	SET _dfmask = 10 \
+	SET _dftile = 10 \
+	SET _dfwave = 10 \
+	SET _dfmidi = 10 \
+	SET _dfvid  = 10
+
+#define STARTCHUNKS(x) \
+	SET _dfmbmp = x \
+	SET _dfscr = x \
+	SET _dfanm = x \
+	SET _dffill = x \
+	SET _curgok = x \
+	SET _dfmask = x \
+	SET _dftile = x \
+	SET _dfwave = x \
+	SET _dfmidi = x \
+	SET _dfvid  = x
+
+
+// safe macros to access name of "last" XXXX created
+#define LAST_MBMP       _dfmbmp
+#define LAST_SCRIPT     _dfscr
+#define LAST_ANIM       _dfanm
+#define LAST_FILL       _dffill
+#define LAST_GOKD       _curgok
+#define LAST_MASK       _dfmask
+#define LAST_TILE       _dftile
+#define LAST_WAVE       _dfwave
+#define LAST_MIDI       _dfmidi
+#define LAST_VIDEO      _dfvid
+
+
+
+
+
+// ---------------------------------------------------------
+// The following are for defining standalone chunks  ie.
+// not dependent or adopted to the previous GOKD
+// ---------------------------------------------------------
+#define SCRIPTCHUNK( _szName,  _cno )   \
+	CHUNK( kctgScript,  _cno, __NAME(_szName ) ) \
+		SCRIPT
+
+#define MBMPCHUNK(  _szFilename,  _cno,  _iTrans,  _xpReg,  _ypReg ) \
+    CHUNK( kctgMbmp,  _cno,  __NAME(_szFilename ) ) \
+		__PACK \
+		BITMAP( _iTrans,  _xpReg, _ypReg ) _szFilename \
+	ENDCHUNK
+
+#define PALETTECHUNK( _szName,  _cno,  _szFilename ) \
+    CHUNK( kctgColorTable,  _cno,  __NAME( _szName ) ) \
+		__PACK \
+		PALETTE _szFilename \
+    ENDCHUNK
+
+#define TILECHUNK( _szName,  _cno ) \
+	CHUNK( kctgTile,  _cno,  __NAME( _szName ))  \
+		__PACK \
+		SHORT BO OSK
+
+#define TILEDEF( _dzpLeftBorder,  _dzpRightBorder,  _dzpLeft,  _dzpLeftFlex, _dzpLeftInc,  \
+				 _dzpMid,  _dzpRightFlex,  _dzpRightInc,  _dzpRight ) \
+	SHORT _dzpLeftBorder _dzpRightBorder _dzpLeft _dzpLeftFlex _dzpLeftInc \
+		  _dzpMid _dzpRightFlex _dzpRightInc _dzpRight
+
+#define CURSORCHUNK( _szFilename,  _cno) \
+	 CHUNK( kctgCursor,  _cno,  __NAME( _szFilename )) \
+		__PACK \
+		CURSOR _szFilename \
+	 ENDCHUNK
+
+#define FILLCHUNK( _szName, _chid, _xpLeft, _ypTop, _xpRight, _ypBottom, _kacrFore, _kacrBack )  \
+	SET _dffill++ \
+	CHUNK( kctgFill,  _dffill,  __NAME( _szName )) \
+		__PACK \
+		LONG BO OSK _xpLeft _ypTop _xpRight _ypBottom \
+		LONG _kacrFore _kacrBack
+
+#define PATTERN( _b1, _b2, _b3, _b4, _b5, _b6, _b7,  _b8 ) \
+		BYTE MacWin(_b1 _b2 _b3 _b4 _b5 _b6 _b7 _b8, \
+				    _b4 _b3 _b2 _b1 _b8 _b7 _b6 _b5)
+
+// ---------------------------------------------------------
+// some useful patterns
+// ---------------------------------------------------------
+#define PATTERN_SOLID   PATTERN(0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff)
+#define PATTERN_BLANK   PATTERN(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
+#define PATTERN_100     PATTERN(0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff)
+#define PATTERN_75              PATTERN(0xbb, 0xee, 0xbb, 0xee, 0xbb, 0xee, 0xbb, 0xee)
+#define PATTERN_50              PATTERN(0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55)
+#define PATTERN_50X             PATTERN(0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa )
+#define PATTERN_25              PATTERN(0xcc, 0xcc, 0x33, 0x33, 0xcc, 0xcc, 0x33, 0x33)
+#define PATTERN_0               PATTERN(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
+
+#define HELP_SCRIPT( _cno ) \
+	CHUNK( kctgScript,  _cno,  __NAME( #_cno ))\
+		SCRIPT
+
+
+
+// ---------------------------------------------------------
+// usage: GOBCHUNK(..)
+//                      { POSITION }...
+//                      DEFAULT_POSITION
+//                      { ACTION }...
+//                ENDCHUNK
+// ---------------------------------------------------------
+#define GOBCHUNK( _szName,  _cno,  _kgokk ) \
+	SET _curgok = _cno \
+	CHUNK( kctgGokd,  _cno, __NAME( _szName ))  \
+		__PACK \
+		SHORT BO OSK LONG _kgokk
+
+
+// ---------------------------------------------------------
+// the following define positioning info for a GOB
+// Note: DEFAULT_POSITION is required.
+// ---------------------------------------------------------
+#define POSITION( _kidPar,  _xp,  _yp,  _zp ) \
+	LONG _kidPar _xp _yp _zp
+
+#define DEFAULT_POSITION( _xp,  _yp,  _zp ) \
+    LONG kidNil _xp _yp _zp
+
+// ---------------------------------------------------------
+// the following is used in a GOKD to map the modifier keys
+// global state   button state to cursor  tooltip id  script
+// chid and/or command id (CID) to post.  Whew!
+// ---------------------------------------------------------
+#define ACTION( _grfcustMask,  _grfcust,  _grfState,  _cnoCrs,  _chidScript,  _cid,  _cnoTopic ) \
+	LONG _grfcustMask _grfcust _grfState _cnoCrs _chidScript _cid _cnoTopic
+
+#define ACTION_NOTHING( _cnoCrs ) \
+	ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCrs, chidNil, cidNil, cnoNil )
+
+#define ACTION_CLICKSCRIPT( _cnoCrs ) \
+	ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCrs, kchidClick, cidNil, cnoNil )
+
+
+// ---------------------------------------------------------
+// constants for color fills and any other color references
+// ---------------------------------------------------------
+#define Transparent             0xffffffff
+#define Palette( _i )           BYTE MacWin( 0xfe 0 0 _i,  _i 0 0 0xfe ) LONG
+#define Invert                          BYTE MacWin( 0x00 0x00 0x00 0xff, 0xff 0x00 0x00 0x00 ) LONG
+#define Rgb( _r, _g, _b)        BYTE MacWin(0x01 _r _g _b, _b _g _r 0x01) LONG
+
+// ---------------------------------------------------------
+// The following is used to combine "button" state with
+// subid to get the proper "childid" or chid.
+// ---------------------------------------------------------
+#define CHID( st, ch ) \
+	SET _st = st \
+	SET _st <<= 16 \
+	SET _st += ch \
+	_st
+
+#define CHID0( st ) \
+	st
+
+#define CHID1( st )\
+	SET _st = 0x10000\
+	SET _st |= st \
+	_st
+
+// ---------------------------------------------------------
+// Macros for child representations (MBMPS  FILLS  etc)
+// everything preceded by "CHILD_" adopts itself to the
+// last declared GOKD.
+// ---------------------------------------------------------
+#define CHILD_SCRIPT( _szName,  _kchid )\
+	SET _dfscr++ \
+    CHUNK( kctgScript,  _dfscr,  __NAME( _szName ) ) \
+		PARENT( kctgGokd,  _curgok,  _kchid )\
+		SCRIPT
+
+// ---------------------------------------------------------
+// transparent rectangle.. actually a FILL
+// ---------------------------------------------------------
+#define REP_RECT( _chid, _szName, _xpLeft,  _ypTop,  _xpRight,  _ypBottom )  \
+	SET _dffill++ \
+	CHUNK( kctgFill,  _dffill,  __NAME( _szName) ) \
+	__PACK \
+	PARENT( kctgGokd,  _curgok,  _chid ) \
+	LONG BO OSK _xpLeft _ypTop _xpRight _ypBottom \
+	LONG Transparent Transparent \
+	PATTERN_BLANK \
+	ENDCHUNK
+
+// ---------------------------------------------------------
+// color and pattern fill
+// use: REP_FILL(...) PATTERN(....) ENDCHUNK
+// ---------------------------------------------------------
+#define REP_FILL( _chid, _szName, _xpLeft,  _ypTop,  _xpRight,  _ypBottom,  _fore,  _back )  \
+	SET _dffill++ \
+	CHUNK( kctgFill,  _dffill,  __NAME( _szName ) ) \
+		__PACK \
+		PARENT( kctgGokd  _curgok  _chid ) \
+		LONG BO OSK _xpLeft _ypTop _xpRight _ypBottom \
+		LONG _fore _back
+
+// ---------------------------------------------------------
+// Bitmap representations
+// ---------------------------------------------------------
+#define REP_MBMPREG( _chid, _szFilename, _xpReg, _ypReg ) \
+	SET _dfmbmp++ \
+	CHUNK( kctgMbmp,  _dfmbmp,  __NAME( _szFilename ) ) \
+	__PACK \
+	PARENT( kctgGokd,  _curgok,  _chid ) \
+	BITMAP( kiTrans,  _xpReg,  _ypReg ) _szFilename\
+	ENDCHUNK
+
+#define REP_MBMP( _chid, _szFilename ) \
+	SET _dfmbmp++ \
+	CHUNK( kctgMbmp,  _dfmbmp,  __NAME( _szFilename ) ) \
+	__PACK \
+	PARENT( kctgGokd,  _curgok,  _chid ) \
+	BITMAP( kiTrans,  0, 0 ) _szFilename\
+	ENDCHUNK
+
+#define REP_PPMBMP( _chid, _szFilename ) \
+	SET _dfmbmp++ \
+	CHUNK( kctgMbmp,  _dfmbmp,  __NAME( _szFilename ) ) \
+	PARENT( kctgGokd,  _curgok,  _chid ) \
+	 PACKEDFILE _szFilename \
+	ENDCHUNK
+
+
+// ---------------------------------------------------------
+// Mask representations (just like bitmaps except they don't
+// show and are used only for hit tests)
+// ---------------------------------------------------------
+#define REP_MASK( _chid, _szFilename, _xpReg, _ypReg ) \
+	SET _dfmask++ \
+	CHUNK( kctgMask,  _dfmask,  __NAME( _szFilename ) ) \
+	__PACK \
+	PARENT( kctgGokd,  _curgok,  _chid ) \
+	MASK( kiTrans,  _xpReg,  _ypReg ) _szFilename\
+	ENDCHUNK
+			
+#define REP_WAVE( _chid, _szFilename ) \
+	SET _dfwave++ \
+	CHUNK( kctgWave,  _dfwave, __NAME( _szFilename ) )  \
+		__PACK \
+		PARENT( kctgGokd,  _curgok,  _chid ) \
+		FILE _szFilename \
+	ENDCHUNK
+
+#define REP_MIDI( _chid, _szFilename ) \
+	SET _dfmidi++ \
+	CHUNK( kctgMidi,  _dfmidi, __NAME( _szFilename ) ) \
+		__PACK \
+		PARENT( kctgGokd,  _curgok,  _chid ) \
+		MIDI _szFilename \
+	ENDCHUNK
+
+
+// ---------------------------------------------------------
+// Animation representations
+// ---------------------------------------------------------
+#define REP_ANIM( _chid, _szName ) \
+	SET _dfanm++ \
+	CHUNK( kctgAnimation,  _dfanm,  __NAME( _szName ) ) \
+		PARENT( kctgGokd,  _curgok,  _chid ) \
+		SCRIPT
+
+#define ANIMATION( _cno, _szName ) \
+	CHUNK( kctgAnimation,  _cno,  __NAME( _szName ) ) \
+		SCRIPT
+
+// ---------------------------------------------------------
+// Bitmap TILE representations
+// Use: CHILD_TILE( ...)
+//              TILEDEF( horz opts)
+//                      TILEDEF(vert opts) ENDCHUNK
+//              ENDCHUNK
+// ---------------------------------------------------------
+#define REP_TILE( _chid, _szName, _mbmp,  _xpReg,  _ypReg ) \
+	SET _dftile++ \
+	SET _dfmbmp++ \
+	CHUNK( kctgMbmp,  _dfmbmp,  __NAME( _mbmp ) ) \
+		__PACK \
+		BITMAP( kiTrans,  _xpReg,  _ypReg ) _mbmp \
+	ENDCHUNK \
+	CHUNK( kctgTile,  _dftile,  __NAME( _szName ) ) \
+		__PACK \
+		PARENT( kctgGokd,  _curgok,  _chid ) \
+		CHILD( kctgMbmp,  _dfmbmp,  0 ) \
+		SHORT BO OSK
+
+#define REP_VIDEO( _chid, _szFilename, _fWindowed ) \
+	SET _dfvid++ \
+	CHUNK( kctgVideo, _dfvid, __NAME( _szFilename ) ) \
+		__PACK \
+		PARENT( kctgGokd,  _curgok,  _chid ) \
+		BYTE _fWindowed \
+		STN _szFilename \
+	ENDCHUNK
+
+// ---------------------------------------------------------
+// The following Adopt the last chunk of type 'foo' to their
+// most recent GOKD using the appropriate CHID.
+// ---------------------------------------------------------
+#define ADOPT_MASK( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgMask,  _cno,  _chid )
+
+#define ADOPT_MBMP( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgMbmp,  _cno,  _chid )
+
+#define ADOPT_TILE( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgTile,  _cno,  _chid )
+
+#define ADOPT_FILL( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgFill,  _cno, _chid )
+
+#define ADOPT_ANIM( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgAnimation, _cno,  _chid )
+
+#define ADOPT_SCRIPT( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgScript,  _cno,  _chid )
+
+#define ADOPT_WAVE( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgWave,  _cno,  _chid )
+
+#define ADOPT_MIDI( _cno,  _chid ) \
+	ADOPT( kctgGokd,  _curgok,  kctgMidi,  _cno,  _chid )
+
+
+
+// ---------------------------------------------------------
+// syntatic sweetness
+// ---------------------------------------------------------
+#define CREATE_SCRIPT( _szName ) \
+	REP_ANIM( CHID1( krepEnterAnimation ), __NAME( _szName ))
+
+#define CREATE_SCRIPTST( _szName, _kstState ) \
+	REP_ANIM( CHID( _kstState, krepEnterAnimation ),  _szName )
+
+#define CREATE_ANIM( _szName ) \
+	REP_ANIM( CHID1( krepEnterAnimation ), _szName)
+
+#define CREATE_ANIMST( _szName, _kstState ) \
+	REP_ANIM( CHID( _kstState, krepEnterAnimation ),  _szName )
+
+
+#define CLICK_SCRIPT( _szName ) \
+	CHILD_SCRIPT( _szName, CHID1( kchidClick ) )
+
+#define CLICK_SCRIPTST( _szName, _kstState ) \
+	CHILD_SCRIPT( _szName, CHID( _kstState, kchidClick ))
+
+#define IRISVAL( _xp, _yp, _kdir ) \
+	SET _foo = _xp \
+	SET _foo <<= 15 \
+	SET _foo |= _yp \
+	SET _foo <<= 2  \
+	SET _foo |= _kdir \
+	_foo
+
+
+// ---------------------------------------------------------
+// default object - no tooltip, fire script 'kchidClick' when activated
+// ---------------------------------------------------------
+#define OBJECT( _szName, _cnoGokd, _zp, _cnoCursor ) \
+	SET _curgok = _cnoGokd \
+	CHUNK( kctgGokd,  _cnoGokd, __NAME( _szName) )  \
+		__PACK \
+		SHORT BO OSK LONG gokkNil \
+		DEFAULT_POSITION( 0, 0, _zp ) \
+		ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCursor, CHID1( kchidClick), cidNil, cnoNil ) \
+	ENDCHUNK
+
+#define OBJECTREG( _szName, _cnoGokd, _xp, _yp, _zp, _cnoCursor ) \
+	SET _curgok = _cnoGokd \
+	CHUNK( kctgGokd,  _cnoGokd, __NAME( _szName ) )  \
+		__PACK \
+		SHORT BO OSK LONG gokkNil \
+		DEFAULT_POSITION( _xp, _yp, _zp ) \
+		ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCursor, CHID1( kchidClick), cidNil, cnoNil ) \
+	ENDCHUNK
+
+#define OBJECTTT( _szName, _cnoGokd, _zp, _cnoCursor, _cnoToolTip ) \
+	SET _curgok = _cnoGokd \
+	CHUNK( kctgGokd,  _cnoGokd, __NAME( _szName ) )  \
+		__PACK \
+		SHORT BO OSK LONG gokkNil \
+		DEFAULT_POSITION( 0, 0, _zp ) \
+		ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCursor, CHID1( kchidClick), cidNil, _cnoToolTip ) \
+	ENDCHUNK
+
+#define OBJECTTTREG( _szName, _cnoGokd, _zp, _cnoCursor, _cnoToolTip, _regx, _regy ) \
+	SET _curgok = _cnoGokd \
+	CHUNK( kctgGokd,  _cnoGokd, __NAME( _szName ) )  \
+		__PACK \
+		SHORT BO OSK LONG gokkNil \
+		DEFAULT_POSITION( _regx, _regy, _zp ) \
+		ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCursor, CHID1( kchidClick), cidNil, _cnoToolTip) \
+	ENDCHUNK
+
+#define OBJECTCID( _szName, _cnoGokd, _zp, _cnoCursor, _cnoToolTip, _cid ) \
+	SET _curgok = _cnoGokd \
+	CHUNK( kctgGokd,  _cnoGokd, __NAME( _szName ) )  \
+		__PACK \
+		SHORT BO OSK LONG gokkNil \
+		DEFAULT_POSITION( 0, 0, _zp ) \
+		ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCursor, CHID1( kchidClick), _cid, _cnoToolTip ) \
+	ENDCHUNK
+
+#define OBJECTTY( _szName, _cnoGokd, _zp, _cnoCursor, _gokkType ) \
+	SET _curgok = _cnoGokd \
+	CHUNK( kctgGokd,  _cnoGokd, __NAME( _szName ) )  \
+		__PACK \
+		SHORT BO OSK LONG _gokkType \
+		DEFAULT_POSITION( 0, 0, _zp ) \
+		ACTION( fcustNil, fcustNil, fgrfstAll, _cnoCursor, chidNil, cidNil, cnoNil ) \
+	ENDCHUNK
+
+// hmm... let's not pack the WAVE files for now.
+#define WAVE_CHUNK( _szFilename, _cnoWave ) \
+	CHUNK( kctgWave,  _cnoWave, __NAME( _szFilename  ))  \
+		FILE _szFilename \
+	ENDCHUNK
+
+#define MIDI_CHUNK( _szFilename, _cnoMidi ) \
+	CHUNK( kctgMidi,  _cnoMidi, __NAME( _szFilename ))  \
+		__PACK \
+		MIDI _szFilename \
+	ENDCHUNK
+
+#define HELP_MBMP(  _cno,  _szFilename ) \
+    CHUNK( 'MBMP',  _cno,  __NAME(#_cno) ) \
+		  PACK BITMAP( 0,  0, 0 )  _szFilename  \
+	ENDCHUNK
+
+
+
+#endif  // !KIDGS_CHH

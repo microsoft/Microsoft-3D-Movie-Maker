@@ -1,0 +1,753 @@
+// -----------------------------------------------------
+//	INSPIRAT.CHT
+//
+//	 Copyright (C) Microsoft Corporation 1995.
+//	 All Rights reserved.
+//
+// -----------------------------------------------------
+//	Module Intent:
+//
+//	Contains the kauai script code for the Ideas Room and
+//	the Splot Machine.
+//
+// 	Revisions:
+// 
+// 	mm-dd-yy
+// 	??-??-94    GlenMac         - Created
+// 	05-16-95	GlenMac			- remove GLOBAL( delay ) 
+// -----------------------------------------------------
+
+
+WAVE_CHUNK( "building\sound\inspirat\idea1a.wav", kwavIdea1a	)
+WAVE_CHUNK( "building\sound\inspirat\idea1b.wav", kwavIdea1b	)
+WAVE_CHUNK( "building\sound\inspirat\idea2.wav", kwavIdea2	)
+WAVE_CHUNK( "building\sound\inspirat\idea3.wav", kwavIdea3	)
+WAVE_CHUNK( "building\sound\inspirat\idea4.wav", kwavIdea4	)
+
+OBJECTREG("ticketbooth - dance", kgobIdeaMcZeeAVI1, 0, 0, 999, kcrsHand1)
+	REP_VIDEO( CHID1( krepDefault ), "idea2.avi", fTrue )	// the into animation
+	CREATE_SCRIPT( "created" )
+		FilterCmdsThis( cidMouseDown, kidNil, kchidScript1);
+	ENDCHUNK
+	CHILD_SCRIPT( "mouse down", kchidScript1  )
+		// stop playing... the polling will catch and remove us.
+		StopThis();	
+	ENDCHUNK		
+	CLICK_SCRIPT( "clicked ideas room intro" )
+		// stop playing... the polling will catch and remove us
+		StopThis();	
+	ENDCHUNK
+
+// the "let's make a movie!" avi
+OBJECTREG("ticketbooth - dance", kgobIdeaMcZeeAVI2, 0, 0, 999, kcrsHand1)
+	REP_VIDEO( CHID1( krepDefault ), "idea3.avi", fTrue )	// the into animation
+
+
+// the "check out actors in the talent book" avi
+OBJECTREG("ticketbooth - dance", kgobIdeaMcZeeAVI3, 0, 0, 999, kcrsHand1)
+	REP_VIDEO( CHID1( krepDefault ), "idea4.avi", fTrue )	// the into animation
+
+
+OBJECT( "inspir1: mczee",  kgobInsp1McZee, 100, kcrsHand1 )
+	#include "mzinsp.seq" 
+	REP_RECT( kcell90, "No representation.", 0, 0, 1, 1 )
+	REP_ANIM( CHID( kst1, krepDefault ), "inspir1: mczee talking animation" )
+		ASSERT(GLOBAL(kstEntry) == kst2 || GLOBAL(kstEntry) == kst6 || GLOBAL( kstEntry) == kst7 || GLOBAL( kstEntry) == kst8 );
+
+		If (GLOBAL(kstEntry) == kst6);	// If entering via kst6 leave the
+			SETGLOBAL(kstEntry, kst2);	// GLOBAL help in whatever state it
+										// was in. This state is used to allow
+	    								// the help balloon to come back up
+										// when navigating around the Ideas
+										// room.
+		Else;
+			SETGLOBAL( fHelpOn, fFalse );	// Help does not come on automatically
+				  							// in this room (If comming from another room).	 
+		End;		     					// If the flag is set turn it off.
+
+		.fEnableAccel = fFalse;
+
+		ChangeStateThis(GLOBAL(kstEntry));
+	ENDCHUNK
+
+   	REP_ANIM( CHID( kst2, krepDefault ), "Ideas room: Wait state" )
+		cnt=kcell41;
+		Cell( cnt, 0,0, 0 );
+
+		WAIT_FOR_TRANSITION();		// can trans here from the map
+
+		If( GLOBAL(fHelpOn) );	  // If help flag is on, put up the help balloon.
+			CreateHelpGob( kgobInspiration1, ktpcIdeas );
+		End;
+
+		While (fTrue);
+			While( cnt <= kcell47 );	// Loop back and forth through
+				Cell( cnt++, 0, 0, 9);  	// these 6 cells to get smooth
+			End;	   				  	// waiting animation.
+									  	// Trying 9/60 sec between cells for
+			cnt = kcell46;			  	// this particular animation.
+			While( cnt >= kcell42 );
+				Cell( cnt--, 0, 0, 9);
+			End;
+
+			SetNoSlipThis( fTrue );		// we can now drop frames!
+			rnd = Rnd( 100 );
+			If( rnd < 20 );	
+				If( rnd < 14 );
+			 		VOICE( kwavIdea1a, ktpcIdea1 );
+					cnt=kcell1;
+					While( cnt < kcell15 );
+						Cell( cnt++, 0, 0, 6 );
+					End;
+					ENDVOICE();
+				End;
+				If( rnd > 5 );
+					cnt=kcell15;
+					While( cnt <= kcell41 );
+						If( cnt == kcell19 );
+			 				VOICE( kwavIdea1b, ktpcIdea1b );
+						End;
+						Cell( cnt++, 0, 0, 6 );
+					End;
+					ENDVOICE();
+				End;
+			End;
+			SetNoSlipThis( fFalse );		// don't drop frames now
+		End;
+
+	ENDCHUNK
+
+ 	REP_ANIM(CHID(kst3, krepDefault), "Ideas room intro.")
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		Cell( kcell101, 0,0, 1 );
+		WAIT_FOR_TRANSITION();	// If a transition is occuring wait 
+		CreateChildGob( GidParThis(), kgobIdeaMcZeeAVI1, kgobIdeaMcZeeAVI1 );
+		Cell( kcell101,0,0, 100 );	// wait for init
+		
+		// watch it and proceed appropriately
+		While( PlayingGob( kgobIdeaMcZeeAVI1 ));
+			Cell( kcell101, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		DestroyGob( kgobIdeaMcZeeAVI1 );
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		ChangeStateThis( kst2 );		// go to idle
+	ENDCHUNK
+
+   	REP_ANIM( CHID( kst5, krepDefault ), "Ideas room Null representation." )
+
+		// COMMENT: Wait for the splot machine or talent book to disappear
+		// COMMENT: Polling!  Yuck!
+		// This is done for the sake of the biopages. Since they're used in
+		// other places as well (including the studio), we can't have it
+		// reset the ideas room to a reasonable state on exit. So we do it
+		// here.  The splot machine just uses this method because it's here
+		// anyway.
+
+		Cell( kcell41,0,0, 1 );
+
+		// Don't start looking until gobs exist!
+		While ( !FGobExists(kgobBioPage) && !FGobExists(kgobSplotMachineObj) );
+			Cell( 0,0,0, 50 );
+		End;
+
+		While( FGobExists(kgobBioPage) || FGobExists(kgobSplotMachineObj) );
+			// blank cell
+			Cell( 0,0,0, 50 );
+		End;
+
+		// Reenable accelerator keys
+		If (.fEnableAccel);
+			ENABLEACCEL(fFalse);
+			.fEnableAccel = fFalse;
+		End;
+
+		// Reenable hotspots/keys and go back to idle animation
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		ChangeStateThis( kst2 );
+	ENDCHUNK;
+
+//  REP_ANIM( CHID( kst6, krepDefault ), "Map and navbar entry" )
+		// There is no need for an actual state 6, the Flag kstEntry being
+		// set to kst6 is used to direct entry to kst2 with the global help
+		// flag unmodified. This is needed because entry into the Ideas room
+		// from another room sets the global help off if it is on.
+
+   	REP_ANIM( CHID( kst7, krepDefault ), "Start the splot machine" )
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		Cell( kcell351, 0,0, 1 );
+		WAIT_FOR_TRANSITION();	// If a transition is occuring wait 
+		CreateChildGob( GidParThis(), kgobIdeaMcZeeAVI2, kgobIdeaMcZeeAVI2 );
+		Cell( kcell351,0,0, 100 );	// wait for init
+		
+		// watch it and proceed appropriately
+		While( PlayingGob( kgobIdeaMcZeeAVI2 ));
+			Cell( kcell351, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		DestroyGob( kgobIdeaMcZeeAVI2 );
+		ENABLEHOTSPOTS(kflgBuildingAll);
+
+		DISABLEACCEL(fFalse);
+		.fEnableAccel = fTrue;
+		// SETPALETTE( cnoNil );	// assert that we no long don't have the inspiration room palette
+		EnqueueCid(cidInvokeSplot, khidApp, kgobInspiration1, kgobSplotMachineObj, 0, 0);
+		ChangeStateThis( kst5 );
+	ENDCHUNK;
+
+   	REP_ANIM( CHID( kst8, krepDefault ), "Start the talent book" )
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		Cell( kcell401, 0,0, 1 );
+		WAIT_FOR_TRANSITION();	// If a transition is occuring wait 
+		CreateChildGob( GidParThis(), kgobIdeaMcZeeAVI3, kgobIdeaMcZeeAVI3 );
+		Cell( kcell401,0,0, 100 );	// wait for init
+		
+		// watch it and proceed appropriately
+		While( PlayingGob( kgobIdeaMcZeeAVI3 ));
+			Cell( kcell401, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		DestroyGob( kgobIdeaMcZeeAVI3 );
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		// Okay... Set the transition to dissolve and create the book!
+		Transition(kgftDissolve, 0, 60, Transparent, cnoNil );
+		
+		// Create  the BIO book, page 0 (TOC), with controls (fTrue)
+		BIO_CREATEBOOK( 0, fTrue, kgobInspiration1 );
+		ChangeStateThis( kst5 );
+	ENDCHUNK;
+
+
+	CLICK_SCRIPT("Clicked Mz, toggle help")
+		SetNoSlipThis( fFalse );		// don't drop frames now
+		If( GLOBAL( fHelpOn ) == fFalse );
+			SETGLOBAL( fHelpOn, fTrue );
+			SETGLOBAL( fIdeasPS, fFalse );
+			ChangeStateGob( kgobInsp1McZee, kst3 );
+		Elif( GLOBAL( fHelpOn ) == fTrue && StateThis() == kst2); // McZee is in the wait state with help on.
+			SETGLOBAL( fHelpOn, fFalse );						  // Take down the help balloon.
+			DestroyGob( kgobBalloon1e );
+		Elif( GLOBAL( fHelpOn ) == fTrue );	// McZee is animating help information and is clicked.
+			ENDVOICE();						// Go to the wait state with the help balloon up.
+			ChangeStateThis( kst2 );
+		End;
+	ENDCHUNK
+
+HELP_SCRIPT( ktpcIdeas )
+ 	If( _parm[0] == 0 );
+		// Do nothing
+	Elif( _parm[0] == 1 );		// Start the Splot Machine.
+		DestroyGob( kgobBalloon1e );
+		ChangeStateGob( kgobInsp1McZee, kst7 );
+
+	Elif( _parm[0] == 2 );		// Look at the Talent book..
+		DestroyGob( kgobBalloon1e );
+		ChangeStateGob( kgobInsp1McZee, kst8 );
+	End;
+ENDCHUNK
+
+OBJECT( "Splot machine hot spot",  kgobSplotMachine, 100, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\inspirat\SplotMsk.bmp", 0, 0 )
+	CLICK_SCRIPT( "Splot machine clicked" )
+		SETGLOBAL( fHelpOn, fFalse );
+		If( FGobExists( kgobBalloon1e ) );
+			DestroyGob( kgobBalloon1e );
+		End;
+		ENDVOICE();
+		ChangeStateGob( kgobInsp1McZee, kst7 );
+	ENDCHUNK
+
+OBJECT( "Talent book hot spot",  kgobTalentBook, 100, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\inspirat\TalntMsk.bmp", 0, 0 )
+	CLICK_SCRIPT( "Talent book clicked" )
+		SETGLOBAL( fHelpOn, fFalse );
+		If( FGobExists( kgobBalloon1e ) );
+			DestroyGob( kgobBalloon1e );
+		End;
+		ENDVOICE();
+		ChangeStateGob( kgobInsp1McZee, kst8 );
+	ENDCHUNK
+
+
+OBJECT( "doors out",  kgobInsp2Doors, 33, kcrsHand1 )
+	REP_MASK( CHID1(krepDefault), "building\bitmaps\inspirat\ins2door.bmp", 0, 0 )
+	CLICK_SCRIPT( "doors out clicked" )
+		NEXTPLACE1( kgobBackstage1, kst2 );
+	ENDCHUNK
+
+OBJECT( "inspirat2 map", kgobInsp2Map, 44, kcrsHand1 )
+	REP_MASK( CHID1(krepDefault), "building\bitmaps\inspirat\ins2map.bmp", 0, 0 )
+	CLICK_SCRIPT( "inspirat 2 map clicked" ) 
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+OBJECT( "inspirat2 exit",  kgobInsp2Exit, 44, kcrsHand1 )
+	REP_MASK( CHID1(krepDefault), "building\bitmaps\inspirat\ins2quit.bmp", 0, 0 )
+	CLICK_SCRIPT( "inspirat 2 exit clicked" ) 
+		QUITAPP();
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The splot machine
+// -----------------------------------------------------
+OBJECT( "Splot machine object", kgobSplotMachineObj, 1000, kcrsArrow1 )
+	REP_PPMBMP( CHID1(krepDefault), "building\pbm\inspirat\splot0.pbm" )
+	CREATE_SCRIPT( "startup" )
+		PLAYMIDI( cnoNil );
+		CreateChildThis( kgobBSplot1, kgobBSplot1 );
+		CreateChildThis( kgobBSplot2, kgobBSplot2 );
+		CreateChildThis( kgobBSplot3, kgobBSplot3 ); 
+		CreateChildThis( kgobBSplot4, kgobBSplot4 );
+		CreateChildThis( kgobBSplot5, kgobBSplot5 );
+		CreateChildThis( kgobBSplot6, kgobBSplot6 );
+		CreateChildThis( kgobBSplot7, kgobBSplot7 );
+		CreateChildThis( kgobSplotView, kgobSplotView );
+		CreateHelpThis(	ktpcSplotIdea );
+		EnqueueCid(cidSplotInit, kgobSplotMachineObj, kgobSplotView, 0, 0, 0);
+		CreateChildThis( kgobSplotGlass, kgobSplotGlass );
+	ENDCHUNK
+
+
+OBJECTREG( "Splot Mach. Glass", kgobSplotGlass, 0, 0, 100, kcrsArrow1 )
+	REP_RECT( CHID1( krepDefault), "rectangle", 48, 95, 591, 401 )
+
+// -----------------------------------------------------
+// The splot movie view
+// -----------------------------------------------------
+GOBCHUNK( "Splot movie view", kgobSplotView, kgokkRectHit)
+	DEFAULT_POSITION( 0, 0, 0 )
+	ACTION(fcustNil, fcustNil, fgrfstNone, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_RECT(CHID1(krepDefault), "Splot View", 48, 95, 591, 401 )
+
+
+// -----------------------------------------------------
+// Button BSplot1 "Generate a movie Idea" 
+// -----------------------------------------------------
+GOBCHUNK("BSplot1 button", kgobBSplot1, kgokkRectHit )
+	DEFAULT_POSITION( 600, 194, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsHand1, CHID(kst1, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+
+	REP_PPMBMP( kcell2, "building\pbm\inspirat\bigarm2.pbm", 0, 0 )
+	REP_PPMBMP( kcell3, "building\pbm\inspirat\bigarm3.pbm", 0, 0 )
+	REP_PPMBMP( kcell4, "building\pbm\inspirat\bigarm4.pbm", 0, 0 )
+
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\bigarm1.pbm")	 // Disabled button
+
+	REP_PPMBMP( CHID(kst1, kchidDownOn), "building\pbm\inspirat\bigarm5.pbm")	// Clicked button
+
+	REP_ANIM( CHID(kst1, kchidUpDownOn), "On button, mouse Up to Down transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst1, kchidDownOffOn), "Mouse down, Off to On button transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+
+	REP_ANIM( CHID(kst1, kchidDownUpOn), "On button, mouse Down to Up transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst1, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst1, kchidDownOnOff), "Mouse down, On to Off button transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst1, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	REP_WAVE( CHID( kst1, krepClicked ), "building\sound\inspirat\splthndl.wav" );
+	
+	CHILD_SCRIPT("BSplot1 script", CHID(kst1, kchidClick))
+		ChangeStateGob( kgobBSplot2, kst2 );			   // These activate the
+		ChangeStateGob( kgobBSplot3, kst2 );			   // the fine tuning buttons.
+		ChangeStateGob( kgobBSplot4, kst2 );
+		ChangeStateGob( kgobBSplot5, kst2 );
+		
+		ChangeStateGob( kgobBSplot6, kst2 );			// enable the tools button
+		EnqueueCid(cidSplotDo, kgobSplotMachineObj, 1, 1, 1, 1);
+		EnqueueCid(cidSplotUpdate, kgobSplotMachineObj, 0, 0, 0, 0);
+		If( FGobExists( kgobCalloutBalloon4 ) );
+			DestroyGob(	kgobCalloutBalloon4 );	 			// Destroy the help balloon and
+			CreateHelpGob(	GidParThis(), ktpcSplotIdea2 );	// next balloon
+		End;									 // it's contents.
+	ENDCHUNK
+	
+
+// -----------------------------------------------------
+// Button BSplot2 "Generate new Actors/Props"
+// -----------------------------------------------------
+GOBCHUNK("BSplot2 button", kgobBSplot2, kgokkRectHit)
+	DEFAULT_POSITION( 427, 2, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsArrow1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsHand1, CHID(kst2, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_PPMBMP( kcell2, "building\pbm\inspirat\actarm2.pbm", 0, 0 );
+	REP_PPMBMP( kcell3, "building\pbm\inspirat\actarm3.pbm", 0, 0 );
+	REP_PPMBMP( kcell4, "building\pbm\inspirat\actarm4.pbm", 0, 0 );
+
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\actarm1.pbm")	 	// Disabled button
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+
+	REP_PPMBMP( CHID(kst2, kchidDownOn), "building\pbm\inspirat\actarm5.pbm")	// Clicked button
+
+	REP_ANIM( CHID(kst2, kchidUpDownOn), "On button, mouse Up to Down transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOffOn), "Mouse down, Off to On button transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+
+	REP_ANIM( CHID(kst2, kchidDownUpOn), "On button, mouse Down to Up transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOnOff), "Mouse down, On to Off button transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	REP_WAVE( CHID( kst2, krepClicked ), "building\sound\inspirat\splthndl.wav" );
+		
+	CHILD_SCRIPT("BSplot2 script", CHID(kst2, kchidClick))
+		If( FGobExists( kgobCalloutBalloon4 ) );		// takedown callouts
+			DestroyGob(	kgobCalloutBalloon4 );	
+		End;	
+		EnqueueCid(cidSplotDo, kgobSplotMachineObj, 0, 0, 1, 0);
+		EnqueueCid(cidSplotUpdate, kgobSplotMachineObj, 0, 0, 0, 0);
+	ENDCHUNK
+	
+
+// -----------------------------------------------------
+// Button BSplot3 "Generate a new camera angle"
+// -----------------------------------------------------
+GOBCHUNK("BSplot3 button", kgobBSplot3, kgokkRectHit)
+	DEFAULT_POSITION( 289, 2, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsArrow1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsHand1, CHID(kst2, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_WAVE( CHID( kst2, krepClicked ), "building\sound\inspirat\splthndl.wav" );
+	REP_PPMBMP( kcell2, "building\pbm\inspirat\cmrarm2.pbm", 0, 0 );
+	REP_PPMBMP( kcell3, "building\pbm\inspirat\cmrarm3.pbm", 0, 0 );
+	REP_PPMBMP( kcell4, "building\pbm\inspirat\cmrarm4.pbm", 0, 0 );
+
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\cmrarm1.pbm")	 // Disabled button
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+
+	REP_PPMBMP( CHID(kst2, kchidDownOn), "building\pbm\inspirat\cmrarm5.pbm")	// Clicked button
+
+	REP_ANIM( CHID(kst2, kchidUpDownOn), "On button, mouse Up to Down transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOffOn), "Mouse down, Off to On button transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+
+	REP_ANIM( CHID(kst2, kchidDownUpOn), "On button, mouse Down to Up transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOnOff), "Mouse down, On to Off button transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+		
+	CHILD_SCRIPT("BSplot3 script", CHID(kst2, kchidClick))
+		If( FGobExists( kgobCalloutBalloon4 ) );		// takedown callouts
+			DestroyGob(	kgobCalloutBalloon4 );	
+		End;	
+
+		EnqueueCid(cidSplotDo, kgobSplotMachineObj, 0, 1, 0, 0);
+		EnqueueCid(cidSplotUpdate, kgobSplotMachineObj, 0, 0, 0, 0);
+	ENDCHUNK
+	
+
+// -----------------------------------------------------
+// Button BSplot4 "Generate a new sound background"
+// -----------------------------------------------------
+GOBCHUNK("BSplot4 button", kgobBSplot4, kgokkRectHit)
+	DEFAULT_POSITION( 566, 2, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsArrow1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsHand1, CHID(kst2, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_WAVE( CHID( kst2, krepClicked ), "building\sound\inspirat\splthndl.wav" );
+	REP_PPMBMP( kcell2, "building\pbm\inspirat\muscarm2.pbm", 0, 0 );
+	REP_PPMBMP( kcell3, "building\pbm\inspirat\muscarm3.pbm", 0, 0 );
+	REP_PPMBMP( kcell4, "building\pbm\inspirat\muscarm4.pbm", 0, 0 );
+
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\muscarm1.pbm")	 	// Disabled button
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+
+	REP_PPMBMP( CHID(kst2, kchidDownOn), "building\pbm\inspirat\muscarm5.pbm")	// Clicked button
+
+	REP_ANIM( CHID(kst2, kchidUpDownOn), "On button, mouse Up to Down transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOffOn), "Mouse down, Off to On button transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+
+	REP_ANIM( CHID(kst2, kchidDownUpOn), "On button, mouse Down to Up transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOnOff), "Mouse down, On to Off button transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+		
+	CHILD_SCRIPT("BSplot4 script", CHID(kst2, kchidClick))
+		If( FGobExists( kgobCalloutBalloon4 ) );		// takedown callouts
+			DestroyGob(	kgobCalloutBalloon4 );	
+		End;	
+
+		EnqueueCid(cidSplotDo, kgobSplotMachineObj, 0, 0, 0, 1);
+		EnqueueCid(cidSplotUpdate, kgobSplotMachineObj, 0, 0, 0, 0);
+	ENDCHUNK 
+	
+
+// -----------------------------------------------------
+// Button BSplot5 "Generate a new background"
+// -----------------------------------------------------
+GOBCHUNK("BSplot5 button", kgobBSplot5, kgokkRectHit)
+	DEFAULT_POSITION( 146, 1, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsArrow1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsHand1, CHID(kst2, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_WAVE( CHID( kst2, krepClicked ), "building\sound\inspirat\splthndl.wav" );
+	REP_PPMBMP( kcell2, "building\pbm\inspirat\scnarm2.pbm", 0, 0 );
+	REP_PPMBMP( kcell3, "building\pbm\inspirat\scnarm3.pbm", 0, 0 );
+	REP_PPMBMP( kcell4, "building\pbm\inspirat\scnarm4.pbm", 0, 0 );
+
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\scnarm1.pbm")	 	// Disabled button
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+
+	REP_PPMBMP( CHID(kst2, kchidDownOn), "building\pbm\inspirat\scnarm5.pbm")	// Clicked button
+
+	REP_ANIM( CHID(kst2, kchidUpDownOn), "On button, mouse Up to Down transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOffOn), "Mouse down, Off to On button transition")
+		Cell( kcell2, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell4, 0, 0, 9 );
+	ENDCHUNK	
+
+	REP_ANIM( CHID(kst2, kchidDownUpOn), "On button, mouse Down to Up transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+	
+	REP_ANIM( CHID(kst2, kchidDownOnOff), "Mouse down, On to Off button transition")
+		Cell( kcell4, 0, 0, 9 );	
+		Cell( kcell3, 0, 0, 9 );	
+		Cell( kcell2, 0, 0, 9 );
+		Cell( CHID(kst2, krepDefault), 0, 0, 9 ); 
+	ENDCHUNK	
+		
+	CHILD_SCRIPT("BSplot5 script", CHID(kst2, kchidClick))
+		If( FGobExists( kgobCalloutBalloon4 ) );		// takedown callouts
+			DestroyGob(	kgobCalloutBalloon4 );	
+		End;	
+
+		EnqueueCid(cidSplotDo, kgobSplotMachineObj, 1, 0, 0, 0);
+		EnqueueCid(cidSplotUpdate, kgobSplotMachineObj, 0, 0, 0, 0);
+	ENDCHUNK
+	
+
+// -----------------------------------------------------
+// Button BSplot6 "Invoke the studio tools"
+// -----------------------------------------------------
+
+GOBCHUNK("BSplot6 button", kgobBSplot6, kgokkRectHit)
+	DEFAULT_POSITION( 471, 426, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsArrow1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID(kst2, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\toolboxd.pbm")	 	// Enabled button up
+	REP_PPMBMP( CHID(kst2, krepDefault), "building\pbm\inspirat\toolbox1.pbm")	 	// Enabled button up
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepMouseDnOff))
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepMouseUpOn))
+
+	REP_PPMBMP( CHID(kst2, krepMouseDnOn), "building\pbm\inspirat\toolbox2.pbm")	// Clicked button
+
+	CHILD_SCRIPT("BSplot6 script", CHID(kst2, kchidClick))
+		// set up a transition
+		If( FGobExists( kgobCalloutBalloon4 ) );		// takedown callouts
+			DestroyGob(	kgobCalloutBalloon4 );	
+		End;	
+		// Transition(kgftDissolve, 0, kTransitionTime, Transparent, kpalSocInspiration  );
+		EnqueueCid(cidSplotOk, kgobSplotMachineObj, 0, 0, 0, 0);
+		// Reenable accelerator keys. Any other way out of the splot machine
+		// is handled by the polling in McZee's null representation script.
+		ENABLEACCEL(fFalse);
+		LOADTOOLS(kgobInspiration1, kst2, chidNil);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Button BSplot7 "Cancel out of the splot machine"
+// -----------------------------------------------------
+GOBCHUNK("BSplot7 button", kgobBSplot7, kgokkRectHit)
+	DEFAULT_POSITION( 521, 426, 0 )
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID(kst1, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+
+	REP_PPMBMP( CHID(kst1, krepDefault), "building\pbm\inspirat\cancel1.pbm")	 	// Enabled button up
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseDnOff))
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseUpOn))
+
+	REP_PPMBMP( CHID(kst1, krepMouseDnOn), "building\pbm\inspirat\cancel2.pbm")	// Clicked button
+
+	CHILD_SCRIPT("BSplot7 script", CHID(kst1, kchidClick))
+		If( FGobExists( kgobCalloutBalloon4 ) );		// takedown callouts
+			DestroyGob(	kgobCalloutBalloon4 );	
+		End;	
+		EnqueueCid(cidSplotCancel, kgobSplotMachineObj, 0, 0, 0, 0);
+	ENDCHUNK
+
+
+
+//--------------------------------------------------------
+// Bio page hotspots
+//--------------------------------------------------------
+
+OBJECT( "Biopage 39 mask",  kgobIdea1m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea1m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If( fBIO_AVAIL( 39 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 39 );
+			BIO_CREATEBOOK( 39, fFalse, kgobInspiration1 );
+		End;		
+	ENDCHUNK
+
+
+OBJECT( "Biopage 7 mask",  kgobIdea4m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea4m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If( fBIO_AVAIL( 7 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 7 );
+			BIO_CREATEBOOK( 7, fFalse, kgobInspiration4);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 8 mask",  kgobIdea4m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea4m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If( fBIO_AVAIL( 8 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 8 );
+			BIO_CREATEBOOK( 8, fFalse, kgobInspiration4);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 9 mask",  kgobIdea4m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea4m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 9 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 9 );
+			BIO_CREATEBOOK( 9, fFalse, kgobInspiration4);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 10 mask",  kgobIdea3m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea3m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 10 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 10 );
+			BIO_CREATEBOOK( 10, fFalse, kgobInspiration3);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 11 mask",  kgobIdea3m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea3m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 11 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 11 );
+			BIO_CREATEBOOK( 11, fFalse, kgobInspiration3);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 12 mask",  kgobIdea3m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea3m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 12 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 12 );
+			BIO_CREATEBOOK( 12, fFalse, kgobInspiration3);
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 13 mask",  kgobIdea2m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\inspirat\idea2m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 13 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 13 );
+			BIO_CREATEBOOK( 13, fFalse, kgobInspiration2 );
+		End;		
+	ENDCHUNK

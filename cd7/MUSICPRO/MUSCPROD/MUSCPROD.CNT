@@ -1,0 +1,27 @@
+:Base MuscProd.hlp>main1
+:Title Microsoft Music Producer Help
+:Link bugfix.hlp
+1 Welcome
+2 What is Music Producer?=what_is_mmp
+2 Music for a Multimedia Project or Web Page=adding_music
+2 Music Producer and Your Sound Device=music_producer_and_your_sound_device
+1 Previewing Musical Settings
+2 Overview=overview_previewing_musical_settings
+2 Previewing a Style=previewing_a_style
+2 Previewing a Personality=previewing_a_personality
+2 Previewing a Band=previewing_a_band
+2 Experimenting With the Mix=experimenting_with_the_mix
+2 Previewing Changes to Tempo=previewing_changes_to_tempo
+2 Previewing Changes to Key=previewing_changes_to_key
+1 Creating a Composition
+2 Overview=overview_creating_a_composition
+2 Setting Composition Length=setting_a_length_for_your_composition
+2 Setting Composition Shape=setting_a_shape
+2 Adding an Introduction or Ending to a Composition=adding_an_intro_or_ending
+2 Generating a Composition=composing_music
+2 Playing a Composition=playing_a_composition
+2 Looping a Composition During Playback=looping_during_playback
+1 Saving a Composition
+2 Overview=overview_saving_a_composition
+2 Saving a Composition as a MIDI file=saving_a_midi_file
+2 Saving a Composition as a Music Producer File=saving_a_mmp_file

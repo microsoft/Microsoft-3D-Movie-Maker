@@ -1,0 +1,411 @@
+/*****************************************************************************
+*
+*  MAP.CHT
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Defines the map object and scripts.
+*
+*  Assumptions / requirements:  
+*
+* 		1.  kgobMapMain is created as a child of the current place
+*
+******************************************************************************
+*
+*  Revision History:  Created 05/08/95 by a-ScotRa.
+*
+*	06/21/95	BethF	Moved from building into shared directory and
+*						discoupled from the Building util object.
+*	06/30/95	GlenMac	Made to use masks.
+*						
+*
+*****************************************************************************/
+#include "socdefn.h"
+#include "shared\map.chh"
+
+WAVE_CHUNK( "shared\sound\mapobj.wav", kwavMapObject )
+WAVE_CHUNK( "shared\sound\mapopen.wav", kwavMapOpen )	
+//----------------------------------------------------------
+// This macro returns the normal map entry state for each place.
+//----------------------------------------------------------
+#define MAPENTRY(_kgobPlc)\
+	Match(	_kgobPlc,			kst1,\
+			kgobProjects1,		kst1,\
+			kgobBackstage1,		kst2,\
+			kgobTheatre1,		kst4,\
+			kgobLobby1,			kst2,\
+			kgobTicket2,		kst3,\
+			kgobInspiration1,	kst6,\
+			kgobStudio1,		kst1)
+
+// ------------------------------------------------------------------------
+// Main map object.
+// ------------------------------------------------------------------------
+
+OBJECT( "Map main parent", kgobMapMain, 900, kcrsArrow1)
+REP_PPMBMP( kcell1, "shared\pbm\map\mapback.pbm" )
+CREATE_SCRIPT( "main map startup" )
+	PlaySoundGob(kgobUtil, kctgWave, kwavMapOpen, 1, 0x00010000, 1, 1,ksclBldgSound);
+
+
+	// Then disable accelerator keys while map is up.
+	DISABLEACCEL(fFalse);
+
+	// eat all clicks while the map is up
+	FilterCmdsThis(cidKey, kidNil, kchidScript9);
+
+	// Create the children masks
+	CreateChildThis( kgobMapProjMask, kgobMapProjMask );
+	CreateChildThis( kgobMapBackMask, kgobMapBackMask );
+	CreateChildThis( kgobMapTheatreMask, kgobMapTheatreMask );
+	CreateChildThis( kgobMapLobbyMask, kgobMapLobbyMask );
+	CreateChildThis( kgobMapTicketMask, kgobMapTicketMask );
+	CreateChildThis( kgobMapCancel, kgobMapCancel );
+	CreateChildThis( kgobMapIdeaMask, kgobMapIdeaMask);
+	CreateChildThis( kgobMapStudioMask, kgobMapStudioMask );
+	CreateChildThis( kgobMapToolsMask, kgobMapToolsMask);
+	CreateChildThis( kgobMapLogoMask, kgobMapLogoMask );
+	CreateChildThis( kgobMapSnippetMask, kgobMapSnippetMask );
+	CreateChildThis( kgobMapSplotMask, kgobMapSplotMask );
+	CreateChildThis( kgobMapBioMask, kgobMapBioMask );
+	CreateChildThis( kgobMapExit, kgobMapExit );
+	CreateChildThis( kgobVolumePath, kgobVolumePath );
+ENDCHUNK
+
+REP_ANIM( CHID1( krepDefault ), "normal" )
+	Cell( kcell1, 0, 0, 1 );
+
+	// Create the "You are here" control
+	CreateHelpThis( ktpcYouHere );
+ENDCHUNK
+// -------------------------------------------------------------
+// script to eat and throw away key clicks
+CHILD_SCRIPT( "help book : switch to section", kchidScript9  )
+	Return( fTrue );
+ENDCHUNK
+
+
+// --------------------------------------------------------------------------------
+//	Takes down map, and moves to the place the user clicked on.
+//
+//  _parm[0]  = newplace = gob id of the place in building (e.g. kgobStudio1 )
+//  _parm[1]  = newstate = entry state to that place
+//	_parm[2]  = fTools 	 = boolean, TRUE if we're jumping to the tools
+// --------------------------------------------------------------------------------
+CHILD_SCRIPT( "takedown map and switch", kchidScript1 )
+
+	newplace = _parm[0];
+	newstate = _parm[1];
+	fTools	= _parm[2];
+	  
+	// Play the map clicked sound.
+	PlaySoundGob(kgobUtil, kctgWave, kwavMapObject, 1, 0x00010000, 1, 1,
+			ksclBldgSound);
+
+	// Note: When the map goes away, be sure to reenable accelerators
+
+	If ( ::fInStudio );
+		If( fTools );
+			// tools -> tools = CANCEL
+			DEBUGCMD(PrintStr("Studio=>Studio via Map"));
+			ENABLEACCEL(fFalse); 
+			DestroyThis();
+			Exit();
+		End;
+
+		// tools -> building
+
+		DEBUGCMD(PrintStr("Studio=>Building via Map"));
+		SetProp(kpridBuildingGob, newplace );
+		SetProp(kpridBuildingState, newstate);
+		ENABLEACCEL(fFalse);
+		SETPALETTE( cnoNil );		// invalidate our palette and force a transition - bug #1708
+
+		EnqueueCid(cidLoadBuilding, 0, 0, 0, 0, 0);
+		DestroyThis();
+
+	Else;
+		If (GidParThis() == newplace);
+			// Building -> same place in building = cancel
+			// except: when state of newplace is NOT the MAPENTRY state.
+
+			DEBUGCMD(PrintStr("Building=>Same place in Building via Map"));
+			ENABLEACCEL(fFalse);
+			DestroyThis();		
+
+			If (newstate != MAPENTRY(newplace));
+				DEBUGCMD(PrintStr("Changing state to ", NumToStr(newstate, "")));
+				SETGLOBAL(kstEntry, newstate);
+				// Script0 contains the dispatch info for the place gob.  If
+				// there is no script0, Kauai will complain so I won't bother
+				// with any debug code here.
+				RunScriptGob(newplace, kchidScript0);
+			End;
+
+			Exit();
+		End;			
+
+		// Building -> building case
+		// Building -> building / tools 
+		
+		DEBUGCMD(PrintStr("Building=>Building or Studio via Map"));
+		ENABLEACCEL(fFalse);
+		DestroyThis();		
+		NEXTPLACE1( newplace, newstate );
+	End;
+ENDCHUNK
+
+
+// --------------------------------------------------------------------------------
+OBJECTREG( "map - cancel button",   kgobMapCancel, kxpMapCancel, kypMapCancel, 60, kcrsHand1 )
+REP_MBMPREG(CHID1(krepDefault), "shared\bmp\map\cancel.bmp", kxpregMapCancel, kypregMapCancel )
+ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+REP_MBMPREG(CHID1(krepMouseDnOn), "shared\bmp\map\cancelc.bmp", kxpregMapCancel, kypregMapCancel )
+REP_WAVE( CHID1(krepClicked), "shared\sound\map\cancel.wav" )
+CLICK_SCRIPT( "cancel Mask clicked" )
+	ENABLEACCEL(fFalse);
+	DestroyGob( kgobMapMain );
+
+ENDCHUNK
+
+//----------------------------------------------------------------------------------
+OBJECTREG( "map - exit button", kgobMapExit, kxpMapExit, kypMapExit, 60, kcrsHand1)
+REP_MBMPREG(CHID1(krepDefault), "shared\bmp\map\exit.bmp", kxpregMapExit, kypregMapExit )
+ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+REP_MBMPREG(CHID1(krepMouseDnOn), "shared\bmp\map\exits.bmp", kxpregMapExit, kypregMapExit )
+REP_WAVE( CHID1(krepClicked), "shared\sound\map\mapexit.wav" )
+CLICK_SCRIPT( "map - exit clicked" )
+	ENABLEACCEL(fFalse);
+	DestroyGob( kgobMapMain );
+	QUITAPP();
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+// balloon for "You are Here" object.  Ignores the mouse.
+// --------------------------------------------------------------------------------
+OBJECTTY( "Map - You are here", kgobMapHere, 555, kcrsArrow1, gokkNoHit )
+REP_TILE( CHID1( krepDefault), "you are here Mask", "shared\bmp\map\here.bmp", 6, 22 )
+	TILEDEF( 30,8,32,70,4,0,0,0,6 )
+	TILEDEF( 13,1,22,4,2,0,0,0,4 )
+ENDCHUNK
+CREATE_SCRIPT( "you are here create")
+
+	// If we're in the studio, put the YAH sign in the room in the building
+	// where we will end up if we leave the studio.
+	If (::fInStudio);
+		plc = GetProp(kpridBuildingGob);
+	Else;
+		plc = GET_CURRENTPLACE();
+	End;
+
+	// get x.y to position ourselves appropriately when created
+	x= Match( plc, -1,		// -1 = invalid
+		kgobTicket1, 		kxpMapYAHTicket,
+		kgobTicket2, 		kxpMapYAHTicket,
+		kgobLobby1, 		kxpMapYAHLobby, 
+		kgobLobby2, 		kxpMapYAHLobby, 
+		kgobSnackBar,		kxpMapYAHLobby, 
+		kgobWaiting, 		kxpMapYAHLobby, 
+		kgobTheatre1, 		kxpMapYAHTheatre, 
+		kgobTheatre2, 		kxpMapYAHTheatre,
+		kgobTheatre3, 		kxpMapYAHTheatre,
+		kgobTheatre4, 		kxpMapYAHTheatre,
+		kgobBackstage1, 	kxpMapYAHBackstage,
+		kgobBackstage2, 	kxpMapYAHBackstage,
+		kgobInspiration1,	kxpMapYAHIdeas,
+		kgobInspiration2,	kxpMapYAHIdeas,
+		kgobInspiration3,	kxpMapYAHIdeas,
+		kgobInspiration4,	kxpMapYAHIdeas,
+		kgobStudio1, 		kxpMapYAHStudio,
+		kgobStudio2, 		kxpMapYAHStudio,
+		kgobStudio3, 		kxpMapYAHStudio,
+		kgobStudio4, 		kxpMapYAHStudio,
+		kgobProjects1, 		kxpMapYAHProjects,
+		kgobProjects2, 		kxpMapYAHProjects,
+		kgobProjects3, 		kxpMapYAHProjects,
+		kgobProjects4, 		kxpMapYAHProjects 
+	);
+
+	y= Match( plc, -1,		// -1 = invalid
+		kgobTicket1, 		kypMapYAHTicket,
+		kgobTicket2, 		kypMapYAHTicket,
+		kgobLobby1, 		kypMapYAHLobby, 
+		kgobLobby2, 		kypMapYAHLobby, 
+		kgobSnackBar,		kypMapYAHLobby, 
+		kgobWaiting, 		kypMapYAHLobby, 
+		kgobTheatre1, 		kypMapYAHTheatre, 
+		kgobTheatre2, 		kypMapYAHTheatre,
+		kgobTheatre3, 		kypMapYAHTheatre,
+		kgobTheatre4, 		kypMapYAHTheatre,
+		kgobBackstage1, 	kypMapYAHBackstage,
+		kgobBackstage2, 	kypMapYAHBackstage,
+		kgobInspiration1,	kypMapYAHIdeas,
+		kgobInspiration2,	kypMapYAHIdeas,
+		kgobInspiration3,	kypMapYAHIdeas,
+		kgobInspiration4,	kypMapYAHIdeas,
+		kgobStudio1, 		kypMapYAHStudio,
+		kgobStudio2, 		kypMapYAHStudio,
+		kgobStudio3, 		kypMapYAHStudio,
+		kgobStudio4, 		kypMapYAHStudio,
+		kgobProjects1, 		kypMapYAHProjects,
+		kgobProjects2, 		kypMapYAHProjects,
+		kgobProjects3, 		kypMapYAHProjects,
+		kgobProjects4, 		kypMapYAHProjects 
+	);
+
+	ASSERT(x != -1 && y != -1);
+	MoveAbsThis( x, y );
+
+ENDCHUNK
+
+
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - inspiration Mask", kgobMapIdeaMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ),   "shared\bmp\map\ideamsk.bmp" )
+CLICK_SCRIPT( "inspiration Mask clicked" )
+	
+	RunScriptGob(kgobMapMain, kchidScript1, kgobInspiration1,
+			MAPENTRY(kgobInspiration1), fFalse);
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - studio Mask",   kgobMapStudioMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\studmsk.bmp" )
+CLICK_SCRIPT( "studio Mask clicked" )
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobStudio1,
+			MAPENTRY(kgobStudio1), fFalse);
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - projects Mask",   kgobMapProjMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\projmsk.bmp" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobProjects1,
+			MAPENTRY(kgobProjects1), fFalse);
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - backstage Mask",  kgobMapBackMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\bkstgmsk.bmp" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobBackstage1,
+			MAPENTRY(kgobBackstage1), fFalse);
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - theater Mask", kgobMapTheatreMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\theatmsk.bmp" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobTheatre1,
+			MAPENTRY(kgobTheatre1), fFalse);
+ENDCHUNK
+
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - lobby Mask", kgobMapLobbyMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\LOBBYMSK.BMP" )
+CLICK_SCRIPT("Mask clicked")
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobLobby1, MAPENTRY(kgobLobby1),
+			fFalse);
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - ticketbooth Mask",  kgobMapTicketMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\TICKTMSK.BMP" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobTicket2,
+			MAPENTRY(kgobTicket2), fFalse);
+ENDCHUNK
+
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - bio book Mask", kgobMapBioMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\biomsk.bmp" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob( kgobMapMain, kchidScript1, kgobInspiration1, kst8 , fFalse );
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - idea room - splot machine", kgobMapSplotMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\SPLOTMSK.BMP" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob( kgobMapMain, kchidScript1, kgobInspiration1, kst7 , fFalse );
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - tools Mask", kgobMapToolsMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\TBOXMSK.BMP" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob(kgobMapMain, kchidScript1, kgobStudio1, kst2, fTrue);
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - project 1 Mask - logo", kgobMapLogoMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\LOGOMSK.BMP" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob( kgobMapMain, kchidScript1, kgobProjects1, kst4 , fFalse );
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+OBJECT( "map - project 2 Mask",  kgobMapSnippetMask, 60, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ), "shared\bmp\map\GIZMOMSK.BMP" )
+CLICK_SCRIPT( "Mask clicked" )
+ 	RunScriptGob( kgobMapMain, kchidScript1, kgobProjects1, kst5 , fFalse );
+ENDCHUNK
+
+// --------------------------------------------------------------------------------
+// The thumbnail is the graphic indicator of volume level...
+// positioned within the slide path - not hittable
+// --------------------------------------------------------------------------------
+OBJECTTY( "map - volume slider",  kgobMapVolumeSlider, 60, kcrsArrow1, kgokkRectNoHit )
+REP_MBMP( CHID1( krepDefault ), "shared\bmp\map\volthmb.bmp" )
+
+// --------------------------------------------------------------------------------
+// The slider is the rectangular path the volume slider rolls around in.
+//   kdypMapSlider is the height of the slidable area; kdypMapSliderTotal includes
+//   height of thumbnail to be sure it will show at the min setting
+// --------------------------------------------------------------------------------
+OBJECTREG( "map - volume slidepath", kgobVolumePath, kxpMapSlider, kypMapSlider, 500, kcrsHand1 )
+REP_RECT( CHID1( krepDefault), "map rectangle", 0, 0, kdxpMapSlider, kdypMapSliderTotal )
+CREATE_SCRIPT( "create slidepath")
+	CreateChildThis( kgobMapVolumeSlider, kgobMapVolumeSlider  );
+	// get initial volume value, move thumbnail
+	y = kdypMapSlider  -(( GetMasterVolume() * kdypMapSlider )/ (kvlmFull*2));
+	MoveAbsGob( kgobMapVolumeSlider, 0, y );
+ENDCHUNK
+REP_ANIM( CHID1( krepMouseDnOn), "slider")	
+	// repeat up to 30000 times.
+	.siiLoop = PlaySoundThis(kctgWave, kwavDing, 2, 0x00010000, 30000, 1, ksclBldgSound);	
+	While( 1 );
+		y = YMouseThis();
+		If( y < 0 );
+			y=0;
+		Elif( y > kdypMapSlider );
+			y =kdypMapSlider;
+		End;
+		
+		// move thumb slider
+		MoveAbsGob( kgobMapVolumeSlider, 0, y );
+		
+		// track new volume
+		newvol = ( (kvlmFull*2)* (kdypMapSlider-y) ) / kdypMapSlider;	
+
+		// set the volume
+		SetMasterVolume( newvol );	
+
+		// Sample at 10/60ths of a second.
+		Cell(  0 , 0,0, 10 );	
+	End;
+ENDCHUNK
+REP_ANIM( CHID1( kchidDownUpOn ), "release on" )
+	StopSound( .siiLoop );
+ENDCHUNK
+ADOPT_ANIM( LAST_ANIM, CHID1( kchidDownUpOff ))

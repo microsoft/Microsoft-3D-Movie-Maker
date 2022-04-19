@@ -1,0 +1,44 @@
+Acme UI hook mechanism.
+
+The acme UI hook mechanism is a way to replace pieces of the standard acme UI
+with an alternative UI.
+
+The alternative UI is specified in a dynamic link library (DLL). SAMPHOOK.DLL
+is an example of hooking the standard acme UI.
+
+The api for the hook DLL is specified in ACMHOOK.H (located in the INC
+directory). Look at this file for more details on each API. Each API is
+passed a pointer to a single data structure the contains the applicable input
+and output data for the UI hook. Each API returns a setup hook return code to
+either indicate failure, or indicate the type of action to be taken (based on
+the user's input).
+
+The SAMPHOOK directory contains the source code to the sample hook DLL.
+SAMPHOOK.MAK is a MSVC 2.0 project file to build the sample hook DLL.
+
+To try the sample, you must add "/Z SAMPHOOK.DLL" (before the /S switch) to
+the ACMSETUP.EXE command line. If you are using the acme bootstrapper, you
+must modify the SETUP.LST file to to specify this option. You will also need
+to include SAMPHOOK.DLL in the list of files copied by the bootstrapper.
+
+To create your own custom hook DLL, start with the sample.  Remove those hook
+procedures that you do not require, by removing them from SAMPHOOK.DEF, and
+from SAMPHOOK.CPP. If you want the standard acme UI for part of the setup,
+then simply remove the hook procedures for those portions of the UI from the
+hook DLL. ACMSETUP.EXE will use GetProcAddress to determine which hook
+procedures are in the DLL, and for those that do not exist, will perform the
+default UI.
+
+Once you have removed the sample hook procedures for which you want the
+default UI, modify the code in SAMPHOOK.CPP, and the dialog templates in
+SAMPHOOK.RC for those hook procedures you wish to retain. Note that you do not
+have to use windows dialogs for the UI, but can use any mechanism that you
+wish. If you wish to replace a portion of the acme UI with a hard-wired
+response, then implement a hook procedure that simply returns that response,
+without performing any ui.
+
+Note that you can give the hook DLL any name you wish. You can use the same
+DLL for UI hooks, custom action procedures, and billboards. In this case you
+should specify (in the table file) the same DLL name for the custom actions
+and billboards that you specify with the /K switch on the ACMSETUP.EXE command
+line.

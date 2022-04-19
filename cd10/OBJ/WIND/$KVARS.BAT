@@ -1,0 +1,4 @@
+set PROJ=KAUAI
+set ARCH=WIN
+set TYPE=DAY
+set CHAR=BYTE

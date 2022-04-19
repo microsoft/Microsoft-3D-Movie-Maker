@@ -1,0 +1,209 @@
+:Base imgcomp.hlp>graphic
+:Title Microsoft Image Composer Help
+1 Welcome to Image Composer
+2 What is Microsoft Image Composer?=INTRO_What_is_Image_Composer
+2 Overview of Creating Compositions
+3 Creating Compositions=Intro_Creating_Compositions_Overview
+3 What is a Sprite?=Intro_What_Is_A_Sprite?
+3 Sprites and Opacity=Intro_Sprites_and_Opacity
+3 Understanding the Stack=Intro_Understanding_The_Stack
+3 Creating New Sprites=Intro_Creating_New_Sprites
+3 The Image Composer Work Cycle=Intro_Image_Composer_Work_Cycle
+3 Working with the Selection Model=ARRANGE_Working_with_the_Selection_Model
+2 Using the Interface
+3 Overview of the Interface=Intro_Overview_of_the_Image_Composer_Interface
+3 Working with the Toolbox=Intro_Working_with_Image_Composer_Toolbox
+3 Using the Toolbar=INTERFACE_Using_the_Toolbar
+3 Using Tool Palettes=INTERFACE_Using_Tool_Palettes
+3 Choosing Tools=INTERFACE_Choosing_Tools
+3 Using Context Menus=INTERFACE_Using_Context_Menus
+3 Exploring the Workspace=Intro_Exploring_Image_Composer_Workspace
+3 Applying, Undoing, and Resetting Actions=APPLY_Applying_Undoing_Resetting
+2 Using Color
+3 Using True Color=conUsing_True_Color
+3 Adjusting the Current Color with Color Spaces=conAdjusting_the_Current_Color_with_Color_Spaces
+3 Adjusting Color Channels - Red, Blue, Green=conAdjusting_Color_Channels
+3 Using Custom Color Palettes=conUsing_Custom_Color_Palettes
+3 Creating Custom Palettes=howTo_create_a_custom_palette
+3 Previewing a Composition with a Palette=howTo_preview_a_composition_with_a_palette
+3 Controling Color with Dithering=conControling_Color_with_Dithering
+3 Channel Edit Commands Overview=Channel_Edit_Commands_Overview
+2 Overview of Sprite Creation and Modification Tools
+3 Shapes=Shapes_Palette_Overview
+3 Patterns and Fills=textures_pal_overview
+3 Warps and Filters=techeff_how_techeff_overview
+3 Art Effects=fineart_effects_overview
+3 Color Tuning=Color_Tuning_Palette_Overview
+1 Tutorial
+2 Introduction to Tutorial=Tutorial_Intro_Creating_A_Logo>tut
+2 Preparing for the Tutorial=Tutorial_Preparing_For_The_Tutorial>tut
+2 Part 1: Adding and Modifying Sprites
+3 Inserting Images from Files=Tutorial_Inserting_Images_From_Files>tut
+3 Selecting Sprites=Tutorial_Selecting_Sprites>tut
+3 Moving Sprites=Tutorial_Moving_Sprites>tut
+3 Duplicating Sprites=Tutorial_Duplicating_Sprites
+3 Resizing Sprites=Tutorial_Resizing_Sprites_Interactively>tut
+3 Resizing Sprites by a Specific Percentage=Tutorial_Resizing_Sprites_By_A_Specific_Percentage>tut
+3 Adjusting Color and Using Art Effects
+4 Adjusting Color Intensity by Using Color Tuning Tools=Tutorial_Adjusting_Color_Intensity_Using_Color_Tuning_Tools>tut
+4 Adjusting Hue=Tutorial_Adjusting_Hue_Using_Color_Tuning_Tools>tut
+4 Defining the Current Color=Tutorial_Defining_Current_Color>tut
+4 Adjusting Color by Using Color Enhancement Tools=Tutorial_Adjusting_Color_Using_Color_Enhancement_Tools>tut
+4 Using Art Effects=Tutorial_Using_Art_Effects>tut
+2 Part 2: Creating the Logo Background and Text
+3 Creating a New Sprite=Tutorial_Creating_A_New_Sprite>tut
+3 Transferring Patterns Between Sprites=Tutorial_Transferring_Patterns_from_One_Sprite_to_Another>tut
+3 Flipping Sprites=Tutorial_Flipping_Sprites>tut
+3 Rotating Sprites=Tutorial_Rotating_Sprites>tut
+3 Arranging Sprites=Tutorial_Arranging_Sprites>tut
+3 Creating Text Sprites=Tutorial_Creating_Text_Sprites>tut
+3 Adding Outlines to Sprites=Tutorial_Adding_Outlines_to_Sprites>tut
+3 Adding Drop Shadows to Sprites=Tutorial_Adding_Drop_Shadows_to_Sprites>tut
+2 Part 3: Preparing the Logo for the Web
+3 Creating a Custom Color Palette=Tutorial_Creating_A_Custom_Color_Palette>tut
+3 Viewing a Composition in a Custom Palette=Tutorial_Viewing_A_Composition_In_A_Custom_Palette>tut
+3 Saving a Composition=Tutorial_Saving_A_Composition>tut
+1 Working with Compositions
+2 Creating Compositions
+3 Creating Geometric Shapes
+4 Creating Rectangles and Squares=To_create_a_rectangular_sprite
+4 Creating Ovals and Circles=To_create_a_round_or_oval_sprite
+3 Creating Free-Form Shapes
+4 Creating Open-Ended Splines=To_Create_an_Open_Ended_Spline
+4 Creating Open-Ended Polygons=To_Create_an_Open_Ended_Polygon
+4 Creating a Closed Spline=To_Create_a_Closed_Spline
+4 Creating a Closed Polygon=To_Create_a_Closed_Polygon
+4 Creating a Filled Spline=To_Create_a_Filled_Spline
+4 Creating a Filled Polygon=To_Create_a_Filled_Polygon
+3 Using Advanced Techniques
+4 Combining Effects
+5 Creating a Shadow for a Portion of a Sprite=To_create_a_shadow_for_a_portion_of_a_sprite
+5 Creating an Antique Photograph Effect=effect_old_photos_howto
+5 Creating a Cartoon-Like Pencil Sketch=effect_pencil_cartoon_howto
+5 Creating a Pencil Sketch Effect=effect_pencil_sketch_howto
+5 Creating an Oil-Painting Effect=effect_emboss_fresco_howto
+5 Creating an Artistic Paint Effect=effect_accented_edges_dry_brush_howto
+5 Creating a Hand-Colored Effect=effect_hand_colored_howto
+5 Creating a Hand-Rendered Effect=effect_hand-rendered_howto
+5 Creating a Rough-Surface Chalk Effect=effect_colored_pencil_texture_howto
+4 Enhancing Art Effects
+5 Enhancing the Paint Daubs Effect=effect_enhance_paint_daubs_howto
+5 Enhancing the Sponge Effect=effect_sponge_texture_howto
+5 Enhancing the Watercolor Effect=effect_sprayed_strokes_watercolor_howto
+5 Enhancing the Emboss Effect=effect_watercolor_emboss_howto
+5 Enhancing the Dry Brush Effect=effect_dry_brush_emboss_howto
+5 Enhancing the Mosaic Effect=effect_mosaic_emboss_howto
+3 Creating Sprites from Existing Sprites
+4 Duplicating Selected Areas of Sprites=To_Duplicate_Selected_Areas_of_Sprites
+4 Duplicating Selected Colors of Sprites=To_Lift_Colors_from_a_Sprite
+4 Creating Complementary Shapes=texture_pal_patterns_complement_shape_how
+4 Creating a New Sprite from a Single Channel=To_create_a_new_sprite_from_a_single_channel
+4 Creating Masks=To_create_a_mask
+3 Creating Text Sprites
+4 Overview of Text Sprites=Overview_of_Text_Sprites
+4 To Create a Text Sprite=To_Create_A_Text_Sprite
+4 To Create a Justified List=To_Create_A_List
+3 Working with Color
+4 Overview of Working with Color=conOverview_of_Working_with_Color
+4 Setting the Current Color=conSelecting_a_Current_Color
+4 Setting the Current Color from the Quick Color Palette=howTo_select_a_color_using_the_Quick_Color_Palette
+4 Setting the Current Color from the True Color Picker=howTo_select_a_true_color_for_the_Color_Swatch
+4 Setting the Current Color to a Color on the Desktop=howTo_set_a_color_from_the_desktop_as_the_current_color
+4 Selecting True Color for the Quick Color Palette=howTo_select_true_color_for_the_Quick_Color_Palette
+4 Selecting a Custom Palette for the Quick Color Palette=howTo_select_a_custom_palette_for_the_Quick_Color_Palette
+4 Adjusting the Current Color in the Color Swatch=howTo_Adjust_the_Current_Color_in_the_Color_Swatch
+4 Working with Custom Color Palettes
+5 Creating Custom Color Palettes=howTo_create_a_custom_palette
+5 Adding Colors from a Color Ramp or System Colors=howTo_add_colors_from_a_color_ramp_or_system_colors
+5 Adding Colors from a Sprite or Composition=howTo_add_colors_from_a_sprite_or_composition
+5 Editing Custom Color Palettes=howTo_change_colors_in_a_custom_palette
+5 Selecting Colors from the Custom Palette=howTo_select_a_custom_color_for_the_Color_Swatch
+5 Selecting a True Color as a Custom Palette Entry=howTo_select_a_true_color_as_a_custom_palette_entry
+5 Selecting a Color from the Desktop as a Custom Palette Entry=howTo_select_a_color_from_the_desktop_as_a_custom_palette_entry
+5 Adjusting Colors in a Custom Color Palette=howTo_adjust_a_color_in_a_custom_palette
+4 Working with Channels
+5 Copying a Channel=To_Copy_A_Channel>howto
+5 Pasting a Channel=To_Paste_A_Channel>howto
+5 Broadcasting a Channel=To_Broadcast_A_Channel>howto
+2 Using Plug-ins
+3 Impressionist Plug-In Overview=Impressionist_Plug_In_Overview
+3 Adding Additional Plug-Ins=To_Gain_Access_to_Additional_Plug_In_Software_within_Image_Composer
+2 Managing Files and Images
+3 Managing Files and Images Overview=MANAGING_Overview
+3 Working with Supported File Types=MANAGING_Working_with_supported_file_types
+2 Printing Compositions
+3 Overview of Printing Compositions=Printing_A_Composition
+3 How to Print a Composition=To_Print_A_Composition>howto
+2 Modifying Compositions
+3 Arranging Sprites
+4 Cropping Sprites=ARRANGE_To_crop_a_sprite
+4 Scaling and Resizing Sprites=ARRANGE_To_scale_a_sprite
+4 Rotating Sprites at Preset Angles=ARRANGE_To_rotate_a_sprite_at_preset_angles
+4 Specifying the Angle of Rotation=ARRANGE_To_specify_the_angle_of_rotation
+4 Flipping Sprites=ARRANGE_To_flip_a_sprite
+4 Grouping Sprites=ARRANGE_To_group_sprites
+4 Ungrouping Sprites=ARRANGE_To_ungroup_sprites
+4 Exploding Groups=ARRANGE_To_explode_a_group
+4 Flattening Selections=ARRANGE_To_flatten_a_selection
+4 Setting Home Position=ARRANGE_To_set_home_position
+4 Changing the Order of the Stack=ARRANGE_To_change_the_stack_order
+4 Aligning Sprites=ARRANGE_To_Align_a_sprite_with_another_sprite
+3 Manipulating Transparency of an Existing Sprite
+4 Using the Wash Effect to Make an Existing Sprite Transparent=To_make_an_existing_sprite_transparent
+4 Making an Area of a Sprite Transparent=To_make_an_area_of_a_sprite_transparent
+4 Mapping Transparency from One Sprite to Another=To_map_transparency_from_one_sprite_to_another
+3 Working with Light
+4 Working with Light Overview=Working_With_Light_Oview
+4 Using the Dodge-Burn Tool=Using_Dodge_Burn_Tool
+4 Lightening a Portion of a Sprite=To_Lighten_A_Portion_of_a_Sprite
+4 Darkening a Portion of a Sprite=To_Darken_A_Portion_of_a_Sprite
+3 Painting Sprites
+4 Choosing Paint Tools=PAINT_To_Choose_Paint_Tools
+4 Choosing Brushes=PAINT_To_choose_a_paint_brush
+4 Using Paint Effects=PAINT_To_use_a_paint_effect
+4 Creating Templates=PAINT_To_create_a_template
+4 Applying Templates=PAINT_To_apply_a_template
+1 Reference
+2 Paint Tools
+3 Paint Tools=PAINT_Paint_Tools_Overview
+2 Art Effects
+3 Paint Effects=effect_paint_contents
+3 Sketch Effects=effect_sketch_contents
+3 Graphic Effects=effect_graphic_contents
+3 Exotic Effects=effect_exotic_contents
+3 Utility Effects=effect_utility_contents
+2 Warps and Filters
+3 Warps=effect_warp_contents
+3 Warp Transforms=effect_warp_transforms_contents
+3 Interactive Warps=effect_interactive_warp_contents
+3 Outline Effects=effect_effect_contents
+3 Filters=effect_filter_contents
+3 Color Enhancement=effect_color_enhance_contents
+2 Patterns and Fills
+3 Sprite to Sprite=texture_pal_sprites_overview
+3 Current Color Fill=texture_pal_current_color_fill
+3 Gradient Ramp=texture_pal_gradient_ramp
+3 Patterns=texture_pal_patterns_overview
+3 Complement Shape=texture_pal_complement_shape
+2 Color Tuning
+3 Color Shifting=Color_Shifting_Overview
+3 Highlight/Shadow=Highlight_Shadow_Overview
+3 Dynamic Range=Dynamic_Range
+2 Shapes
+3 Geometry=Geometry_overview
+3 Color Lift=Colorlift_Overview
+2 Keyboard Mappings
+3 General Keyboard Shortcuts=General_Keyboard_Shortcuts
+2 Glossary
+3 Glossary=glsGlossary>gls
+1 Using Image Composer with Other Applications
+2 Integration with Microsoft FrontPage 97
+3 Creating a New Web Image in FrontPage=howTo_create_a_new_web_image_from_FrontPage
+3 Editing a web image from FrontPage=howTo_edit_an_existing_web_page_image
+3 Selecting the color palette used by an image in FrontPage=howTo_optimize_the_color_palette_used_by_an_image_in_FrontPage
+2 Information for Photoshop Users
+3 Editing Adobe Photoshop Files in Microsoft Image Composer=howEditing_Adobe_Photoshop__Files_in_Microsoft_Image_Composer
+3 Saving Your Composition to Adobe Photoshop File Format=howSaving_Your_Composition_to_Adobe_Photoshop__File_Format
+1 Compatibility with Microsoft Office=Microsoft_Office_Compatible
+1 Answer Point Information
+2 Answer Point Information for Microsoft Image Composer=Intro_Answer_Point

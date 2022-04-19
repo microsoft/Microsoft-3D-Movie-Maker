@@ -1,0 +1,126 @@
+//Microsoft App Studio generated resource script.
+//
+#include "ftres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "framedef.h"
+
+/////////////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+128 MENU DISCARDABLE
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "Save &As...",                 cidSaveAs
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       cidQuit
+    END
+    POPUP "&Macro"
+    BEGIN
+        MENUITEM "&Record...",                  cidStartRecording
+        MENUITEM "&Stop Recording",             cidCexStopRec
+        MENUITEM "&Play...",                    cidStartPlaying
+        MENUITEM "S&top Playing",               cidCexStopPlay
+    END
+    POPUP "&Test"
+    BEGIN
+        MENUITEM "Test &Suite",                 cidTestSuite
+        MENUITEM "&New Test Window",            cidNewTestWnd
+        MENUITEM "New Te&xt Window",            cidTextTestWnd
+        MENUITEM "&Time FrameRc",               cidTimeFrameRc
+        MENUITEM "Build &Fni from szPath",      cidTestFni
+        MENUITEM SEPARATOR
+        MENUITEM "New &Perspective Window",     cidTestPerspective
+        MENUITEM "New &Masked Bitmap Window",   cidTestMbmps
+        MENUITEM "New Pi&cture Window",         cidTestPictures
+        MENUITEM "New &Animation Window",       cidTestFastUpdate
+        MENUITEM "New &Edit Window",            cidTestTextEdit
+    END
+END
+
+#ifdef APSTUDIO_INVOKED
+//////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "ftres.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include ""frame.rc""\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+200 DIALOG DISCARDABLE  0, 0, 233, 121
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",100,171,8,50,14
+    PUSHBUTTON      "Cancel",101,171,29,50,14
+    CONTROL         "Graphics",104,"Button",BS_AUTORADIOBUTTON,13,39,82,11
+    CONTROL         "Text",105,"Button",BS_AUTORADIOBUTTON,13,61,82,11
+    CONTROL         "Neither",106,"Button",BS_AUTORADIOBUTTON,13,83,82,11
+    PUSHBUTTON      "Whatever",102,171,50,50,14
+    CONTROL         "CheckBox",103,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,6,
+                    96,12
+    EDITTEXT        107,121,81,96,14,ES_AUTOHSCROLL
+    LTEXT           "Static",108,121,103,86,11
+END
+
+201 DIALOG DISCARDABLE  0, 0, 233, 51
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter szPath from which to build fni"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",100,171,8,50,14,NOT WS_TABSTOP
+    PUSHBUTTON      "Cancel",101,171,29,50,14,NOT WS_TABSTOP
+    EDITTEXT        107,9,19,152,14,ES_AUTOHSCROLL
+END
+
+
+#ifndef APSTUDIO_INVOKED
+////////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "frame.rc"
+
+/////////////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

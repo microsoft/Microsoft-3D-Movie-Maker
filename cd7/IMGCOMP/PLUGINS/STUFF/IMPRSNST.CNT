@@ -1,0 +1,38 @@
+:Base imprsnst.hlp
+:Title Impressionist Help
+1 Overview=overview
+1 Using Impressionist=using
+1 Saving, Removing, and Modifying Custom Styles=saving
+1 Previewing and Applying=applying
+1 Tips and Techniques=tips
+1 About Impressionist=credits
+1 Styles
+2 Chalk=style_chalk
+2 Chalk Sketch=style_csketch
+2 Charcoal=style_charcoal
+2 Conte=style_conte
+2 Crayon=style_crayon
+2 Geometric=style_geometric
+2 Ink=style_ink
+2 Marker=style_marker
+2 Natural=style_natural
+2 Paint=style_paint
+2 Pencil=style_pencil
+2 Pencil Sketch=style_psketch
+2 Pointillist=style_pointillist
+2 Stamp=style_stamp
+2 Sumi-e=style_sumie
+2 Texture=style_texture
+2 Watercolor=style_watercolor
+1 Controls
+2 Basic Controls=controls_basic
+2 Advanced Controls=controls_advanced
+2 General Controls=controls_general
+2 Brush Controls=controls_brush
+2 Placement Controls=controls_placement
+2 Size Controls=controls_size
+2 Orientation Controls=controls_orientation
+2 Color Controls=controls_color
+2 Paper Controls=controls_paper
+2 Effects Controls=controls_effects
+2 Demo Controls=controls_demo

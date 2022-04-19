@@ -1,0 +1,4 @@
+set PROJ=SOC
+set ARCH=WIN
+set TYPE=DBSHIP
+set CHAR=BYTE

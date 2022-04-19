@@ -1,0 +1,23 @@
+[Params]
+	WndTitle   = Microsoft Music Producer Setup
+	WndMess    = Starting Microsoft Music Producer Setup...
+	TmpDirSize = 2000
+	TmpDirName = ~msstfqf.t
+	CmdLine    = acmsetup /T setup.stf /S %s %s
+	DrvModName = ACMSETUP	
+	DrvWinClass = Stuff-Shell
+	Require31  = This program requires Windows (R) 3.5 or higher.
+	CabinetFile = Producer.CAB
+	InsertCDMsg	= Please insert your Microsoft Music Producer 1.0 CD.
+	
+[Files]
+	;Setup\cmssrg.dll = cmssrg.dll
+	Setup\acmsetup.exe = acmsetup.exe
+	Setup\mssetup.dll  = mssetup.dll
+	Setup\Muscbb.dll = Muscbb.dll
+	Setup\Muscah.dll = Muscah.dll
+	Setup\setup.stf    = setup.stf
+	Setup\setup.inf   = setup.inf
+	Setup\acmsetup.hlp = acmsetup.hlp
+	setup\eula.txt = eula.txt
+

@@ -1,0 +1,75 @@
+:Base msinfo32.hlp>proc4
+:Title Microsoft System Info
+:Index msinfo32=msinfo32.hlp>proc4
+1 Overview
+2 Introduction=msinfo32_index
+2 File Menu
+3 Run=HID_FILE_RUN
+3 Save=HID_FILE_SAVE
+3 Print=HID_FILE_PRINT
+3 Exit=HID_APP_EXIT
+2 Edit Menu
+3 Copy=HID_EDIT_COPY
+3 Select All=HID_SELECT_ALL
+2 View Menu
+3 Toolbar=HID_VIEW_TOOLBAR
+3 Status Bar=HID_VIEW_STATUS_BAR
+3 Refresh=HID_VIEW_REFRESH
+3 Always on Top=HID_ALWAYS_ONTOP
+2 Help Menu
+3 Help Topics=HID_HELP_INDEX
+3 About Microsoft System Info=HID_APP_ABOUT
+1 How to ...
+3 Sort data displayed for the category=howto_sort
+3 Show available space on network drives=howto_show_network_drives
+3 Test an audio driver=howto_test_audio_driver
+3 Locate an alternative sample=howto_locate_alternative_sample
+3 Configure an audio driver=howto_configure_audio_driver
+3 Copy specific category data=howto_copy_category_data
+3 Run another application=HID_FILE_RUN
+3 Save a listing of all the information=HID_FILE_SAVE
+3 Print a listing of all the information=HID_FILE_PRINT
+3 Select the entire list of items=HID_SELECT_ALL
+3 Hide the toolbar bitmaps=HID_VIEW_TOOLBAR
+3 Regather the information for the current category=HID_VIEW_REFRESH
+1 What is ...
+3 An appropriate sample for media testing=popup_appropriateness
+3 Pulse Code Modulation (PCM)=popup_pcm
+3 Virtual Memory=popup_virtual_memory
+1 Information Categories
+2 System
+3 Item Description=HID_ITEMS_SYSTEM
+2 Printing
+2 Item Description=HID_ITEMS_PRINTING
+2 System DLL's
+2 Item Description=HID_ITEMS_SYSTEM_DLLS
+2 Font
+3 Font Substitutions=HID_CATEGORY_FONT_SUBSTITUTIONS
+3 Font Managers=HID_CATEGORY_FONT_MANAGERS
+2 Proofing
+3 Registry Settings=HID_CATEGORY_PROOFING_REGISTRY_SETTINGS
+3 INI settings=HID_CATEGORY_PROOFING_INI_SETTINGS
+3 File Info=HID_CATEGORY_PROOFING_FILE_INFO
+2 Graphic Filters
+3 Registry Settings=HID_CATEGORY_GRAPHIC_FILTERS_REGISTRY_SETTINGS
+3 INI settings=HID_CATEGORY_GRAPHIC_FILTERS_INI_SETTINGS
+3 File Info=HID_CATEGORY_GRAPHIC_FILTERS_FILE_INFO
+2 Text Converters
+3 Registry Settings=HID_CATEGORY_TEXT_CONVERTERS_REGISTRY_SETTINGS
+3 INI settings=HID_CATEGORY_TEXT_CONVERTERS_INI_SETTINGS
+3 File Info=HID_CATEGORY_TEXT_CONVERTERS_FILE_INFO
+2 Display
+3 Item Description=HID_ITEMS_DISPLAY
+2 Audio
+3 Item Description=HID_ITEMS_AUDIO
+2 Video
+3 Item Description=HID_ITEMS_VIDEO
+2 CD ROM
+3 Item Description=HID_ITEMS_CDROM
+2 Applications Running
+3 Item Description=HID_ITEMS_APPLICATIONS_RUNNING
+2 OLE Registration
+3 Registry Settings=HID_CATEGORY_OLE_REGISTRATION_REGISTRY_SETTINGS
+3 INI settings=HID_CATEGORY_OLE_REGISTRATION_INI_SETTINGS
+2 Active Modules
+3 Item Description=HID_ITEMS_ACTIVE_MODULES

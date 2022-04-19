@@ -1,0 +1,156 @@
+[HKEY_CLASSES_ROOT\AirCatalog]
+@="AIR Catalog"
+
+[HKEY_CLASSES_ROOT\AirCatalog\CLSID]
+@="{88a17025-2f09-101b-a16f-08002b2f5191}"
+
+[HKEY_CLASSES_ROOT\AirQuery]
+@="AIR Query"
+
+[HKEY_CLASSES_ROOT\AirQuery\CLSID]
+@="{88a17022-2f09-101b-a16f-08002b2f5191}"
+
+[HKEY_CLASSES_ROOT\AirWordBreaker]
+@="AIR Word Breaker"
+
+[HKEY_CLASSES_ROOT\AirWordBreaker\CLSID]
+@="{88a17026-2f09-101b-a16f-08002b2f5191}"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17025-2f09-101b-a16f-08002b2f5191}]
+@="AIR Catalog"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17025-2f09-101b-a16f-08002b2f5191}\ProgID]
+@="AirCatalog"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17025-2f09-101b-a16f-08002b2f5191}\InProcServer32]
+@="<product path>\\aircatu.dll"
+"ThreadingModel"="REG_SZ:Both"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17022-2f09-101b-a16f-08002b2f5191}]
+@="AIR Query"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17022-2f09-101b-a16f-08002b2f5191}\ProgID]
+@="AirQuery"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17022-2f09-101b-a16f-08002b2f5191}\InProcServer32]
+@="<product path>\\airqryu.dll"
+"ThreadingModel"="REG_SZ:Both"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17026-2f09-101b-a16f-08002b2f5191}]
+@="AIR Word Breaker"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17026-2f09-101b-a16f-08002b2f5191}\ProgID]
+@="AirWordBreaker"
+
+[HKEY_CLASSES_ROOT\CLSID\{88a17026-2f09-101b-a16f-08002b2f5191}\InProcServer32]
+@="<product path>\\airlexu.dll"
+"ThreadingModel"="REG_SZ:Apartment"
+
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Application\Media Manager Indexer]
+"EventMessageFile"="REG_SZ:<product path>\\airsvcu.exe"
+"TypesSupported"="REG_DWORD:0x7"
+
+# Note when changing the following key, check for references in aircat.cpp and the twcpl project
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager]
+"ProductPath"="REG_SZ:<product path>"
+# LOC : (Media Manager Indexer) needs localising
+"ServiceDisplayName"="REG_SZ:Media Manager Indexer"
+
+# Map of primary language IDs to support files
+# English
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\Languages\9]
+"Stop"="REG_SZ:<product path>\\airstop.txt"
+"Breaker"="REG_SZ:<product path>\\mvbk20n.dll"
+"Char"="REG_SZ:<product path>\\english.tbl"
+
+# German
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\Languages\7]
+"Stop"="REG_SZ:"
+"Char"="REG_SZ:<product path>\\german.tbl"
+
+# Japanese
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Media Manager\Indexer\Languages\17]
+"Stop"="REG_SZ:"
+"Breaker"="REG_SZ:<product path>\\mvjk20n.dll"
+"Char"="REG_SZ:<product path>\\japanese.tbl"
+
+### AIRSVC.CPP
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Media Manager\Indexer]
+"IndexPeriod"="REG_DWORD:0x168"				# 6 hours, in minutes
+"IndexScheduleFixed"="REG_DWORD:0"
+# The control panel should default to index adjustment by hours
+"ControlPanelSelection"="REG_DWORD:0x3eb"	# The hex value of IDC_IX_RADIO_HOURS in twilight\twcpl\resource.h
+"TextFileExtensions"="REG_SZ:.txt;.faq;.utf;read.me;.readme;.nws"
+
+### mapping of extensions to Object Type property
+
+[HKEY_CLASSES_ROOT\CmsExtensions]
+# Audio
+"WAV"="REG_SZ:Audio_Wave"
+"MID"="REG_SZ:Audio_Midi_MID"
+"RMI"="REG_SZ:Audio_Midi_RMI"
+"AIF"="REG_SZ:Audio_AIFF_AIF"
+"AIFF"="REG_SZ:Audio_AIFF_AIFF"
+"AIFC"="REG_SZ:Audio_AIFF_AIFC"
+"RAM"="REG_SZ:Audio_RAM"
+"AU"="REG_SZ:Audio_SUN_AU"
+"SND"="REG_SZ:Audio_MAC_SND"
+"CDA"="REG_SZ:Audio_CD"
+"MMP"="REG_SZ:Audio_MusicProducer"
+# Images
+"BMP"="REG_SZ:Images_Bitmap_BMP"
+"DIB"="REG_SZ:Images_Bitmap_DIB"
+"RLE"="REG_SZ:Images_Bitmap_RLE"
+"EPS"="REG_SZ:Images_EPSF"
+"GIF"="REG_SZ:Images_GIF"
+"JPG"="REG_SZ:Images_Jpeg_JPG"
+"JPEG"="REG_SZ:Images_Jpeg_JPEG"
+"JIF"="REG_SZ:Images_Jpeg_JIF"
+"MIC"="REG_SZ:Images_MIC"
+"WMF"="REG_SZ:Images_winmetafile"
+"PCD"="REG_SZ:Images_PhotoCD"
+"PS"="REG_SZ:Images_Postscript"
+"TGA"="REG_SZ:Images_Targa"
+"TIF"="REG_SZ:Images_TIFF_TIF"
+"TIFF"="REG_SZ:Images_TIFF_TIFF"
+"PNG"="REG_SZ:Images_PNG"
+"MIX"="REG_SZ:Images_MSImageExt_MIX"
+"FPX"="REG_SZ:Images_MSImageExt_FPX"
+"PCX"="REG_SZ:Images_Paintbrush"
+# Text
+"FAQ"="REG_SZ:Text_FAQ"
+"HTM"="REG_SZ:Text_HTML_HTM"
+"HTML"="REG_SZ:Text_HTML_HTML"
+"ME"="REG_SZ:Text_readme"
+"RTF"="REG_SZ:Text_RTF"
+"TXT"="REG_SZ:Text_txt"
+"UTF"="REG_SZ:Text_Unicode"
+# Video
+"AVI"="REG_SZ:Video_AVI"
+"MPG"="REG_SZ:Video_MPEG_MPG"
+"MPEG"="REG_SZ:Video_MPEG_MPEG"
+"MP2"="REG_SZ:Video_MPEG_MP2"
+"MPV"="REG_SZ:Video_MPEG_MPV"
+"MPA"="REG_SZ:Video_MPEG_MPA"	
+"DAT"="REG_SZ:Video_MPEG_DAT"	
+"M1V"="REG_SZ:Video_MPEG_M1V"	
+"MPE"="REG_SZ:Video_MPEG_MPE"	
+"MPM"="REG_SZ:Video_MPEG_MPM"	
+"MOV"="REG_SZ:Video_Quicktime_MOV"
+"QT"="REG_SZ:Video_Quicktime_QT"
+#	APPLICATION SPECIFIC
+"MDA"="REG_SZ:Office_Access"
+"DOC"="REG_SZ:Office_Word_Document"
+"DOT"="REG_SZ:Office_Word_Template"
+"PPT"="REG_SZ:Office_Powerpoint_Presentation"
+"POT"="REG_SZ:Office_Powerpoint_Template"
+"OBD"="REG_SZ:Office_Binder_File"
+"OBT"="REG_SZ:Office_Binder_Template"
+"XLS"="REG_SZ:Office_Excel_Worksheet"
+"XLT"="REG_SZ:Office_Excel_Template"
+# Media Producer
+"EMT"="REG_SZ:MediaProducer_EMT"
+"RMT"="REG_SZ:MediaProducer_RMT"
+"XVE"="REG_SZ:MediaProducer_XVE"
+

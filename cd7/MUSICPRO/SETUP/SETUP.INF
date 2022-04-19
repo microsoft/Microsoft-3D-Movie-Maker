@@ -1,0 +1,191 @@
+;*** BEGIN **********************************************************
+;**                                                                **
+;** Automatically generated on: Fri Oct 04 01:08:07 1996           **
+;**                                                                **
+;** Diamond Version: (32) 1.00.0508 (08/12/94)                     **
+;**                                                                **
+;*** BEGIN **********************************************************
+[Source Media Descriptions]
+; <disk number>, <disk label>, <file>, <path>
+ "1","Microsoft Music Producer Setup: Disk 1","Setup.exe","."
+
+[Default File Settings]
+"STF_BACKUP" = ""
+"STF_COPY" = "YES"
+"STF_DATE" = "1996-06-29"
+"STF_DECOMPRESS" = ""
+"STF_OVERWRITE" = "OLDER"
+"STF_READONLY" = ""
+"STF_ROOT" = "YES"
+"STF_SETTIME" = "YES"
+"STF_TIME" = "0"
+"STF_VITAL" = ""
+
+;************* INF File list *****************
+
+[Producer]
+"msimusic_dll" = 1,MuscProd\MSIMusic.dll,,,,1996-10-04,,1033,,,,,,,,119808,,,,2.0.0.116,
+"msimrt_dll" = 1,MuscProd\MSIMRT.dll,,,,1996-10-04,,1033,,,,,,,,14336,,,,2.0.0.116,
+"msimrt16_dll" = 1,MuscProd\MSIMRT16.dll,,,,1996-10-04,,1033,,,,,,,,10592,,,,2.0.0.116,
+"msimrt32_dll" = 1,MuscProd\MSIMRT32.dll,,,,1996-10-04,,1033,,,,,,,,27136,,,,2.0.0.116,
+"Opus_cnt" = 1,MuscProd\MuscProd.cnt,,,,1996-10-04,,,,,,,,,,1261,,,,,
+"Opus_exe" = 1,MuscProd\MuscProd.exe,,,,1996-10-04,,1033,,,,,,,,1157120,,,,1.0.0.1004,
+"Opus_hlp" = 1,MuscProd\MuscProd.hlp,,,,1996-10-04,,,,,,,,,,81075,,,,,
+"readme_txt" = 1,ReadMe.txt,,,,1996-10-04,,,,,,,,,,1686,,,,,
+
+[Setup Files]
+"acmsetup_exe" = 1,Setup\ACMSETUP.EXE,,,,1996-10-04,,1033,,,,Setup.exe,!ROOT,,,352256,SYSTEM,,,3.0.0.925,
+"MSSETUP_DLL" = 1,Setup\MSSETUP.DLL,,,,1996-10-04,,1033,,,,,,,,255488,SYSTEM,,,3.0.0.925,
+"Muscah_dll" = 1,Setup\Muscah.dll,,,,1996-10-04,,1033,,,,,,,,171520,SYSTEM,,,1.20.0.2402,
+"Muscbb_dll" = 1,Setup\Muscbb.dll,,,,1996-10-04,,,,,,,,,,283648,,,,,
+"Setup_inf" = 1,Setup\setup.inf,,,,1996-10-04,,,,,,,,,,11691,,,,,
+"EULA_TXT" = 1,Setup\EULA.TXT,,,,1996-10-04,,,,,,,,,,6114,,,,,
+
+[Redist]
+"Mfc40_dll" = 1,Redist\Mfc40.dll,,,,1996-10-04,,1033,,,,,,,,921872,SYSTEM,,,4.1.0.6038,
+"Msvcrt40_dll" = 1,Redist\Msvcrt40.dll,,,,1996-10-04,,1033,,,,,,,,326656,SYSTEM,,,4.10.0.6038,
+
+[IMusic]
+"12-8BLD.STY" = 1,IMusic\12-8BLD.STY,,,,1996-10-04,,,,,,,,,,33180,,,,,
+"20TH_C_C.STY" = 1,IMusic\20TH_C_C.STY,,,,1996-10-04,,,,,,,,,,56064,,,,,
+"50SROCK.STY" = 1,IMusic\50SROCK.STY,,,,1996-10-04,,,,,,,,,,49502,,,,,
+"7AM.STY" = 1,IMusic\7AM.STY,,,,1996-10-04,,,,,,,,,,38768,,,,,
+"ADVENTUR.STY" = 1,IMusic\ADVENTUR.STY,,,,1996-10-04,,,,,,,,,,32440,,,,,
+"AMADEUS.STY" = 1,IMusic\AMADEUS.STY,,,,1996-10-04,,,,,,,,,,49078,,,,,
+"AMERICAN.STY" = 1,IMusic\AMERICAN.STY,,,,1996-10-04,,,,,,,,,,35782,,,,,
+"APPALACH.STY" = 1,IMusic\APPALACH.STY,,,,1996-10-04,,,,,,,,,,57118,,,,,
+"BACHPREL.STY" = 1,IMusic\BACHPREL.STY,,,,1996-10-04,,,,,,,,,,31722,,,,,
+"BARROOM.STY" = 1,IMusic\BARROOM.STY,,,,1996-10-04,,,,,,,,,,75022,,,,,
+"BETHOVEN.STY" = 1,IMusic\BETHOVEN.STY,,,,1996-10-04,,,,,,,,,,52804,,,,,
+"BIGBAND.STY" = 1,IMusic\BIGBAND.STY,,,,1996-10-04,,,,,,,,,,57062,,,,,
+"BLUEGRAS.STY" = 1,IMusic\BLUEGRAS.STY,,,,1996-10-04,,,,,,,,,,41150,,,,,
+"BLUERAIN.STY" = 1,IMusic\BLUERAIN.STY,,,,1996-10-04,,,,,,,,,,50206,,,,,
+"BLUESHUF.STY" = 1,IMusic\BLUESHUF.STY,,,,1996-10-04,,,,,,,,,,78656,,,,,
+"BOOGIE.PER" = 1,IMusic\BOOGIE.PER,,,,1996-10-04,,,,,,,,,,6640,,,,,
+"BOOGIE2.STY" = 1,IMusic\BOOGIE2.STY,,,,1996-10-04,,,,,,,,,,48382,,,,,
+"CARIBEAN.STY" = 1,IMusic\CARIBEAN.STY,,,,1996-10-04,,,,,,,,,,59866,,,,,
+"CHASE.STY" = 1,IMusic\CHASE.STY,,,,1996-10-04,,,,,,,,,,49148,,,,,
+"CHINA.STY" = 1,IMusic\CHINA.STY,,,,1996-10-04,,,,,,,,,,36700,,,,,
+"CHOPINWA.STY" = 1,IMusic\CHOPINWA.STY,,,,1996-10-04,,,,,,,,,,27520,,,,,
+"CLASSCOL.PER" = 1,IMusic\CLASSCOL.PER,,,,1996-10-04,,,,,,,,,,10798,,,,,
+"CLASSICL.PER" = 1,IMusic\CLASSICL.PER,,,,1996-10-04,,,,,,,,,,14530,,,,,
+"CNTRY.PER" = 1,IMusic\CNTRY.PER,,,,1996-10-04,,,,,,,,,,10710,,,,,
+"COUNTDWN.STY" = 1,IMusic\COUNTDWN.STY,,,,1996-10-04,,,,,,,,,,45276,,,,,
+"COUNTRY.STY" = 1,IMusic\COUNTRY.STY,,,,1996-10-04,,,,,,,,,,41084,,,,,
+"CTRYFOLK.STY" = 1,IMusic\CTRYFOLK.STY,,,,1996-10-04,,,,,,,,,,66960,,,,,
+"CTRYPOP.STY" = 1,IMusic\CTRYPOP.STY,,,,1996-10-04,,,,,,,,,,63738,,,,,
+"CTRYROCK.STY" = 1,IMusic\CTRYROCK.STY,,,,1996-10-04,,,,,,,,,,36846,,,,,
+"CTRYSWNG.STY" = 1,IMusic\CTRYSWNG.STY,,,,1996-10-04,,,,,,,,,,49580,,,,,
+"DANCEHOP.STY" = 1,IMusic\DANCEHOP.STY,,,,1996-10-04,,,,,,,,,,57438,,,,,
+"DANCEMIX.STY" = 1,IMusic\DANCEMIX.STY,,,,1996-10-04,,,,,,,,,,59668,,,,,
+"DEBUSSY.STY" = 1,IMusic\DEBUSSY.STY,,,,1996-10-04,,,,,,,,,,31444,,,,,
+"DIACONT.PER" = 1,IMusic\DIACONT.PER,,,,1996-10-04,,,,,,,,,,9718,,,,,
+"DIANOBLE.PER" = 1,IMusic\DIANOBLE.PER,,,,1996-10-04,,,,,,,,,,12304,,,,,
+"DISCO.STY" = 1,IMusic\DISCO.STY,,,,1996-10-04,,,,,,,,,,41462,,,,,
+"EEUROPE.STY" = 1,IMusic\EEUROPE.STY,,,,1996-10-04,,,,,,,,,,52888,,,,,
+"FEVER.STY" = 1,IMusic\FEVER.STY,,,,1996-10-04,,,,,,,,,,30190,,,,,
+"FNKJNGLE.STY" = 1,IMusic\FNKJNGLE.STY,,,,1996-10-04,,,,,,,,,,82682,,,,,
+"FUNK.STY" = 1,IMusic\FUNK.STY,,,,1996-10-04,,,,,,,,,,41406,,,,,
+"FUNKEASY.STY" = 1,IMusic\FUNKEASY.STY,,,,1996-10-04,,,,,,,,,,36726,,,,,
+"FUNKMELL.STY" = 1,IMusic\FUNKMELL.STY,,,,1996-10-04,,,,,,,,,,63278,,,,,
+"FUNKPLL.PER" = 1,IMusic\FUNKPLL.PER,,,,1996-10-04,,,,,,,,,,11014,,,,,
+"FUNKY7-4.STY" = 1,IMusic\FUNKY7-4.STY,,,,1996-10-04,,,,,,,,,,41552,,,,,
+"FUSAK.STY" = 1,IMusic\FUSAK.STY,,,,1996-10-04,,,,,,,,,,41608,,,,,
+"FUSION.STY" = 1,IMusic\FUSION.STY,,,,1996-10-04,,,,,,,,,,45094,,,,,
+"FUSIONST.STY" = 1,IMusic\FUSIONST.STY,,,,1996-10-04,,,,,,,,,,59540,,,,,
+"GOGO.STY" = 1,IMusic\GOGO.STY,,,,1996-10-04,,,,,,,,,,44936,,,,,
+"GOSPEL.PER" = 1,IMusic\GOSPEL.PER,,,,1996-10-04,,,,,,,,,,8710,,,,,
+"GOSPELWA.STY" = 1,IMusic\GOSPELWA.STY,,,,1996-10-04,,,,,,,,,,34272,,,,,
+"HIJINKS.STY" = 1,IMusic\HIJINKS.STY,,,,1996-10-04,,,,,,,,,,36716,,,,,
+"HIP60S.STY" = 1,IMusic\HIP60S.STY,,,,1996-10-04,,,,,,,,,,43280,,,,,
+"HIPHOP.STY" = 1,IMusic\HIPHOP.STY,,,,1996-10-04,,,,,,,,,,58478,,,,,
+"INDIA.STY" = 1,IMusic\INDIA.STY,,,,1996-10-04,,,,,,,,,,44930,,,,,
+"INDUSTRY.STY" = 1,IMusic\INDUSTRY.STY,,,,1996-10-04,,,,,,,,,,35842,,,,,
+"ITALY.STY" = 1,IMusic\ITALY.STY,,,,1996-10-04,,,,,,,,,,39614,,,,,
+"JAZZ.PER" = 1,IMusic\JAZZ.PER,,,,1996-10-04,,,,,,,,,,17270,,,,,
+"JAZZ.STY" = 1,IMusic\JAZZ.STY,,,,1996-10-04,,,,,,,,,,58340,,,,,
+"JAZZBLD.STY" = 1,IMusic\JAZZBLD.STY,,,,1996-10-04,,,,,,,,,,70830,,,,,
+"JAZZBLUE.PER" = 1,IMusic\JAZZBLUE.PER,,,,1996-10-04,,,,,,,,,,17270,,,,,
+"JAZZFOLK.STY" = 1,IMusic\JAZZFOLK.STY,,,,1996-10-04,,,,,,,,,,59962,,,,,
+"JAZZGSPL.STY" = 1,IMusic\JAZZGSPL.STY,,,,1996-10-04,,,,,,,,,,51080,,,,,
+"JAZZIN5.STY" = 1,IMusic\JAZZIN5.STY,,,,1996-10-04,,,,,,,,,,31236,,,,,
+"JAZZWALZ.STY" = 1,IMusic\JAZZWALZ.STY,,,,1996-10-04,,,,,,,,,,30038,,,,,
+"LATIN.STY" = 1,IMusic\LATIN.STY,,,,1996-10-04,,,,,,,,,,45406,,,,,
+"LATIN5.STY" = 1,IMusic\LATIN5.STY,,,,1996-10-04,,,,,,,,,,18320,,,,,
+"LOVETHEM.STY" = 1,IMusic\LOVETHEM.STY,,,,1996-10-04,,,,,,,,,,39910,,,,,
+"MARCH.STY" = 1,IMusic\MARCH.STY,,,,1996-10-04,,,,,,,,,,49246,,,,,
+"MEMPHIS.STY" = 1,IMusic\MEMPHIS.STY,,,,1996-10-04,,,,,,,,,,80132,,,,,
+"MENDLSON.STY" = 1,IMusic\MENDLSON.STY,,,,1996-10-04,,,,,,,,,,25166,,,,,
+"METAL.STY" = 1,IMusic\METAL.STY,,,,1996-10-04,,,,,,,,,,47698,,,,,
+"MEXICO.STY" = 1,IMusic\MEXICO.STY,,,,1996-10-04,,,,,,,,,,57640,,,,,
+"MIN1.PER" = 1,IMusic\MIN1.PER,,,,1996-10-04,,,,,,,,,,2278,,,,,
+"MIN145.PER" = 1,IMusic\MIN145.PER,,,,1996-10-04,,,,,,,,,,3376,,,,,
+"MINAEJZ.PER" = 1,IMusic\MINAEJZ.PER,,,,1996-10-04,,,,,,,,,,9868,,,,,
+"MINAEO.PER" = 1,IMusic\MINAEO.PER,,,,1996-10-04,,,,,,,,,,13932,,,,,
+"MINDOR.PER" = 1,IMusic\MINDOR.PER,,,,1996-10-04,,,,,,,,,,5532,,,,,
+"MINFUNC.PER" = 1,IMusic\MINFUNC.PER,,,,1996-10-04,,,,,,,,,,10806,,,,,
+"MINJAZZ.PER" = 1,IMusic\MINJAZZ.PER,,,,1996-10-04,,,,,,,,,,10898,,,,,
+"MINPEDPT.PER" = 1,IMusic\MINPEDPT.PER,,,,1996-10-04,,,,,,,,,,6872,,,,,
+"MINPHRY.PER" = 1,IMusic\MINPHRY.PER,,,,1996-10-04,,,,,,,,,,12834,,,,,
+"MIPEDPT.PER" = 1,IMusic\MIPEDPT.PER,,,,1996-10-04,,,,,,,,,,6872,,,,,
+"MIPPJAZZ.PER" = 1,IMusic\MIPPJAZZ.PER,,,,1996-10-04,,,,,,,,,,6872,,,,,
+"MIXO.PER" = 1,IMusic\MIXO.PER,,,,1996-10-04,,,,,,,,,,5744,,,,,
+"MODINT.PER" = 1,IMusic\MODINT.PER,,,,1996-10-04,,,,,,,,,,9868,,,,,
+"MONOTONY.PER" = 1,IMusic\MONOTONY.PER,,,,1996-10-04,,,,,,,,,,3178,,,,,
+"MOTOWN.STY" = 1,IMusic\MOTOWN.STY,,,,1996-10-04,,,,,,,,,,53004,,,,,
+"NEWAGE.STY" = 1,IMusic\NEWAGE.STY,,,,1996-10-04,,,,,,,,,,15342,,,,,
+"NEWAGE2.STY" = 1,IMusic\NEWAGE2.STY,,,,1996-10-04,,,,,,,,,,52816,,,,,
+"NEWORLNS.PER" = 1,IMusic\NEWORLNS.PER,,,,1996-10-04,,,,,,,,,,13532,,,,,
+"NITCNTRY.STY" = 1,IMusic\NITCNTRY.STY,,,,1996-10-04,,,,,,,,,,58336,,,,,
+"NOBILITY.STY" = 1,IMusic\NOBILITY.STY,,,,1996-10-04,,,,,,,,,,44552,,,,,
+"NORLEANS.STY" = 1,IMusic\NORLEANS.STY,,,,1996-10-04,,,,,,,,,,41888,,,,,
+"NWAGEBLD.STY" = 1,IMusic\NWAGEBLD.STY,,,,1996-10-04,,,,,,,,,,65888,,,,,
+"OTHERWOR.STY" = 1,IMusic\OTHERWOR.STY,,,,1996-10-04,,,,,,,,,,41790,,,,,
+"PDPTDIA.PER" = 1,IMusic\PDPTDIA.PER,,,,1996-10-04,,,,,,,,,,6872,,,,,
+"POP_RB.STY" = 1,IMusic\POP_RB.STY,,,,1996-10-04,,,,,,,,,,31536,,,,,
+"POPBLD.STY" = 1,IMusic\POPBLD.STY,,,,1996-10-04,,,,,,,,,,40100,,,,,
+"POPDIA.PER" = 1,IMusic\POPDIA.PER,,,,1996-10-04,,,,,,,,,,38798,,,,,
+"POPMELL.STY" = 1,IMusic\POPMELL.STY,,,,1996-10-04,,,,,,,,,,30044,,,,,
+"POWERDAN.STY" = 1,IMusic\POWERDAN.STY,,,,1996-10-04,,,,,,,,,,41580,,,,,
+"PUNKRAMA.STY" = 1,IMusic\PUNKRAMA.STY,,,,1996-10-04,,,,,,,,,,39768,,,,,
+"RACHMAN.STY" = 1,IMusic\RACHMAN.STY,,,,1996-10-04,,,,,,,,,,27468,,,,,
+"RAGTIME.STY" = 1,IMusic\RAGTIME.STY,,,,1996-10-04,,,,,,,,,,74710,,,,,
+"RAMEAU.STY" = 1,IMusic\RAMEAU.STY,,,,1996-10-04,,,,,,,,,,16968,,,,,
+"REGGAE.STY" = 1,IMusic\REGGAE.STY,,,,1996-10-04,,,,,,,,,,56058,,,,,
+"REGGARCK.STY" = 1,IMusic\REGGARCK.STY,,,,1996-10-04,,,,,,,,,,42920,,,,,
+"REGGSWNG.STY" = 1,IMusic\REGGSWNG.STY,,,,1996-10-04,,,,,,,,,,58090,,,,,
+"RIFFROCK.STY" = 1,IMusic\RIFFROCK.STY,,,,1996-10-04,,,,,,,,,,82940,,,,,
+"ROCK1.STY" = 1,IMusic\ROCK1.STY,,,,1996-10-04,,,,,,,,,,42506,,,,,
+"ROCK3.STY" = 1,IMusic\ROCK3.STY,,,,1996-10-04,,,,,,,,,,33784,,,,,
+"ROCKBILY.STY" = 1,IMusic\ROCKBILY.STY,,,,1996-10-04,,,,,,,,,,66576,,,,,
+"ROKPLL.PER" = 1,IMusic\ROKPLL.PER,,,,1996-10-04,,,,,,,,,,11014,,,,,
+"SAFRICA.STY" = 1,IMusic\SAFRICA.STY,,,,1996-10-04,,,,,,,,,,39548,,,,,
+"SAMBA.STY" = 1,IMusic\SAMBA.STY,,,,1996-10-04,,,,,,,,,,47944,,,,,
+"SHUFFLEM.STY" = 1,IMusic\SHUFFLEM.STY,,,,1996-10-04,,,,,,,,,,30170,,,,,
+"SIRREAL.STY" = 1,IMusic\SIRREAL.STY,,,,1996-10-04,,,,,,,,,,28496,,,,,
+"SLOWFUNK.STY" = 1,IMusic\SLOWFUNK.STY,,,,1996-10-04,,,,,,,,,,39654,,,,,
+"SPINWHL.STY" = 1,IMusic\SPINWHL.STY,,,,1996-10-04,,,,,,,,,,29476,,,,,
+"STHROCK.STY" = 1,IMusic\STHROCK.STY,,,,1996-10-04,,,,,,,,,,60360,,,,,
+"STRUMBOL.STY" = 1,IMusic\STRUMBOL.STY,,,,1996-10-04,,,,,,,,,,49120,,,,,
+"STRUMMIN.STY" = 1,IMusic\STRUMMIN.STY,,,,1996-10-04,,,,,,,,,,134386,,,,,
+"STRUT.STY" = 1,IMusic\STRUT.STY,,,,1996-10-04,,,,,,,,,,37894,,,,,
+"STRVNSKY.STY" = 1,IMusic\STRVNSKY.STY,,,,1996-10-04,,,,,,,,,,33768,,,,,
+"SUSPENSE.STY" = 1,IMusic\SUSPENSE.STY,,,,1996-10-04,,,,,,,,,,31974,,,,,
+"TENSION.PER" = 1,IMusic\TENSION.PER,,,,1996-10-04,,,,,,,,,,9184,,,,,
+"TEXSWING.STY" = 1,IMusic\TEXSWING.STY,,,,1996-10-04,,,,,,,,,,49192,,,,,
+"TWOSTEP.STY" = 1,IMusic\TWOSTEP.STY,,,,1996-10-04,,,,,,,,,,50458,,,,,
+ 1,IMusic\ARGENTIN.STY,,,,1996-10-04,,,,,,,,,,49320,,,,,
+ 1,IMusic\BACKBEAT.STY,,,,1996-10-04,,,,,,,,,,60202,,,,,
+ 1,IMusic\BLUEBEAT.STY,,,,1996-10-04,,,,,,,,,,53834,,,,,
+ 1,IMusic\CNTRYPKN.STY,,,,1996-10-04,,,,,,,,,,37604,,,,,
+ 1,IMusic\DARKTCNO.STY,,,,1996-10-04,,,,,,,,,,70216,,,,,
+ 1,IMusic\HIPHEP.STY,,,,1996-10-04,,,,,,,,,,39628,,,,,
+ 1,IMusic\MYSTCAVE.STY,,,,1996-10-04,,,,,,,,,,133098,,,,,
+ 1,IMusic\RAP.STY,,,,1996-10-04,,,,,,,,,,37960,,,,,
+ 1,IMusic\ROCKBLD.STY,,,,1996-10-04,,,,,,,,,,37548,,,,,
+ 1,IMusic\UPBTRAVE.STY,,,,1996-10-04,,,,,,,,,,44244,,,,,
+;*** END ************************************************************
+;**                                                                **
+;** Automatically generated on: Fri Oct 04 01:08:07 1996           **
+;**                                                                **
+;*** END ************************************************************

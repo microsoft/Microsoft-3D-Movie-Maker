@@ -1,0 +1,52 @@
+:Base mm.hlp>ref
+:Title Media Manager Help
+:Link shed.hlp        ; Help for the Hotspot Editor  SHED.EXE)
+:Link win32.hlp       ; SDK Help file (for WinHelp API)
+1 Getting Started
+2 About Microsoft Media Manager=CMS_About Media Manager>Ref
+2 Getting Started with Media Manager=IDH_GETTING_STARTED>Ref
+1 Working with Folders and Files
+2 Creating a Media Manager root folder=CMS_To create a Media Manager root folder>Proc
+2 Creating a Media Manager folder=CMS_To create a folder>Proc
+2 Converting a Windows folder to a Media Manager root folder=CMS_To convert a folder to Media Manager folder>Proc
+2 Changing the name of a folder or file=CMS_To change the name of a file or folder>Proc
+2 Moving a folder or file into Media Manager=CMS_To move into Media Manager>Proc
+2 Moving a folder or file out of Media Manager=CMS_To move out of Media Manager>Proc
+2 Moving a folder or file within Media Manager=CMS_To move within Media Manager>Proc
+2 Creating a shortcut=CMS_To create a shortcut>Proc
+2 Converting a Media Manager folder to a Windows folder=CMS_Convert to Windows folder>Proc
+2 Deleting a folder or file=CMS_To delete a file or folder>Proc
+2 Retrieving a deleted folder or file=CMS_To retrieve deleted files or shortcuts>Proc
+2 Finding a folder or file=CMS_To find a file>Proc
+1 Working with Annotations
+2 Adding annotations to a file=CMS_To add custom properties to an item>Proc
+2 Changing annotations for a file=CMS_To change custom properties for an item>Proc
+2 Deleting annotations from a file=CMS_To delete custom properties for an item>Proc
+2 Viewing property pages for a folder or file=CMS_To view property pages>Proc
+1 Working with Thumbnails
+2 Creating thumbnails=CMS_To capture a thumbnail>Proc
+2 Creating a different thumbnail view for a video file=CMS_To capture thumbnail for a video file>Proc
+2 Viewing a thumbnail in Thumbnail view=CMS_To view in Thumbnail view>Proc
+2 Playing a thumbnail in place=CMS_To play a thumbnail in place>Proc
+1 Using the Media Manager Indexer
+2 Starting the Media Manager Indexer=CMS_To start the indexer>Proc
+2 Stopping the Media Manager Indexer=CMS_To stop the indexer>Proc
+2 Changing the Indexer interval=CMS_To change the indexer interval>Proc
+2 Creating an index=CMS_To create an index>Proc
+2 Updating an index=CMS_To update the index>Proc
+2 Deleting an index=CMS_To delete the index>Proc
+2 Viewing an index log=CMS_To view the index log>Proc
+2 Reparing a damaged index=CMS_To repair a damaged index>Proc
+1 Searching using the Media Manager Finder
+2 Searching for a file by filename=CMS_To look for a file based on its name>Proc
+2 Searching for a file by type=CMS_To look for files based on their type>Proc
+2 Searching for a file by using a word or phrase=CMS_To look for a file based on keywords>Proc
+2 Searching for files by type-specific properties=CMS_To look for a file based on its type specific properties>Proc
+2 Searching for a file by annotations=CMS_To look for a file based on its custom properties>Proc
+2 Saving search criteria=CMS_To save the settings for a specific search>Proc
+1 Using the Annotations Database
+2 Creating an annotations database=CMS_To create a workgroup properties database>Proc
+2 Selecting an annotations database=CMS_To select a Workgroup Properties Database>Proc
+2 Adding a new annotation to a database=CMS_To add a property to the list of custom properties>Proc
+2 Changing an annotation in a database=CMS_To change a property in the list of custom properties>Proc
+2 Deleting an annotation from a database=CMS_To delete a property from the list of custom properties>Proc
