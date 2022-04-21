@@ -1,5 +1,5 @@
 /**********************************************************************
-	Author: ******
+	Author: ShonK
 	Project: Kauai
 	Reviewed:
 	Copyright (c) Microsoft Corporation

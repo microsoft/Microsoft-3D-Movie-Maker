@@ -3,7 +3,7 @@
 	popup.h: Popup menu classes
 
 	Primary Author: ******
-	         MPFNT: peted
+	         MPFNT: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	BASE ---> CMH ---> GOB ---> GOK ---> BRWD ---> BRWL ---> MP

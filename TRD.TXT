@@ -28,7 +28,7 @@ Product wide failure handling
 
 	UI error messages                               waiting for spec
 
-	actor.cpp (susano)
+	actor.cpp ((*****))
 	actor oom & file i/o                            zd
 
 	scene.cpp (seanse)
@@ -43,13 +43,13 @@ Product wide failure handling
 
 Backgrounds and Camera Views
 
-	bkgd.cpp (manders):
+	bkgd.cpp ((*****)):
 	Background RGB and Z buffers                    zd
 	Light sources                                   zd
 	Cameras                                         zd
 	Switching backgrounds                           zd
 	Switching views                                 zd
-	Switching palettes (peted)                      zd
+	Switching palettes ((*****))                      zd
 		NOTE: only HH-Lab background uses it
 
 	scene.cpp (seanse):
@@ -59,52 +59,52 @@ Backgrounds and Camera Views
 
 Materials and Texture Maps
 
-	tmap.cpp (manders)
+	tmap.cpp ((*****))
 	Load texmap from chunky file                    not yet reviewed
 	Save texmap to chunky file                      not yet reviewed
 	Import texmap from PIX                          not yet reviewed
-	Import texmap from BMP (peted)                  not yet reviewed
+	Import texmap from BMP ((*****))                  not yet reviewed
 
-	mtrl.cpp (manders)
+	mtrl.cpp ((*****))
 	Shade table management                          zd
 	Load MTRL (stock material) from chunky file     zd
 	Save MTRL to chunky file                        zd
 	Load CMTL (custom material) from chunky file    zd
 
-	tmpl.cpp (manders)
+	tmpl.cpp ((*****))
 	Manage default costume and custom materials
 		for actors                                  zd
 
-	body.cpp (manders)
+	body.cpp ((*****))
 	Attach and remove stock and custom materials
 		to body parts                               zd
 
-	actor.cpp (susano)
+	actor.cpp ((*****))
 	Manage costume change events                    zd
 
 
 Models - the actual shape of the body parts
 
-	modl.cpp (manders)
+	modl.cpp ((*****))
 	Load model from chunky file                     zd
 	Save model to chunky file                       zd
 	Import model from DAT                           zd
 
-	tmpl.cpp (manders)
+	tmpl.cpp ((*****))
 	Loads models based on the current action and
 		tells body to attach them                   zd
 
-	body.cpp (manders)
+	body.cpp ((*****))
 	Attaches models to body parts                   zd	
 	
 	
 Rendering
 
-	zbmp.cpp (manders)
+	zbmp.cpp ((*****))
 	Load Z-buffer from chunky file                  zd
 	Draw Z-buffer into gpt, clipping to regn        zd
 
-	bwld.cpp (manders)
+	bwld.cpp ((*****))
 	Manage BRender actor hierarchy, including
 		cameras and all actors                      zd
 	Manage background RGB and Z buffer              zd
@@ -118,7 +118,7 @@ Rendering
 
 Actor Templates
 
-	tmpl.cpp (manders)
+	tmpl.cpp ((*****))
 	Read TMPL from chunky file                      zd
 	Set default costume                             zd
 	Get custom costume                              zd
@@ -129,28 +129,28 @@ Actor Templates
 
 3-D Text
 
-	tdf.cpp (manders)
+	tdf.cpp ((*****))
 	Code                                            zd
 
-	tdt.cpp (manders)
+	tdt.cpp ((*****))
 	Code                                            zd
 
 	Spletter Easel script (seanse)                  not yet reviewed
-	Spletter Easel code (manders)                   not done
+	Spletter Easel code ((*****))                   not done
 
-	tdfmake.exe (font authoring tool) (manders)     not yet reviewed
+	tdfmake.exe (font authoring tool) ((*****))     not yet reviewed
 
 
 Costume Changer Easel
 
 	Scripting (seanse)                              not yet reviewed
-	Code (manders)                                  not done
+	Code (*****)                                    not done
 
 
 Content Conversion - Tools to bring designer's data into Socrates.
 	See Materials and Texture Maps
 
-	sitobren.cpp (peted)
+	sitobren.cpp ((*****))
 	Actor conversion
 		NOTE: no final actors have been received from the content
 			production staff; if problems appear in existing
@@ -189,7 +189,7 @@ Scenes - Scene level functionality.
 	Scene chopper                                   zd
 	Scene chopper - backwards                       zd
 	Scene nuker                                     zd
-	Transitions (seanse/manders)                    zd
+	Transitions (seanse/(*****))                    zd
 	Pauses                                          zd
 	Undo/Redo for scene edits                       zd
 	Sound                                           not done.
@@ -205,7 +205,7 @@ Movies - Movie level functionality.
 
 Actor - Actor manipulations:
 
-	actor.cpp (susano)
+	actor.cpp ((*****))
 	Static/non-static April spec changes            zd
 	Orientation during placement drag               zd
 	Path orientation (single & multi point)         zd
@@ -213,8 +213,8 @@ Actor - Actor manipulations:
 	Add new actor from rolls                        zd
 	Add actor from rollcall (not present in scene)  zd
 	Add actor from rollcall (out of view)           zd
-	Initial Actor orientation  (manders)            zd
-	Initial Actor position/scale (manders)          not done
+	Initial Actor orientation  (*******)            zd
+	Initial Actor position/scale (*******)          not done
 	Static & non-static Actions                     zd
 	Path Compose                                    zd
 	Path Recording and Rerecording                  zd
@@ -233,30 +233,30 @@ Actor - Actor manipulations:
 	Sound                                           not done
 	Cut Actor (forwards & back for scene chop)      zd
 
-	actrsave.cpp (manders)
+	actrsave.cpp ((*****))
 	Save actor to document                          zd
 	Load actor from document                        zd
 	Manage actor's tags                             zd
 
-	actredit.cpp* (susano/seanse)
+	actredit.cpp* ((*****)/seanse)
 	Cut Actor                                       zd
 	Copy Actor                                      zd
 	Paste Actor                                     zd
 	Copy Route                                      zd
 	Paste Route                                     zd
 
-	actredit.cpp (seanse/susano)
+	actredit.cpp (seanse/*****)
 	Undo/redo for actors                            zd
 
 Studio Master Controls
 
-	stdioscb.[cpp,cht] (t-jdrage)
+	stdioscb.[cpp,cht] (*****)
 	Frame/scene scrollbars, buttons                 zd
 	Frame/scene counters, name, fps                 zd
 
 Tag Manager - references to content on CD
 
-	tagman.cpp (manders)
+	tagman.cpp ((*****))
 	Search all drives for content sources           zd
 	Report missing CD (and retry)                   zd
 	Read objects from content sources               zd
@@ -289,7 +289,7 @@ Ctrl, Shift, Hot Keys (Stest only)
 	alt-tab                                         zd
 
 
-Socrates exe stuff and Win95 (manders)              waiting for spec
+Socrates exe stuff and Win95 ((*****))            waiting for spec
 
 	Maintain "HomeDirectory" entry in registry      not done
 	Determine current user name                     not done
@@ -320,7 +320,7 @@ ARE 'zd' DOES NOT IMPLY THE CODE BEHIND THE UI IS 'zd'.
         Text box create                                 not done
 
    Settings Secondary Tools:
-        Scene sorter (peted)                            not done
+        Scene sorter (*****)                            not done
         Camera browser                                  zd
         Scene pauses                                    zd
 
@@ -486,12 +486,12 @@ Chunky tools
 	and not	part of Socrates.  All Kauai (framework)
 	functionality is also owned by shonk.
 	
-	ched.exe (shonk)
+	ched.exe ((*****))
 	Chunky editor                                   not yet reviewed
 
-	chomp.exe (shonk)
+	chomp.exe ((*****))
 	Chunky compiler                                 not yet reviewed
 
-	chelp.exe (shonk)
+	chelp.exe ((*****))
 	Chunky help editor                              not yet reviewed
 

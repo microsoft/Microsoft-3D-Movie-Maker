@@ -250,7 +250,7 @@ Actor - Actor manipulations:
 
 Studio Master Controls
 
-	stdioscb.[cpp,cht] (t-jdrage)
+	stdioscb.[cpp,cht] (*****)
 	Frame/scene scrollbars, buttons                 zd
 	Frame/scene counters, name, fps                 zd
 
