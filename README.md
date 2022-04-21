@@ -8,6 +8,16 @@ under the [MIT license](LICENSE) as open source.
 The source files in this repo are for historical reference and will be kept static, and this repository will
 be archived. Feel free to fork this repo and experiment.
 
+## Code cleanup
+
+This code was restored from the Microsoft corporate archives and cleared for release.
+
+- Developer names and aliases were removed, with the exception of current employees who worked on the
+  original release who consented to keeping their names in place
+- The archive consisted of several CDs, some of which were for alternate builds or products, and
+  have been excluded
+- The code does not build with today's engineering tools, and is released as-is.
+
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 

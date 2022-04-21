@@ -2,7 +2,7 @@
 
 	srec.cpp: Sound recording class
 
-	Primary Author: ******-McConnell (based on manders original srec)
+	Primary Author: ****** (based on ***** original srec)
 	Review Status: reviewed
 
 ***************************************************************************/
