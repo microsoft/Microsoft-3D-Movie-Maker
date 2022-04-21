@@ -2,7 +2,7 @@
 
 	tatr.cpp: Theater class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	A TATR (theater) is similar to a STDIO, but has no UI and is used for 

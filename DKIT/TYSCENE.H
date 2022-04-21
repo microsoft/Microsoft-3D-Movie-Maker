@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyScene.h,v $
    $Revision: 1.18 $ $Date: 1995/02/02 19:03:33 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's scene data structure,
    its content is sufficient to read and write data structure into

@@ -2,7 +2,7 @@
 
 	esl.cpp: Easel classes
 
-	Primary Author: manders
+	Primary Author: ******
 	Listener Easel: Susano
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 

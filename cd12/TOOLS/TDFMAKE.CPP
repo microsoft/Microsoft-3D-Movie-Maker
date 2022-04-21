@@ -2,7 +2,7 @@
 
 	tdfmake.cpp: Three-D Font authoring tool
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: Not yet reviewed
 
 	TDFmake is a command-line tool for building 3-D Font files from a

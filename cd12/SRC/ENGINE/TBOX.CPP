@@ -1,7 +1,7 @@
 //
 //  tbox.cpp
 //
-//  Author: Sean Selitrennikoff
+//  Author: ******
 //
 //  Status: All changes must be code reviewed.
 //

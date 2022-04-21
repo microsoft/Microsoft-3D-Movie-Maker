@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyCluster.h,v $
    $Revision: 1.7 $ $Date: 1994/12/01 00:28:08 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's cluster data structure.
 

@@ -2,7 +2,7 @@
  *
  *	stdioscb.h
  *
- *	Author: James Drage
+ *	Author: ******
  *	Date: March, 1995
  *
  *	This file contains the studio scrollbar class SSCB.

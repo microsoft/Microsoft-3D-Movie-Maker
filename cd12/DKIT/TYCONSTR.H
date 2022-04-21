@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyConstr.h,v $
    $Revision: 1.11 $ $Date: 1994/12/20 20:04:54 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    Description of types associated with the lists of constraints.
 

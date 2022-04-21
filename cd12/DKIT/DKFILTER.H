@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/DK_filter.h,v $
    $Revision: 1.9 $ $Date: 1995/04/11 18:13:21 $
-   Checkin by: $Author: davidle $
+   Checkin by: $Author: ******$
 
    File containing a lot of #define to 'filter' the old name of the
    data structures & functions into the new one beginning by 'DK_'

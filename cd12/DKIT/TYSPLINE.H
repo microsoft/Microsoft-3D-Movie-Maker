@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinySpline.h,v $
    $Revision: 1.4 $ $Date: 1992/12/18 14:01:56 $
-   Checkin by: $Author: claude $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's DK_spline data structure,
    its content is sufficient to read and write data structure into

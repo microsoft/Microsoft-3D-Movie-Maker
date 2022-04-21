@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyFace.h,v $
    $Revision: 1.5 $ $Date: 1994/10/31 15:42:54 $
-   Checkin by: $Author: laurentr $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's face data structure,
    its content is sufficient to read and write data structure into

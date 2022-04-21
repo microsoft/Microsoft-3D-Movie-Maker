@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyScnDump.h,v $
    $Revision: 1.3 $ $Date: 1994/11/08 22:50:51 $
-   Checkin by: $Author: diane $
+   Checkin by: $Author: ******$
 
    This file contains the function prototypes to print the contents of
    a DKit scene.

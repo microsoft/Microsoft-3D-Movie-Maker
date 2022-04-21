@@ -2,7 +2,7 @@
 
 	body.cpp: Body class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	A BODY holds the BRender-related data structures that make up what

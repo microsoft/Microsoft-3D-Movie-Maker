@@ -2,7 +2,7 @@
 
   movie.cpp
 
-  Author: Sean Selitrennikoff
+  Author: ******
 
   Date: August, 1994
 

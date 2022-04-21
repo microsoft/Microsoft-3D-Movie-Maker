@@ -1023,7 +1023,7 @@ bool STDIO::FCmdOpen(PCMD pcmd)
 	FCmdScroll
 		Handles scrollbar commands.
 
-	Author: t-jdrage
+	Author: ******
 
 	Returns: nothing
 

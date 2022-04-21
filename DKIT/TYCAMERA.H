@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyCamera.h,v $
    $Revision: 1.11 $ $Date: 1994/11/15 15:17:11 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's camera data structure.
 

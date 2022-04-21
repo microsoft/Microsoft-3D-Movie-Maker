@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyModel.h,v $
    $Revision: 1.31 $ $Date: 1995/04/02 00:46:48 $
-   Checkin by: $Author: davidle $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's model data structure,
    its content is sufficient to read and write data structure into

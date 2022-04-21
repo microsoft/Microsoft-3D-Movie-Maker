@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyPicture.h,v $
    $Revision: 1.3 $ $Date: 1994/11/15 15:17:56 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's picture data structure,
    its content is sufficient to read and write data structure into

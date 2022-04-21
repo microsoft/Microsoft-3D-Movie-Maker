@@ -2,7 +2,7 @@
 
 	bwld.cpp: BRender world class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	To improve performance, BWLD can render into a reduced area, then

@@ -2,7 +2,7 @@
 
 	zbmp.cpp: Z-buffer bitmap class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 ***************************************************************************/

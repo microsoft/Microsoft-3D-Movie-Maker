@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyUtils.h,v $
    $Revision: 1.16 $ $Date: 1995/02/03 23:25:01 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's utilities data structures
    and defines.

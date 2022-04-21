@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyMental.h,v $
    $Revision: 1.2 $ $Date: 1994/10/27 18:37:17 $
-   Checkin by: $Author: c_benoit $
+   Checkin by: $Author: ****** $
 
 
    Written by: Martin-Karl Lefrancois

@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyDynamics.h,v $
    $Revision: 1.12 $ $Date: 1994/07/21 18:38:32 $
-   Checkin by: $Author: rejean $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's dynamics data structure.
 

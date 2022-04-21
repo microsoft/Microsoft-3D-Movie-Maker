@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyFile.h,v $
    $Revision: 1.15 $ $Date: 1994/11/15 15:18:22 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of control procedures and variables use in
    Softimage programming environment.

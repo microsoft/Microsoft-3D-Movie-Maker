@@ -10,7 +10,7 @@
 **		ObjID	Batch	Title	Descr	Type		Data						Bmp Id	Vital	Shared	DirChng	DestDir	CheckDir	InstBy	InstData	InstDir
 **		ID#				CustomAction	"EXPSETUP.DLL","GetShortPath","ObjID#"
 **
-**	Author:		WSproule
+**	Author: ******
 **	Written For:	Explorapedia Win32/Win16 versions of Nature and People
 **
 ****************************************************************************/

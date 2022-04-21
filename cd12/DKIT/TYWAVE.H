@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyWave.h,v $
    $Revision: 1.9 $ $Date: 1994/04/06 21:10:07 $
-   Checkin by: $Author: diane $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's wave data structure.
 

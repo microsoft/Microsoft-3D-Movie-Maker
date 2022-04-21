@@ -7,7 +7,7 @@
 **		ObjID	Batch	Title		Descr		Type		Data						Bmp Id	Vital	Shared	DirChng	DestDir	CheckDir	InstBy	InstData	InstDir
 **		ID#		"Error Title"	"Error Text"	CustomAction	"filename.DLL","GetPathFromIni","filename.ini,Section,Entry"					
 **
-**	Author:		WSproule
+**	Author: ******
 **	Written For:	Explorapedia Win32/Win16 versions of Nature and People
 **	History:	Started with \\conman\release\usrswap\customa\inipath
 **

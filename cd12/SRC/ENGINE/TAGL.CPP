@@ -2,7 +2,7 @@
 
 	tagl.cpp: Tag list class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	The GG of TAGFs is maintained in sorted order.  It is sorted by sid, 

@@ -2,7 +2,7 @@
 
 	tdt.cpp: Three-D Text class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	TDT, the 3-D Text class, is a derived class of TMPL.  Most clients

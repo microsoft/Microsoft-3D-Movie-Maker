@@ -2,7 +2,7 @@
 
   browser.cpp
 
-  Author: Susano
+  Author: ******
 
   Date: March, 1995
 

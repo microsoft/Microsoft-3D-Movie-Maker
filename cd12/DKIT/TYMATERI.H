@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyMaterial.h,v $
    $Revision: 1.13 $ $Date: 1995/03/29 23:13:35 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's material data structure,
    its content is sufficient to read and write data structure into

@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyFitting.h,v $
    $Revision: 1.8 $ $Date: 1994/04/06 21:19:01 $
-   Checkin by: $Author: diane $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's fitting data structure.
 

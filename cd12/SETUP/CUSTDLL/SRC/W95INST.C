@@ -15,7 +15,7 @@
 **
 **	  where PARAMS is either nothing, VFW or Aud to ensure both, VFW only or AUDIO only codecs are installed
 **
-**	Author:		WSproule
+**	Author: ******
 **	Written For:	Explorapedia Win32/Win16 versions of Nature and People
 **
 ****************************************************************************/

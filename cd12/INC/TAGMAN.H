@@ -2,7 +2,7 @@
 
 	tagman.h: Tag Manager class (TAGM)
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	BASE ---> TAGM

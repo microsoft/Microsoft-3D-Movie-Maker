@@ -2,7 +2,7 @@
 
 	srec.cpp: Sound recording class
 
-	Primary Author: Tom Laird-McConnell (based on manders original srec)
+	Primary Author: ******-McConnell (based on manders original srec)
 	Review Status: reviewed
 
 ***************************************************************************/

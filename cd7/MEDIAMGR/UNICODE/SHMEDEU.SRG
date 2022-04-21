@@ -1,5 +1,5 @@
 # SRG file for Shell Media Extensions.
-# author: pedrosi
+# Author: ******
 
 ## registering format ids for media extension property schema.
 [HKEY_CLASSES_ROOT\FMTID\{7026EA40-C026-11cf-A0E5-00AA00A71191}\PropertySetDisplayName]

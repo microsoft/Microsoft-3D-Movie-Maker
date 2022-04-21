@@ -2,7 +2,7 @@
 
 	splot.h: Splot machine class
 
-	Primary Author: PeteD
+	Primary Author: ******
 	Review Status: Reviewed
 
 ***************************************************************************/

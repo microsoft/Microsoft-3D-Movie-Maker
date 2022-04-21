@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinySoftType.h,v $
    $Revision: 1.12 $ $Date: 1994/11/15 15:25:08 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of standard types, constants and macros use in
    Softimage programming environment.

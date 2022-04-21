@@ -23,7 +23,7 @@
 **
 **	  where PARAMS blank
 **
-**	Author:		WSproule
+**	Author: ******
 **	Written For:	Explorapedia Win32/Win16 versions of Nature and People
 **
 ****************************************************************************/

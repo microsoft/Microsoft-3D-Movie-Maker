@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyLattice.h,v $
    $Revision: 1.4 $ $Date: 1992/12/18 14:01:40 $
-   Checkin by: $Author: claude $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's lattice data structure.
 

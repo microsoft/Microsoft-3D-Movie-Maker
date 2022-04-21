@@ -2,7 +2,7 @@
 
   stdiobrw.cpp
 
-  Author: Susano
+  Author: ******
 
   Date: April, 1995
 

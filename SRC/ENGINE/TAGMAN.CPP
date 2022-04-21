@@ -2,7 +2,7 @@
 
 	tagman.cpp: Tag Manager class (TAGM)
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	It is important to keep in mind that there are two layers of caching

@@ -2,7 +2,7 @@
 
 	mtrl.cpp: Material (MTRL) and custom material (CMTL) classes
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 ***************************************************************************/

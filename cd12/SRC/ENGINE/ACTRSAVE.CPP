@@ -2,7 +2,7 @@
 
 	actrsave.cpp: Actor load/save code
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	Here's the chunk hierarchy:

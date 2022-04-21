@@ -2,7 +2,7 @@
 
 	tmpl.cpp: Actor template class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	Here's the TMPL chunk tree (* means more than one chunk can go here):

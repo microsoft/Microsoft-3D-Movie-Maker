@@ -2,7 +2,7 @@
 
 	portf.cpp: Portfolio handler
 
-	Primary Author: guyb
+	Primary Author: ******
 	Review Status: peted has reviewed. Final version not yet approved.
 
 ***************************************************************************/

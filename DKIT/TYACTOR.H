@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyActor.h,v $
    $Revision: 1.7 $ $Date: 1994/08/24 22:12:38 $
-   Checkin by: $Author: diane $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's Actor data structure.
 

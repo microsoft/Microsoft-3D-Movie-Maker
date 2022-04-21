@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyFcurve.h,v $
    $Revision: 1.17 $ $Date: 1994/11/22 17:30:54 $
-   Checkin by: $Author: diane $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's fcurve data structure.
 

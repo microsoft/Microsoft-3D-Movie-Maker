@@ -2,7 +2,7 @@
 
 	Actor Sound.
 
-	Primary author: Susano
+	Primary Author: ******
 	Status:  Reviewed
 		
 ***************************************************************************/

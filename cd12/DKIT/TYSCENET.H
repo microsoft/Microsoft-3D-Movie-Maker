@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinySceneToken.h,v $
    $Revision: 1.15 $ $Date: 1994/07/04 22:58:46 $
-   Checkin by: $Author: d_eu $
+   Checkin by: $Author: ****** $
 
    This file contains all the tokens for binary and ascii scene files.
 

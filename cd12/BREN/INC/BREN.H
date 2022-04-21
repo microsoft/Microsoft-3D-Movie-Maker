@@ -2,7 +2,7 @@
 
 	bren.h: Main include file for BRender files
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 ***************************************************************************/

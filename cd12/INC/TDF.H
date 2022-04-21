@@ -2,7 +2,7 @@
 
 	tdf.h: Three-D Font class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	BASE ---> BACO ---> TDF  (Three-D Font)

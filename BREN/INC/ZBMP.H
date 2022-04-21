@@ -2,7 +2,7 @@
 
 	zbmp.h: Z-buffer Bitmap Class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 	
 	BASE ---> BACO ---> ZBMP

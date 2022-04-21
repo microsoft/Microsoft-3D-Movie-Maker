@@ -11,7 +11,7 @@
 **		ID#		"Error Title"	"Error Text"		CustomAction	"EXPSETUP.DLL","Move File","213,NewName.Ext"					%224
 **
 **
-**	Author:		WSproule
+**	Author: ******
 **	Written For:	Explorapedia Win32/Win16 versions of Nature and People
 **
 ****************************************************************************/

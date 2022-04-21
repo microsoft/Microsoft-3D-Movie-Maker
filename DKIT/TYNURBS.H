@@ -4,7 +4,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyNurbs.h,v $
    $Revision: 1.13 $ $Date: 1994/12/13 17:19:43 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
 ce Fichier contient l'interface pour ecrire les NURBs ( courbes et Surfaces ) dans le format binaire . 
 

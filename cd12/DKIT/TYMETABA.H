@@ -2,7 +2,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyMetaball.h,v $
    $Revision: 1.2 $ $Date: 1992/12/28 15:30:12 $
-   Checkin by: $Author: claude $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's metaball data structure,
    its content is sufficient to read and write data structure into

@@ -2,7 +2,7 @@
 
 	bkgd.cpp: Background class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	A BKGD (background) consists of a set of light sources (GLLT), a

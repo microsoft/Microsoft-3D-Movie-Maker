@@ -1,5 +1,5 @@
 /***************************************************************************
-	Author: ShonK
+	Author: ******
 	Project: Kauai test app
 	Reviewed:
 	Copyright (c) Microsoft Corporation

@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyLight.h,v $
    $Revision: 1.17 $ $Date: 1994/11/02 01:50:20 $
-   Checkin by: $Author: rejean $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's light data structure.
 

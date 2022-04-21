@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyByteswap.h,v $
    $Revision: 1.2 $ $Date: 1995/04/11 18:11:12 $
-   Checkin by: $Author: davidle $
+   Checkin by: $Author: ******$
 
    <DESCRIPTION>
 

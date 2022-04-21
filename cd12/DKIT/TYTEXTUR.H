@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyTexture.h,v $
    $Revision: 1.13 $ $Date: 1994/12/09 23:42:10 $
-   Checkin by: $Author: a_tan $
+   Checkin by: $Author: ****** $
 
    This file contains a subset of the SOFTIMAGE's DK_texture data structure,
    its content is sufficient to read and write data structure into

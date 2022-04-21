@@ -2,7 +2,7 @@
 
 	ape.h: Actor preview entity
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	BASE ---> CMH ---> GOB ---> APE

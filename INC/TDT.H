@@ -2,7 +2,7 @@
 
 	tdt.h: Three-D Text class
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	BASE ---> BACO ---> TMPL ---> TDT  (Three-D Text)

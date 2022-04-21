@@ -1,7 +1,7 @@
 /*****************************************************************************\
  *	stdioscb.cpp
  *
- *	Author: James Drage
+ *	Author: ******
  *	Date: March, 1995
  *
  *	This file contains the studio scrollbars class SSCB.  These are the frame

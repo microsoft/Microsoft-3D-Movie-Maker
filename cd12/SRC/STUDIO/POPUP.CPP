@@ -2,7 +2,7 @@
 
 	popup.cpp: Popup menu classes
 
-	Primary Author: manders
+	Primary Author: ******
 	         MPFNT: peted
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 

@@ -2,7 +2,7 @@
 
 	mtrl.h: Material and custom material classes
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: REVIEWED - any changes to this file must be reviewed!
 
 	BASE ---> BACO ---> MTRL

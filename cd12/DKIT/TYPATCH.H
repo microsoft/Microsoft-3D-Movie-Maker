@@ -3,7 +3,7 @@
 
    $Source: /drive3/SI2/creative/RCS/DKit_h/tinyPatch.h,v $
    $Revision: 1.3 $ $Date: 1994/06/10 14:54:35 $
-   Checkin by: $Author: martin $
+   Checkin by: $Author: ******$
 
    This file contains a subset of the SOFTIMAGE's patch data structure,
    its content is sufficient to read and write data structure into

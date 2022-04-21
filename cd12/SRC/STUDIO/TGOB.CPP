@@ -2,7 +2,7 @@
 
   tgob.cpp
 
-  Author: Sean Selitrennikoff
+  Author: ******
 
   Date: June, 1995
 

@@ -2,7 +2,7 @@
 
 	tdfmake.h: Three-D Font authoring tool
 
-	Primary Author: manders
+	Primary Author: ******
 	Review Status: Not yet reviewed
 
 ***************************************************************************/
