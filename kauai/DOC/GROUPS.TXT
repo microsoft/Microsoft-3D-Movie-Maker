@@ -1,0 +1,365 @@
+/***************************************************************************
+
+	Collection classes:  General List (GL), Allocated List (AL),
+	General Group (GG),  Allocated Group (AG),
+	General String Table (GST), Allocated String Table (AST).
+
+***************************************************************************/
+
+
+/****************************************
+	Types
+****************************************/
+
+	class GL;
+	typedef class GL *PGL;
+		A general purpose dynamically allocated array class.  Data
+		elements must be all the same size.  Clients may assume the
+		data elements are contiguous.  I.e., if you have a pointer to
+		the iv'th element, incrementing the pointer will give you a pointer
+		to the (iv+1)th element.
+
+	class AL;
+	typedef class AL *PAL;
+		A list where indices don't change when items are added
+		or deleted.  Clients may assume data elements are contiguous.
+		Note, however, that an element may be free.  Call FFree to
+		determine if a particular item is free.
+
+	class GG;
+	typedef class GG *PGG;
+		A group: a collection of data objects of possibly different
+		sizes.  If all your elements are the same size, use a GL.
+
+	class AG;
+	typedef class AG *PAG;
+		A group where indices don't change when items are added or
+		deleted.  Entries can be free.  Call FFree to determine
+		if an entry is free.
+
+	class GST;
+	typedef class GST *PGST;
+		A string table.  Can also store a fixed size piece of "extra"
+		data for each string.
+
+	class AST;
+	typedef class AST *PAST;
+		An allocated string table.  Like a string table, but indices
+		don't change when strings are added or deleted.  Entries
+		can be free.  Call FFree to determine if an entry is free.
+
+
+/****************************************
+	Constants
+****************************************/
+
+	fgrpNil - default options
+	fgrpShrink - shrink space allocated if its more than needed
+
+
+/****************************************
+	Common methods
+****************************************/
+
+	PGL   GL::PglNew(long cb, long cvInit = 0);
+	PAL   AL::PalNew(long cb, long cvInit = 0);
+	PGG   GG::PggNew(long cvInit = 0, long cbInit = 0);
+	PAG   AG::PagNew(long cvInit = 0, long cbInit = 0);
+	PGST GST::PgstNew(long cbExtra, long cstzInit = 0, long cchInit = 0);
+	PAST AST::PastNew(long cbExtra, long cstzInit = 0, long cchInit = 0);
+		These are static methods (not invoked from an object) that
+		allocate a new object of the appropriate class.  For GL and
+		AL classes, cb is the size of the elements and cvInit is the
+		number of elements to reserve space for.  For GST and AST, cbExtra
+		is the amount of extra data associated with each string.  For
+		GG, AG, GST and AST, cvInit/cstzInit are how many entries to make room
+		for and cbInit/cchInit are the total number of bytes to allow for
+		these entries.  These values are as in FEnsureSpace.
+
+	PGL   GL::PglRead(PFIL pfil, FP fp, long cb, short *pbo, short *posk);
+	PAL   AL::PalRead(PFIL pfil, FP fp, long cb, short *pbo, short *posk);
+	PGG   GG::PggRead(PFIL pfil, FP fp, long cb, short *pbo, short *posk);
+	PAG   AG::PagRead(PFIL pfil, FP fp, long cb, short *pbo, short *posk);
+	PGST GST::PgstRead(PFIL pfil, FP fp, long cb, short *pbo, short *posk);
+	PAST AST::PastRead(PFIL pfil, FP fp, long cb, short *pbo, short *posk);
+		Static methods to read an object from disk.  pbo and posk may be
+		nil.  *pbo is set to the byte order of the object and *posk is
+		set to the osk (Operating System Kind) that wrote the object.
+		Use *pbo to do byte swapping after reading and *posk to do string
+		translation after reading.
+
+	bool  GL::FWrite(PFIL pfil, FP fp, long *pcb = pvNil,
+			short bo = kboCur, short osk = koskCur);
+	bool  AL::FWrite(PFIL pfil, FP fp, long *pcb = pvNil,
+			short bo = kboCur, short osk = koskCur);
+	bool  GG::FWrite(PFIL pfil, FP fp, long *pcb = pvNil,
+			short bo = kboCur, short osk = koskCur);
+	bool  AG::FWrite(PFIL pfil, FP fp, long *pcb = pvNil,
+			short bo = kboCur, short osk = koskCur);
+	bool GST::FWrite(PFIL pfil, FP fp, long *pcb = pvNil,
+			short bo = kboCur, short osk = koskCur);
+	bool AST::FWrite(PFIL pfil, FP fp, long *pcb = pvNil,
+			short bo = kboCur, short osk = koskCur);
+		Write the object to disk.  If pcb is not nil, sets *pcb to the
+		amount of space used.  If bo and osk are specified as something
+		different from kboCur and koskCur, these will adjust the byte
+		order and/or osk before writing the data.  Obviously, client
+		managed data is not adjusted.  REVIEW shonk: should strings
+		in an GST/AST be handled automatically.
+
+	long  GL::CbOnFile(void);
+	long  AL::CbOnFile(void);
+	long  GG::CbOnFile(void);
+	long  AG::CbOnFile(void);
+	long GST::CbOnFile(void);
+	long AST::CbOnFile(void);
+		Returns the amount of space required to write the object to
+		disk.
+
+	long  GL::IvMac(void);
+	long  AL::IvMac(void);
+	long  GG::IvMac(void);
+	long  AG::IvMac(void);
+	long GST::IstzMac(void);
+	long AST::IstzMac(void);
+		Returns the number of active items.  For AL, AG and AST, this
+		is the lim of legal indices, not the number of non-free
+		entries.
+
+	void  GL::Delete(long iv);
+	void  AL::Delete(long iv);
+	void  GG::Delete(long iv);
+	void  AG::Delete(long iv);
+	void GST::Delete(long istz);
+	void AST::Delete(long istz);
+		Deletes the indicated element.  For AL, AG and AST, indices of
+		remaining items don't change (ie, a hole is created).  For the other
+		classes, items with larger indices "slide down" to fill the hole.
+
+	void *GL::QvGet(long iv);
+	void *AL::QvGet(long iv);
+	void *GG::QvGet(long iv);
+	void *AG::QvGet(long iv);
+		Returns a volatile pointer to the element.  For GPs, iv must
+		be less than IvMac().  For GL and AL, iv must be <= IMac()
+		( == is allowed for convenience; don't access it!).  For AL and AG,
+		the element may be free (call FFree to check).
+
+	void *GL::PvLock(long iv);
+	void *AL::PvLock(long iv);
+	void *GG::PvLock(long iv);
+	void *AG::PvLock(long iv);
+		Locks the data and returns a pointer to the iv'th element.
+		Same restrictions on iv as for QvGet(iv).
+
+	void GL::Lock(void);
+	void AL::Lock(void);
+	void GG::Lock(void);
+	void AG::Lock(void);
+		Locks the data.
+
+	void GL::Unlock(void);
+	void AL::Unlock(void);
+	void GG::Unlock(void);
+	void AG::Unlock(void);
+		Unlocks the data.  Balances a call to PvLock() or Lock().
+		Locking is nestable.
+
+	void GL::Get(long iv, void *pv);
+	void AL::Get(long iv, void *pv);
+	void GG::Get(long iv, void *pv);
+	void AG::Get(long iv, void *pv);
+		Copies the iv'th item to *pv.  Assumes pv points to a block
+		large enough to hold the item.  iv must be less than IvMac().
+		For GG and AG, GetRgb is more useful.
+
+	void GL::Put(long iv, void *pv);
+	void AL::Put(long iv, void *pv);
+	void GG::Put(long iv, void *pv);
+	void AG::Put(long iv, void *pv);
+		The opposite of Get(iv, pv).  Copies data from *pv to the iv'th
+		element.  For GG and AG, see FPut and PutRgb.
+
+	bool GL::FAdd(void *pv, long *piv);
+	bool AL::FAdd(void *pv, long *piv);
+	bool GG::FAdd(long cb, void *pv, long *piv);
+	bool AG::FAdd(long cb, void *pv, long *piv);
+		Add a new element to the class.  If piv is not nil, *piv is
+		set to the index of the new item.  For GL and GG, the new item
+		is always the last.  For AL and AG, the first free slot is used.
+
+
+/****************************************
+	List specific methods
+****************************************/
+
+	long GL::CbEntry(void);
+		Returns the size of each element of the list (as specified
+		in PglNew or as read from file in PglRead.
+
+	bool GL::FSetIvMac(long ivMacNew);
+		Changes the number of items active in the list.  Rarely used.
+
+	bool GL::FEnsureSpace(long cvAdd, short grfgrp);
+		Ensure that there is room for at least cvAdd additional items.
+		To close up the list, use FEnsureSpace(0, fgrpShrink).
+
+	bool GL::FInsert(long iv, void *pv);
+		Inserts a new item into the list at location iv.  Parameter
+		iv must be less than or equal to IvMac().  Moves later items
+		up to make room.
+
+	void Move(long ivSrc, long ivDst)
+		Moves the element at ivSrc to the ivDst position, shifting
+		everything in between.
+
+	bool GL::FPush(void *pv);
+		Appends the item to the end of the list.  Equivalent to
+		FAdd(pv, pvNil).
+
+	bool GL::FPop(void *pv = pvNil);
+		If the list is empty, returns false (indicating stack underflow).
+		Otherwise, fetches the last item (if pv is not nil), deletes
+		the item, and returns true.
+
+	bool GL::FEnqueue(void *pv)
+		Equivalent to FInsert(0, pv).
+
+	bool GL::FDequeue(void *pv = pvNil);
+		Equivalent to FPop(pv).
+
+
+/****************************************
+	Allocated List specific methods
+****************************************/
+
+	long AL::CbEntry(void);
+		Returns the size of each element of the list (as specified
+		in PalNew or as read from file in PalRead.
+
+	bool AL::FEnsureSpace(long cvAdd, short grfgrp);
+		Ensure that there is room for at least cvAdd additional items.
+		To close up the allocated list use FEnsureSpace(0, fgrpShrink).
+
+	bool AL::FFree(long iv);
+		Indicates whether item iv is free.  (This is fast).  iv should
+		be less than IvMac().
+
+
+/****************************************
+	Group specific methods
+****************************************/
+
+	bool GG::FEnsureSpace(long cvAdd, long cbAdd, short grfgrp);
+	bool AG::FEnsureSpace(long cvAdd, long cbAdd, short grfgrp);
+		Make sure there is room for at least cvAdd additional items,
+		using cbAdd bytes of space.  To close up the group
+		use FEnsureSpace(0, 0, fgrpShrink).
+
+	bool GG::FInsert(long iv, long cb, void *pv);
+		Inserts an item of size cb into the group.  pv may be nil.
+
+	bool GG::FPut(long iv, long cb, void *pv);
+	bool AG::FPut(long iv, long cb, void *pv);
+		Replaces the item with new data of the given length.  pv may
+		be nil, in which case this effectively resizes the element.
+
+	long GG::Cb(long iv);
+	long AG::Cb(long iv);
+		Returns the length of the item.
+
+	void GG::GetRgb(long iv, long bv, long cb, void *pv);
+	void AG::GetRgb(long iv, long bv, long cb, void *pv);
+		Fetches a section of data from the given element.  bv is the offset
+		of the data into the element, cb is the amount of data to copy
+		and pv is the destination.
+
+	void GG::PutRgb(long iv, long bv, long cb, void *pv);
+	void AG::PutRgb(long iv, long bv, long cb, void *pv);
+		The inverse of GetRgb.
+
+	void GG::DeleteRgb(long iv, long bv, long cb);
+	void AG::DeleteRgb(long iv, long bv, long cb);
+		Deletes a portion of the given element.  Deletes bytes [bv, bv+cb).
+
+	bool GG::FInsertRgb(long iv, long bv, long cb, void *pv);
+	bool AG::FInsertRgb(long iv, long bv, long cb, void *pv);
+		Inserts cb new bytes before byte bv of the element.  pv may be nil.
+
+	bool AG::FFree(long iv);
+		Indicates whether item iv is free.  (This is fast).  iv should
+		be less than IvMac().
+
+
+/****************************************
+	String Table specific methods
+****************************************/
+
+	bool GST::FEnsureSpace(long cstzAdd, long cchAdd, short grfgrp);
+	bool AST::FEnsureSpace(long cstzAdd, long cchAdd, short grfgrp);
+		Make sure there is room for at least cstzAdd additional strings,
+		using cchAdd bytes of space.  To close up the string table
+		use FEnsureSpace(0, 0, fgrpShrink).
+
+	bool GST::FInsertRgch(long istz, char *prgch, long cch, void *pvExtra);
+	bool GST::FInsertStz(long istz, char *pstz, void *pvExtra);
+	bool GST::FInsertSt(long istz, char *pst, void *pvExtra);
+	bool GST::FInsertSz(long istz, char *psz, void *pvExtra);
+		Insert a new string at location istz.  pvExtra may be nil.
+
+	bool GST::FAddRgch(char *prgch, long cch, void *pvExtra, long *pistz);
+	bool GST::FAddStz(char *pstz, void *pvExtra, long *pistz);
+	bool GST::FAddSt(char *pst, void *pvExtra, long *pistz);
+	bool GST::FAddSz(char *psz, void *pvExtra, long *pistz);
+	bool AST::FAddRgch(char *prgch, long cch, void *pvExtra, long *pistz);
+	bool AST::FAddStz(char *pstz, void *pvExtra, long *pistz);
+	bool AST::FAddSt(char *pst, void *pvExtra, long *pistz);
+	bool AST::FAddSz(char *psz, void *pvExtra, long *pistz);
+		Append a string to the string table.  pistz may be nil.  If not,
+		*pistz is set the index of the new string.  pvExtra may be nil.
+
+	void GST::GetExtra(long istz, void *pv);
+	void AST::GetExtra(long istz, void *pv);
+		Fill pv with the extra data for the string.  Asserts that cbExtra
+		is > 0.
+
+	void GST::PutExtra(long istz, void *pv);
+	void AST::PutExtra(long istz, void *pv);
+		Set the extra data for the string.  Asserts that cbExtra is > 0.
+
+	void GST::GetStz(long istz, char *pstz);
+	void GST::GetSt(long istz, char *pst);
+	void GST::GetSz(long istz, char *psz);
+	void AST::GetStz(long istz, char *pstz);
+	void AST::GetSt(long istz, char *pst);
+	void AST::GetSz(long istz, char *psz);
+		Get the istz'th string.  pstz/pst/psz must point to a buffer at least
+		kcbMaxStz/kcbMaxSt/kcbMaxSz bytes long.
+
+	bool GST::FPutRgch(long istz, char *prgch, long cch);
+	bool GST::FPutStz(long istz, char *pstz);
+	bool GST::FPutSt(long istz, char *pst);
+	bool GST::FPutSz(long istz, char *psz);
+	bool AST::FPutRgch(long istz, char *prgch, long cch);
+	bool AST::FPutStz(long istz, char *pstz);
+	bool AST::FPutSt(long istz, char *pst);
+	bool AST::FPutSz(long istz, char *psz);
+		Replace the istz'th string.
+
+	bool GST::FFindStz(char *pstz, long *pistz, ulong grfstb = fstbNil);
+	bool GST::FFindSt(char *pst, long *pistz, ulong grfstb = fstbNil);
+	bool GST::FFindSz(char *psz, long *pistz, ulong grfstb = fstbNil);
+	bool AST::FFindStz(char *pstz, long *pistz, ulong grfstb = fstbNil);
+	bool AST::FFindSt(char *pst, long *pistz, ulong grfstb = fstbNil);
+	bool AST::FFindSz(char *psz, long *pistz, ulong grfstb = fstbNil);
+		Finds the given string in the string table.  If fstbSorted is specified,
+		and this is an GST, a binary search is performed.  If the string is
+		not found, false is returned.  If the string is not found and this is
+		an GST and fstbSorted was specified, *pistz will be filled with where
+		the string should be inserted to maintain the sorting.  In other cases,
+		if the string is not found, *pistz is filled with IstzMac().
+
+	bool AST::FFree(long istz);
+		Indicates whether item istz is free.  (This is fast).  istz should
+		be less than IstzMac().
+

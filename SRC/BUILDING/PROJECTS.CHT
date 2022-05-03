@@ -1,0 +1,368 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************
+*
+*  PROJECTS.CHT
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Contains all of the scripting for the Projects Room.
+*
+******************************************************************************
+*
+*  Revision History:  Created 05/08/95 by *****.
+*
+*	06/07/95	*****	Added Flowchart logic.
+*
+*****************************************************************************/
+
+// -----------------------------------------------------
+// Projects 1 - front view, and objects
+// Called Projects Main on the flowchart.
+// -----------------------------------------------------
+
+WAVE_CHUNK( "building\sound\projects\Prjt1.wav", kwavPrjt1 )
+// WAVE_CHUNK( "building\sound\projects\Prjt2A.wav", kwavPrjt2A )
+WAVE_CHUNK( "building\sound\projects\monitor.wav", kwavPrjtMonitor )
+
+GOBCHUNK("melanie - AVI ", kgobMelAVI, gokkNoHitThis )
+	DEFAULT_POSITION( 64, 140, 999 )
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_VIDEO( CHID1( krepDefault ), "projt2.avi", fTrue )
+	CREATE_SCRIPT( "created" )
+		FilterCmdsThis( cidMouseDown, kidNil, kchidScript1);
+		FilterCmdsThis( cidMap, kidNil, kchidScript1 );		// ctrl+M hotkey and
+		FilterCmdsThis( cidNew, kidNil, kchidScript1 );
+		FilterCmdsThis( cidOpen, kidNil, kchidScript1 );
+	ENDCHUNK
+	CHILD_SCRIPT( "mouse down", kchidScript1  )
+		// stop playing... the polling will catch and remove us.
+		StopThis();	
+		DestroyThis();	// destroy the AVI too
+		Return( fFalse );	// don't eat the cidMouseDown message 
+	ENDCHUNK		
+
+
+OBJECT("projects1: mon1", kgobProj1Mon1, 75, kcrsHand1)
+	REP_PPMBMP( CHID(kst1, krepDefault ), "building\pbm\projects\prj1mon1.pbm" )
+	REP_ANIM(CHID(kst2, krepDefault ), "projects1: monitor1")
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		DEBUGCMD(PrintStr("Monitor1: animation"));
+		
+		DestroyGob( kgobTvViewL );
+		// Place this monitor at a higher Z depth than the right monitor and balloon
+		SetZThis( 2160 );
+		If ( FGobExists(kgobBalloon1d));	// destroy help balloon iff exists
+			DestroyGob(kgobBalloon1d);
+		End;
+		VOICE( kwavPrjtMonitor, 0 );
+		cnt = kcell2;			
+		Cell( cnt++, 0, 0, 6 );
+		SetNoSlipThis( fTrue );		// we can now drop frames!
+		While( cnt <= kcell16 );
+			Cell( cnt++, 0, 0, 6 );
+			
+		End;
+		
+		CreateChildGob( kgobProjects1, kgobFlyingLogos, kgobFlyingLogos);
+	ENDCHUNK
+	
+	CLICK_SCRIPT( "projects1 monitor1 clicked" )
+		ChangeStateThis( kst2 );
+	ENDCHUNK
+	#include "PrjMon1.seq"
+
+OBJECTTY( "Projects1: TV animation", kgobTvViewL, 150, kcrsHand1, gokkNoHitThis )
+	REP_MBMP( CHID(kst1, krepDefault ), "building\bitmaps\projects\holder1.bmp"	)
+
+
+OBJECT("projects1: mon2", kgobProj1Mon2, 155, kcrsHand1)
+	REP_PPMBMP( CHID(kst1, krepDefault ), "building\pbm\projects\prj1mon2.pbm" )
+	REP_ANIM(CHID(kst2, krepDefault ), "projects1: monitor2")
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		DEBUGCMD(PrintStr("Monitor2: animation"));
+		
+		DestroyGob( kgobTvViewR );
+		// Place this monitor at a higher Z depth than the right monitor and balloon
+		SetZThis( 2160 );
+
+		If ( FGobExists(kgobBalloon1d));	// destroy help balloon iff exists
+			DestroyGob(kgobBalloon1d);
+		End;
+		VOICE( kwavPrjtMonitor, 0 );
+		cnt = kcell2;
+		Cell( cnt++, 0, 0, 6 );
+		SetNoSlipThis( fTrue );		// we can now drop frames!
+		While( cnt <= kcell16 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+		CreateChildGob(kgobProjects1, kgobMovieTech, kgobMovieTech);
+	ENDCHUNK
+
+	CLICK_SCRIPT( "projects1 monitor2 clicked" )
+		ChangeStateThis( kst2 );
+	ENDCHUNK
+	#include "PrjMon2.seq"
+
+OBJECTTY( "Projects1: TV animation", kgobTvViewR, 155, kcrsHand1, gokkNoHitThis )
+	REP_MBMP( CHID(kst1, krepDefault ), "building\bitmaps\projects\holder2.bmp"	)
+
+// -----------------------------------------------------
+// Projects Main Melanie
+// -----------------------------------------------------
+OBJECT( "projects1: melanie", kgobProj1Melanie, 100, kcrsHand1 )
+ 	#include "melproj1.seq" // include all melanie cells
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 1: Default and hidden state.
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_RECT(CHID(kst1, krepDefault), "projects1:melanie", 0, 0, 640, 480)
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 2: Wait state or been here before -- no intro.
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_ANIM( CHID(kst2, krepDefault), "projects1: melanie")
+		DEBUGCMD(PrintStr("Melanie state 2 rep."));
+		Cell(kcell201, 0, 0, 0);
+
+		// Help stuff
+		If (GLOBAL(fHelpOn));
+			DEBUGCMD(PrintStr("Help is on."));
+			CreateHelpGob(kgobProjects1, ktpcProject1);
+		End;
+		// Idle loop animation
+		While( fTrue );
+			VOICE( kwavPrjt1, 0 );
+			i = kcell201;
+			While (i <= kcell221 );
+				Cell(i, 0, 0, 6);
+				i++;
+			End;
+			ENDVOICE();
+		End;
+	ENDCHUNK
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 3: First time to projects room this session -- run intro
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_ANIM(CHID(kst3, krepEnterAnimation), "projects1: melanie")
+		DEBUGCMD(PrintStr("Melanie state 3 rep."));
+
+		// create the avi object
+		
+		CreateChildGob( kgobProjects1, kgobMelAVI, kgobMelAVI );
+
+		// delay while AVI queues up then watch it and proceed appropriately
+		Cell( kcell1, 0,0, 100 );
+		While( PlayingGob( kgobMelAVI ));
+			Cell( kcell1, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		If( FGobExists( kgobMelAVI ));
+			DestroyGob( kgobMelAVI );
+		End;
+
+		// Switch to wait state (State 2)
+		SETGLOBAL(fHelpOn, fTrue);
+		ChangeStateThis(kst2);
+	ENDCHUNK
+
+	CLICK_SCRIPT("Clicked Melanie: Toggle help")
+		// If Melanie is giving her intro, stop her and set help on.  The
+		// Melanie kst2 animation will pop up the help balloon.
+		If (StateThis() == kst3);
+			SETGLOBAL(fHelpOn, fTrue);
+			ENDVOICE();
+			ChangeStateThis(kst2);
+		// Run the intro before showing the help.
+		Elif (!GLOBAL(fHelpOn));	// Turning help on
+			ChangeStateThis(kst3);
+		Else;					// Turning help off
+			SETGLOBAL(fHelpOn, fFalse);
+			DestroyGob(kgobBalloon1d);   // This destroys the balloon that holds the tip
+		End;
+	ENDCHUNK
+
+HELP_SCRIPT(ktpcProject1)
+ 	If (_parm[0] == 0);
+		DEBUGCMD(PrintStr("On Help tip create..."));
+		// Maybe read the tip?
+	Elif (_parm[0] == 1);		// FLYING LOGOS
+		ChangeStateGob( kgobProj1Mon1, kst2 );
+		// CreateChildGob(kgobProjects1, kgobFlyingLogos, kgobFlyingLogos);
+ 	Elif (_parm[0] == 2);		// MOVIE TECHNIQUES
+		ChangeStateGob( kgobProj1Mon2, kst2 );
+	End;
+ENDCHUNK
+
+
+OBJECT("FLYING LOGOS", kgobFlyingLogos, 200, kcrsHand1)
+	REP_RECT(CHID1(krepDefault), "flying logos rect", 0, 0, 640, 480)
+	CREATE_SCRIPT("FLYING LOGOS startup")
+		DEBUGCMD(PrintStr("Creating FLYING LOGOS object."));
+		ENABLEHOTSPOTS(kflgBuildingAll);		
+		// turn guide help off
+		SetProp(kpridStudioFlags, GetProp(kpridStudioFlags) & 0xfffffffe);		
+		DestroyGob(kgobBalloon1d);
+		LOADTOOLS(kgobProjects1, kst2, kchidFlyingLogo);
+	ENDCHUNK
+
+OBJECT("MOVIE TECHNIQUES", kgobMovieTech, 200, kcrsHand1)
+	REP_RECT(CHID1(krepDefault), "movie techniques rect", 0, 0, 640, 480)
+	CREATE_SCRIPT("MOVIE TECHNIQUES startup")
+		DEBUGCMD(PrintStr("Creating MOVIE TECHNIQUES object."));
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		// be sure guide help is off.
+		SetProp(kpridStudioFlags, GetProp(kpridStudioFlags) & 0xfffffffe);
+		DestroyGob(kgobBalloon1d);
+		LOADTOOLS(kgobProjects1, kst2, kchidMovieTechniques);
+	ENDCHUNK
+
+
+
+
+// project back view object
+
+OBJECT( "project2 map",  kgobProj2Map, 44, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prj2map.bmp", 0, 0 )
+CLICK_SCRIPT( "project 2 map clicked" ) 
+	CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+ENDCHUNK
+
+OBJECT( "project2 exit",  kgobProj2Exit, 44, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prj2exit.bmp", 0, 0 )
+CLICK_SCRIPT( "project 2 exit clicked") 
+	QUITAPP();
+ENDCHUNK
+
+OBJECT( "doors out",  kgobProj2Doors, 33, kcrsHand1 )
+REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prj2door.bmp", 0, 0 )
+CLICK_SCRIPT( "project doors out clicked" )
+	NEXTPLACE1(kgobBackstage1, kst2);
+ENDCHUNK
+
+
+//--------------------------------------------------------
+// Bio page hotspots
+//--------------------------------------------------------
+
+OBJECT( "Biopage 37 mask",  kgobPrjt1m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\p1mask.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 37 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 37 );
+			BIO_CREATEBOOK( 37, fFalse, kgobProjects1 );
+		End;
+		
+	ENDCHUNK
+
+
+OBJECT( "Biopage 34 mask",  kgobPrjt2m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt2m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 34 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 34 );
+			BIO_CREATEBOOK( 34, fFalse, kgobProjects2 );
+		End;
+		
+	ENDCHUNK
+
+
+
+OBJECT( "Biopage 1 mask",  kgobPrjt2m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt2m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 1 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 1 );
+			BIO_CREATEBOOK( 1, fFalse, kgobProjects2 );
+		End;
+		
+	ENDCHUNK
+
+OBJECT( "Biopage 2 mask",  kgobPrjt2m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt2m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 2 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 2 );
+			BIO_CREATEBOOK( 2, fFalse, kgobProjects2 );
+		End;
+		
+	ENDCHUNK
+
+OBJECT( "Biopage 3 mask",  kgobPrjt2m4, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt2m4.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 3 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 3 );
+			BIO_CREATEBOOK( 3, fFalse, kgobProjects2 );
+		End;
+		
+	ENDCHUNK
+
+OBJECT( "Biopage 4 mask",  kgobPrjt4m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt4m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 4 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 4 );
+			BIO_CREATEBOOK( 4, fFalse, kgobProjects4 );
+		End;
+		
+	ENDCHUNK
+
+OBJECT( "Biopage 5 mask",  kgobPrjt4m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt4m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 5 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 5 );
+			BIO_CREATEBOOK( 5, fFalse, kgobProjects4 );
+		End;
+		
+	ENDCHUNK
+
+OBJECT( "Biopage 6 mask",  kgobPrjt4m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\projects\prjt4m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 6 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 6 );
+			BIO_CREATEBOOK( 6, fFalse, kgobProjects4 );
+		End;
+		
+	ENDCHUNK

@@ -1,0 +1,89 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************
+*
+*  SHARECD.CHT
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Contains objects shared between Socrates Building and Studio chunks; e.g.,
+*  Map.  These are kept on the CD instead of the hard drive
+*
+******************************************************************************
+*
+*  Revision History:  Created 09/06/95 by *****.
+*
+*
+*****************************************************************************/
+
+// Include and initialized chunky macros.
+
+#define PACKALL
+#include "kidgs.chh"
+STARTCHUNKY
+
+// IDs
+#include "stdiodef.h"
+#include "buildgob.h"
+#include "sharedef.h"
+#include "balloons.chh"
+#include "helpbook.h"
+#include "projmain.h"
+
+// Include shared object scripts.
+#include "biopage.chh"
+
+// graphics for the bio page actors (excluding the page itself )
+
+// ---------------------------------------------------------------
+// representations follow - set by creator
+OBJECT( "Bio Actors shot", kgobBioActors, 1, kcrsArrow1 )
+REP_PPMBMP( kcell1, "shared\pbm\page01.pbm" )
+REP_PPMBMP( kcell2, "shared\pbm\page02.pbm" )
+REP_PPMBMP( kcell3, "shared\pbm\page03.pbm" )
+REP_PPMBMP( kcell4, "shared\pbm\page04.pbm" )
+REP_PPMBMP( kcell5, "shared\pbm\page05.pbm" )
+REP_PPMBMP( kcell6, "shared\pbm\page06.pbm" )
+REP_PPMBMP( kcell7, "shared\pbm\page07.pbm" )
+REP_PPMBMP( kcell8, "shared\pbm\page08.pbm" )
+REP_PPMBMP( kcell9, "shared\pbm\page09.pbm" )
+REP_PPMBMP( kcell10,"shared\pbm\page10.pbm" )
+REP_PPMBMP( kcell11, "shared\pbm\page11.pbm" )
+REP_PPMBMP( kcell12, "shared\pbm\page12.pbm" )
+REP_PPMBMP( kcell13, "shared\pbm\page13.pbm" )
+REP_PPMBMP( kcell14, "shared\pbm\page14.pbm" )
+REP_PPMBMP( kcell15, "shared\pbm\page15.pbm" )
+REP_PPMBMP( kcell16, "shared\pbm\page16.pbm" )
+REP_PPMBMP( kcell17, "shared\pbm\page17.pbm" )
+REP_PPMBMP( kcell18, "shared\pbm\page18.pbm" )
+REP_PPMBMP( kcell19, "shared\pbm\page19.pbm" )
+REP_PPMBMP( kcell20, "shared\pbm\page20.pbm" )
+REP_PPMBMP( kcell21, "shared\pbm\page21.pbm" )
+REP_PPMBMP( kcell22, "shared\pbm\page22.pbm" )
+REP_PPMBMP( kcell23, "shared\pbm\page23.pbm" )
+REP_PPMBMP( kcell24, "shared\pbm\page24.pbm" )
+REP_PPMBMP( kcell25, "shared\pbm\page25.pbm" )
+REP_PPMBMP( kcell26, "shared\pbm\page26.pbm" )
+REP_PPMBMP( kcell27, "shared\pbm\page27.pbm" )
+REP_PPMBMP( kcell28, "shared\pbm\page28.pbm" )
+REP_PPMBMP( kcell29, "shared\pbm\page29.pbm" )
+REP_PPMBMP( kcell30, "shared\pbm\page30.pbm" )
+REP_PPMBMP( kcell31, "shared\pbm\page31.pbm" )
+REP_PPMBMP( kcell32, "shared\pbm\page32.pbm" )
+REP_PPMBMP( kcell33, "shared\pbm\page33.pbm" )
+REP_PPMBMP( kcell34, "shared\pbm\page34.pbm" )
+REP_PPMBMP( kcell35, "shared\pbm\page35.pbm" )
+REP_PPMBMP( kcell36, "shared\pbm\page36.pbm" )
+REP_PPMBMP( kcell37, "shared\pbm\page37.pbm" )
+REP_PPMBMP( kcell38, "shared\pbm\page38.pbm" )
+REP_PPMBMP( kcell39, "shared\pbm\page39.pbm" )
+REP_PPMBMP( kcell40, "shared\pbm\page40.pbm" )
+REP_PPMBMP( kcell41, "shared\pbm\page41.pbm" )
+
+

@@ -1,0 +1,7 @@
+[autorun]
+open = setup\autorun.exe
+icon = 3dmovie\3dmovie.exe,2
+shell\setup=Install 3D Movie Maker
+shell\setup\command = setup.exe
+shell\uninstall=Uninstall 3D Movie Maker
+shell\uninstall\command = setup.exe

@@ -1,0 +1,67 @@
+LIBRARY 	  3DMSETUP
+
+DESCRIPTION   '3D Movie Maker Setup DLL'
+
+CODE          LOADONCALL DISCARDABLE
+DATA          PRELOAD SINGLE
+
+HEAPSIZE      1024
+
+SEGMENTS
+	LIBMAIN_TEXT  PRELOAD NONDISCARDABLE
+	INIT_TEXT     PRELOAD DISCARDABLE
+	_TEXT         PRELOAD DISCARDABLE
+
+
+EXPORTS
+	SzGetDatadefVer
+
+	FBillbrdDlgProc
+	BBmpProc
+	WndProcBillboardHeadline
+	FOffBlbrdDlgProc
+	OffBBmpProc
+
+	DelProgManItem
+	DetectOS
+	DetectVideo
+	DeleteRegKeys
+  DetectRegData
+  InstAudVid
+	FileMove
+  FileCopy
+	GetPathFromIni
+	GetShortPath
+  GetParentDir
+  GetPathFromReg
+
+	SHRCWelcomeDialogHookProc
+
+	SHRCAppMainDialogHookProc
+
+  SHRCSerializationDialogHookProc
+
+	SHRCGetPathBrowseDialogHookProc
+
+	SHRCExitDialogHookProc
+	SHRCAskQuitDialogHookProc
+
+;	SHRCDirectoryDialogHookProc
+;	SHRCModulesDialogHookProc
+;	SHRCRebootDialogHookProc
+;	SHRCRebootFailedDialogHookProc
+;	SHRCRemoveSharedDialogHookProc
+;	SHRCEndModelessDialogHookProc
+;	SHRCStartModelessDialogHookProc
+;	SHRCCreateFrameHookProc
+;	SHRCMessageBoxHookProc
+;	SHRCGaugeInitHookProc
+;	SHRCGaugeOpenHookProc
+;	SHRCGaugeCloseHookProc
+;	SHRCGaugeTitleHookProc
+;	SHRCGaugeTextHookProc
+;	SHRCGaugeRangeHookProc
+;	SHRCGaugePosHookProc
+;	SHRCGaugeDeltaHookProc
+;	SHRCGaugeYieldHookProc
+;	SHRCFileCopyWarningHookProc

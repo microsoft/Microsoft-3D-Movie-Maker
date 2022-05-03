@@ -1,0 +1,555 @@
+#--- makefile.def -- included in Kids Build makefiles
+
+!IFNDEF MAKEFILE_DEF
+MAKEFILE_DEF = 1
+
+#- Map some variables ----------------------------------------------------------
+
+!IF "$(TYPE)" == "DAY"
+TYPE=DEBUG
+INCREMENTAL=1
+!ELSEIF "$(TYPE)" == "HOME"
+TYPE=DEBUG
+INCREMENTAL=
+!ELSEIF "$(TYPE)" == "DBSHIP"
+TYPE=SHIP
+DEBUG_LINK=1
+!ELSEIF "$(LOCAL_BUILD)" != "1"
+DEBUG_LINK=1
+!ENDIF
+
+#-Tools-------------------------------------------------------------------------
+
+CPP=cl /nologo
+!IF "$(ARCH)" == "MAC"
+ASM=asm68
+!ENDIF
+LINK=link
+MRC=mrc
+RC=rc
+CHOMP=$(KAUAI_ROOT)\obj\wins\chomp.exe
+CHELPDMP=$(KAUAI_ROOT)\obj\wins\chelpdmp.exe
+
+!IF "$(ARCH)" == "MAC"
+.SUFFIXES : .rsc .rm .asm
+!ELSE
+.SUFFIXES: .cht .chk .scr
+!ENDIF
+
+#-CPPFLAGS----------------------------------------------------------------------
+
+# /YX is "automate precompiled headers"
+# /Fp renames the pch file from the default "msvc.pch"
+# /W3 provides warning level 3
+# /Gz uses "stdcall", the default 32-bit VC++ calling convention.
+DEFS = /D"$(ARCH)" /D"STRICT"
+!IF "$(CHIP)" != ""
+DEFS = $(DEFS) /D"$(CHIP)"
+!ENDIF
+!IF "$(UNICODE)" != ""
+DEFS = $(DEFS) /D"UNICODE"
+!ENDIF
+
+#CPPFLAGS = /c /YX /Fp"frame.pch" /W3 /Gz
+#PLACED PRECOMPILED HEADERS IN PROJ MAKEFILES
+CPPFLAGS = /c /YX /W3 /Gz /Gy
+
+ASMFLAGS = -c
+!IF "$(BROWSE)" != ""
+CPPFLAGS = /Fr $(CPPFLAGS)
+!ENDIF
+
+!IF "$(ARCH)" == "WIN"
+DEFS = $(DEFS) /D"WIN32"
+!ENDIF
+
+!IF "$(TYPE)" == "DEBUG"
+# /Zi generates debugging info and puts it in the .pdb file
+# /Fd renames the pdb file from the default "msvc.pdb"
+# /Og enables global optimization
+# /Ob1 enables inline expansion
+DEFS = $(DEFS) /D"DEBUG"
+!IF "$(ARCH)" == "MAC"
+CPPFLAGS = /Q68m $(CPPFLAGS)
+ASMFLAGS = $(ASMFLAGS) -s
+!ENDIF
+CPPFLAGS = /Gf /Ge $(CPPFLAGS)
+!ELSE
+#CPPFLAGS = /Ogityb1 /Gs /Gf $(CPPFLAGS) REVIEW shonk: revert to this
+CPPFLAGS = /Ogityb1 /Gs /Gf $(CPPFLAGS)
+!ENDIF
+
+
+#-LFLAGS---------------------------------------------------------------------------
+
+# Cannot incrementally link and generate mapfile, or optimize references
+
+# REVIEW seanse: remove /DEBUG flag for ship build later in project
+LFLAGS_BASE = /nologo
+!IF "$(INCREMENTAL)"==""
+LFLAGS_CONS = $(LFLAGS_BASE) /OPT:REF /map
+LFLAGS_GUI = $(LFLAGS_BASE) /OPT:REF /map
+LFLAGS_LIB = $(LFLAGS_BASE) /OPT:REF
+!ELSE
+LFLAGS_CONS = /INCREMENTAL:YES $(LFLAGS_BASE)
+LFLAGS_GUI = /INCREMENTAL:YES $(LFLAGS_BASE)
+LFLAGS_LIB = $(LFLAGS_BASE)
+!ENDIF
+
+
+!IF "$(ARCH)" == "WIN"
+LFLAGS_CONS = $(LFLAGS_CONS) /SUBSYSTEM:console kernel32.lib comdlg32.lib\
+    user32.lib gdi32.lib winmm.lib
+LFLAGS_GUI = $(LFLAGS_GUI) $(LFLAGS_PROF) /SUBSYSTEM:windows,4.0 kernel32.lib\
+    comdlg32.lib user32.lib gdi32.lib winmm.lib advapi32.lib uuid.lib
+!ENDIF
+!IF "$(ARCH)" == "MAC"
+LFLAGS_GUI = $(LFLAGS_GUI) /MACHINE:M68K
+!ENDIF
+
+
+#SHIP AND DEBUG USE /DEBUG FLAG
+#!IF "$(TYPE)" == "DEBUG"
+# /DEBUG incorporates debugging info (/DEBUGTYPE is cv by default)
+#LFLAGS_CONS = /DEBUG $(LFLAGS_CONS)
+#LFLAGS_GUI = /DEBUG $(LFLAGS_GUI)
+#!ENDIF
+
+!IF ("$(TYPE)" == "DEBUG") || ("$(DEBUG_LINK)" == "1")
+LFLAGS_CONS = /DEBUG $(LFLAGS_CONS)
+LFLAGS_GUI = /DEBUG $(LFLAGS_GUI)
+!ENDIF   # DEBUG || DEBUG_LINK
+
+.cpp.exe:
+
+#-Build-Macros---------------------------------------------------------------------
+
+
+!IF "$(ARCH)" == "WIN"
+
+!IF "$(TYPE)" == "DEBUG"
+
+!IF "$(UNICODE)"==""
+BLD_TYPE_DIR = wind
+!ELSE
+BLD_TYPE_DIR = winud
+!ENDIF
+
+!ELSE IF "$(TYPE)" == "SHIP"
+
+!IF "$(UNICODE)"==""
+BLD_TYPE_DIR = wins
+!ELSE
+BLD_TYPE_DIR = winus
+!ENDIF
+
+!ENDIF
+
+!ELSE IF "$(ARCH)" == "MAC"
+
+!IF "$(TYPE)" == "DEBUG"
+BLD_TYPE_DIR = macd
+!ELSE IF "$(TYPE)" == "SHIP"
+BLD_TYPE_DIR = macs
+!ENDIF
+
+!ENDIF
+
+
+
+#AUDIO LIB
+!IF "$(ARCH)" == "WIN"
+!IF "$(TYPE)" == "DEBUG"
+AUDIO_LIB = $(KAUAI_ROOT)\elib\$(BLD_TYPE_DIR)\audiod.lib
+!ELSE IF "$(TYPE)" == "SHIP"
+AUDIO_LIB = $(KAUAI_ROOT)\elib\$(BLD_TYPE_DIR)\audios.lib
+!ENDIF
+!ENDIF
+
+
+#VIDEO FOR WINDOWS LIB
+VFW32_LIB = $(MSVCNT_ROOT)\lib\vfw32.lib
+
+#Windows WNet LIB
+WNET_LIB = $(MSVCNT_ROOT)\lib\mpr.lib
+
+#KAUAI OBJ DIRECTORIES
+KAUAI_OBJ_ROOT_DIR = $(KAUAI_ROOT)\obj
+KAUAI_OBJ_DIR = $(KAUAI_OBJ_ROOT_DIR)\$(BLD_TYPE_DIR)
+
+
+#====================================================================
+#KAUIA OBJ GROUPS
+
+
+
+#BASE_OBJS
+#Base: Base files required for all Kauai based projects
+#Requires: nothing
+
+!IF "$(ARCH)" == "WIN"
+
+BASE_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\memwin.obj
+
+!ELSE IF "$(ARCH)" == "MAC"
+
+BASE_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\memmac.obj
+
+!IF "$(CHIP)" == "MC_68020"
+
+BASE_CHIP_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\utilmc.obj
+
+!ENDIF
+
+!ENDIF
+
+
+BASE_OBJS =\
+    $(KAUAI_OBJ_DIR)\utilglob.obj\
+    $(KAUAI_OBJ_DIR)\util.obj\
+    $(KAUAI_OBJ_DIR)\base.obj\
+    $(KAUAI_OBJ_DIR)\utilcopy.obj\
+    $(KAUAI_OBJ_DIR)\utilerro.obj\
+    $(KAUAI_OBJ_DIR)\utilint.obj\
+    $(KAUAI_OBJ_DIR)\utilmem.obj\
+    $(KAUAI_OBJ_DIR)\utilrnd.obj\
+    $(KAUAI_OBJ_DIR)\utilstr.obj\
+    $(BASE_PLATFORM_SPECIFIC)\
+    $(BASE_CHIP_SPECIFIC)
+
+
+
+#GROUP_OBJS
+#Group: Collection classes
+#Requires: Base, File, and NoFile
+
+GROUP_OBJS =\
+    $(KAUAI_OBJ_DIR)\groups.obj\
+    $(KAUAI_OBJ_DIR)\groups2.obj
+
+
+
+#FILE_OBJS
+#File: File and chunky file stuff
+#Requires: Group
+
+!IF "$(ARCH)" == "WIN"
+
+FILE_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\filewin.obj\
+    $(KAUAI_OBJ_DIR)\fniwin.obj
+
+!ELSE IF "$(ARCH)" == "MAC"
+
+FILE_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\filemac.obj\
+    $(KAUAI_OBJ_DIR)\fnimac.obj
+
+!ENDIF
+
+
+FILE_OBJS =\
+    $(KAUAI_OBJ_DIR)\chunk.obj\
+    $(KAUAI_OBJ_DIR)\codec.obj\
+    $(KAUAI_OBJ_DIR)\codkauai.obj\
+    $(KAUAI_OBJ_DIR)\crf.obj\
+    $(KAUAI_OBJ_DIR)\file.obj\
+    $(FILE_PLATFORM_SPECIFIC)
+
+
+
+#NOFILE_OBJS
+#NoFile: To be implemented in the future
+#Requires: Base
+
+
+
+#STREAM_OBJS
+#Stream: Stream classes
+#Requires: Group
+
+STREAM_OBJS =\
+    $(KAUAI_OBJ_DIR)\stream.obj
+
+
+
+#LEXER_OBJS
+#Lexer: Lexing classes
+#Requires: Stream
+
+LEXER_OBJS =\
+    $(KAUAI_OBJ_DIR)\lex.obj
+
+
+
+#SCRCOM_OBJS
+#ScrCom: Script compiler
+#Requires: Lexer
+
+SCRCOM_OBJS =\
+    $(KAUAI_OBJ_DIR)\scrcom.obj
+
+
+
+#KIDCOM_OBJS
+#KidCom: Script compiler for kidspace scripts
+#Requires: ScrCom
+
+KIDCOM_OBJS =\
+    $(KAUAI_OBJ_DIR)\scrcomg.obj
+
+
+
+#SCREXE_OBJS
+#ScrExe: Script interpreter
+#Requires: Group
+
+SCREXE_OBJS =\
+    $(KAUAI_OBJ_DIR)\screxe.obj
+
+
+
+#MBMPIO_OBJS
+#MbmpIO: Masked bitmap IO support
+#Requires: File or NoFile
+
+MBMPIO_OBJS =\
+    $(KAUAI_OBJ_DIR)\mbmp.obj
+
+
+
+#CHSE_OBJS
+#Chse: Chunky source emitter
+#Requires: Group
+
+CHSE_OBJS =\
+    $(KAUAI_OBJ_DIR)\chse.obj
+
+
+
+#CHCM_OBJS
+#Chcm: Chunky compiler and decompiler classes
+#Requires: Lexer, Chse, MbmpIO, KidCom
+
+CHCM_OBJS =\
+    $(KAUAI_OBJ_DIR)\chcm.obj
+
+
+
+#SOUND_OBJS
+#Sound: Sound support
+#Requires: Group
+
+SOUND_OBJS =\
+    $(KAUAI_OBJ_DIR)\sndm.obj\
+    $(KAUAI_OBJ_DIR)\sndam.obj\
+    $(KAUAI_OBJ_DIR)\mididev.obj\
+    $(KAUAI_OBJ_DIR)\mididev2.obj\
+    $(KAUAI_OBJ_DIR)\midi.obj
+
+
+
+#NOSOUND_OBJS
+#NoSound: Not yet implemented
+#Requires: Base
+
+
+
+#VIDEO_OBJS
+#Video: Video playback and support
+#Requires: GUI
+
+VIDEO_OBJS =\
+    $(KAUAI_OBJ_DIR)\video.obj
+
+
+
+#NOVIDEO_OBJS
+#NoVideo: Not yet implemented
+#Requires: GUI
+
+
+
+#SPELL_OBJS
+#SpellChecker
+#Requires: Base, Group
+
+SPELL_OBJS =\
+    $(KAUAI_OBJ_DIR)\spell.obj
+
+
+
+#GUI_OBJS
+#Gui: Support for a GUI application
+#Requires: Group, MbmpIO, Sound or NoSound, Video or NoVideo
+
+!IF "$(ARCH)" == "WIN"
+
+GUI_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\appbwin.obj\
+    $(KAUAI_OBJ_DIR)\gfxwin.obj\
+    $(KAUAI_OBJ_DIR)\gobwin.obj\
+    $(KAUAI_OBJ_DIR)\menuwin.obj\
+    $(KAUAI_OBJ_DIR)\picwin.obj
+
+!ELSE IF "$(ARCH)" == "MAC"
+
+GUI_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\appbmac.obj\
+    $(KAUAI_OBJ_DIR)\gfxmac.obj\
+    $(KAUAI_OBJ_DIR)\gobmac.obj\
+    $(KAUAI_OBJ_DIR)\menumac.obj\
+    $(KAUAI_OBJ_DIR)\picmac.obj
+
+!ENDIF
+
+
+GUI_OBJS =\
+    $(KAUAI_OBJ_DIR)\appb.obj\
+    $(KAUAI_OBJ_DIR)\clok.obj\
+    $(KAUAI_OBJ_DIR)\cmd.obj\
+    $(KAUAI_OBJ_DIR)\cursor.obj\
+    $(KAUAI_OBJ_DIR)\gfx.obj\
+    $(KAUAI_OBJ_DIR)\gob.obj\
+    $(KAUAI_OBJ_DIR)\mbmpgui.obj\
+    $(KAUAI_OBJ_DIR)\region.obj\
+    $(KAUAI_OBJ_DIR)\pic.obj\
+    $(GUI_PLATFORM_SPECIFIC)
+
+
+
+#DLG_OBJS
+#Dlg: Dialog support
+#Requires: Gui
+
+!IF "$(ARCH)" == "WIN"
+
+DLG_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\dlgwin.obj\
+
+!ELSE IF "$(ARCH)" == "MAC"
+
+DLG_PLATFORM_SPECIFIC =\
+    $(KAUAI_OBJ_DIR)\dlgmac.obj\
+
+!ENDIF
+
+
+DLG_OBJS =\
+    $(KAUAI_OBJ_DIR)\dlg.obj\
+    $(DLG_PLATFORM_SPECIFIC)
+
+
+
+
+#CTL_OBJS
+#Ctl: Control support
+#Requires: Gui
+
+CTL_OBJS =\
+    $(KAUAI_OBJ_DIR)\ctl.obj
+
+
+
+
+#DOC_OBJS
+#Doc: Base document class support
+#Requires: Ctl
+
+DOC_OBJS =\
+    $(KAUAI_OBJ_DIR)\docb.obj\
+    $(KAUAI_OBJ_DIR)\clip.obj
+
+
+#RICHTEXT_OBJS
+#RichText: Rich text document support
+#Requires: Doc, Stream
+
+RICHTEXT_OBJS =\
+    $(KAUAI_OBJ_DIR)\rtxt.obj\
+    $(KAUAI_OBJ_DIR)\rtxt2.obj
+
+
+
+
+#TEXTEDIT_OBJS
+#TextEdit: Edit controls
+#Requires: Gui, Stream
+
+TEXTEDIT_OBJS =\
+    $(KAUAI_OBJ_DIR)\text.obj
+
+
+
+
+#PLAINTEXT_OBJS
+#PlainText: Plain line based text document
+#Requires: Doc, Stream
+
+PLAINTEXT_OBJS =\
+    $(KAUAI_OBJ_DIR)\textdoc.obj
+
+
+
+
+#KID_OBJS
+#Kid: Kidspace and help balloon stuff
+#Requires: Gui, ScrExe
+
+KID_OBJS =\
+    $(KAUAI_OBJ_DIR)\kidworld.obj\
+    $(KAUAI_OBJ_DIR)\kidhelp.obj\
+    $(KAUAI_OBJ_DIR)\kidspace.obj\
+    $(KAUAI_OBJ_DIR)\screxeg.obj
+
+
+
+
+#KAUAITEST_OBJS
+#KauiaTest: Kauai test app stuff
+#Requires: Gui, File
+
+KAUAITEST_OBJS =\
+	$(KAUAI_OBJ_DIR)\ft.obj\
+	$(KAUAI_OBJ_DIR)\test.obj
+
+
+
+
+#CHED_OBJS
+#Ched: Chunky editor
+#Requires: Gui, Kid, KidCom, PlainText, Doc, Chcm
+
+CHED_OBJS =\
+    $(KAUAI_OBJ_DIR)\chdoc.obj\
+    $(KAUAI_OBJ_DIR)\ched.obj\
+    $(KAUAI_OBJ_DIR)\chgrp.obj\
+    $(KAUAI_OBJ_DIR)\chhex.obj\
+    $(KAUAI_OBJ_DIR)\chmbmp.obj\
+    $(KAUAI_OBJ_DIR)\chpic.obj\
+    $(KAUAI_OBJ_DIR)\chtxt.obj
+
+
+
+#CHELP_OBJS
+#Chelp: Chunky help editor
+#Requires: Gui, Kid, RichText
+
+CHELP_OBJS =\
+    $(KAUAI_OBJ_DIR)\chelp.obj\
+    $(KAUAI_OBJ_DIR)\chtop.obj\
+    $(KAUAI_OBJ_DIR)\chelpexp.obj
+
+
+#CHOMP_OBJS
+#Chomp: Chunky compiler
+#Requires: File, Group, Chcm
+
+CHOMP_OBJS =\
+    $(KAUAI_OBJ_DIR)\chomp.obj\
+    $(KAUAI_OBJ_DIR)\mssio.obj
+
+!ENDIF  # !MAKEFILE_DEF

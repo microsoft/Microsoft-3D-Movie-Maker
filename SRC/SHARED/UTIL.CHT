@@ -1,0 +1,425 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ---------------------------------------------------------
+//
+// Revisions:
+//
+// mm-dd-yy
+// ??-??-94		******		- Created
+// 05-16-95		******		- remove unimplemented hooks
+// 06-15-95		******		- Added globals list
+// ---------------------------------------------------------
+//
+// Global Variables:
+//
+// cnoMidi		Manage the midi soundtrack.  Always music playing -- music
+// siiMidi		pointed to by cnoMidi. siiMidi is the Kauai Sound Instance
+//				ID associated with the soundtrack.
+//
+// kstEntry		This indicates which entry point into a room the user
+//				is using.
+//
+// fHelpOn		Indicates whether Help is turned on in the Building.  If Help
+//				is turned on, McZee's (and Melanie's) Help bubbles appear
+//				automatically upon entry into a room.  Conversely, if the
+//				user clicks on McZee (or Melanie) to bring up the Help bubble,
+//				fHelpOn gets set.
+//
+// fMovie		Indicates whether there is currently a movie loaded; i.e.,
+//				whether there is a movie selected in the Portfolio.
+//
+// fTrans		Palette transition variables.  fTrans indicates that the next
+// cnoPal		SETPALETTE should do a palette-to-palette transition effect.
+//				Setting it to fFalse, turns off the transition effect for the
+//				next SETPALETTE, after which it will be reset to fTrue.
+//				cnoPal stores the current palette so that SETPALETTE can
+//				determine if a palette change is really necessary.
+//
+// keys			keys is a bitfield describing the Set of enabled hotkeys.
+// keysTmp		keysTmp is used to save the set of valid hotkeys between
+//				DISABLE and ENABLE hotkeys calls.
+//
+// cDisable		Number of times the keyboard accelerators have been disabled
+//				from script via cidDisableAccel.
+//
+//
+
+#include "helptops.h"
+
+// ---------------------------------------------------------
+// Initialization script for shared.chk is called by app on startup.  It
+// creates kgobUtil and runs its Script0.
+// ---------------------------------------------------------
+SCRIPTCHUNK("Init Shared", kcnoInitShared)
+	DEBUGCMD(PrintStr("Running shared init script"));
+	CreateChildThis(kgobUtil, kgobUtil);
+	RunScriptGob(kgobUtil, kchidScript0);
+ENDCHUNK
+
+// -----------------------------------------------------
+// help TOPIC definitions
+// -----------------------------------------------------
+
+// WARNING: Since help topics declared here are actually provided as part of
+// the Building chunk, these numbers need to be the same as the ones in
+// building\socdefn.h
+
+#define ktpcQuitAlert		0x00016043
+#define ktpcHelpAbout		0x0001604f
+
+WAVE_CHUNK( "shared\sound\util\splot.wav", kwavSplot )
+WAVE_CHUNK( "shared\sound\util\ding.wav", kwavDing )
+
+// ---------------------------------------------------------
+// The following is the object definition for the utility
+// object.
+// ---------------------------------------------------------
+GOBCHUNK( "Utility object", kgobUtil, 0 )
+	DEFAULT_POSITION( 0,0, 0 )
+ENDCHUNK
+
+	// ---------------------------------------------------------
+	// This is the first Gob to get created.  Do a whole lot of
+	// initialization stuff.
+	// ---------------------------------------------------------
+	CHILD_SCRIPT( "Util:start up", kchidScript0 )
+		SETKEYS(kflgBuildingAll);
+
+		// The following are well known 'global' variables connected
+		// to the UTIL gob... it's assumed that this list will grow
+		// NOTE: MAKE SURE ALL GLOBALS ARE INITIALIZED HERE!
+
+		SETGLOBAL(cnoMidi, cnoNil);
+ 		SETGLOBAL(fHelpOn, fTrue);
+		SETGLOBAL(fMovie, fFalse);
+		SETGLOBAL(cnoPal, cnoNil);
+
+		SetProp(kpridBuildingState, kst1);
+
+		// Initializing a global variable used for tracking the voice over WAVE file
+		// and stoping it when needed.  Used in the macros VOICE(..) and ENDVOICE();
+		::siiVoice = 0;
+
+		// A global variable used to track if there is a scene transition occuring.
+		::fTransition = fFalse;
+
+		// These flags are used to indicate whether or not we've visited this
+		// room previously in this session.
+		SETGLOBAL( fLobby1PS, fTrue );  // Flag, for Lobby1, indicates 1st time in room per session (PS)
+		SETGLOBAL( fBackstagePS, fTrue );// Flag, for Backstage, indicates 1st time in room per session (PS)
+		SETGLOBAL( fIdeasPS, fTrue );   // Flag, for Ideas room, indicates 1st time in room per session (PS)
+		SETGLOBAL( fTicketPS, fTrue );   // Flag, for Ticketbooth, indicates 1st time in room per session (PS)
+		SETGLOBAL( fStudioPS, fTrue );   // Flag, for Studio, indicates 1st time in room per session (PS)
+
+		// These flags are used to indicate whether or not we've seen the
+		// help/introduction animation for this room or not.  They are fTrue
+		// if the help has not been seen.
+		SETGLOBAL(fLob1stHelp, fTrue);
+		SETGLOBAL(fTic1stHelp, fTrue);
+		SETGLOBAL(fBkstg1stHelp, fTrue);
+
+		// read bio page found flag
+		BIO_INIT();
+				
+		// global flag: has the McZee in front of studio tools intro been played?
+		::fStdIntro = fFalse;		
+		If( GetProp( kpridMcZeeAudio ) & kflgMcZeeAudio );	
+			// suppress the intro too -- the RonPa fix!
+			::fStdIntro = fTrue;
+		End;
+
+		// set according to help status in the studio, keep track of which is the Next Project
+		::fHelpOn = fFalse;
+		::NextProject = 1;
+
+		// Initialize more global globals.
+		::volume = 50;
+		::kgobCurrentPlace = kidNil;
+		::fInStudio = fTrue;
+
+		// First palette is set without a transition effect.
+		SETGLOBAL(fTrans, fFalse);
+
+		// Number of times we've called disable is 0 to start with.
+		kgobUtil->cDisable = 0;
+								
+		// Set this gob up to filter for map, open, and new commands;
+		// Redirect them to Script6.
+		// Note: Ctrl+O and Ctrl+N are translated by the app's accelerator
+		// table into cidOpen and cidNew. We want to filter for those cids
+		// as well, but only when the building is loaded, so those filters
+		// are turned on in the Building Script0 and turned off in LOADTOOLS.
+		FilterCmdsThis( cidMap, kidNil, kchidScript6 );
+		
+	ENDCHUNK
+
+	// ---------------------------------------------------------
+	//	Switch from one place to another.  Maintains ::kgobCurrentPlace.
+	//
+	//      _parm[0] is the cno of the place we're to go next.
+	//      _parm[1] is the state we're to enter that place in.
+	// ---------------------------------------------------------
+	CHILD_SCRIPT( "Util:nextplace function", kchidScript1 )
+		ASSERT(_parm[0] != kidNil);
+		ASSERT(_parm[1] >= kst1);
+		DEBUGCMD(PrintStr("Moving to ", NumToStr(_parm[0], ""), " with state = ", NumToStr(_parm[1], "")));
+		If (_parm[0] != GET_CURRENTPLACE());
+			SETGLOBAL(kstEntry, _parm[1]);
+			If (GET_CURRENTPLACE() != kidNil);
+				DestroyGob(GET_CURRENTPLACE());
+			End;
+			SET_CURRENTPLACE(_parm[0]);
+			CreateChildGob(GidParThis(), _parm[0], _parm[0]);
+		End;
+		FlushUserEvents(kgrfevtAll);
+	ENDCHUNK
+
+	//----------------------------------------------------------
+	// This function is called when the user calls up the Portfolio via
+	// CTRL+O and then closes it by pressing either Cancel or OK.  The
+	// Portfolio is opened in the Keyboard handler in Script6.
+	//
+	//		_parm[2] is fTrue if the user pressed OK; fFalse if they
+	//				pressed Cancel.
+	//----------------------------------------------------------
+	CHILD_SCRIPT("Util: Portfolio Callback", kchidScript2)
+		// End this filter as it is no longer required.
+		FilterCmdsThis(cidPortfolioClosed, cidNil, chidNil);
+
+		If (_parm[2]);	// User clicked OK
+			LOADTOOLS(kgobStudio1, kst1, chidNil);
+		End;
+	ENDCHUNK
+
+	//----------------------------------------------------------
+	// Function to lock out hot spots.
+	//
+	// _parm[0] is hot key state as well
+	//----------------------------------------------------------
+	CHILD_SCRIPT( "Util: glass function", kchidScript3 )
+		If( FGobExists( kgobGlass0 ) == fFalse);
+			// create the balloon and set hotkeys appropriately
+			CreateChildGob(GET_CURRENTPLACE(), kgobGlass0, kgobGlass0);
+		End;
+		SETKEYS( _parm[0] );
+	ENDCHUNK
+
+	//----------------------------------------------------------
+	// Function to manage midi music.  see SETMUSIC() #define
+	// in util.h --- _parm[0] = cno of the MIDI chunk
+	//    			_parm[1] = bool : loop or not.
+	//----------------------------------------------------------
+	CHILD_SCRIPT( "Util: midi function", kchidScript4 )
+		If( _parm[0] != .cnoMidi );
+			If( .cnoMidi != cnoNil  );
+				// stop the last MIDI played.  .siiMidi is always ok.
+				// because of .cnoMidi usage
+				StopSound( .siiMidi );
+			End;
+			If( _parm[0] != cnoNil );
+			    cnt = ( _parm[1] ) ? 0x00010000 : 1;
+				.siiMidi = PlaySoundGob( kgobUtil, kctgMidi, _parm[0], 1, 0x00010000, cnt, 4, ksclBldgSound );
+			End;
+			.cnoMidi = _parm[0];
+		End;
+	ENDCHUNK
+
+	// ---------------------------------------------------------
+	// These script invokes and handle confirm exit help balloon
+	// ---------------------------------------------------------
+	CHILD_SCRIPT( "Util:quit app", kchidScript5 )
+		// Put up the glass and then a help ballooon to confirm quit
+
+		CreateChildGob( SUPERPARENT(), kgobGlass1, kgobGlass1  );
+		CreateHelpGob( kgobGlass1, ktpcQuitAlert );
+		.keysTmp = KEYSTATE();          // save valid hotkeys
+		SETKEYS( kflgKEYNONE );         // then disable all hotkeys
+	ENDCHUNK
+
+	// ---------------------------------------------------------
+	//  Script to handle Incoming cids.
+	// ---------------------------------------------------------
+	CHILD_SCRIPT( "Util:handle cids", kchidScript6 )
+		// _parm[0] = gid/hid
+		// _parm[1] = CID (cidMap, cidOpen, cidNew or cidLoadStudioDoc)
+
+
+
+		//---------------------------PORTFOLIO KEY--------------------------
+		If (_parm[1] == cidOpen && KEYENABLED(kflgKEYPORTFOLIO));
+			// Bring up the Movie Open portfolio.
+    		EnqueueCid(cidPortfolioOpen, 0, kpfPortOpenMovie, 0, 0, 0);
+			// Look out for the cid indicating that the portfolio has been closed.
+			FilterCmdsThis(cidPortfolioClosed, cidNil, kchidScript2);
+		Elif (_parm[1] == cidOpen && !KEYENABLED(kflgKEYPORTFOLIO));
+			ModalHelp(ktpcercSocCantGoToStudio, -1);
+
+		//---------------------------TOOLS KEY--------------------------
+		Elif (_parm[1] == cidNew && KEYENABLED(kflgKEYTOOLS));
+			// Open the tools with a new movie.
+			EnqueueCid(cidPortfolioClear, 0, 0, 0, 0, 0);
+			LOADTOOLS(kgobStudio1, kst1, chidNil);
+		Elif (_parm[1] == cidNew && !KEYENABLED(kflgKEYTOOLS));
+			ModalHelp(ktpcercSocCantGoToStudio, -1);
+
+		//---------------------------MAP KEY----------------------------
+		Elif (_parm[1] == cidMap && KEYENABLED(kflgKEYMAP));
+			If (::fInStudio);
+				DEBUGCMD(PrintStr("Bringing up map from studio"));
+				CreateChildGob(kidBackground, kgobMapMain, kgobMapMain);
+			Else;
+				DEBUGCMD(PrintStr("Bringing up map from building"));
+				CreateChildGob(GET_CURRENTPLACE(), kgobMapMain, kgobMapMain);
+			End;
+			Exit();
+		Elif (_parm[1] == cidMap && !KEYENABLED(kflgKEYMAP));
+			ModalHelp(ktpcercSocCantGoToMap, -1);
+
+		//------------------------cidLoadStudioDoc----------------------
+		Elif (_parm[1] == cidLoadStudioDoc && KEYENABLED(kflgLOADSTUDIO));
+			LOADTOOLS(kgobStudio1, kst1, chidNil);
+		Elif (_parm[1] == cidLoadStudioDoc && !KEYENABLED(kflgLOADSTUDIO));
+			EnqueueCid(cidPortfolioClear, 0, 0, 0, 0, 0);
+			ModalHelp(ktpcercSocCantGoToStudio, -1);
+
+		End;
+
+	ENDCHUNK
+
+	//----------------------------------------------------------
+	// Function to switch to a new palette, doing a palette transition
+	// if necessary.  Also sets cnoPal, which always contains the current
+	// building palette.
+	//
+	// _parm[0] is the palette to switch to.
+	//----------------------------------------------------------
+	CHILD_SCRIPT( "Util:switch palette", kchidScript7 )
+		::fTransition = fFalse;
+		If ( (_parm[0] != GLOBAL( cnoPal)) && GLOBAL(fTrans) && (_parm[0] != cnoNil) );
+			// different palette than what we had + okay to transition
+			Transition(kgftDissolve, 0, kTransitionTime, Transparent, _parm[0]);
+			::fTransition = fTrue;
+		Else;
+			// either the same palette or not allowed to transition, so just
+			// switch the palette
+			If( _parm[0] != cnoNil );
+				SetColorTable(_parm[0]);
+			End;
+		End;
+		SETGLOBAL( cnoPal, _parm[0] );	
+		SETGLOBAL(fTrans, fTrue);       // Reset default state of fTrans.
+	ENDCHUNK
+
+	// --------------------------------------------------------------
+	//      Function to load the studio tools.  First, it sets up
+	//      kpridBuildingGob with the place to return to.  Corresponds to
+	//		LOADTOOLS macro defined in sharutil.chh.
+	//
+	//      _parm[0] specifies where the studio should come back to when it
+	//              returns to the Building.
+	//		_parm[1] specifies what state the return place in the Building
+	//				should enter in.
+	//      _parm[2] specifies which project the tools should be loaded with, if
+	//              any.  Set to 0 to indicate no project.
+	// --------------------------------------------------------------
+
+// cnoForeign and kgobForeign indicates that a non-building place is the
+// current place and it has a potentially different palette from the return
+// place.
+#define cnoForeign cnoNil
+#define kgobForeign kidNil
+
+	CHILD_SCRIPT("Util: Load Studio", kchidScript8)
+		ASSERT(_parm[0] != kidNil);
+		DEBUGCMD(PrintStr("Util: Loading Studio"));
+		StartLongOp();
+
+		// Stop filtering for these -- let the studio filter for them now.
+		FilterCmdsThis(cidOpen, kidNil, chidNil);
+		FilterCmdsThis(cidNew, kidNil, chidNil);
+		FilterCmdsThis(cidLoadStudioDoc, kidNil, chidNil);
+		// And make sure our hotkeys are enabled -- the Studio takes care
+		// of enabling/disabling hotkeys from here in.
+		ENABLEHOTSPOTS(kflgBuildingAll);
+
+		.kgobCurrentPlaceT = GET_CURRENTPLACE();
+		SetProp(kpridBuildingGob, _parm[0]);
+		SETGLOBAL(cnoPal, cnoForeign);
+		SETGLOBAL(kstEntry, _parm[1]);
+		SetProp(kpridBuildingState, _parm[1]);
+		SET_CURRENTPLACE(kgobForeign);
+
+		// Deal with failure to load the studio.
+		FilterCmdsThis(cidLoadStudioFailed, kidNil, kchidScript9);
+
+		// Stop the soundtrack.
+		PLAYMIDI(cnoNil);
+
+		EnqueueCid(cidLoadStudio, 0, .kgobCurrentPlaceT, _parm[2], 0, 0);
+		::fInStudio = fTrue;
+	ENDCHUNK
+
+	// --------------------------------------------------------------
+	//	This function gets called if we try to load the tools in
+	//	Script8 and fail for whatever reason.  We just need to undo
+	//	everything we did in Script8 before enqueuing the LoadStudio
+	//	command. A couple things won't be restored -- cnoPal will still
+	//	be set to cnoForeign; the soundtrack will still be stopped.
+	// --------------------------------------------------------------
+
+	CHILD_SCRIPT("Util: Load Studio Failed", kchidScript9)
+		DEBUGCMD(PrintStr("Load Studio Failed handler"));
+		::fInStudio = fFalse;
+		SET_CURRENTPLACE(.kgobCurrentPlaceT);
+		EnqueueCid(cidPortfolioClear, 0, 0,0,0,0);
+		FilterCmdsThis(cidLoadStudioFailed, kidNil, chidNil);
+		FilterCmdsGob(kgobUtil, cidOpen, kidNil, kchidScript6);
+		FilterCmdsGob(kgobUtil, cidNew, kidNil, kchidScript6);
+		EndLongOp(fTrue);	// If the studio set the wait cursor, turn it off.
+	ENDCHUNK
+
+// ---------------------------------------------------------
+HELP_SCRIPT( ktpcQuitAlert )
+	// _parm[0] = what happenned. 0=init, 1=exit, 2=cancel
+	
+	If( _parm[0] == 2 );                            // cancel
+		DestroyGob( kgobGlass1 );
+		SETKEYS(kgobUtil->keysTmp);             // restore hot key setting
+		DestroyGob( GidParThis() );
+	Elif( _parm[0] == 1 );
+		EnqueueCid( cidQuit, 0,0,0,0,0 );
+	End;
+ENDCHUNK
+
+// ---------------------------------------------------------
+// This is the glass behind the help balloon
+// ---------------------------------------------------------
+OBJECT( "glass#1", kgobGlass1, 1000, kcrsArrow1 )
+	REP_FILL( CHID1(krepDefault),"glass1",  0,0, 640, 480, Palette( 15 ), Transparent )
+		PATTERN_50
+	ENDCHUNK
+	CLICK_SCRIPT( "glass#1 clicked!" )
+		// play a honk sound here.
+	ENDCHUNK
+
+// ---------------------------------------------------------
+// This object is used to lock out clicks on hot spots.
+// ---------------------------------------------------------
+OBJECT( "glass#0", kgobGlass0, 975, kcrsArrow1 )
+	REP_FILL( CHID1(krepDefault),"glass0",  0,0, 640, 480, Palette( 15 ), Transparent )
+		PATTERN_0
+	ENDCHUNK
+	CLICK_SCRIPT( "glass#0 clicked!" )
+		PlaySoundThis( kctgWave, kwavSplot, 1, 0x00010000, 1, 0, 789 );
+	ENDCHUNK
+
+
+// -----------------------------------------------------
+// script to handle 'Help, About' balloon
+// -----------------------------------------------------
+HELP_SCRIPT( ktpcHelpAbout )
+	If( _parm[0] != 0 );
+		DestroyGob( GidParThis() );
+	End;
+ENDCHUNK

@@ -1,0 +1,339 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+//	TICKET.CHT
+//
+//	 Copyright (C) Microsoft Corporation 1995.
+//	 All Rights reserved.
+//
+// -----------------------------------------------------
+//	Module Intent:
+//
+//	Contains the kauai script code for the Ticket Booth far off
+//	and near sceens.
+//
+// 	Revisions:
+// 
+// 	mm-dd-yy
+// 	??-??-94    *****         - Created
+// 	
+// -----------------------------------------------------
+
+WAVE_CHUNK( "building\sound\ticket\TKTBTH.wav", kwavTKTBTH )
+WAVE_CHUNK( "building\sound\ticket\TBCY2.wav", kwavTBCY2 )
+WAVE_CHUNK( "building\sound\ticket\TBTH3.wav", kwavTBTH3 )
+WAVE_CHUNK( "building\sound\ticket\VO54.wav", kwavVO54 )
+WAVE_CHUNK( "building\sound\ticket\VO56B.wav", kwavVO56B )
+WAVE_CHUNK( "building\sound\ticket\tbfar.wav", kwavTicketFar )
+
+
+// ----------------------------------------------------------
+// Doors leading into the lobby
+// ----------------------------------------------------------
+OBJECT( "ticket1:doors in", kgobTicket1Doors, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\ticket\tik1drs.bmp", 0, 0 )
+	CLICK_SCRIPT( "ticket booth doors clicked" )
+		If( GetProp(kpridFirstTimeUser) && GLOBAL(fTicketPS) );
+			SETGLOBAL( fTicketPS, fFalse );
+			NEXTPLACE1( kgobTicket2, kst2 );		// first time users must go to ticket booth.
+		Else;		
+			NEXTPLACE1( kgobLobby1, kst3 );
+		End;
+	ENDCHUNK								
+
+// ----------------------------------------------------------
+// faded out McZee in booth, waiting for something to happen
+// CHANGE: 5.16 (*****) -- fixed.  Made nohit
+// ----------------------------------------------------------
+OBJECTTY( "ticket1: mczee waiting", kgobTicket1Waiter, 15, kcrsHand1, gokkNoHitThis )
+	REP_ANIM( CHID1( krepDefault ),  "ticket1: mczee waiting")
+		VOICE( kwavTicketFar, 0 );
+		i = 5;
+		While( --i );
+			cnt = kcell1;
+			While( cnt <= kcell22 );
+				Cell( cnt++, 0, 0, 6 );
+			End;
+		End;
+		NEXTPLACE1( kgobTicket2, kst2 );	// move into close view.
+	ENDCHUNK
+	#include "ticket1.seq"
+
+// -------------------------------------------------------
+// Map behind McZee in the ticketbooth
+// -------------------------------------------------------	  
+OBJECT( "ticket2: map", kgobTicket2Map, 10, kcrsHand1 )
+	REP_RECT( CHID1( krepDefault ), "Ticket2 map mask", 155, 97, 236, 158 )
+	CLICK_SCRIPT( "ticket2: map clicked" )
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+// -------------------------------------------------------
+// Exit button behind McZee in the ticketbooth
+// -------------------------------------------------------
+OBJECT( "ticket2: exit", kgobTicket2Exit, 10, kcrsHand1 )
+	REP_RECT( CHID1( krepDefault ), "Ticket2 exit button mask", 173,31, 223, 61 )
+	CLICK_SCRIPT( "ticket2: exit clicked" )
+		QUITAPP();
+	ENDCHUNK
+
+// ----------------------------------------------------------------
+// McZee the ticket boy in the ticket booth...
+//----------------------------------------------------------------
+OBJECT( "ticket2:mczee", kgobTicket2McZee, 20, kcrsHand1 )
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Ticket2: Dispatch state.")
+		ASSERT(GLOBAL(kstEntry) == kst2 || GLOBAL(kstEntry) == kst3);
+
+		.fWay = fFalse;	  // A flag set by portfolio callback script and used in kst5.
+		ChangeStateThis(GLOBAL(kstEntry));
+	ENDCHUNK
+
+ 	//----------------------------------------------------------------
+	// Mczee playing air guitar
+	//----------------------------------------------------------------
+	REP_ANIM( CHID( kst2, krepDefault), "ticket mczee animate" )
+		// create the animation
+		PLAYMIDI( cnoNil );	// stop music
+		ENDVOICE();			// stop any talking
+		
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		Cell( kcell1, 0,0, 1 );
+		WAIT_FOR_TRANSITION();	// If a transition is occuring wait 
+		CreateChildGob( GidParThis(), kgobTicketMcZeeAVI, kgobTicketMcZeeAVI );
+		Cell( kcell1,0,0, 100 );	// wait for init
+		
+		// watch it and proceed appropriately
+		While( PlayingGob( kgobTicketMcZeeAVI ));
+			Cell( kcell1, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		DestroyGob( kgobTicketMcZeeAVI );
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		ChangeStateThis( kst3 );	// proceed - give camera/etc
+	ENDCHUNK
+
+ 	//----------------------------------------------------------------
+	// Mczee presenting film and cans, choices
+	//----------------------------------------------------------------
+	REP_ANIM( CHID( kst3, krepDefault ), "ticket:mczee (map entry)" )
+		ENDVOICE();
+
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		Cell( kcell301, 0,0, 1 );
+		WAIT_FOR_TRANSITION();	// If a transition is occuring wait 
+		CreateChildGob( GidParThis(), kgobTicketMcZeeAVI2, kgobTicketMcZeeAVI2 );
+		Cell( kcell301,0,0, 100 );	// wait for init
+		
+		// watch it and proceed appropriately
+		While( PlayingGob( kgobTicketMcZeeAVI2 ));
+			Cell( kcell301, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		DestroyGob( kgobTicketMcZeeAVI2 );
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		CreateChildGob( kgobTicket2, kgobTicket2Cans, kgobTicket2Cans );
+		CreateChildGob( kgobTicket2, kgobTicket2Camera, kgobTicket2Camera );						
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		ChangeStateThis( kst4 );
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst4, krepDefault ), "McZee waiting animation" )
+		Cell( kcell301, 0,0,1 );	// draw ourselves.
+		WAIT_FOR_TRANSITION();		// If a transition is occuring wait 
+
+		If( !FGobExists( kgobTicket2Cans ) );
+			CreateChildGob( kgobTicket2, kgobTicket2Cans, kgobTicket2Cans );
+		End;
+
+ 		If( !FGobExists( kgobTicket2Camera ) );
+			CreateChildGob( kgobTicket2, kgobTicket2Camera, kgobTicket2Camera );
+		End;
+
+		If( GLOBAL(fHelpOn) );
+			CreateHelpGob( kgobTicket2, ktpcTicketChoices );
+		Elif( GLOBAL( fTic1stHelp ) ); // If help has never been up before, put it up.
+			// fTic1stHelp --- flag for turning help on first time per session.		
+			SETGLOBAL( fTic1stHelp, fFalse );
+ 			SETGLOBAL( fHelpOn, fTrue );
+			CreateHelpGob( kgobTicket2, ktpcTicketChoices );
+		End;
+
+
+		While( fTrue );
+			cnt=kcell400;
+			VOICE( kwavTBCY2, 0 );
+			While( cnt <= kcell440 );
+				Cell( cnt++, 0, 0, 6);
+			End;
+			ENDVOICE();
+		End;
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst5, krepDefault ), "McZee opening the portfolio" )
+		DISABLEHOTSPOTS(kflgBuildingMin);
+
+		DEBUGCMD( PrintStr("Ticket McZee: State 5") );
+
+		SetZThis( 900  );		  // Put the portfolio above help balloons.
+		cnt=kcell551;				// but not above the glass!
+		VOICE( kwavVO54, 0 );
+		While( cnt < kcell577 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+
+		CreateChildGob( kgobTicket2McZee, kgobPortfolio, kgobPortfolio );
+		kgobPortfolio->kidCallObj = kgobTicket2McZee;
+		kgobPortfolio->chidCallScript = kchidScript1;
+	ENDCHUNK 
+
+   	REP_ANIM( CHID( kst6, krepDefault ), "McZee close the portfolio.")
+
+		DEBUGCMD( PrintStr("Ticket McZee: State 6") );
+
+		cnt=kcell576;
+		While( cnt >= kcell551 );
+			Cell( cnt--, 0, 0, 6 );
+		End;
+
+		If( .fWay );
+			DEBUGCMD(PrintStr("flag fMovie is set to fTrue"));
+			SETGLOBAL( fMovie, fTrue ); // Movie is loaded.
+			NEXTPLACE1( kgobLobby1, kst3 );
+		Else;
+			ENABLEHOTSPOTS(kflgBuildingAll);
+			SetZThis( 20 );
+			ChangeStateThis( kst4 );
+		End;
+	ENDCHUNK;
+	
+	REP_ANIM( CHID( kst7, krepDefault), "McZee starting camera pull to backstage" )
+		DISABLEHOTSPOTS(kflgBuildingMin);
+
+		DEBUGCMD( PrintStr("Ticket McZee: State 7") );
+
+		If( FGobExists( kgobBalloon1d ) );
+			DestroyGob( kgobBalloon1d );
+		End;
+
+		SetZThis( 50 );			// Put McZee in front of the other objects
+								// in the ticket booth.
+		cnt = kcell501;
+		VOICE( kwavVO56B, 0 );
+		While( cnt <= kcell527 );
+			Cell( cnt++, 0,0, 6 );
+			If( cnt == kcell511 );
+				DestroyGob(	kgobTicket2Camera );
+			End;
+		End;
+		ENDVOICE();
+		SETGLOBAL( fTrans, fFalse );  // No palette transition.
+		NEXTPLACE1( kgobBackstage1, kst10 );
+	ENDCHUNK
+
+	CLICK_SCRIPT("Ticket Booth McZee: Click script")
+		If( StateThis() != kst4 );
+			ChangeStateThis( kst4 );
+			SETGLOBAL( fHelpOn, fTrue );
+		Elif( GLOBAL( fHelpOn ) );				// McZee's clicked & help's on..turn it off.
+			SETGLOBAL( fHelpOn, fFalse );
+			DestroyGob( kgobBalloon1d );
+		Else;									// McZee's clicked & help's off..turn it on.
+			SETGLOBAL( fHelpOn, fTrue );
+			CreateHelpGob( kgobTicket2, ktpcTicketChoices );
+		End;
+	ENDCHUNK
+	
+	// The following script is called back to from the portfolio
+	// when it closes. 	
+	CHILD_SCRIPT("Ticket2McZee child script", kchidScript1 )
+
+		If( _parm[0] == kidNil );	// USER CANCELLED PORTFOLIO
+			.fWay = fFalse;
+		Else;						// USER CHOSE A MOVIE
+			.fWay = fTrue;
+		End;
+		ENDVOICE();					// End the voiceover that started at state 5 (open portfolio).
+		ChangeStateThis( kst6 );
+	ENDCHUNK
+	// McZee animation cells.  Keep them at the bottom of the object
+	// for Kauai performance reasons.
+	#include "ticket.seq"
+
+
+
+OBJECTREG("ticketbooth - dance", kgobTicketMcZeeAVI, 132, 18, 999, kcrsHand1)
+	REP_VIDEO( CHID1( krepDefault ), "ticket1.avi", fTrue )
+	CREATE_SCRIPT( "created" )
+		FilterCmdsThis( cidMouseDown, kidNil, kchidScript1);
+	ENDCHUNK
+	CHILD_SCRIPT( "mouse down", kchidScript1  )
+		// stop playing... the polling will catch and remove us.
+		StopThis();	
+	ENDCHUNK		
+	CLICK_SCRIPT( "clicked ticketbooth intro" )
+		// stop playing... the polling will catch and remove us
+		StopThis();	
+	ENDCHUNK
+
+OBJECTREG("ticketbooth - present", kgobTicketMcZeeAVI2, 0, 0, 999, kcrsHand1)
+	REP_VIDEO( CHID1( krepDefault ), "ticket2.avi", fTrue )
+	CREATE_SCRIPT( "created" )
+		FilterCmdsThis( cidMouseDown, kidNil, kchidScript1);
+	ENDCHUNK
+	CHILD_SCRIPT( "mouse down", kchidScript1  )
+		// stop playing... the polling will catch and remove us.
+		StopThis();	
+	ENDCHUNK		
+	CLICK_SCRIPT( "clicked ticketbooth intro" )
+		// stop playing... the polling will catch and remove us
+		StopThis();	
+	ENDCHUNK
+
+
+
+// ----------------------------------------------------
+// Help script to handle ticket booth choices
+// ----------------------------------------------------
+HELP_SCRIPT( ktpcTicketChoices )
+	If( _parm[0] == 2 );			// See a movie choice.
+		ChangeStateGob( kgobTicket2McZee, kst5 );
+	Elif( _parm[0] == 1 );			// Make	a movie.
+		ChangeStateGob( kgobTicket2McZee, kst7 );
+	End;
+ENDCHUNK
+
+// ----------------------------------------------------
+// Film Cans McZee puts up on the counter
+// ----------------------------------------------------
+OBJECT( "ticket2:film cans", kgobTicket2Cans, 30, kcrsHand1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\ticket\tik2cans.pbm" )
+	CLICK_SCRIPT( "ticket2: films clicked" )
+		// Get portfolio selection
+		ChangeStateGob( kgobTicket2McZee, kst5 );
+	ENDCHUNK
+
+
+// ----------------------------------------------------
+// Camera McZee puts up on the counter
+// ----------------------------------------------------
+OBJECT( "ticket2:camera clicked",  kgobTicket2Camera, 30, kcrsHand1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\ticket\tik2cam.pbm" )
+	CLICK_SCRIPT( "ticket2: camera clicked" )
+		ChangeStateGob( kgobTicket2McZee, kst7 );
+	ENDCHUNK
+
+
+//------------------------------------------------------------
+//	Bio page hotspots
+//----------------------------------------------------------
+OBJECT( "Biopage 24 mask",  kgobTic1m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\ticket\tic1m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 24 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 24 );
+			BIO_CREATEBOOK( 24, fFalse, kgobTicket2 );
+		End;		
+	ENDCHUNK

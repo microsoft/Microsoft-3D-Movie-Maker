@@ -1,0 +1,582 @@
+ kpack
+
+ Timestamp is 3070b594 (Mon Oct 02 21:01:24 1995)
+
+ Preferred load address is 00400000
+
+ Start         Length     Name                   Class
+ 0001:00000000 0000ce4cH .text                   CODE
+ 0002:00000000 00001930H .bss                    DATA
+ 0003:00000000 000002a1H .rdata                  DATA
+ 0004:00000000 000010b8H .data                   DATA
+ 0004:000010b8 00000004H .CRT$XCA                DATA
+ 0004:000010bc 00000050H .CRT$XCU                DATA
+ 0004:0000110c 00000004H .CRT$XCZ                DATA
+ 0004:00001110 00000004H .CRT$XIA                DATA
+ 0004:00001114 00000004H .CRT$XIC                DATA
+ 0004:00001118 00000004H .CRT$XIZ                DATA
+ 0004:0000111c 00000004H .CRT$XPA                DATA
+ 0004:00001120 00000004H .CRT$XPX                DATA
+ 0004:00001124 00000004H .CRT$XPZ                DATA
+ 0004:00001128 00000004H .CRT$XTA                DATA
+ 0004:0000112c 00000004H .CRT$XTZ                DATA
+ 0005:00000000 00000050H .idata$2                DATA
+ 0005:00000050 00000014H .idata$3                DATA
+ 0005:00000064 0000009cH .idata$4                DATA
+ 0005:00000100 0000009cH .idata$5                DATA
+ 0005:0000019c 00000288H .idata$6                DATA
+ 0007:00000000 00000000H .debug$C                DATA
+ 0007:00000000 00000110H .debug$E                DATA
+ 0007:00000110 00001340H .debug$F                DATA
+ 0007:000017c0 00000000H .debug$G                DATA
+ 0007:000017c0 00000032H .debug$H                DATA
+ 0007:fffeb000 00000000H .debug$P                DATA
+ 0007:fffeb000 00000000H .debug$S                DATA
+ 0007:fffeb000 00000000H .debug$T                DATA
+
+  Address         Publics by Value              Rva+Base   Lib:Object
+
+ 0001:00000000       ?FWouldBe@USAC@@SGHJ@Z     00401000 f utilglob.obj
+ 0001:00000020       ?FIs@USAC@@UAEHJ@Z         00401020 f utilglob.obj
+ 0001:00000030       ?Cls@USAC@@UAEJXZ          00401030 f utilglob.obj
+ 0001:00000100       ??_GBASE@@UAEPAXI@Z        00401100 f utilglob.obj
+ 0001:00000100       ??_EBASE@@UAEPAXI@Z        00401100 f utilglob.obj
+ 0001:00000130       ??_GKCDC@@UAEPAXI@Z        00401130 f utilglob.obj
+ 0001:00000130       ??_EKCDC@@UAEPAXI@Z        00401130 f utilglob.obj
+ 0001:00000150       ?FCanDo@KCDC@@UAEHHJ@Z     00401150 f utilglob.obj
+ 0001:00000190       ?FWouldBe@BLL@@SGHJ@Z      00401190 f base.obj
+ 0001:000001b0       ?FIs@BLL@@UAEHJ@Z          004011b0 f base.obj
+ 0001:000001c0       ?Cls@BLL@@UAEJXZ           004011c0 f base.obj
+ 0001:000001d0       ?Cls@BASE@@UAEJXZ          004011d0 f base.obj
+ 0001:000001e0       ?FIs@BASE@@UAEHJ@Z         004011e0 f base.obj
+ 0001:00000200       ?FWouldBe@BASE@@SGHJ@Z     00401200 f base.obj
+ 0001:00000220       ??0BASE@@QAE@XZ            00401220 f base.obj
+ 0001:00000230       ?AddRef@BASE@@UAEXXZ       00401230 f base.obj
+ 0001:00000240       ?Release@BASE@@UAEXXZ      00401240 f base.obj
+ 0001:00000260       ??2BASE@@SGPAXI@Z          00401260 f base.obj
+ 0001:00000290       ??3BASE@@SGXPAX@Z          00401290 f base.obj
+ 0001:000002a0       ??0BLL@@QAE@XZ             004012a0 f base.obj
+ 0001:000002c0       ??1BLL@@UAE@XZ             004012c0 f base.obj
+ 0001:000002e0       ?_Attach@BLL@@IAEXPAX@Z    004012e0 f base.obj
+ 0001:00000350       ??_GBLL@@UAEPAXI@Z         00401350 f base.obj
+ 0001:00000350       ??_EBLL@@UAEPAXI@Z         00401350 f base.obj
+ 0001:00000370       ?FillPb@@YGXPAXJE@Z        00401370 f utilcopy.obj
+ 0001:000003b0       ?ClearPb@@YGXPAXJ@Z        004013b0 f utilcopy.obj
+ 0001:000003e0       ?FEqualRgb@@YGHPAX0J@Z     004013e0 f utilcopy.obj
+ 0001:00000420       ?CbEqualRgb@@YGJPAX0J@Z    00401420 f utilcopy.obj
+ 0001:00000480       ?CopyPb@@YGXPAX0J@Z        00401480 f utilcopy.obj
+ 0001:000004b0       ?BltPb@@YGXPAX0J@Z         004014b0 f utilcopy.obj
+ 0001:00000520       ?FWouldBe@ERS@@SGHJ@Z      00401520 f utilerro.obj
+ 0001:00000540       ?FIs@ERS@@UAEHJ@Z          00401540 f utilerro.obj
+ 0001:00000550       ?Cls@ERS@@UAEJXZ           00401550 f utilerro.obj
+ 0001:00000560       ??0ERS@@QAE@XZ             00401560 f utilerro.obj
+ 0001:00000590       ?Push@ERS@@UAEXJ@Z         00401590 f utilerro.obj
+ 0001:000005e0       ?FPop@ERS@@UAEHPAJ@Z       004015e0 f utilerro.obj
+ 0001:00000630       ?Clear@ERS@@UAEXXZ         00401630 f utilerro.obj
+ 0001:00000650       ?Cerc@ERS@@UAEJXZ          00401650 f utilerro.obj
+ 0001:00000660       ?FIn@ERS@@UAEHJ@Z          00401660 f utilerro.obj
+ 0001:000006b0       ?ErcGet@ERS@@UAEJJ@Z       004016b0 f utilerro.obj
+ 0001:000006f0       ?Flush@ERS@@UAEXJ@Z        004016f0 f utilerro.obj
+ 0001:00000790       ??_GERS@@UAEPAXI@Z         00401790 f utilerro.obj
+ 0001:00000790       ??_EERS@@UAEPAXI@Z         00401790 f utilerro.obj
+ 0001:000007d0       ?SwapBytesBom@@YGXPAXK@Z   004017d0 f utilint.obj
+ 0001:00000830       ?SwapBytesRglw@@YGXPAXJ@Z  00401830 f utilint.obj
+ 0001:00000860       ??0USAC@@QAE@XZ            00401860 f utilint.obj
+ 0001:000008a0       ??_EUSAC@@UAEPAXI@Z        004018a0 f utilint.obj
+ 0001:000008a0       ??_GUSAC@@UAEPAXI@Z        004018a0 f utilint.obj
+ 0001:000008c0       ?FAllocPv@@YGHPAPAXJKJ@Z   004018c0 f utilmem.obj
+ 0001:00000990       ?_FResizePpv@@YGHPAPAXJJKJ@Z 00401990 f utilmem.obj
+ 0001:00000a80       ?FreePpv@@YGXPAPAX@Z       00401a80 f utilmem.obj
+ 0001:00000ac0       ?FWouldBe@RND@@SGHJ@Z      00401ac0 f utilrnd.obj
+ 0001:00000ae0       ?FIs@RND@@UAEHJ@Z          00401ae0 f utilrnd.obj
+ 0001:00000af0       ?Cls@RND@@UAEJXZ           00401af0 f utilrnd.obj
+ 0001:00000b00       ?FWouldBe@SFL@@SGHJ@Z      00401b00 f utilrnd.obj
+ 0001:00000b20       ?FIs@SFL@@UAEHJ@Z          00401b20 f utilrnd.obj
+ 0001:00000b30       ?Cls@SFL@@UAEJXZ           00401b30 f utilrnd.obj
+ 0001:00000b40       ??0RND@@QAE@K@Z            00401b40 f utilrnd.obj
+ 0001:00000b80       ?LwNext@RND@@UAEJJ@Z       00401b80 f utilrnd.obj
+ 0001:00000bb0       ??0SFL@@QAE@K@Z            00401bb0 f utilrnd.obj
+ 0001:00000be0       ??1SFL@@UAE@XZ             00401be0 f utilrnd.obj
+ 0001:00000c00       ?Shuffle@SFL@@QAEXJ@Z      00401c00 f utilrnd.obj
+ 0001:00000c40       ?_ShuffleCore@SFL@@IAEXXZ  00401c40 f utilrnd.obj
+ 0001:00000c90       ?_FEnsureHq@SFL@@IAEHJ@Z   00401c90 f utilrnd.obj
+ 0001:00000d00       ?LwNext@SFL@@UAEJJ@Z       00401d00 f utilrnd.obj
+ 0001:00000d90       ??_GRND@@UAEPAXI@Z         00401d90 f utilrnd.obj
+ 0001:00000d90       ??_ERND@@UAEPAXI@Z         00401d90 f utilrnd.obj
+ 0001:00000db0       ??_ESFL@@UAEPAXI@Z         00401db0 f utilrnd.obj
+ 0001:00000db0       ??_GSFL@@UAEPAXI@Z         00401db0 f utilrnd.obj
+ 0001:00000dd0       ??4STN@@QAEAAV0@AAV0@@Z    00401dd0 f utilstr.obj
+ 0001:00000df0       ?SetRgch@STN@@QAEXPADJ@Z   00401df0 f utilstr.obj
+ 0001:00000e30       ?SetSzs@STN@@QAEXPAD@Z     00401e30 f utilstr.obj
+ 0001:00000e50       ?Delete@STN@@QAEXJJ@Z      00401e50 f utilstr.obj
+ 0001:00000eb0       ?FAppendRgch@STN@@QAEHPADJ@Z 00401eb0 f utilstr.obj
+ 0001:00000f00       ?FInsertRgch@STN@@QAEHJPADJ@Z 00401f00 f utilstr.obj
+ 0001:00000fc0       ?FEqualUserRgch@STN@@QAEHPADJK@Z 00401fc0 f utilstr.obj
+ 0001:00000fe0       ?FGetLw@STN@@QAEHPAJJ@Z    00401fe0 f utilstr.obj
+ 0001:000010d0       ?CchSz@@YGJPAD@Z           004020d0 f utilstr.obj
+ 0001:000010f0       ?FEqualUserRgch@@YGHPADJ0JK@Z 004020f0 f utilstr.obj
+ 0001:000011e0       ?UpperRgchs@@YGXPADJ@Z     004021e0 f utilstr.obj
+ 0001:00001250       ?FAllocHq@@YGHPAPAXJKJ@Z   00402250 f memwin.obj
+ 0001:000012c0       ?FResizePhq@@YGHPAPAXJKJ@Z 004022c0 f memwin.obj
+ 0001:00001360       ?FreePhq@@YGXPAPAX@Z       00402360 f memwin.obj
+ 0001:00001390       ?CbOfHq@@YGJPAX@Z          00402390 f memwin.obj
+ 0001:000013a0       ?PvLockHq@@YGPAXPAX@Z      004023a0 f memwin.obj
+ 0001:000013b0       ?UnlockHq@@YGXPAX@Z        004023b0 f memwin.obj
+ 0001:00001410       ?FWouldBe@CODM@@SGHJ@Z     00402410 f codec.obj
+ 0001:00001430       ?FIs@CODM@@UAEHJ@Z         00402430 f codec.obj
+ 0001:00001440       ?Cls@CODM@@UAEJXZ          00402440 f codec.obj
+ 0001:00001450       ?FWouldBe@CODC@@SGHJ@Z     00402450 f codec.obj
+ 0001:00001470       ??0CODM@@QAE@PAVCODC@@J@Z  00402470 f codec.obj
+ 0001:000014b0       ??1CODM@@UAE@XZ            004024b0 f codec.obj
+ 0001:00001530       ?FRegisterCodec@CODM@@UAEHPAVCODC@@@Z 00402530 f codec.obj
+ 0001:00001580       ?FCanDo@CODM@@UAEHJH@Z     00402580 f codec.obj
+ 0001:000015b0       ?FGetCfmtFromBlck@CODM@@UAEHPAVBLCK@@PAJ@Z 004025b0 f codec.obj
+ 0001:00001630       ?_FFindCodec@CODM@@MAEHHJPAPAVCODC@@@Z 00402630 f codec.obj
+ 0001:000016e0       ?_FCodePhq@CODM@@MAEHJPAPAX@Z 004026e0 f codec.obj
+ 0001:00001800       ?_FCode@CODM@@MAEHJPAXJ0JPAJ@Z 00402800 f codec.obj
+ 0001:00001a10       ??_ECODM@@UAEPAXI@Z        00402a10 f codec.obj
+ 0001:00001a10       ??_GCODM@@UAEPAXI@Z        00402a10 f codec.obj
+ 0001:00001a30       ?FWouldBe@KCDC@@SGHJ@Z     00402a30 f codkauai.obj
+ 0001:00001a50       ?FIs@KCDC@@UAEHJ@Z         00402a50 f codkauai.obj
+ 0001:00001a60       ?Cls@KCDC@@UAEJXZ          00402a60 f codkauai.obj
+ 0001:00001a70       ?FConvert@KCDC@@UAEHHJPAXJ0JPAJ@Z 00402a70 f codkauai.obj
+ 0001:00001af0       ?Set@BITA@@QAEXPAXJ@Z      00402af0 f codkauai.obj
+ 0001:00001b10       ?FWriteBits@BITA@@QAEHKJ@Z 00402b10 f codkauai.obj
+ 0001:00001bd0       ?FWriteLogEncoded@BITA@@QAEHK@Z 00402bd0 f codkauai.obj
+ 0001:00001c20       ?_FEncode@KCDC@@IAEHPAXJ0JPAJ@Z 00402c20 f codkauai.obj
+ 0001:00001f30       ?_FDecode@KCDC@@IAEHPAXJ0JPAJ@Z 00402f30 f codkauai.obj
+ 0001:00005860       ?_FEncode2@KCDC@@IAEHPAXJ0JPAJ@Z 00406860 f codkauai.obj
+ 0001:00005c40       ?_FDecode2@KCDC@@IAEHPAXJ0JPAJ@Z 00406c40 f codkauai.obj
+ 0001:00008200       ?FWouldBe@FIL@@SGHJ@Z      00409200 f file.obj
+ 0001:00008220       ?FIs@FIL@@UAEHJ@Z          00409220 f file.obj
+ 0001:00008230       ?Cls@FIL@@UAEJXZ           00409230 f file.obj
+ 0001:00008240       ?FWouldBe@BLCK@@SGHJ@Z     00409240 f file.obj
+ 0001:00008260       ?FIs@BLCK@@UAEHJ@Z         00409260 f file.obj
+ 0001:00008270       ?Cls@BLCK@@UAEJXZ          00409270 f file.obj
+ 0001:00008280       ??0FIL@@IAE@PAVFNI@@K@Z    00409280 f file.obj
+ 0001:000082f0       ??1FIL@@MAE@XZ             004092f0 f file.obj
+ 0001:00008340       ?PfilOpen@FIL@@SGPAV1@PAVFNI@@K@Z 00409340 f file.obj
+ 0001:000083e0       ?PfilCreate@FIL@@SGPAV1@PAVFNI@@K@Z 004093e0 f file.obj
+ 0001:00008470       ?PfilFromFni@FIL@@SGPAV1@PAVFNI@@@Z 00409470 f file.obj
+ 0001:000084d0       ?FSetGrffil@FIL@@QAEHKK@Z  004094d0 f file.obj
+ 0001:00008560       ?Release@FIL@@UAEXXZ       00409560 f file.obj
+ 0001:00008590       ?SetTemp@FIL@@QAEXH@Z      00409590 f file.obj
+ 0001:000085d0       ?ShutDown@FIL@@SGXXZ       004095d0 f file.obj
+ 0001:00008640       ?FReadRgb@FLO@@QAEHPAXJJ@Z 00409640 f file.obj
+ 0001:00008690       ?FWriteRgb@FLO@@QAEHPAXJJ@Z 00409690 f file.obj
+ 0001:000086e0       ?FCopy@FLO@@QAEHPAU1@@Z    004096e0 f file.obj
+ 0001:000087b0       ?FReadHq@FLO@@QAEHPAPAXJJ@Z 004097b0 f file.obj
+ 0001:00008830       ??0BLCK@@QAE@PAUFLO@@H@Z   00409830 f file.obj
+ 0001:00008880       ??0BLCK@@QAE@XZ            00409880 f file.obj
+ 0001:000088a0       ??1BLCK@@UAE@XZ            004098a0 f file.obj
+ 0001:000088c0       ?Set@BLCK@@QAEXPAVFIL@@JJH@Z 004098c0 f file.obj
+ 0001:00008900       ?SetHq@BLCK@@QAEXPAPAXH@Z  00409900 f file.obj
+ 0001:00008940       ?Free@BLCK@@QAEXXZ         00409940 f file.obj
+ 0001:00008970       ?HqFree@BLCK@@QAEPAXH@Z    00409970 f file.obj
+ 0001:00008a20       ?Cb@BLCK@@QAEJH@Z          00409a20 f file.obj
+ 0001:00008a40       ?FReadRgb@BLCK@@QAEHPAXJJH@Z 00409a40 f file.obj
+ 0001:00008ad0       ?FWriteRgb@BLCK@@QAEHPAXJJH@Z 00409ad0 f file.obj
+ 0001:00008b60       ?FWriteToFlo@BLCK@@QAEHPAUFLO@@H@Z 00409b60 f file.obj
+ 0001:00008be0       ?FPacked@BLCK@@QAEHPAJ@Z   00409be0 f file.obj
+ 0001:00008c20       ?FPackData@BLCK@@QAEHJ@Z   00409c20 f file.obj
+ 0001:00008d40       ?FUnpackData@BLCK@@QAEHXZ  00409d40 f file.obj
+ 0001:00008e70       ??_GFIL@@MAEPAXI@Z         00409e70 f file.obj
+ 0001:00008e70       ??_EFIL@@MAEPAXI@Z         00409e70 f file.obj
+ 0001:00008e90       ??_EBLCK@@UAEPAXI@Z        00409e90 f file.obj
+ 0001:00008e90       ??_GBLCK@@UAEPAXI@Z        00409e90 f file.obj
+ 0001:00008f00       ?_FOpen@FIL@@IAEHHK@Z      00409f00 f filewin.obj
+ 0001:00009000       ?_Close@FIL@@IAEXH@Z       0040a000 f filewin.obj
+ 0001:00009070       ?Flush@FIL@@QAEXXZ         0040a070 f filewin.obj
+ 0001:000090a0       ?_SetFpPos@FIL@@IAEXJ@Z    0040a0a0 f filewin.obj
+ 0001:00009110       ?FpMac@FIL@@QAEJXZ         0040a110 f filewin.obj
+ 0001:000091a0       ?FReadRgb@FIL@@QAEHPAXJJ@Z 0040a1a0 f filewin.obj
+ 0001:00009250       ?FWriteRgb@FIL@@QAEHPAXJJ@Z 0040a250 f filewin.obj
+ 0001:00009330       ?FWouldBe@FNI@@SGHJ@Z      0040a330 f fniwin.obj
+ 0001:00009350       ?FIs@FNI@@UAEHJ@Z          0040a350 f fniwin.obj
+ 0001:00009360       ?Cls@FNI@@UAEJXZ           0040a360 f fniwin.obj
+ 0001:00009370       ?SetNil@FNI@@QAEXXZ        0040a370 f fniwin.obj
+ 0001:00009380       ??0FNI@@QAE@XZ             0040a380 f fniwin.obj
+ 0001:000093b0       ?FBuildFromPath@FNI@@QAEHPAVSTN@@J@Z 0040a3b0 f fniwin.obj
+ 0001:00009500       ?FChangeFtg@FNI@@QAEHJ@Z   0040a500 f fniwin.obj
+ 0001:000095b0       ?FEqual@FNI@@QAEHPAV1@@Z   0040a5b0 f fniwin.obj
+ 0001:000095d0       ?_CchExt@FNI@@AAEJXZ       0040a5d0 f fniwin.obj
+ 0001:00009610       ?_SetFtgFromName@FNI@@AAEXXZ 0040a610 f fniwin.obj
+ 0001:00009760       ??_EFNI@@UAEPAXI@Z         0040a760 f fniwin.obj
+ 0001:00009760       ??_GFNI@@UAEPAXI@Z         0040a760 f fniwin.obj
+ 0001:00009780       ?FWouldBe@GRPB@@SGHJ@Z     0040a780 f groups.obj
+ 0001:000097a0       ?FIs@GRPB@@UAEHJ@Z         0040a7a0 f groups.obj
+ 0001:000097b0       ?Cls@GRPB@@UAEJXZ          0040a7b0 f groups.obj
+ 0001:000097c0       ?FWouldBe@GLB@@SGHJ@Z      0040a7c0 f groups.obj
+ 0001:000097e0       ?FIs@GLB@@UAEHJ@Z          0040a7e0 f groups.obj
+ 0001:000097f0       ?Cls@GLB@@UAEJXZ           0040a7f0 f groups.obj
+ 0001:00009800       ?FWouldBe@GL@@SGHJ@Z       0040a800 f groups.obj
+ 0001:00009820       ?FIs@GL@@UAEHJ@Z           0040a820 f groups.obj
+ 0001:00009830       ?Cls@GL@@UAEJXZ            0040a830 f groups.obj
+ 0001:00009840       ??1GRPB@@UAE@XZ            0040a840 f groups.obj
+ 0001:00009870       ?_FEnsureSizes@GRPB@@IAEHJJK@Z 0040a870 f groups.obj
+ 0001:00009950       ?_FEnsureHqCb@GRPB@@AAEHPAPAXJJPAJ@Z 0040a950 f groups.obj
+ 0001:00009a20       ?FWriteFlo@GRPB@@UAEHPAUFLO@@FF@Z 0040aa20 f groups.obj
+ 0001:00009a70       ?_FWrite@GRPB@@IAEHPAVBLCK@@PAXJJJ@Z 0040aa70 f groups.obj
+ 0001:00009b40       ??0GLB@@IAE@J@Z            0040ab40 f groups.obj
+ 0001:00009b70       ?QvGet@GLB@@QAEPAXJ@Z      0040ab70 f groups.obj
+ 0001:00009b90       ?Get@GLB@@QAEXJPAX@Z       0040ab90 f groups.obj
+ 0001:00009bb0       ?PglNew@GL@@SGPAV1@JJ@Z    0040abb0 f groups.obj
+ 0001:00009c10       ??0GL@@IAE@J@Z             0040ac10 f groups.obj
+ 0001:00009c30       ?FFree@GL@@UAEHJ@Z         0040ac30 f groups.obj
+ 0001:00009c50       ?CbOnFile@GL@@UAEJXZ       0040ac50 f groups.obj
+ 0001:00009c60       ?FWrite@GL@@UAEHPAVBLCK@@FF@Z 0040ac60 f groups.obj
+ 0001:00009cd0       ?FInsert@GL@@QAEHJPAXJ@Z   0040acd0 f groups.obj
+ 0001:00009d70       ?Delete@GL@@UAEXJ@Z        0040ad70 f groups.obj
+ 0001:00009d80       ?Delete@GL@@QAEXJJ@Z       0040ad80 f groups.obj
+ 0001:00009dc0       ?FAdd@GL@@UAEHPAXPAJ@Z     0040adc0 f groups.obj
+ 0001:00009df0       ?FEnsureSpace@GL@@QAEHJK@Z 0040adf0 f groups.obj
+ 0001:00009e40       ??_EGRPB@@UAEPAXI@Z        0040ae40 f groups.obj
+ 0001:00009e40       ??_GGRPB@@UAEPAXI@Z        0040ae40 f groups.obj
+ 0001:00009e60       ??_GGLB@@UAEPAXI@Z         0040ae60 f groups.obj
+ 0001:00009e60       ??_EGLB@@UAEPAXI@Z         0040ae60 f groups.obj
+ 0001:00009e80       ??_EGL@@UAEPAXI@Z          0040ae80 f groups.obj
+ 0001:00009e80       ??_GGL@@UAEPAXI@Z          0040ae80 f groups.obj
+ 0001:00009ec0       _main                      0040aec0 f kpack.obj
+ 0001:0000a410       ?_FGetLwFromSzs@@YGHPADPAJ@Z 0040b410 f kpack.obj
+ 0001:0000a534       _timeGetTime@0             0040b534   winmm:WINMM.dll
+ 0001:0000a53a       __onexit                   0040b53a f LIBC:onexit.obj
+ 0001:0000a5b0       _atexit                    0040b5b0 f LIBC:onexit.obj
+ 0001:0000a5c2       ___onexitinit              0040b5c2 f LIBC:onexit.obj
+ 0001:0000a5f8       __purecall                 0040b5f8 f LIBC:purevirt.obj
+ 0001:0000a603       _fprintf                   0040b603 f LIBC:fprintf.obj
+ 0001:0000a639       _mainCRTStartup            0040b639 f LIBC:crt0.obj
+ 0001:0000a732       __amsg_exit                0040b732 f LIBC:crt0.obj
+ 0001:0000a752       __cinit                    0040b752 f LIBC:crt0dat.obj
+ 0001:0000a782       _exit                      0040b782 f LIBC:crt0dat.obj
+ 0001:0000a793       __exit                     0040b793 f LIBC:crt0dat.obj
+ 0001:0000a843       _realloc                   0040b843 f LIBC:realloc.obj
+ 0001:0000a995       __msize                    0040b995 f LIBC:msize.obj
+ 0001:0000a9a6       _malloc                    0040b9a6 f LIBC:malloc.obj
+ 0001:0000a9b9       __nh_malloc                0040b9b9 f LIBC:malloc.obj
+ 0001:0000aa78       __heap_split_block         0040ba78 f LIBC:malloc.obj
+ 0001:0000aabd       __stbuf                    0040babd f LIBC:_sftbuf.obj
+ 0001:0000ab3e       __ftbuf                    0040bb3e f LIBC:_sftbuf.obj
+ 0001:0000ab84       __output                   0040bb84 f LIBC:output.obj
+ 0001:0000b4ac       __global_unwind2           0040c4ac f LIBC:exsup.obj
+ 0001:0000b4ee       __local_unwind2            0040c4ee f LIBC:exsup.obj
+ 0001:0000b548       __abnormal_termination     0040c548 f LIBC:exsup.obj
+ 0001:0000b56b       __XcptFilter               0040c56b f LIBC:winxfltr.obj
+ 0001:0000b6f6       __setenvp                  0040c6f6 f LIBC:stdenvp.obj
+ 0001:0000b7c1       __setargv                  0040c7c1 f LIBC:stdargv.obj
+ 0001:0000babf       __setmbcp                  0040cabf f LIBC:mbctype.obj
+ 0001:0000bc4d       ___initmbctable            0040cc4d f LIBC:mbctype.obj
+ 0001:0000bc58       __ioinit                   0040cc58 f LIBC:ioinit.obj
+ 0001:0000bd46       __heap_init                0040cd46 f LIBC:heapinit.obj
+ 0001:0000bdc3       ___getempty                0040cdc3 f LIBC:heapinit.obj
+ 0001:0000bdf0       __except_handler3          0040cdf0 f LIBC:exsup3.obj
+ 0001:0000be9e       __seh_longjmp_unwind@4     0040ce9e f LIBC:exsup3.obj
+ 0001:0000beb9       __FF_MSGBANNER             0040ceb9 f LIBC:crt0msg.obj
+ 0001:0000bedf       __NMSG_WRITE               0040cedf f LIBC:crt0msg.obj
+ 0001:0000bf37       _free                      0040cf37 f LIBC:free.obj
+ 0001:0000bf9f       __heap_abort               0040cf9f f LIBC:hpabort.obj
+ 0001:0000bfaa       __heap_grow                0040cfaa f LIBC:heapgrow.obj
+ 0001:0000c093       __heap_grow_region         0040d093 f LIBC:heapgrow.obj
+ 0001:0000c140       __heap_free_region         0040d140 f LIBC:heapgrow.obj
+ 0001:0000c17a       __heap_search              0040d17a f LIBC:heapsrch.obj
+ 0001:0000c26a       _fflush                    0040d26a f LIBC:fflush.obj
+ 0001:0000c2b6       __flush                    0040d2b6 f LIBC:fflush.obj
+ 0001:0000c318       __flushall                 0040d318 f LIBC:fflush.obj
+ 0001:0000c38d       ___endstdio                0040d38d f LIBC:fflush.obj
+ 0001:0000c3a1       __isatty                   0040d3a1 f LIBC:isatty.obj
+ 0001:0000c3bb       _wctomb                    0040d3bb f LIBC:wctomb.obj
+ 0001:0000c434       __aulldiv                  0040d434 f LIBC:ulldiv.obj
+ 0001:0000c494       __aullrem                  0040d494 f LIBC:ullrem.obj
+ 0001:0000c4fe       __flsbuf                   0040d4fe f LIBC:_flsbuf.obj
+ 0001:0000c60a       __heap_addblock            0040d60a f LIBC:heapadd.obj
+ 0001:0000c8c1       __commit                   0040d8c1 f LIBC:commit.obj
+ 0001:0000c90e       __write                    0040d90e f LIBC:write.obj
+ 0001:0000caa7       __fcloseall                0040daa7 f LIBC:closeall.obj
+ 0001:0000cad8       __fptrap                   0040dad8 f LIBC:crt0fp.obj
+ 0001:0000cae3       __lseek                    0040dae3 f LIBC:lseek.obj
+ 0001:0000cb58       __getbuf                   0040db58 f LIBC:_getbuf.obj
+ 0001:0000cba3       __heap_findaddr            0040dba3 f LIBC:findaddr.obj
+ 0001:0000cc0d       __free_osfhnd              0040dc0d f LIBC:osfinfo.obj
+ 0001:0000cc7a       __get_osfhandle            0040dc7a f LIBC:osfinfo.obj
+ 0001:0000ccb2       __dosmaperr                0040dcb2 f LIBC:dosmap.obj
+ 0001:0000cd1b       _fclose                    0040dd1b f LIBC:fclose.obj
+ 0001:0000cd77       __close                    0040dd77 f LIBC:close.obj
+ 0001:0000ce0d       __freebuf                  0040de0d f LIBC:_freebuf.obj
+ 0001:0000ce46       _RtlUnwind@16              0040de46   kernel32:KERNEL32.dll
+ 0002:00000000       ?vcodmUtil@@3VCODM@@A      0040e000   utilglob.obj
+ 0002:00000018       ?vmutxMem@@3VMUTX@@A       0040e018   utilglob.obj
+ 0002:00000030       ?vkcdcUtil@@3VKCDC@@A      0040e030   utilglob.obj
+ 0002:00000038       ?_usac@@3VUSAC@@A          0040e038   utilglob.obj
+ 0002:00000050       ?vsflUtil@@3VSFL@@A        0040e050   utilglob.obj
+ 0002:00000070       ?vrndUtil@@3VRND@@A        0040e070   utilglob.obj
+ 0002:000000a0       ?_ers@@3VERS@@A            0040e0a0   utilerro.obj
+ 0002:00000138       ?_mpchschsLower@@3QADA     0040e138   utilstr.obj
+ 0002:00000240       ?_mpchschsUpper@@3QADA     0040e240   utilstr.obj
+ 0002:00000350       ?_pcflFirst@CFL@@0PAV1@A   0040e350   chunk.obj
+ 0002:00000378       ?_pfilFirst@FIL@@1PAV1@A   0040e378   file.obj
+ 0002:00000380       ?_mutxList@FIL@@1VMUTX@@A  0040e380   file.obj
+ 0002:000003a8       ?_fniTemp@@3VFNI@@A        0040e3a8   fniwin.obj
+ 0002:00000614       __heap_descpages           0040e614   <common>
+ 0002:00000620       __heap_regions             0040e620   <common>
+ 0002:00000920       ___onexitend               0040e920   <common>
+ 0002:00000924       __FPinit                   0040e924   <common>
+ 0002:00000928       ___onexitbegin             0040e928   <common>
+ 0002:0000092c       __acmdln                   0040e92c   <common>
+ 0002:00000930       __bufin                    0040e930   <common>
+ 0003:00000058       ??_7KCDC@@6B@              00410058   utilglob.obj
+ 0003:00000078       ??_7BASE@@6B@              00410078   utilglob.obj
+ 0003:00000090       ??_7BLL@@6B@               00410090   base.obj
+ 0003:000000a8       ??_7ERS@@6B@               004100a8   utilerro.obj
+ 0003:000000d8       ??_7USAC@@6B@              004100d8   utilint.obj
+ 0003:000000f0       ??_7RND@@6B@               004100f0   utilrnd.obj
+ 0003:00000108       ??_7SFL@@6B@               00410108   utilrnd.obj
+ 0003:00000120       ?vrgchHex@@3QBDB           00410120   utilstr.obj
+ 0003:00000138       ??_7CODM@@6B@              00410138   codec.obj
+ 0003:00000168       ??_7FIL@@6B@               00410168   file.obj
+ 0003:00000180       ??_7BLCK@@6B@              00410180   file.obj
+ 0003:00000198       ??_7FNI@@6B@               00410198   fniwin.obj
+ 0003:000001b0       ??_7GRPB@@6B@              004101b0   groups.obj
+ 0003:000001d8       ??_7GLB@@6B@               004101d8   groups.obj
+ 0003:00000208       ??_7GL@@6B@                00410208   groups.obj
+ 0003:00000248       ___lookuptable             00410248   LIBC:output.obj
+ 0004:00000000       ?vpcodmUtil@@3PAVCODM@@A   00411000   utilglob.obj
+ 0004:00000004       ?vpusac@@3PAVUSAC@@A       00411004   utilglob.obj
+ 0004:00000008       ?vpers@@3PAVERS@@A         00411008   utilerro.obj
+ 0004:0000000c       ?vpfnlib@@3P6GJJJ@ZA       0041100c   utilmem.obj
+ 0004:00000010       ?_fInLiberator@@3HA        00411010   utilmem.obj
+ 0004:00000118       ?_rtiLast@CFL@@0JA         00411118   chunk.obj
+ 0004:0000011c       ?vftgCreator@FIL@@2JA      0041111c   file.obj
+ 0004:00000120       ?vftgTemp@@3JA             00411120   fniwin.obj
+ 0004:00000128       ??_C@_02DILL@?$CFs?$AA@    00411128   kpack.obj
+ 0004:0000012c       ??_C@_0ED@NKOA@Usage?3?5?5kpack?5?$FL?9d?$FN?5?$FL?9c?$FL0?$HM1?$HM2?$FN?$FN?5?$FL@ 0041112c   kpack.obj
+ 0004:00000170       ??_C@_0BN@DFD@Writing?5destination?5failed?6?6?$AA@ 00411170   kpack.obj
+ 0004:00000190       ??_C@_0BK@ILAN@Unpacking?5source?5failed?6?6?$AA@ 00411190   kpack.obj
+ 0004:000001ac       ??_C@_0BM@HFOH@Source?5file?5is?5not?5packed?6?6?$AA@ 004111ac   kpack.obj
+ 0004:000001c8       ??_C@_0BN@HALM@Reading?5source?5file?5failed?6?6?$AA@ 004111c8   kpack.obj
+ 0004:000001e8       ??_C@_0CA@FNMG@Can?8t?5create?5destination?5file?6?6?$AA@ 004111e8   kpack.obj
+ 0004:00000208       ??_C@_0BJ@LEIF@Can?8t?5open?5source?5file?6?6?$AA@ 00411208   kpack.obj
+ 0004:00000224       ??_C@_0BH@MOKA@Bad?5compression?5type?6?6?$AA@ 00411224   kpack.obj
+ 0004:0000023c       ??_C@_0BN@DEOC@Wrong?5number?5of?5file?5names?6?6?$AA@ 0041123c   kpack.obj
+ 0004:0000025c       ??_C@_0BA@JMLH@Bad?5file?5name?6?6?$AA@ 0041125c   kpack.obj
+ 0004:0000026c       ??_C@_0BG@JNKG@Too?5many?5file?5names?6?6?$AA@ 0041126c   kpack.obj
+ 0004:00000284       ??_C@_0BJ@DFMN@Bad?5compression?5format?6?6?$AA@ 00411284   kpack.obj
+ 0004:000002a0       ??_C@_0DK@CJEA@Copyright?5?$CIC?$CJ?5Microsoft?5Corp?5199@ 004112a0   kpack.obj
+ 0004:000002dc       ??_C@_0EB@KJJM@?6Microsoft?5?$CIR?$CJ?5Kauai?5Pack?5Utilit@ 004112dc   kpack.obj
+ 0004:00000320       __iob                      00411320   LIBC:_file.obj
+ 0004:000005a0       __lastiob                  004115a0   LIBC:_file.obj
+ 0004:000005a4       __aenvptr                  004115a4   LIBC:crt0.obj
+ 0004:000005a8       __wenvptr                  004115a8   LIBC:crt0.obj
+ 0004:000005ac       __aexit_rtn                004115ac   LIBC:crt0.obj
+ 0004:000005b0       _errno                     004115b0   LIBC:crt0dat.obj
+ 0004:000005b4       __doserrno                 004115b4   LIBC:crt0dat.obj
+ 0004:000005b8       __umaskval                 004115b8   LIBC:crt0dat.obj
+ 0004:000005bc       __osver                    004115bc   LIBC:crt0dat.obj
+ 0004:000005c0       __winver                   004115c0   LIBC:crt0dat.obj
+ 0004:000005c4       __winmajor                 004115c4   LIBC:crt0dat.obj
+ 0004:000005c8       __winminor                 004115c8   LIBC:crt0dat.obj
+ 0004:000005cc       ___argc                    004115cc   LIBC:crt0dat.obj
+ 0004:000005d0       ___argv                    004115d0   LIBC:crt0dat.obj
+ 0004:000005d4       ___wargv                   004115d4   LIBC:crt0dat.obj
+ 0004:000005d8       __environ                  004115d8   LIBC:crt0dat.obj
+ 0004:000005dc       ___initenv                 004115dc   LIBC:crt0dat.obj
+ 0004:000005e0       __wenviron                 004115e0   LIBC:crt0dat.obj
+ 0004:000005e4       ___winitenv                004115e4   LIBC:crt0dat.obj
+ 0004:000005e8       __pgmptr                   004115e8   LIBC:crt0dat.obj
+ 0004:000005ec       __wpgmptr                  004115ec   LIBC:crt0dat.obj
+ 0004:000005f0       __exitflag                 004115f0   LIBC:crt0dat.obj
+ 0004:000005f4       __C_Termination_Done       004115f4   LIBC:crt0dat.obj
+ 0004:000005f8       __pnhHeap                  004115f8   LIBC:malloc.obj
+ 0004:00000600       __stdbuf                   00411600   LIBC:_sftbuf.obj
+ 0004:00000610       ___nullstring              00411610   LIBC:output.obj
+ 0004:00000624       ___wnullstring             00411624   LIBC:output.obj
+ 0004:00000628       __XcptActTab               00411628   LIBC:winxfltr.obj
+ 0004:000006a0       __First_FPE_Indx           004116a0   LIBC:winxfltr.obj
+ 0004:000006a4       __Num_FPE                  004116a4   LIBC:winxfltr.obj
+ 0004:000006a8       __XcptActTabCount          004116a8   LIBC:winxfltr.obj
+ 0004:000006ac       __fpecode                  004116ac   LIBC:winxfltr.obj
+ 0004:000006b0       __pxcptinfoptrs            004116b0   LIBC:winxfltr.obj
+ 0004:000006b8       __mbctype                  004116b8   LIBC:mbctype.obj
+ 0004:000007bc       ___mbcodepage              004117bc   LIBC:mbctype.obj
+ 0004:000007c0       ___mblcid                  004117c0   LIBC:mbctype.obj
+ 0004:000007c8       ___mbulinfo                004117c8   LIBC:mbctype.obj
+ 0004:000008d0       __nhandle                  004118d0   LIBC:ioinit.obj
+ 0004:000008d8       __osfile                   004118d8   LIBC:ioinit.obj
+ 0004:00000918       __osfhnd                   00411918   LIBC:ioinit.obj
+ 0004:00000a18       __pipech                   00411a18   LIBC:ioinit.obj
+ 0004:00000a58       __heap_desc                00411a58   LIBC:heapinit.obj
+ 0004:00000a6c       __heap_resetsize           00411a6c   LIBC:heapinit.obj
+ 0004:00000a70       __amblksiz                 00411a70   LIBC:heapinit.obj
+ 0004:00000a74       __heap_regionsize          00411a74   LIBC:heapinit.obj
+ 0004:00000a78       __heap_maxregsize          00411a78   LIBC:heapinit.obj
+ 0004:00000ce8       __adbgmsg                  00411ce8   LIBC:crt0msg.obj
+ 0004:00000cec       __newmode                  00411cec   LIBC:_newmode.obj
+ 0004:00000cf0       __cflush                   00411cf0   LIBC:fflush.obj
+ 0004:00000cf8       __cfltcvt_tab              00411cf8   LIBC:cmiscdat.obj
+ 0004:00000d10       __pctype                   00411d10   LIBC:ctype.obj
+ 0004:00000d14       __pwctype                  00411d14   LIBC:ctype.obj
+ 0004:00000d18       __ctype                    00411d18   LIBC:ctype.obj
+ 0004:00000f20       ___lc_handle               00411f20   LIBC:nlsdata2.obj
+ 0004:00000f38       ___lc_codepage             00411f38   LIBC:nlsdata2.obj
+ 0004:00000f3c       ___mb_cur_max              00411f3c   LIBC:nlsdata1.obj
+ 0004:00000f44       ___decimal_point           00411f44   LIBC:nlsdata1.obj
+ 0004:00000f48       ___decimal_point_length    00411f48   LIBC:nlsdata1.obj
+ 0004:000010b8       ___xc_a                    004120b8   LIBC:crt0init.obj
+ 0004:0000110c       ___xc_z                    0041210c   LIBC:crt0init.obj
+ 0004:00001110       ___xi_a                    00412110   LIBC:crt0init.obj
+ 0004:00001118       ___xi_z                    00412118   LIBC:crt0init.obj
+ 0004:0000111c       ___xp_a                    0041211c   LIBC:crt0init.obj
+ 0004:00001124       ___xp_z                    00412124   LIBC:crt0init.obj
+ 0004:00001128       ___xt_a                    00412128   LIBC:crt0init.obj
+ 0004:0000112c       ___xt_z                    0041212c   LIBC:crt0init.obj
+ 0005:00000000       KERNEL32_IMPORT_DESCRIPTOR 00413000   kernel32:KERNEL32.dll
+ 0005:00000014       comdlg32_IMPORT_DESCRIPTOR 00413014   comdlg32:comdlg32.dll
+ 0005:00000028       USER32_IMPORT_DESCRIPTOR   00413028   user32:USER32.dll
+ 0005:0000003c       WINMM_IMPORT_DESCRIPTOR    0041303c   winmm:WINMM.dll
+ 0005:00000050       NULL_IMPORT_DESCRIPTOR     00413050   kernel32:KERNEL32.dll
+ 0005:00000100       __imp__DeleteCriticalSection@4 00413100   kernel32:KERNEL32.dll
+ 0005:00000104       __imp__GlobalAlloc@8       00413104   kernel32:KERNEL32.dll
+ 0005:00000108       __imp__GlobalFree@4        00413108   kernel32:KERNEL32.dll
+ 0005:0000010c       __imp__LeaveCriticalSection@4 0041310c   kernel32:KERNEL32.dll
+ 0005:00000110       __imp__EnterCriticalSection@4 00413110   kernel32:KERNEL32.dll
+ 0005:00000114       __imp__GlobalReAlloc@12    00413114   kernel32:KERNEL32.dll
+ 0005:00000118       __imp__WideCharToMultiByte@32 00413118   kernel32:KERNEL32.dll
+ 0005:0000011c       __imp__CreateFileA@28      0041311c   kernel32:KERNEL32.dll
+ 0005:00000120       __imp__CloseHandle@4       00413120   kernel32:KERNEL32.dll
+ 0005:00000124       __imp__DeleteFileA@4       00413124   kernel32:KERNEL32.dll
+ 0005:00000128       __imp__FlushFileBuffers@4  00413128   kernel32:KERNEL32.dll
+ 0005:0000012c       __imp__SetFilePointer@16   0041312c   kernel32:KERNEL32.dll
+ 0005:00000130       __imp__ReadFile@20         00413130   kernel32:KERNEL32.dll
+ 0005:00000134       __imp__WriteFile@20        00413134   kernel32:KERNEL32.dll
+ 0005:00000138       __imp__GetFullPathNameA@16 00413138   kernel32:KERNEL32.dll
+ 0005:0000013c       __imp__GetLastError@0      0041313c   kernel32:KERNEL32.dll
+ 0005:00000140       __imp__InitializeCriticalSection@4 00413140   kernel32:KERNEL32.dll
+ 0005:00000144       __imp__ExitProcess@4       00413144   kernel32:KERNEL32.dll
+ 0005:00000148       __imp__GetVersion@0        00413148   kernel32:KERNEL32.dll
+ 0005:0000014c       __imp__SetStdHandle@8      0041314c   kernel32:KERNEL32.dll
+ 0005:00000150       __imp__GetCommandLineA@0   00413150   kernel32:KERNEL32.dll
+ 0005:00000154       __imp__VirtualAlloc@16     00413154   kernel32:KERNEL32.dll
+ 0005:00000158       __imp__GetStdHandle@4      00413158   kernel32:KERNEL32.dll
+ 0005:0000015c       __imp__GetCPInfo@8         0041315c   kernel32:KERNEL32.dll
+ 0005:00000160       __imp__GetOEMCP@0          00413160   kernel32:KERNEL32.dll
+ 0005:00000164       __imp__GetStartupInfoA@4   00413164   kernel32:KERNEL32.dll
+ 0005:00000168       __imp__GetFileType@4       00413168   kernel32:KERNEL32.dll
+ 0005:0000016c       __imp__GetEnvironmentStrings@0 0041316c   kernel32:KERNEL32.dll
+ 0005:00000170       __imp__GetModuleFileNameA@12 00413170   kernel32:KERNEL32.dll
+ 0005:00000174       __imp__GetACP@0            00413174   kernel32:KERNEL32.dll
+ 0005:00000178       __imp__VirtualFree@12      00413178   kernel32:KERNEL32.dll
+ 0005:0000017c       __imp__RtlUnwind@16        0041317c   kernel32:KERNEL32.dll
+ 0005:00000180       __imp__UnhandledExceptionFilter@4 00413180   kernel32:KERNEL32.dll
+ 0005:00000184       \177KERNEL32_NULL_THUNK_DATA 00413184   kernel32:KERNEL32.dll
+ 0005:00000188       __imp__CharUpperBuffA@8    00413188   user32:USER32.dll
+ 0005:0000018c       \177USER32_NULL_THUNK_DATA 0041318c   user32:USER32.dll
+ 0005:00000190       __imp__timeGetTime@0       00413190   winmm:WINMM.dll
+ 0005:00000194       \177WINMM_NULL_THUNK_DATA  00413194   winmm:WINMM.dll
+ 0005:00000198       \177comdlg32_NULL_THUNK_DATA 00413198   comdlg32:comdlg32.dll
+
+ entry point at        0001:0000a639
+
+ Static symbols
+
+ 0001:0000a400       _$$1000                    0040b400 f kpack.obj
+ 0001:0000a4a0       _$$9200                    0040b4a0 f kpack.obj
+ 0001:0000a4b0       _$$8000                    0040b4b0 f kpack.obj
+ 0001:00009ea0       _$$1000                    0040aea0 f groups2.obj
+ 0001:00009eb0       _$$8000                    0040aeb0 f groups2.obj
+ 0001:00009940       _$$1000                    0040a940 f groups.obj
+ 0001:00009e30       _$$8000                    0040ae30 f groups.obj
+ 0001:00009320       _$$8000                    0040a320 f fniwin.obj
+ 0001:000094f0       _$$1000                    0040a4f0 f fniwin.obj
+ 0001:00009690       ?_CleanFtg@@YGXPAJPAVSTN@@@Z 0040a690 f fniwin.obj
+ 0001:00009730       _$$9000                    0040a730 f fniwin.obj
+ 0001:00009740       _$$a000                    0040a740 f fniwin.obj
+ 0001:00009750       _$$b000                    0040a750 f fniwin.obj
+ 0001:00008eb0       ?_HfileOpen@@YGPAXPADHK@Z  00409eb0 f filewin.obj
+ 0001:00009100       _$$1000                    0040a100 f filewin.obj
+ 0001:00009310       _$$8000                    0040a310 f filewin.obj
+ 0001:000081f0       _$$8000                    004091f0 f file.obj
+ 0001:00008460       _$$1000                    00409460 f file.obj
+ 0001:00008610       ?_FRangeIn@@YGHJJJ@Z       00409610 f file.obj
+ 0001:00008e40       _$$9000                    00409e40 f file.obj
+ 0001:00008e50       _$$a000                    00409e50 f file.obj
+ 0001:00008e60       _$$b000                    00409e60 f file.obj
+ 0001:000081d0       _$$1000                    004091d0 f crf.obj
+ 0001:000081e0       _$$8000                    004091e0 f crf.obj
+ 0001:00001f20       _$$1000                    00402f20 f codkauai.obj
+ 0001:000081c0       _$$8000                    004091c0 f codkauai.obj
+ 0001:000016d0       _$$1000                    004026d0 f codec.obj
+ 0001:00001a00       _$$8000                    00402a00 f codec.obj
+ 0001:000013f0       _$$1000                    004023f0 f chunk.obj
+ 0001:00001400       _$$8000                    00402400 f chunk.obj
+ 0001:000013d0       _$$8000                    004023d0 f memwin.obj
+ 0001:000013e0       _$$1000                    004023e0 f memwin.obj
+ 0001:00000fb0       _$$1000                    00401fb0 f utilstr.obj
+ 0001:00001240       _$$8000                    00402240 f utilstr.obj
+ 0001:00000c80       _$$1000                    00401c80 f utilrnd.obj
+ 0001:00000d80       _$$8000                    00401d80 f utilrnd.obj
+ 0001:00000aa0       _$$8000                    00401aa0 f utilmem.obj
+ 0001:00000ab0       _$$1000                    00401ab0 f utilmem.obj
+ 0001:000007c0       _$$1000                    004017c0 f utilint.obj
+ 0001:00000890       _$$8000                    00401890 f utilint.obj
+ 0001:00000510       _$$8000                    00401510 f utilerro.obj
+ 0001:00000740       _$$1000                    00401740 f utilerro.obj
+ 0001:00000750       _$$9000                    00401750 f utilerro.obj
+ 0001:00000770       _$$a000                    00401770 f utilerro.obj
+ 0001:00000780       _$$b000                    00401780 f utilerro.obj
+ 0001:000003d0       _$$1000                    004013d0 f utilcopy.obj
+ 0001:00000500       _$$8000                    00401500 f utilcopy.obj
+ 0001:00000330       _$$8000                    00401330 f base.obj
+ 0001:00000340       _$$1000                    00401340 f base.obj
+ 0001:00000170       _$$8000                    00401170 f util.obj
+ 0001:00000180       _$$1000                    00401180 f util.obj
+ 0001:00000040       _$$8000                    00401040 f utilglob.obj
+ 0001:000000a0       _$$9000                    004010a0 f utilglob.obj
+ 0001:000000e0       _$$a000                    004010e0 f utilglob.obj
+ 0001:000000f0       _$$b000                    004010f0 f utilglob.obj
+ 0001:00000120       _$$1000                    00401120 f utilglob.obj
+ 0001:0000c858       __before                   0040d858 f LIBC:heapadd.obj
+ 0001:0000c323       _flsall                    0040d323 f LIBC:fflush.obj
+ 0001:0000c00f       __heap_new_region          0040d00f f LIBC:heapgrow.obj
+ 0001:0000bd6d       __heap_grow_emptylist      0040cd6d f LIBC:heapinit.obj
+ 0001:0000ba21       _getSystemCP               0040ca21 f LIBC:mbctype.obj
+ 0001:0000ba5c       _CPtoLCID                  0040ca5c f LIBC:mbctype.obj
+ 0001:0000ba9b       _setSBCS                   0040ca9b f LIBC:mbctype.obj
+ 0001:0000b857       _parse_cmdline             0040c857 f LIBC:stdargv.obj
+ 0001:0000b6c9       _xcptlookup                0040c6c9 f LIBC:winxfltr.obj
+ 0001:0000b4cc       __unwind_handler           0040c4cc f LIBC:exsup.obj
+ 0001:0000b3cf       _write_char                0040c3cf f LIBC:output.obj
+ 0001:0000b40f       _write_multi_char          0040c40f f LIBC:output.obj
+ 0001:0000b440       _write_string              0040c440 f LIBC:output.obj
+ 0001:0000b477       _get_int_arg               0040c477 f LIBC:output.obj
+ 0001:0000b486       _get_int64_arg             0040c486 f LIBC:output.obj
+ 0001:0000b49a       _get_short_arg             0040c49a f LIBC:output.obj
+ 0001:0000a939       __heap_expand_block        0040b939 f LIBC:realloc.obj
+ 0001:0000a7a4       _doexit                    0040b7a4 f LIBC:crt0dat.obj
+ 0001:0000a823       __initterm                 0040b823 f LIBC:crt0dat.obj
+
+FIXUPS: b695 c 5 10 10 5 1c 9 15 f 1f 9 fffffed0 14 c ffffffcf ffffff46
+FIXUPS: b55f 12 44 13 13 cd3 2d 16 1d 1b cb 3a 37 fffff662 45 46 29 fffffe36
+FIXUPS: b9de f e c 3d 55 fffffdbe 16 33 1f d 23 23 fffffe56 12 11 11 5d
+FIXUPS: b80b 1435 10 fffffbb0 12 10 19 fffffef2 15 2a 11 fffffdf5 ffffff4e
+FIXUPS: bc88 4c 9b 1d 6d 10 6b 4f 24 6b 6a 30 14 16 11 ab 17 ff 96 14 1312
+FIXUPS: d5be 1f fffffc99 b 21 42 37 2f 19 2b e fffffc55 c 75 d 96 d c 32
+FIXUPS: cfa2 ffffffae ffffff6f 18 ffffff70 d 35 25 ffffff1f fffffcff b8
+FIXUPS: cbfc ffff4516 30 ccdf ffffff8c c d 20 d ffffff40 b b 1b fffffe05
+FIXUPS: db18 26 ffffff9d ffffffdf fffffead f3 fffffe7e fffffd4f 10 10 18
+FIXUPS: d700 3e 24 d 41 34 fffffd88 d ffff3f9d 1f 11 1e 5c 1b6 b 5 5 21
+FIXUPS: 1501 fffffca4 11 ee 30 5d 23 d fffffe10 fffffea4 11 2d c a 1e a
+FIXUPS: 10b0 1e 18 b 5 5 1083 2e 95 fffff894 11 2f 11 1e 12 10 53 35 1b
+FIXUPS: 1c31 27 5e 1e d 3a 15 26 2b 21 12 d fffffb9d ef 54 fffffdc3 b 22
+FIXUPS: 18b2 ddc 65 a 2b 23 18 16 1a 8 e 16 19 6 223 13 d fffff9e0 fffffe6b
+FIXUPS: 2314 6c 51 fffffa11 32 26 9 54 4b 94 11 51 14e 49 d03 12 33 27
+FIXUPS: 2eff 3994 1b 1c 52 f d 9c 73 11 32 e 3a 30 97 13 30 27 21 259d
+FIXUPS: 2425 11 2f f 7a 50 7f 20 77aa 12 29 25 2c 16 2d b 5 5 9 d 13 d
+FIXUPS: 91e1 ffff9864 11 52 8 28 8 11c 18 3f 1b 1c 55 11 d 81 6a 12 6a3a
+FIXUPS: 9884 28 18 40 1f 38 45 3e 10 17 64 6 20 2b 3f 6 20 2b 37 1a 12
+FIXUPS: 9bbe b 98 e 12 35 1c 38 18 57 fffff51d 22 21 25 14 23 14 14 25
+FIXUPS: 9393 18 3d 1c d 14 75 64 ed 69 2e 22 2e 4b 36 17 27 34 1c 17 8
+FIXUPS: 980a a ca2 12 5b 1a 22 24 13 2e 76 1d 93 28 34 b 5 5 17 fffff7fc
+FIXUPS: 9f91 89 9e 7f aa c a4 c 74 ffffef04 11 2f 11 1e 18c0 5b 6 14 10
+FIXUPS: abe7 32 80 1d 49 34 14 31 38 29 47 11 13 d 13 d 13 d fffff495 1f
+FIXUPS: a356 2e 15 ab d 2c 19 fa9 62 5 fffffa0b fffff8e4 11 2f 11 2f 11
+FIXUPS: a84e 9 32 1c 14 1c 21 24 6e 1e 2f 22 3b 23 38 20 1e a b 28 a b
+FIXUPS: aed2 13 13 1b 12 44 16 3c 90 69 17 17 23 18 17 2d 22 4e d 31 15
+FIXUPS: b22f 26 21 14 44 9 1c 15 39 9 e2

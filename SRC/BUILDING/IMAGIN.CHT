@@ -1,0 +1,63 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ---------------------------------------------------------
+// Definitions for the imaginopolis sequence 
+// ---------------------------------------------------------
+
+
+OBJECT( "closet",  kgobCloset, 0, kcrsArrow1 )
+	CREATE_ANIMST( "closet: full sequence", kst1 )
+		SETKEYS(kflgBuildingMin);
+		SETPALETTE( kpalImaginopolis );
+		PLAYMIDI( cnoNil );	// midi is part of AVI now.
+		CreateChildThis( kgobMcZeePacker, kgobMcZeePacker );
+	ENDCHUNK
+	REP_ANIM( CHID1( krepDefault ), "closet, default" )
+		// look to see if the McZee gob is playing AVI
+
+		Cell( kcell1, 0,0, 1 );		// show at start
+		While( PlayingGob( kgobMcZeePacker ));
+			Cell( kcell1, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		NEXTPLACE1( kgobImagin, kst1 );
+	ENDCHUNK
+	REP_PPMBMP( kcell1,  "building\pbm\imagin\closet2.pbm" )
+
+// The following object is the mczee packing AVI
+// The closet watches for the AVI to finish, then continues on to
+// the next shot / avi / place
+
+OBJECTREG( "closet: mczee!", kgobMcZeePacker, 0, 0, 111, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "logn1.avi", fTrue )
+
+
+
+WAVE_CHUNK( "building\sound\imagin\rllrcstr.wav", kwavRollerCoaster )
+
+
+OBJECT( "roller mczee!", kgobMcZeeRoller, 111, kcrsArrow1 )
+	// Include all mczee cells as children reps of roller mczee
+	REP_ANIM( CHID1( krepDefault ), "imagin:mczee on roller")
+  		cnt = kcell1;
+		Cell( cnt++, 0,0, 1 );	// draw the first cell
+		VOICE( kwavRollerCoaster, 0 );		   
+		SetNoSlipThis( fTrue );		// we can now drop frames!
+		While( cnt < kcell100 );
+			// make the background go in sync with us.
+			
+			If( cnt == kcell26 );
+				ChangeStateGob( kgobImagin, kst2 );
+			Elif( cnt == kcell40 );
+				ChangeStateGob( kgobImagin, kst3 );
+			Elif( cnt == kcell56 );
+				ChangeStateGob( kgobImagin, kst4 );
+			Elif( cnt == kcell63 );
+				ChangeStateGob( kgobImagin, kst5 );
+			End;
+			Cell( cnt, 0,0, 6 );
+			++cnt;
+		End;
+  		NEXTPLACE1( kgobStreet, kst1 );
+	ENDCHUNK			
+	#include "mzroller.seq" 

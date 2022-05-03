@@ -1,0 +1,239 @@
+SOCRATES TRD
+
+
+SETUP:
+--------------
+tbd
+
+EXE:
+---------
+	Everything in the EXE Spec: *ZD*
+
+KIDSPACE:
+---------
+	**IN GENERAL**
+	- modals (eg. portfolio, map, quit alert, etc) are not testable - they
+	  should pause whatever's going on in the background but they don't
+	- NO graphics are final.
+	- Freebies not done - some temp ones are in there - no actor bio pages
+	- Palette flash at start of street scene is a known problem
+
+STARTUP/TICKET CHOICES
+----------------------
+	- added temp screen prompting for new user information.  Use this screen
+	  to set new user flag; the screen itself is not testable.
+	- There is a hot key for bringing up the map at the ticket, this is for
+		development purposes only and is not testable.
+
+McZEE's PACKING SEQUENCE AND TRIP TO IMAGINOPOLIS
+-------------------------------------------------
+	- AVI now plays, still not final though.
+	- EXIT button not implemented now (will move inside AVI)
+
+TICKET BOOTH
+------------
+	- ZD for navigation and choices.
+	- The palette and audio are not ZD.
+	- Hot keys are testable.
+	- Choices leading through the lobby and the theater are
+	  ZD for pass through navigation.
+
+LOBBY
+-----
+	- ZD for navigation, choices.
+	- Hot keys are testable.
+	
+THEATER
+-------
+	- script and code are *ZD*
+	- Hot keys are testable, 'cept after loading a movie.
+	- ZD for pass through navigation.
+	- known palette bugs in theatre after playing a movie.  Navigating
+	  away from an open movie will lose memory (choose "Stop Watching Movies")
+	
+BACKSTAGE
+---------
+	- ZD for navigation and choices.
+	- quality of AVIs is moderate.
+	- Hot keys are testable.
+
+STUDIO
+------
+	- No animation for toolbox opening up (yet)
+	- Clicking on the toolbox to go to the tools is done
+	- launching to the tools the first time invokes the McZee intro in front of the
+	  tools.  The shift of the tools after the animation is expected; the tools background
+	  isn't final (the graphic is off-centered a couple of pixels)
+
+IDEAS ROOM
+----------
+	- The navigation and choices are testable.
+	- Splot machine - *ZD*.  Talent book - testable
+	- Hot keys are testable.
+
+PROJECTS ROOM
+-------------
+	- Testable, not ZD
+	- no animation for logos/movie technique monitors
+	- no animation after choosing tvs
+	- palette problem on entering tools is known
+	
+
+PROJECTS:
+-------------------
+LOGO
+	- done
+
+SNIPPET VIEWER
+	- testable (not ZD), but no snippet movies are available yet.
+	- AVIs are placeholders
+	- no alert when you switch in the middle of a snippet
+	
+
+CONTENT: (All content should be line itemed)
+-----------------
+BACKGROUNDS
+	tbd
+ACTORS
+	tbd
+SOUNDS
+	tbd
+3-D FONTS
+	*ZD*
+
+STUDIO SCENE TOOLS:
+---------------------------------------
+SCENE BROWSER *ZD*
+CAMERA ANGLES *ZD*
+SCENE SORTER *ZD*
+TRANSITIONS *ZD*
+WAIT UNTIL THE END OF A SOUND *ZD*
+WAIT UNTIL MOUSE CLICK *ZD*
+DON'T WAIT *ZD*
+
+STUDIO ACTOR AND PROP TOOLS:
+----------------------------------------------------------
+ACTOR BROWSER *ZD*
+PROP BROWSER *ZD*
+ACTOR ROLL CALL
+	- Visual Display, *ZD*
+	- Rollover help *ZD*
+	- Which actors displayed *ZD*
+	- Application of selection *ZD*
+PROP ROLL CALL (includes prop actors and spletters)
+	- Visual Display, *ZD*
+	- Rollover help *ZD*
+	- Which actors displayed *ZD*
+	- Application of selection *ZD*
+3D WORDS EASEL
+	- *ZD*, except transmogrifier and import are not implemented
+COSTUME CHANGER EASEL
+	- *ZD*
+SIZE *ZD*
+	SIZE EVENLY *ZD*
+	SQUASH AND STRETCH *ZD*
+	CHANGE BACK *ZD*
+ROTATE *ZD*
+	TURN LEFT OR RIGHT *ZD*
+	TIP FORWARDS OR BACKWARDS *ZD*
+	TIP SIDE TO SIDE *ZD*
+	CHANGE BACK *ZD*
+SYNCHRONIZE *ZD*
+REPOSITION *ZD*
+SELECT *ZD*
+ACTION BROWSER *ZD*
+RECORD SAME ACTION *ZD*
+REPLACE PART OF PATH *ZD*
+FALL THROUGH GROUND *ZD*
+UP AND DOWN *ZD*
+TALENT BOOK
+
+STUDIO SOUND TOOLS:
+-----------------------------------------  
+(** Note: Recorded/Imported sounds will be removed whenever the movie is saved 
+	unless they	are a part of the current movie - awaiting pm decision)
+(Audioman not final, but bugs may be entered against any zd items below)
+SOUNDER TOOL
+	ACTORS *ZD*
+	BACKGROUNDS *ZD*
+MATCHER TOOL
+	ACTORS *ZD*
+LOOPER TOOL
+	ACTORS *ZD*
+	BACKGROUNDS	*ZD*
+SOUND EFFECT BROWSER
+	SOUND PREVIEW *ZD*
+	ACTOR SOUNDS *ZD*
+	BACKGROUND SOUNDS *ZD*
+	IMPORT *ZD*
+SPEECH BROWSER
+	SOUND PREVIEW *ZD*
+	SOUND RECORD EASEL Testable
+	RATDOG
+	ACTOR SOUNDS *ZD*
+	BACKGROUND SOUNDS *ZD*
+	IMPORT *ZD*
+MUSIC BROWSER
+	SOUND PREVIEW *ZD*
+	BACKGROUND PLAY ONE TIME *ZD*
+	BACKGROUND PLAY AGAIN AND AGAIN *ZD*
+	IMPORT *ZD*
+LISTENER *ZD*
+TWO SECOND CUTOFF ON FRAME PLAY *ZD*
+
+STUDIO WORD TOOLS:
+----------------------------------------
+STORYBOX
+	INSERTION POINT *ZD*
+	LETTERS (font?) testable, not ZD
+	STYLES testable, not ZD
+	LETTER SIZE testable, not ZD
+	LETTER COLOR *ZD*
+	BACKGROUND COLOR *ZD*
+	SCROLLING (OR NON-SCROLLING) WORDS *ZD*
+	
+STUDIO MASTER TOOLS:
+------------------------------------------
+CAST LIST
+PROP LIST
+FRAME SLIDER *ZD*
+SCENE SLIDER *ZD*
+PLAY/STOP *ZD*
+VOLUME CONTROL
+UNDO/REDO *ZD*
+CUT, COPY, AND PASTE *ZD*
+	GET RID OF EVERYTHING BEFORE *ZD*
+	GET RID OF EVERYTHING AFTER *ZD*
+	GET RID OF THE ENTIRE SCENE *ZD*
+	GET RID OF THE ACTOR STORYBOX *ZD*
+	COPY PATH *ZD*
+	PASTE *ZD*
+	COPY *ZD*
+	CUT *ZD*
+PORTFOLIO
+	OPEN *ZD*
+	NEW
+	SAVE
+	SAVE AS *ZD*
+	AUTOSAVE
+
+HELP MACHINE
+	- new graphics; placeholders for voice on/off
+	- page to page navigation not ZD (broken)
+	- topic layout is chaotic
+	- volume control works but doesn't play preview sound
+
+MAP
+	- all places and jumps work
+	- exit not ZD
+	- cancel works
+	- volume control works
+   	- logo + snippet jumps land in projects room without starting projects
+
+EXIT *ZD*
+
+OTHER STUFF:
+----------------------------
+CONTENT CONVERSION
+HOT KEYS *ZD, except Help book*
+STUDIO UI SOUNDS *ZD* <"bingo" used as placeholder for missing content>

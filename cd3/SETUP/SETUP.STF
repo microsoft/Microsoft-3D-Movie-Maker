@@ -1,0 +1,83 @@
+App Name	3DMovie.exe(U)
+App Version	1
+Frame Bitmap	"3DMSETUP.DLL, 120"
+Frame Caption	Microsoft 3D Movie Maker Setup
+Dialog Caption Base	3D Movie Maker
+Usage String	Type SETUP to install Microsoft 3D Movie Maker on your system.
+About Box String	Microsoft 3D Movie Maker\n\nCopyright (C) 1994-95 Microsoft Corp.
+Check Modules	"3DMOVIE,3D Movie Maker"
+MSAPPS Mode	local
+Inf File Name	setup.inf
+
+Maximum Object ID	390
+Floppy Mode Root Object ID	15:5
+Maintenance Mode Root Object ID	18:5
+Batch Mode Root Object ID	15:5
+Setup Version	1.20.0.2002
+Suppress Copy Disincentive Dialogs														
+
+
+ObjID	Install During Batch Mode	Title	Descr	Type	Data	Bmp Id	Vital	Shared	Dir Chang	Dest Dir	Check DIr	Inst By	Inst Data	Inst Dir
+
+5		Microsoft 3D Movie Maker Setup		AppSearch	"C:\MSKIDS\<%p\Microsoft Kids\>,3DMovie.exe,1.1,50,yes,no,6"				yes					
+6				SearchReg	"LOCAL,SOFTWARE\Microsoft\Microsoft Kids\3D Movie Maker\InstallDirectory,1"				yes					
+
+15				AppMainDlg	16				yes					
+16		&Install 3D Movie Maker	Copies files to your computer so you can run Microsoft 3D Movie Maker	Group	 30 50 100 110 130 150 180	"3DMSETUP.DLL, 110"			yes					
+														
+
+18				Group	30 50 100 110 130 150 180	"3DMSETUP.DLL, 110"			yes					
+
+30		MSKIDS files install		Group	31 32 33 34 35 36 37 41				yes					
+31				CopyFile	"""Root"", ""app"""		vital		yes	%D\3DMovie<%D\3D Movie Maker>				
+32				StampCDInfo	"31, 10, 128"					
+33				CopySection	"""Files"""		vital		yes	%31
+34				InstallShared	"""Setup"", ""setup.exe"",""Microsoft Kids Setup"",,31"				yes	%D\Common\Setup<%D\Common Files\Setup>
+35				CopyFile	"""Setup"", ""setup.lst"""		vital		yes	%34
+36				CreateDir	"""Users"""		vital		yes	%D
+37				CopySection	"""Users"""		vital			
+										
+40		Is there a template location?		CustomAction	"""3DMSETUP.DLL"",""GetPathFromReg"",""CURRENT, """"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"""", """"Templates"""""""					
+41				Depend	40 ? 42					
+42				CopySection	"""Templates"""					%40
+
+50		System files installation		Group	61					%M
+
+60		Are we on NT?		CustomAction	"""3DMSETUP.DLL"",""DetectOS"",""WinNT"""					
+61				Depend	60 ? : 70					
+
+70				CustomAction	"""3DMSETUP.DLL"",""InstAudVid"""					
+
+100		Fonts		Group	101 102		vital			%M
+101			Comic	InstallTTFFile	"""Fonts"",""comic"",""Comic Sans MS (TrueType)"""					
+102			Comic Bold	InstallTTFFile	"""Fonts"",""comicbd"",""Comic Sans MS Bold (TrueType)"""					
+
+110		BillBoards		Group	111 112		vital			%M
+111				AddBillboard	"""3DMSETUP.DLL"",410,""FBillbrdDlgProc"""					
+112				AddBillboard	"""3DMSETUP.DLL"",411,""FBillbrdDlgProc"""					
+
+130		Shortcuts		Group	133 134 135 136 137					
+133				AddProgmanItemQuiet	"""Microsoft Kids"", ""3D Movie Maker"", %31\%F31"					
+134				AddProgmanItemQuiet	"""Microsoft Kids"", ""Kids Catalog"", %150\MMCAT\MMCAT.EXE"					
+135				AddProgmanItemQuiet	"""Microsoft Kids"", ""3D Movie Maker Help"", %31\3DMM.HLP"					
+136				CreateDir	"""McZee"""					%D\Users
+137				InstallShortcut	"%150\Samples,Movies,,,,,"					%D\Users\McZee
+
+150		Registry entries		Group	151 152 153 154 155 156 157 158 159 160 161 162 163 164 165					%S
+151				AddRegData	"LOCAL,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Ms3DMovie,DisplayName,Microsoft 3D Movie Maker 1.0"					
+152				CustomAction	"""3DMSETUP.DLL"", ""GetShortPath"",""34"""					
+153				AddRegData	"LOCAL,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Ms3DMovie,UninstallString,%152\setup.exe /L Ms3DMu.lst /W Ms3DMu.stf"					
+154				AddRegData	"LOCAL,SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\3DMovie.exe,,%31\%F31"					
+155				AddRegData	"LOCAL,SOFTWARE\Microsoft\Microsoft Kids\3D Movie Maker,InstallDirectory,%36\<%36\>"					
+156				AddRegData	"LOCAL,SOFTWARE\Microsoft\Microsoft Kids\3D Movie Maker,InstallSubDir,3D Movie Maker\<3D Movie Maker\>"					
+157				AddRegData	"LOCAL,SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\3DMovie.exe,Path,%31\<%31\>"					
+158				AddRegData	"LOCAL,SOFTWARE\Microsoft\Microsoft Kids\3D Movie Maker\Products,2,3D Movie Maker/3DMovie"					
+159				AddRegData	"CLASSES,.3MM,,""3D Movie Maker"""					
+160				AddRegData	"CLASSES,.3MM\ShellNew,FileName,""3dmovie.3MM"""					
+161				AddRegData	"CLASSES,3D Movie Maker,,""3D Movie"""					
+162				AddRegData	"CLASSES,3D Movie Maker\shell\open\command,,%31\%F31 %%1"					
+163				AddRegData	"""CLASSES"",""3D Movie Maker\DefaultIcon"","""",""%31\%F31,1"""					
+164				AddRegData	"CURRENT,SOFTWARE\Microsoft\Microsoft Kids\3D Movie Maker,,"					
+165				CustomAction	"""3DMSETUP.DLL"", ""DeleteRegKeys"""					
+
+180				WriteTableFile	Ms3DMu.stf				yes	%34

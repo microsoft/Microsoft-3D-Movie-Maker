@@ -1,0 +1,261 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "appsetu.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "dialogs.h"
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+LOGO_VGA_BMP            BITMAP  MOVEABLE PURE   "LOGOVGA.DIB"
+BB1                     BITMAP  DISCARDABLE     "bb1.dib"
+BB2                     BITMAP  DISCARDABLE     "bb2.dib"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+BB_1 DIALOG DISCARDABLE  5, 22, 233, 122
+STYLE WS_CHILD | WS_CLIPSIBLINGS | WS_BORDER
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "BB1",IDC_OFFBBBMP,"BBMPOFFB",0x0,140,21,88,95
+    LTEXT           "Create everything from comic strips to stickers to your own multimedia picture show. You're sure to get rave reviews!",
+                    IDC_BBTEXT1,7,58,122,29
+    LTEXT           "With Microsoft Fine Artist, all you need is your imagination to create incredible works of art on your computer.",
+                    IDC_BBTEXT2,8,19,120,29
+END
+
+IDD_CONSACMEAPPMAIN1 DIALOG DISCARDABLE  42, 47, 258, 156
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "",IDC_LABEL1,60,53,184,10
+    CONTROL         "",IDC_BUTTON1,"Button",BS_OWNERDRAW | WS_GROUP | 
+                    WS_TABSTOP,10,51,40,39
+    LTEXT           "",IDC_TEXT1,60,64,184,24,SS_NOPREFIX
+    GROUPBOX        "Verzeichnis:",-1,3,103,252,24,WS_GROUP
+    LTEXT           "",IDC_TEXT5,8,113,164,8,SS_NOPREFIX
+    PUSHBUTTON      "&\304ndern",IDC_CHANGE,191,110,57,14,WS_GROUP
+    PUSHBUTTON      "&Setup beenden",IDCANCEL,100,137,57,14
+    LTEXT           "Klicke auf die gro\337e Schaltfl\344che, um die Installation zu starten.\n\nWenn das Programm auf einem anderen Laufwerk installiert werden soll, klicke auf \304ndern.",
+                    -1,11,8,240,38
+    CONTROL         "",-1,"Static",SS_BLACKFRAME,3,133,252,1
+END
+
+IDD_CONSACMEASKQUIT DIALOG DISCARDABLE  38, 22, 231, 64
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Setup beenden"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            101,-1,9,10,18,20
+    DEFPUSHBUTTON   "Setup &fortsetzen",IDCANCEL,39,45,66,14,WS_GROUP
+    PUSHBUTTON      "&Setup beenden",IDOK,123,45,68,14
+    LTEXT           "M\366chtest Du das Setup-Programm wirklich beenden?",-1,
+                    36,10,189,10,NOT WS_GROUP
+    LTEXT           "Das Setup-Programm hat noch keine Dateien auf der Festplatte ge\344ndert.",
+                    -1,36,21,193,16
+END
+
+IDD_CONSACMEEXITERROR DIALOG DISCARDABLE  75, 55, 201, 78
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,81,60,40,14
+    LTEXT           "Die Installation von Explorapedia wurde nicht vollst\344ndig durchgef\374hrt. Du mu\337t das Setup-Programm erneut starten, um Explorapedia ausf\374hren zu k\366nnen.",
+                    -1,44,10,147,44,SS_NOPREFIX
+    ICON            101,-1,14,10,18,20
+END
+
+IDD_CONSACMEEXITOK DIALOG DISCARDABLE  75, 55, 202, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,81,134,40,14
+    LTEXT           "Great! Microsoft 3D Movie Maker Setup is ready to go!\n\nSo, when you are ready to make a movie:\nClick the Windows Start button, point to Programs, point to Microsoft Kids, and then click the 3D Movie Maker icon.",
+                    IDC_STATIC,7,10,183,51,SS_NOPREFIX
+    ICON            101,IDC_STATIC,89,64,18,20
+    LTEXT           "Here's your product ID number -- you may need it again, so be sure to write it down.",
+                    IDC_TEXT2,7,93,181,16
+    LTEXT           "",IDC_TEXT1,52,115,141,12
+END
+
+IDD_CONSACMEEXITQUIT DIALOG DISCARDABLE  75, 55, 201, 109
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,80,87,40,14
+    LTEXT           "Microsoft 3D Movie Maker Setup was interrupted before your new software was fully installed.",
+                    -1,44,10,147,32,SS_NOPREFIX
+    ICON            101,-1,14,10,18,20
+    LTEXT           "You can run 3D Movie Maker Setup later to complete the installation.",
+                    -1,15,44,177,36,SS_NOPREFIX
+END
+
+IDD_CONSACMEWELCOMEMAINT DIALOG DISCARDABLE  15, 22, 261, 172
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "",-1,"Static",SS_WHITEFRAME,9,6,242,61
+    ICON            101,-1,23,14,18,20
+    LTEXT           "Hi, and welcome back to Microsoft 3D Movie Maker Setup!",
+                    -1,51,15,193,15,SS_NOPREFIX
+    LTEXT           "This program lets you set up 3D Movie Maker again. You can also remove 3D Movie Maker from your computer (not that you would want to do that).",
+                    -1,13,38,234,24,SS_NOPREFIX
+    PUSHBUTTON      "&Setup Again",IDC_REINSTALL,9,75,62,20
+    PUSHBUTTON      "&Remove",IDC_REMOVEALL,9,104,62,20
+    LTEXT           "Repeats 3D Movie Maker Setup to make sure everything is properly installed.",
+                    -1,79,75,174,20,SS_NOPREFIX
+    LTEXT           "Removes 3D Movie Maker from your computer, freeing up any hard drive space it is using.",
+                    -1,79,104,174,22,SS_NOPREFIX
+    CONTROL         "",-1,"Static",SS_BLACKFRAME,5,142,250,1
+    PUSHBUTTON      "E&xit Setup",IDCANCEL,101,149,58,14,WS_GROUP
+END
+
+IDD_CONSACMECHANGEPATH DIALOG DISCARDABLE  20, 24, 186, 88
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMBO1,7,59,112,68,CBS_DROPDOWNLIST | 
+                    CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_SORT | 
+                    CBS_HASSTRINGS | WS_BORDER | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "O&K",IDOK,128,42,50,14,WS_GROUP
+    PUSHBUTTON      "&Abbrechen",IDCANCEL,128,60,50,14,WS_GROUP
+    LTEXT           "Das Programm wird installiert auf Laufwerk:",IDC_TEXT1,
+                    7,7,100,22
+    LTEXT           "",IDC_EDIT1,112,8,66,8,SS_NOPREFIX
+    LTEXT           "Du kannst auch ein anderes Laufwerk w\344hlen:",
+                    IDC_TEXT2,7,34,108,16
+END
+
+IDD_CONSACMEEXITUNINSTALL DIALOG DISCARDABLE  75, 55, 157, 94
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Microsoft 3D Movie Maker Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,58,72,40,14
+    LTEXT           "3D Movie Maker has been removed from your computer.\n\nClick OK to exit.",
+                    -1,33,10,111,57,SS_NOPREFIX
+    ICON            101,-1,9,9,18,20
+END
+
+BB_2 DIALOG DISCARDABLE  5, 22, 233, 122
+STYLE WS_CHILD | WS_CLIPSIBLINGS | WS_BORDER
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "BB2",IDC_OFFBBBMP,"BBMPOFFB",0x0,139,3,89,113
+    LTEXT           "Creative Writer gives you tons of tools, formats, fonts, borders, pictures, and sounds to write stories, essays, newsletters, magazines, banners... whatever you want!",
+                    IDC_STATIC,6,65,130,41
+    LTEXT           "Every kid can be a creative writer with Microsoft Creative Writer -- the amazing writing and desktop publishing program for kids 8 and up.",
+                    IDC_STATIC,6,20,130,41
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,20,0,2002
+ PRODUCTVERSION 1,20,0,2002
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Microsoft Corporation\0"
+            VALUE "FileDescription", "3D Movie Maker Setup Extension\0"
+            VALUE "FileVersion", "1.2\0"
+            VALUE "InternalName", "\0"
+            VALUE "LegalCopyright", "Copyright \251 Microsoft Corp. 1991-1995\0"
+            VALUE "LegalTrademarks", "Microsoft\256 is a registered trademark of Microsoft Corporation. Windows(TM) is a trademark of Microsoft Corporation.\0"
+            VALUE "OriginalFilename", "3DMSetup.dll\0"
+            VALUE "ProductName", "3D Movie Maker\0"
+            VALUE "ProductVersion", "1.0\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "appsetu.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""dialogs.h""\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_MSGCAPTION          "Microsoft 3D Movie Maker Setup"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_MACHINE_SLOW        "The machine is too slow for 3D Movie Maker.\nPress OK to quit setup, or Cancel to continue."
+    IDS_VIDEO_TEST_START    "Setup is about to test your video display.\n\tPress OK to continue."
+    IDS_TEST_OOM            "Setup could not allocate resources to complete the test.  Setup cannot continue."
+    IDS_TEST_COMPLETE       "Setup has completed the test."
+    IDS_REGKEY              "3D Movie Maker"
+END
+

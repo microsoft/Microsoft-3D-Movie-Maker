@@ -1,0 +1,1675 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// New #defines for all positions
+//
+// Supersedes stdiopos.chh AND pos2.chh
+
+// GENERIC BROWSER ------------------------------------------------------------
+
+#define kxpBrwsPageNumWidth			    64
+#define kypBrwsPageNumHeight			29              
+
+#define kxpregGenericCancel				0
+#define kypregGenericCancel				48
+#define kxpregGenericOk                 0
+#define kypregGenericOk                 48
+
+
+
+// ACTION BROWSER ------------------------------------------------------------
+
+#define kxpBrwsAction   			62
+#define kypBrwsAction   			100
+#define kxpregBrwsAction   			0
+#define kypregBrwsAction   			0
+
+#define kxpBrwsActionPrevLeft		312
+#define kypBrwsActionPrevTop		12
+#define kxpBrwsActionPrevRight		496
+#define kypBrwsActionPrevBottom		282
+
+#define kxpBrwsActionBackCel		447
+#define kypBrwsActionBackCel		290
+#define kxpregBrwsActionBackCel		0
+#define kypregBrwsActionBackCel		0
+
+#define kxpBrwsActionFwdCel			475
+#define kypBrwsActionFwdCel			290
+#define kxpregBrwsActionFwdCel		0
+#define kypregBrwsActionFwdCel		0
+
+#define kxpregBrwsActionFrame       0
+#define kypregBrwsActionFrame       0
+#define kxpregBrwsActionPrev        0
+#define kypregBrwsActionPrev        0
+
+#define kdxpAction              	516
+#define kdypAction  				372
+#define kdxpActionLeft          	15
+#define kdxpActionRight         	206
+#define kdypActionTop           	32
+#define kdypActionBottom        	57
+
+#define kdxpActionSpacing       	5
+#define kdypActionSpacing       	3
+#define kdxpActionFrame         	138
+#define kdypActionFrame         	25
+#define kdxpActionFrameBorder   	6
+#define kdypActionFrameBorder   	4
+
+#define kxpActionPageFwd        	204
+#define kypActionPageFwd        	320
+
+#define kxpActionPageBack       	54
+#define kypActionPageBack       	320
+
+#define kxpActionPageNum        	123
+#define kypActionPageNum        	330
+
+#define kxpActionOk             	431
+#define kypActionOk             	368
+#define kxpActionCancel         	381
+#define kypActionCancel         	368
+
+// ACTOR BROWSER ------------------------------------------------------------
+
+#define kxpBrwsActor   			62
+#define kypBrwsActor   			47
+#define kxpregBrwsActor   		0
+#define kypregBrwsActor   		0
+
+#define kdxpActor               516
+#define kdypActor               372
+#define kdxpActorLeft           30
+#define kdxpActorRight          30
+#define kdypActorTop            38
+#define kdypActorBottom         58
+
+#define kdxpActorSpacing        14
+#define kdypActorSpacing        14
+#define kdxpActorFrame          80
+#define kdypActorFrame          80
+#define kdxpActorFrameBorder    4
+#define kdypActorFrameBorder    4
+#define kxpActorPageFwd         304
+#define kypActorPageFwd         322
+#define kxpActorPageBack        155
+#define kypActorPageBack        322
+#define kxpActorPageNum         228
+#define kypActorPageNum         332
+#define kxpActorCancel			437
+#define kypActorCancel			368
+
+
+#define kxpregBrwsActorFrame    0
+#define kypregBrwsActorFrame    0
+
+// PROP BROWSER ------------------------------------------------------------
+
+#define kxpBrwsProp   			62
+#define kypBrwsProp   			47
+#define kxpregBrwsProp   		0
+#define kypregBrwsProp   		0
+
+#define kdxpProp               	516
+#define kdypProp               	372
+#define kdxpPropLeft           	30
+#define kdxpPropRight          	30
+#define kdypPropTop            	38
+#define kdypPropBottom         	58
+
+#define kdxpPropSpacing        	14
+#define kdypPropSpacing        	14
+#define kdxpPropFrame          	80
+#define kdypPropFrame          	80
+#define kdxpPropFrameBorder    	4
+#define kdypPropFrameBorder    	4
+#define kxpPropPageFwd         	304
+#define kypPropPageFwd         	322
+#define kxpPropPageBack        	155
+#define kypPropPageBack        	322
+#define kxpPropPageNum         	228
+#define kypPropPageNum         	332
+#define kxpPropCancel			437
+#define kypPropCancel			368
+
+
+#define kxpregBrwsPropFrame    	0
+#define kypregBrwsPropFrame    	0
+
+
+
+
+
+// SETTINGS/SCENE BROWSER ------------------------------------------------------------
+
+#define kxpBrwsBackground   	320
+#define kypBrwsBackground   	418
+#define kxpregBrwsBackground   	258
+#define kypregBrwsBackground   	370
+
+
+#define kdxpScene               516
+#define kdypScene               372
+#define kdxpSceneLeft           40
+#define kdxpSceneRight          40
+#define kdypSceneTop            40
+#define kdypSceneBottom         58
+#define kdxpSceneSpacing        14
+#define kdypSceneSpacing        9
+#define kdxpSceneFrame          136
+#define kdypSceneFrame          78
+#define kdxpSceneFrameBorder    4
+#define kdypSceneFrameBorder    4
+#define kxpScenePageFwd         303
+#define kypScenePageFwd         320
+#define kxpScenePageBack        155
+#define kypScenePageBack        320
+#define kxpScenePageNum         226
+#define kypScenePageNum         330
+#define kxpSceneCancel			437
+#define kypSceneCancel			368
+
+#define kxpregBrwsSceneFrame    0
+#define kypregBrwsSceneFrame   	0
+
+// SETTINGS/SCENE BROWSER ------------------------------------------------------------
+
+#define kxpBrwsCamera   		62
+#define kypBrwsCamera   		100
+#define kxpregBrwsCamera   		0
+#define kypregBrwsCamera   		0
+
+#define kdxpCamera              516
+#define kdypCamera              372
+#define kdxpCameraLeft          40
+#define kdxpCameraRight         40
+#define kdypCameraTop           40
+#define kdypCameraBottom        58
+#define kdxpCameraSpacing       14
+#define kdypCameraSpacing       9
+#define kdxpCameraFrame         136
+#define kdypCameraFrame         78
+#define kdxpCameraFrameBorder   4
+#define kdypCameraFrameBorder   4
+#define kxpCameraPageFwd        303
+#define kypCameraPageFwd        320
+#define kxpCameraPageBack       155
+#define kypCameraPageBack       320
+#define kxpCameraPageNum        226
+#define kypCameraPageNum        330
+#define kxpCameraCancel			437
+#define kypCameraCancel			368
+
+
+#define kxpregBrwsCameraFrame   0
+#define kypregBrwsCameraFrame   0
+
+// TEXT BROWSER ---------------------------------------------------------------
+
+#define kxpBrwsTextCreate   	132
+#define kypBrwsTextCreate   	48
+#define kxpregBrwsTextCreate   	0
+#define kypregBrwsTextCreate   	0
+
+#define kxpCTextsStory   		42
+#define kypCTextsStory   		49
+#define kxpregCTextsStory   	0
+#define kypregCTextsStory   	0
+
+#define kxpCTextsScroll   		197
+#define kypCTextsScroll   		48
+#define kxpregCTextsScroll   	0
+#define kypregCTextsScroll   	0
+
+#define kxpCTextsCancel			298
+#define kypCTextsCancel			205
+
+// SOUND: MUSIC, SOUNDFX and SPEECH BROWSERS ---------------------------------
+
+// all sound browsers use the following: music + stuff is bogus.
+
+#define kxpBrwsSoundsBackground   		62
+#define kypBrwsSoundsBackground   		48
+#define kxpregBrwsSoundsBackground   	0
+#define kypregBrwsSoundsBackground   	0
+
+#define kxpBrwsImportBackground	        62
+#define kypBrwsImportBackground	        48
+#define kxpregBrwsImportBackground	    0
+#define kypregBrwsImportBackground	    0
+
+
+#define kxpMusicBackground   	62
+#define kypMusicBackground   	48
+#define kxpregMusicBackground   0
+#define kypregMusicBackground   0
+
+#define kxpEfxBackground   		62
+#define kypEfxBackground   		48
+#define kxpregEfxBackground   	0
+#define kypregEfxBackground   	0
+
+#define kxpRecordingsBackground   		62	
+#define kypRecordingsBackground   		48
+#define kxpregRecordingsBackground   	0
+#define kypregRecordingsBackground   	0
+
+#define kxpBrwsSoundsRecord				62
+#define kypBrwsSoundsRecord         	48
+#define kxpregBrwsSoundsRecord			0
+#define kypregBrwsSoundsRecord			0
+
+
+#define kdxpSound                       516
+#define kdypSound                       372
+#define kdxpSoundLeft                   31
+#define kdxpSoundRight                  31
+#define kdypSoundTop                    34
+#define kdypSoundBottom                 50
+#define kdxpSoundSpacing                20
+#define kdypSoundSpacing                3
+#define kdxpSoundFrame                  138
+#define kdypSoundFrame                  25
+#define kdxpSoundFrameBorder    		6
+#define kdypSoundFrameBorder    		4
+#define kxpSoundPageFwd                 303
+#define kypSoundPageFwd                 320
+#define kxpSoundPageBack                154
+#define kypSoundPageBack                320
+#define kxpSoundPageNum                 230
+#define kypSoundPageNum                 331
+#define kxpSoundOk                      437
+#define kypSoundOk                      368
+#define kxpSoundCancel                  387
+#define kypSoundCancel                  368
+
+#define kxpBrowserRecord     			54
+#define kypBrowserRecord     			368
+#define kxpregBrowserRecord				25
+#define kypregBrowserRecord				48
+
+#define kxpBrowserImport     			104
+#define kypBrowserImport     			368
+#define kxpregBrowserImport     		25
+#define kypregBrowserImport     		48
+
+// Sound import browser
+
+#define kdxpImportFrame                 138
+#define kdypImportFrame                 25
+#define kdxpImportFrameBorder    		6
+#define kdypImportFrameBorder    		4
+#define kxpImportPageFwd                303
+#define kypImportPageFwd                320
+#define kxpImportPageBack               154
+#define kypImportPageBack               320
+#define kxpImportOk                     437
+#define kypImportOk                     368
+#define kxpImportCancel                 387
+#define kypImportCancel                 368
+#define kxpImportPageNum               	230
+#define kypImportPageNum               	331
+#define kxpImportPageNumWidth			64
+#define kypImportPageNumHeight			29
+
+
+// STUDIO MASTER CONTROLS ---------------------------------------------------------------
+
+#define kxpHelpAnchor		591
+#define kypHelpAnchor		405
+#define kxpregHelpAnchor	0
+#define kypregHelpAnchor	0
+
+#define kxpFps				-10
+#define kypFps				0
+
+#define kxpPlay   			314
+#define kypPlay   			414
+#define kxpregPlay   		13
+#define kypregPlay   		0
+
+#define kdypVolumeSlider	35	// Height of volume slider
+
+#define kxpVolumeThumb   	6
+#define kypVolumeThumb   	6
+#define kxpregVolumeThumb   6
+#define kypregVolumeThumb   6
+
+#define kxpVolumeSlider   	345
+#define kypVolumeSlider   	414
+#define kxpregVolumeSlider  14
+#define kypregVolumeSlider  0
+
+#define kxpUndo   			397
+#define kypUndo   			411
+#define kxpregUndo   		26
+#define kypregUndo   		0
+
+
+#define kxpCutCopyPaste   	450
+#define kypCutCopyPaste   	411
+#define kxpregCutCopyPaste  26
+#define kypregCutCopyPaste  0
+
+#define kxpPortfolio   		507
+#define kypPortfolio   		411
+#define kxpregPortfolio   	26
+#define kypregPortfolio   	0
+
+#define kxpBook   			560
+#define kypBook   			411
+#define kxpregBook   		26
+#define kypregBook   		0
+
+#define kxpMap   			613
+#define kypMap   			411
+#define kxpregMap   		26
+#define kypregMap   		0
+
+#define kxpExit   			597
+#define kypExit   			466
+#define kxpregExit   		13
+#define kypregExit   		0
+
+#define kxpName   			28
+#define kypName   			464
+#define kxpregName   		0
+#define kypregName   		0
+
+// SCENE and FRAME SLIDERS ---------------------------------------------------
+
+#define kxpFrameBackground   	0
+#define kypFrameBackground   	410
+#define kxpregFrameBackground   0
+#define kypregFrameBackground   0
+
+#define kxpFrameFW   			251
+#define kypFrameFW   			4
+#define kxpregFrameFW   		11
+#define kypregFrameFW   		0
+
+#define kxpFrameFWEnd   		273
+#define kypFrameFWEnd   		4
+#define kxpregFrameFWEnd   		11  	
+#define kypregFrameFWEnd   		0
+
+#define kxpFrameRW   			141
+#define kypFrameRW   			4
+#define kxpregFrameRW   		11
+#define kypregFrameRW   		0
+
+#define kxpFrameRWEnd   		119
+#define kypFrameRWEnd   		4
+#define kxpregFrameRWEnd   		11
+#define kypregFrameRWEnd   		0
+
+#define kxpFrameScrollbar   	151
+#define kypFrameScrollbar   	0
+#define kxpregFrameScrollbar   	0
+#define kypregFrameScrollbar   	0
+
+#define kxpFrameThumb   		0
+#define kypFrameThumb   		2
+#define kxpregFrameThumb   		0
+#define kypregFrameThumb   		0
+
+#define kxpFrameTitle   		2
+#define kypFrameTitle   		2
+#define kxpregFrameTitle   		0
+#define kypregFrameTitle   		0
+
+#define kxpFrameText   			55
+#define kypFrameText   			2
+#define kxpregFrameText   		0
+#define kypregFrameText   		0
+
+#define kxpSceneBackground   	0
+#define kypSceneBackground   	433
+#define kxpregSceneBackground   0
+#define kypregSceneBackground   0
+
+
+#define kxpSceneFW   			251
+#define kypSceneFW   			6
+#define kxpregSceneFW   		11
+#define kypregSceneFW   		0
+
+#define kxpSceneFWEnd   		273
+#define kypSceneFWEnd   		6
+#define kxpregSceneFWEnd   		11  	
+#define kypregSceneFWEnd   		0
+
+#define kxpSceneRW   			141
+#define kypSceneRW   			6
+#define kxpregSceneRW   		11
+#define kypregSceneRW   		0
+
+#define kxpSceneRWEnd   		119
+#define kypSceneRWEnd   		6
+#define kxpregSceneRWEnd   		11
+#define kypregSceneRWEnd   		0
+
+#define kxpSceneScrollbar   	151
+#define kypSceneScrollbar   	1
+#define kxpregSceneScrollbar   	0
+#define kypregSceneScrollbar   	0
+
+#define kxpSceneThumb   		0
+#define kypSceneThumb   		2
+#define kxpregSceneThumb   		0
+#define kypregSceneThumb   		0
+
+#define kxpSceneTitle   		2
+#define kypSceneTitle   		3	
+#define kxpregSceneTitle   		0
+#define kypregSceneTitle   		0
+
+#define kxpSceneText   			55
+#define kypSceneText   			2
+#define kxpregSceneText   		0
+#define kypregSceneText   		0
+
+
+// PORTFOLIO POPUP -----------------------------------------------------------
+
+#define kxpPortsBackgroundLeft		477
+#define kypPortsBackgroundTop 		198
+#define kxpPortsBackgroundRight		589
+#define kypPortsBackgroundBottom	406
+
+#define kxpPortsNew   				0
+#define kypPortsNew   				52
+#define kxpregPortsNew   			0
+#define kypregPortsNew   			52
+
+#define kxpPortsPortfolio   		0
+#define kypPortsPortfolio   		104
+#define kxpregPortsPortfolio   		0
+#define kypregPortsPortfolio   		52
+
+#define kxpPortsSave   				0				
+#define kypPortsSave   				156
+#define kxpregPortsSave   			0
+#define kypregPortsSave   			52
+
+#define kxpPortsSaveAs   			0
+#define kypPortsSaveAs   			208
+#define kxpregPortsSaveAs   		0
+#define kypregPortsSaveAs   		52
+
+// CUT, COPY PASTE POPUP -----------------------------------------------------
+
+#define kxpCCPBackgroundLeft	224
+#define kypCCPBackgroundTop		354
+#define kxpCCPBackgroundRight	470
+#define kypCCPBackgroundBottom	406
+
+#define kxpCCPCut   			24
+#define kypCCPCut   			0
+#define kxpregCCPCut   			24
+#define kypregCCPCut   			0		
+
+#define kxpCCPCopy   			73
+#define kypCCPCopy   			0
+#define kxpregCCPCopy   		24
+#define kypregCCPCopy   		0
+
+#define kxpCCPCopyRoute   		122
+#define kypCCPCopyRoute   		0
+#define kxpregCCPCopyRoute   	24
+#define kypregCCPCopyRoute   	0
+
+
+#define kxpCCPPaste   			171
+#define kypCCPPaste   			0
+#define kxpregCCPPaste   		24
+#define kypregCCPPaste   		0
+
+	
+#define kxpCCPActorNuke   		220  	
+#define kypCCPActorNuke   		0
+#define kxpregCCPActorNuke   	24
+#define kypregCCPActorNuke   	0
+
+// ROLL CALLS ----------------------------------------------------------------
+
+#define kxpRollCallActorLeft			3
+#define kypRollCallActorTop				98
+#define kxpRollCallActorRight			46
+#define kypRollCallActorBottom			411 
+
+#define kxpRollCallPropLeft  			594
+#define kypRollCallPropTop   			98
+#define kxpRollCallPropRight   			640
+#define kypRollCallPropBottom   		411
+
+#define kdxpRollCallActorBorderLeft     0
+#define kdypRollCallActorBorderTop      0
+#define kdypRollCallActorBorder			74
+#define kdypRollCallActorSpacing        0
+#define kdxpRollCallActorLeft           2
+#define kdypRollCallActorTop            2
+#define kdxpRollCallActorRight          38	
+#define kdypRollCallActorBottom         70
+#define kxpRollCallActorPageUp          0
+#define kypRollCallActorPageUp          296
+#define kxpRollCallActorPageDown        20
+#define kypRollCallActorPageDown        296
+#define kdxpRollCallActorFrameBorder	0
+#define kdypRollCallActorFrameBorder	0
+
+#define kdxpRollCallPropBorderLeft      0
+#define kdypRollCallPropBorderTop       0
+#define kdypRollCallPropBorder			74
+#define kdypRollCallPropSpacing         0
+#define kdxpRollCallPropLeft            2
+#define kdypRollCallPropTop             2
+#define kdxpRollCallPropRight           38
+#define kdypRollCallPropBottom          70
+#define kxpRollCallPropPageUp           0
+#define kypRollCallPropPageUp           296
+#define kxpRollCallPropPageDown         20
+#define kypRollCallPropPageDown         296
+#define kdxpRollCallPropFrameBorder		0
+#define kdypRollCallPropFrameBorder		0
+
+#define kxpregRollCallActorBorder1		0
+#define kypregRollCallActorBorder1		0
+#define kxpregRollCallActorBorder2		0
+#define kypregRollCallActorBorder2		0
+#define kxpregRollCallActorBorder3		0
+#define kypregRollCallActorBorder3		0
+#define kxpregRollCallActorBorder4		0
+#define kypregRollCallActorBorder4		0
+#define kxpregRollCallPropBorder1		0
+#define kypregRollCallPropBorder1		0
+#define kxpregRollCallPropBorder2		0
+#define kypregRollCallPropBorder2		0
+#define kxpregRollCallPropBorder3		0
+#define kypregRollCallPropBorder3		0
+#define kxpregRollCallPropBorder4		0
+#define kypregRollCallPropBorder4		0
+#define kxpregRollCallActorUp			0
+#define kypregRollCallActorUp			0
+#define kxpregRollCallActorDown			0
+#define kypregRollCallActorDown			0
+#define kxpregRollCallPropUp			0
+#define kypregRollCallPropUp			0
+#define kxpregRollCallPropDown			0
+#define kypregRollCallPropDown			0
+
+
+// RECORDER EASEL  ------------------------------------------------------------
+
+#define kxpRecordBackground				202
+#define kypRecordBackground				154
+#define kxpRecordSoundLengthLeft  		22
+#define kypRecordSoundLengthTop			30
+#define kxpRecordSoundLengthRight		214
+#define kypRecordSoundLengthBottom		51
+#define kxpRecordSoundNameLeft  		123
+#define kypRecordSoundNameTop			75
+#define kxpRecordSoundNameRight			232
+#define kypRecordSoundNameBottom		95
+
+#define kxpRecordRecord	 				36
+#define kypRecordRecord					165
+#define kxpregRecordRecord				25
+#define kypregRecordRecord				50
+
+#define kxpRecordPlay					88
+#define kypRecordPlay					165
+#define kxpregRecordPlay				25
+#define kypregRecordPlay				50
+
+#define kxpRecordCancel					152
+#define kypRecordCancel					165
+#define kxpregRecordCancel				25
+#define kypregRecordCancel				50
+
+#define kxpRecordOk						202
+#define kypRecordOk						165
+#define kxpregRecordOk					25
+#define kypregRecordOk					50
+
+
+
+// SCENE BANK TOOLS ----------------------------------------------------------
+
+#define kxpSettingsCover   		     49
+#define kypSettingsCover   			 41
+#define kxpregSettingsCover   		 49
+#define kypregSettingsCover   		 41
+
+#define kxpSettingsBrowser   		 51
+#define kypSettingsBrowser   		 42
+#define kxpregSettingsBrowser   	 33
+#define kypregSettingsBrowser   	 41
+
+#define kxpSettingsCameras   		 224
+#define kypSettingsCameras   		 48
+#define kxpregSettingsCameras   	 25
+#define kypregSettingsCameras   	 46
+
+#define kxpCCPSceneChopBack          281
+#define kypCCPSceneChopBack          48
+#define kxpregCCPSceneChopBack       25
+#define kypregCCPSceneChopBack       46
+
+#define kxpCCPSceneChopFwd           340
+#define kypCCPSceneChopFwd           48
+#define kxpregCCPSceneChopFwd        25
+#define kypregCCPSceneChopFwd        46
+
+#define kxpSceneSorter   			 415
+#define kypSceneSorter   			 48
+#define kxpregSceneSorter   		 25
+#define kypregSceneSorter   		 46
+
+
+// ACTOR BANK TOOLS ----------------------------------------------------------
+
+// cover + primary tools 
+
+#define kxpActorsCover   			211
+#define kypActorsCover   			41
+#define kxpregActorsCover   		111
+#define kypregActorsCover   		41
+
+#define kxpActorsBrowser   			147
+#define kypActorsBrowser   			42
+#define kxpregActorsBrowser   		33
+#define kypregActorsBrowser   		41
+									
+#define kxpActorsPropBrowser   		213
+#define kypActorsPropBrowser   		42
+#define kxpregActorsPropBrowser  	33
+#define kypregActorsPropBrowser   	41
+
+#define kxpActorsSpletters   		279
+#define kypActorsSpletters   		42
+#define kxpregActorsSpletters   	33
+#define kypregActorsSpletters   	41
+
+// secondary tools
+
+#define kxpActorsCompose   			66
+#define kypActorsCompose   			47
+#define kxpregActorsCompose   		25
+#define kypregActorsCompose   		46
+
+#define kxpActorsActionBrowser   	123
+#define kypActorsActionBrowser   	47
+#define kxpregActorsActionBrowser   25
+#define kypregActorsActionBrowser   46
+
+#define kxpActorsContinue   		180
+#define kypActorsContinue   		47
+#define kxpregActorsContinue   		25
+#define kypregActorsContinue   		46
+
+#define kxpActorsCostume   			236
+#define kypActorsCostume   			47
+#define kxpregActorsCostume   		25
+#define kypregActorsCostume   		46
+
+#define kxpActorsRotate   			293
+#define kypActorsRotate   			47
+#define kxpregActorsRotate   		25
+#define kypregActorsRotate   		46
+
+#define kxpActorsXY   				343
+#define kypActorsXY   				47
+#define kxpregActorsXY   			18
+#define kypregActorsXY   			46
+
+#define kxpActorsGround   			410
+#define kypActorsGround   			47		
+#define kxpregActorsGround   		18
+#define kypregActorsGround   		46
+
+
+#define kxpActorsTransform   		460
+#define kypActorsTransform   		47
+#define kxpregActorsTransform   	25
+#define kypregActorsTransform   	46
+
+#define kxpActorsSooner   			517
+#define kypActorsSooner   			47
+#define kxpregActorsSooner   		25
+#define kypregActorsSooner   		46
+
+#define kxpActorsBiography   		574
+#define kypActorsBiography   		47
+#define kxpregActorsBiography   	25
+#define kypregActorsBiography   	46
+
+#define kxpActorsSoonerButton   	283
+#define kypActorsSoonerButton   	376
+#define kxpregActorsSoonerButton   	36
+#define kypregActorsSoonerButton   	0
+
+#define kxpActorsLaterButton   		356
+#define kypActorsLaterButton   		376
+#define kxpregActorsLaterButton   	36
+#define kypregActorsLaterButton   	0
+
+// actor pop downs
+
+#define kxpTransformBackground   	460
+#define kypTransformBackground   	227
+#define kxpregTransformBackground   23
+#define kypregTransformBackground   130
+
+#define kxpActorsShrink   			0
+#define kypActorsShrink   			42
+#define kxpregActorsShrink   		0
+#define kypregActorsShrink   		42
+
+#define kxpActorsSquash   			0
+#define kypActorsSquash   			86
+#define kxpregActorsSquash   		0
+#define kypregActorsSquash   		42
+
+#define kxpActorsTransformNorm   	0
+#define kypActorsTransformNorm   	130
+#define kxpregActorsTransformNorm   0
+#define kypregActorsTransformNorm   42
+
+#define kxpRotateBackground   		293
+#define kypRotateBackground   		271
+#define kxpregRotateBackground   	23
+#define kypregRotateBackground   	174
+
+#define kxpActorsRotateX   			46
+#define kypActorsRotateX   			21
+#define kxpregActorsRotateX   		46
+#define kypregActorsRotateX   		21
+
+#define kxpActorsRotateY   			46
+#define kypActorsRotateY   			65
+#define kxpregActorsRotateY   		46
+#define kypregActorsRotateY   		21
+
+#define kxpActorsRotateZ   			46
+#define kypActorsRotateZ   			109
+#define kxpregActorsRotateZ   		46
+#define kypregActorsRotateZ   		21
+
+#define kxpActorsRotateNorm   		46
+#define kypActorsRotateNorm   		153
+#define kxpregActorsRotateNorm   	46
+#define kypregActorsRotateNorm   	21
+
+
+// SOUND TOOLS ---------------------------------------------------------------
+
+// covers + primary tools
+
+#define kxpSoundsCover   			433
+#define kypSoundsCover   			41
+#define kxpregSoundsCover   		110
+#define kypregSoundsCover   		41
+
+#define kxpSoundsEfxBrowser   		367
+#define kypSoundsEfxBrowser   		42
+#define kxpregSoundsEfxBrowser   	33
+#define kypregSoundsEfxBrowser   	41
+
+#define kxpSoundsMicBrowser   		433
+#define kypSoundsMicBrowser   		42
+#define kxpregSoundsMicBrowser   	33
+#define kypregSoundsMicBrowser   	41
+
+#define kxpSoundsMusicBrowser   	499
+#define kypSoundsMusicBrowser   	42
+#define kxpregSoundsMusicBrowser   	33
+#define kypregSoundsMusicBrowser   	41
+
+// secondary tools
+
+#define kxpSoundsPlayOnce   		201
+#define kypSoundsPlayOnce   		47
+#define kxpregSoundsPlayOnce   		25
+#define kypregSoundsPlayOnce   		46
+
+#define kxpSoundsLooping   			259
+#define kypSoundsLooping   			47
+#define kxpregSoundsLooping   		25
+#define kypregSoundsLooping   		46
+
+#define kxpSoundsListen   			317
+#define kypSoundsListen   			47
+#define kxpregSoundsListen   		25
+#define kypregSoundsListen   		46
+
+#define kxpSoundsAttachToCell   	395
+#define kypSoundsAttachToCell   	47
+#define kxpregSoundsAttachToCell   	25
+#define kypregSoundsAttachToCell   	46
+
+#define kxpPausesSound   			446
+#define kypPausesSound   			47
+#define kxpregPausesSound   		18
+#define kypregPausesSound   		46
+
+// WORD TOOLS ----------------------------------------------------------------
+
+// word tools - primary bank
+
+#define kxpTextsCover   		592
+#define kypTextsCover   		41
+#define kxpregTextsCover   		49
+#define kypregTextsCover   		41
+
+#define kxpTextsCreate   		593
+#define kypTextsCreate   		42
+#define kxpregTextsCreate   	33
+#define kypregTextsCreate   	41
+
+// word tools - secondary bank
+
+#define kxpTextsSelect   		137
+#define kypTextsSelect   		47
+#define kxpregTextsSelect   	25
+#define kypregTextsSelect   	46
+
+#define kxpTextsFont   			195
+#define kypTextsFont   			47
+#define kxpregTextsFont   		25
+#define kypregTextsFont   		46
+
+#define kxpTextsFontShape   	253
+#define kypTextsFontShape   	47
+#define kxpregTextsFontShape   	25
+#define kypregTextsFontShape   	46
+
+#define kxpTextsFontSize   		311
+#define kypTextsFontSize   		47
+#define kxpregTextsFontSize   	25
+#define kypregTextsFontSize   	46
+
+#define kxpTextsFontColor   	369
+#define kypTextsFontColor   	47
+#define kxpregTextsFontColor   	25
+#define kypregTextsFontColor   	46
+
+#define kxpTextsBkgdColor   	444
+#define kypTextsBkgdColor   	47
+#define kxpregTextsBkgdColor   	25
+#define kypregTextsBkgdColor   	46
+
+#define kxpTextsScrollType   	502
+#define kypTextsScrollType   	47
+#define kxpregTextsScrollType   25
+#define kypregTextsScrollType   46
+
+// word tool popdowns
+
+#define kxpTextFontBackground   	220
+#define kypTextFontBackground   	333
+#define kxpregTextFontBackground   	80
+#define kypregTextFontBackground   	236
+
+#define kxpTextsScroll   			0
+#define kypTextsScroll   			44
+#define kxpregTextsScroll   		0
+#define kypregTextsScroll   		44
+
+#define kxpTextsStory   			0
+#define kypTextsStory   			88
+#define kxpregTextsStory   			0
+#define kypregTextsStory   			44
+
+#define kxpScrollBackgroundLeft		480
+#define kypScrollBackgroundTop		100
+#define kxpScrollBackgroundRight	526
+#define kxpScrollBackgroundBottom 	188
+
+// Text formatting popdowns
+
+// Fonts
+
+#define kdxpTextFont                    160
+#define kdypTextFont                    238
+#define kxpTextFontLeft                 172
+#define kypTextFontTop                  100
+#define kxpTextFontRight                332
+#define kypTextFontBottom               338
+#define kdxpTextFontLeft                0
+#define kdxpTextFontRight               0
+#define kdypTextFontTop                 0
+#define kdypTextFontBottom              18
+#define kdxpTextFontBorder              0
+#define kdypTextFontBorder              0
+#define kdxpTextFontSpacing             0
+#define kdypTextFontSpacing             0
+#define kdxpTextFontFrame               160
+#define kdypTextFontFrame               22
+#define kdxpTextFontFrameBorder 		16
+#define kdypTextFontFrameBorder 		1
+#define kxpTextFontPageDown             0
+#define kypTextFontPageDown             219
+#define kxpregTextFontPageDown    		0
+#define kypregTextFontPageDown    		0
+#define kxpTextFontPageUp               80
+#define kypTextFontPageUp               219
+#define kxpregTextFontPageUp              0
+#define kypregTextFontPageUp              0
+
+
+
+//
+//
+// Texts Style popdown
+//
+//
+#define kdxpTextStyle                   170
+#define kdypTextStyle                   90
+
+#define kxpTextStyleLeft                230
+#define kypTextStyleTop                 100
+#define kxpTextStyleRight               390
+#define kypTextStyleBottom              304
+#define kdxpTextStyleLeft               0
+#define kdxpTextStyleRight              0	
+#define kdypTextStyleTop                0
+#define kdypTextStyleBottom             0
+#define kdxpTextStyleBorder             0
+#define kdypTextStyleBorder             0
+#define kdxpTextStyleSpacing    		0
+#define kdypTextStyleSpacing    		0
+#define kdxpTextStyleFrame              160
+#define kdypTextStyleFrame              22
+#define kdxpTextStyleFrameBorder        16
+#define kdypTextStyleFrameBorder        3 // 6
+//#define kdypTextStyleFrameBorder        6
+#define kxpTextStylePageDown    		0
+#define kypTextStylePageDown    		157
+#define kxpregTextStylePageDown   		0
+#define kypregTextStylePageDown   		0
+#define kxpTextStylePageUp              84
+#define kypTextStylePageUp              157
+#define kxpregTextStylePageUp           0
+#define kypregTextStylePageUp           0
+
+
+
+//
+//
+// Texts Size popdown
+//
+//
+#define kdxpTextSize                    160
+#define kdypTextSize                    300
+
+#define kxpTextSizeLeft                 288
+#define kypTextSizeTop                  100
+#define kxpTextSizeRight                448
+#define kypTextSizeBottom               400
+#define kdxpTextSizeLeft                0
+#define kdxpTextSizeRight               0
+#define kdypTextSizeTop                 0
+#define kdypTextSizeBottom              19
+#define kdxpTextSizeBorder              15
+#define kdypTextSizeBorder              0
+#define kdxpTextSizeSpacing             0
+#define kdypTextSizeSpacing             0
+#define kdxpTextSizeFrame               160
+#define kdypTextSizeFrame               40
+#define kdxpTextSizeFrameBorder 		16
+#define kdypTextSizeFrameBorder 		4
+#define kxpTextSizePageDown             50
+#define kypTextSizePageDown             133
+#define kxpregTextSizePageDown    		0
+#define kypregTextSizePageDown    		0
+#define kxpTextSizePageUp               86
+#define kypTextSizePageUp               133
+#define kxpregTextSizePageUp            0
+#define kypregTextSizePageUp            0
+
+
+//
+//
+// Texts Color popdown
+//
+//
+#define kdxpTextColor                   102
+#define kdypTextColor                   195
+
+#define kxpTextColorLeft                346
+#define kypTextColorTop                 100
+#define kxpTextColorRight               448
+#define kypTextColorBottom              295
+
+#define kdxpTextColorLeft               0
+#define kdxpTextColorRight              0
+#define kdypTextColorTop                0
+#define kdypTextColorBottom             19
+#define kdxpTextColorBorder             0
+#define kdypTextColorBorder             0
+#define kdxpTextColorSpacing    		0
+#define kdypTextColorSpacing    		0
+#define kdxpTextColorFrame              102
+#define kdypTextColorFrame              22
+#define kdxpTextColorFrameBorder        4
+#define kdypTextColorFrameBorder        4
+#define kxpTextColorPageDown    		0
+#define kypTextColorPageDown    		176
+#define kxpregTextColorPageDown   		0
+#define kypregTextColorPageDown   		0		
+#define kxpTextColorPageUp              51
+#define kypTextColorPageUp              176
+#define kxpregTextColorPageUp           0
+#define kypregTextColorPageUp           0
+
+
+//
+//
+// Texts Background Color popdown
+//
+//
+#define kdxpTextBkgdColor               170
+#define kdypTextBkgdColor               200
+
+#define kxpTextBkgdColorLeft            421
+#define kypTextBkgdColorTop             100
+#define kxpTextBkgdColorRight           591
+#define kypTextBkgdColorBottom          300
+
+#define kdxpTextBkgdColorLeft           0
+#define kdxpTextBkgdColorRight          0
+#define kdypTextBkgdColorTop            0
+#define kdypTextBkgdColorBottom         19
+#define kdxpTextBkgdColorBorder         0
+#define kdypTextBkgdColorBorder         0
+#define kdxpTextBkgdColorSpacing        0
+#define kdypTextBkgdColorSpacing        0
+#define kdxpTextBkgdColorFrame          102
+#define kdypTextBkgdColorFrame          22
+#define kdxpTextBkgdColorFrameBorder    4
+#define kdypTextBkgdColorFrameBorder    4
+#define kxpTextBkgdColorPageDown        0
+#define kypTextBkgdColorPageDown        179
+#define kxpregTextBkgdColorPageDown     0
+#define kypregTextBkgdColorPageDown     0
+#define kxpTextBkgdColorPageUp          51
+#define kypTextBkgdColorPageUp          179
+#define kxpregTextBkgdColorPageUp       0
+#define kypregTextBkgdColorPageUp       0
+
+
+
+
+// MISCELLANOUS COVERS; DOORS -------------------------------------------------
+
+#define kxpScrollbarsCover   	181
+#define kypScrollbarsCover   	464
+#define kxpregScrollbarsCover   181
+#define kypregScrollbarsCover   54
+
+#define kxpUndosCover   		419
+#define kypUndosCover   		464
+#define kxpregUndosCover   		55
+#define kypregUndosCover   		54
+
+#define kxpBooksCover   		500
+#define kypBooksCover   		464
+#define kxpregBooksCover   		26
+#define kypregBooksCover   		54
+
+#define kxpDoors   				0
+#define kypDoors   				47
+#define kxpregDoors   			0
+#define kypregDoors   			0
+
+// SPLETTERS EASEL -----------------------------------------------------------
+
+#define kxpSpltPreviewFrameLeft		13
+#define kypSpltPreviewFrameTop		13
+#define kxpSpltPreviewFrameRight	505
+#define kypSpltPreviewFrameBottom	251
+#define kxpSpltEditBoxLeft			10
+#define kypSpltEditBoxTop			322
+#define kxpSpltEditBoxRight			508
+#define kypSpltEditBoxBottom		356
+
+#define kxpSpltBackground   		320
+#define kypSpltBackground   		421
+#define kxpregSpltBackground   		259
+#define kypregSpltBackground   		364
+
+#define kxpSpltTransmogrify   		211
+#define kypSpltTransmogrify   		311
+#define kxpregSpltTransmogrify   	25
+#define kypregSpltTransmogrify   	46
+
+#define kxpSpltTextures   			161
+#define kypSpltTextures   			311
+#define kxpregSpltTextures   		25		
+#define kypregSpltTextures   		46
+
+#define kxpSpltFont   				61
+#define kypSpltFont   				311
+#define kxpregSpltFont   			25
+#define kypregSpltFont   			46
+
+#define kxpSpltShape   				111
+#define kypSpltShape   				311
+#define kxpregSpltShape   			25
+#define kypregSpltShape   			46
+
+#define kxpSpltRotate   			284
+#define kypSpltRotate   			311
+#define kxpregSpltRotate   			25
+#define kypregSpltRotate   			46
+
+#define kxpSpltImportTexture   		334
+#define kypSpltImportTexture   		311
+#define kxpregSpltImportTexture   	25
+#define kypregSpltImportTexture   	46
+
+#define kxpSpltCancel   			407
+#define kypSpltCancel   			311
+#define kxpregSpltCancel   			25
+#define kypregSpltCancel   			46
+
+#define kxpSpltOk   				457
+#define kypSpltOk   				311
+#define kxpregSpltOk   				25
+#define kypregSpltOk   				46
+
+// COSTUME CHANGER EASEL -----------------------------------------------------
+
+// Costume changer easel
+
+#define kxpCostPreviewFrameLeft			10
+#define kypCostPreviewFrameTop			9
+#define kxpCostPreviewFrameRight		426
+#define kypCostPreviewFrameBottom		239
+
+#define kxpCostEditBoxLeft				8
+#define kypCostEditBoxTop				315
+#define kxpCostEditBoxRight				427
+#define kypCostEditBoxBottom			339
+
+#define kxpCostBackground   			320
+#define kypCostBackground   			445
+#define kxpregCostBackground   			218
+#define kypregCostBackground   			345
+
+#define kxpCostCostumes   				57
+#define kypCostCostumes   				302
+#define kxpregCostCostumes   			25
+#define kypregCostCostumes   			46
+
+#define kxpCostAccessories   			141
+#define kypCostAccessories   			302
+#define kxpregCostAccessories   		25
+#define kypregCostAccessories   		46
+
+#define kxpCostRotate   				225
+#define kypCostRotate   				302
+#define kxpregCostRotate   				25
+#define kypregCostRotate   				46
+
+#define kxpCostCancel   				329
+#define kypCostCancel   				302
+#define kxpregCostCancel   				25
+#define kypregCostCancel   				46
+
+#define kxpCostOk   					379
+#define kypCostOk   					302
+#define kxpregCostOk   					25
+#define kypregCostOk   					46
+
+// WORKSPACE + BACKGROUND DEFINITIONS 
+
+// Workspace
+
+#define kxpWorkspace   				48
+#define kypWorkspace   				100
+#define kxpregWorkspace   			0
+#define kypregWorkspace   			0
+
+#define kxpSettingsBackground   	0
+#define kypSettingsBackground   	47
+#define kxpregSettingsBackground   	0
+#define kypregSettingsBackground   	0
+
+#define kxpActorsBackground   		0
+#define kypActorsBackground   		47
+#define kxpregActorsBackground   	0
+#define kypregActorsBackground   	0
+									
+#define kxpSoundsBackground   		0
+#define kypSoundsBackground   		47
+#define kxpregSoundsBackground   	0
+#define kypregSoundsBackground   	0
+
+#define kxpTextsBackground   		0
+#define kypTextsBackground   		47
+#define kxpregTextsBackground   	0
+#define kypregTextsBackground   	0
+
+#define kxpBackground               0
+#define kypBackground               0
+
+#define kxpBackground1   			0
+#define kypBackground1   			0
+#define kxpregBackground1   		0
+#define kypregBackground1   		0
+
+#define kxpBackground2   			0
+#define kypBackground2   			97
+#define kxpregBackground2   		0
+#define kypregBackground2   		0
+
+#define kxpBackground3   			592
+#define kypBackground3   			97
+#define kxpregBackground3   		0
+#define kypregBackground3   		0
+
+#define kxpBackground4   			0
+#define kypBackground4   			406
+#define kxpregBackground4   		0
+#define kypregBackground4   		0
+
+// SCENE SORTER --------------------------------------------------------------
+
+#define kxpSSorterBackground   	320
+#define kypSSorterBackground   	413
+#define kxpregSSorterBackground 300
+#define kypregSSorterBackground 348
+
+#define kxpSSorterFrame   		0
+#define kypSSorterFrame   		0
+#define kxpregSSorterFrame   	0
+#define kypregSSorterFrame   	0
+
+#define kxpSSorterThumbLeft		8	
+#define kypSSorterThumbTop		12
+#define kxpSSorterThumbRight	151
+#define kypSSorterThumbBottom	92
+
+#define kxpTransition1   		156
+#define kypTransition1   		11
+#define kxpregTransition1   	0
+#define kypregTransition1   	0
+
+#define kxpTransition2   		156   	
+#define kypTransition2   		33
+#define kxpregTransition2   	0
+#define kypregTransition2   	0
+
+#define kxpTransition3   		156
+#define kypTransition3   		55
+#define kxpregTransition3   	0
+#define kypregTransition3   	0
+
+#define kxpTransition4   		156
+#define kypTransition4   		77
+#define kxpregTransition4   	0
+#define kypregTransition4   	0
+
+#define kxpSSorterScrollUp   	597
+#define kypSSorterScrollUp   	21
+#define kxpregSSorterScrollUp   17
+#define kypregSSorterScrollUp   19
+
+#define kxpSSorterScrollDn   	597
+#define kypSSorterScrollDn   	292
+#define kxpregSSorterScrollDn   17
+#define kypregSSorterScrollDn   19
+
+#define kxpSSorterCancel   		490
+#define kypSSorterCancel   		344
+#define kxpregSSorterCancel   	25
+#define kypregSSorterCancel   	46
+
+#define kxpSSorterOk   			540
+#define kypSSorterOk   			344
+#define kxpregSSorterOk   		25
+#define kypregSSorterOk   		46
+
+#define kxpSSorterHand   		50
+#define kypSSorterHand   		298
+#define kxpregSSorterHand   	25
+#define kypregSSorterHand   	0
+
+#define kxpSSorterNuke   		105
+#define kypSSorterNuke   		298
+#define kxpregSSorterNuke   	25
+#define kypregSSorterNuke   	0
+
+#define kxpSSorterOpen   		160
+#define kypSSorterOpen   		298
+#define kxpregSSorterOpen   	25
+#define kypregSSorterOpen   	0
+
+
+#define kdxpSSorter             600
+#define kdypSSorter             350
+#define kdxpSSorterLeft         10
+#define kdxpSSorterRight        10
+#define kdypSSorterTop          12
+#define kdypSSorterBottom       56
+#define kdxpSSorterBorder       0
+#define kdypSSorterBorder       0
+#define kdxpSSorterSpacing      8
+#define kdypSSorterSpacing      15
+#define kdxpSSorterFrame        185
+#define kdypSSorterFrame        126
+#define kdxpSSorterFrameBorder  0
+#define kdypSSorterFrameBorder  0
+
+
+// LISTENER EASEL ------------------------------------------------------------
+
+#define kxpListenBackgroundActor		182
+#define kypListenBackgroundActor		100
+#define kxpregListenBackgroundActor		0
+#define kypregListenBackgroundActor		0
+
+#define kxpListenBackgroundBkgd			116
+#define kypListenBackgroundBkgd			100
+#define kxpregListenBackgroundBkgd		0
+#define kypregListenBackgroundBkgd		0
+
+#define kxpListenCancel				    304
+#define kypListenCancel				    233
+#define kxpregListenCancel				24		
+#define kypregListenCancel				50
+		
+#define kxpListenOk					    354
+#define kypListenOk					    233		
+#define kxpregListenOk					24		
+#define kypregListenOk					50		
+
+#define kypListenVolFXMin				0
+#define kypListenVolFXMax				108
+
+#define kxpSliderThumb					5
+
+#define kxpVolFXLeft  					70
+#define kypVolFXTop						20
+#define kxpVolFXRight					120
+#define kypVolFXBottom					138
+#define kxpVolFXMMLeft  				70
+#define kypVolFXMMTop					20
+#define kxpVolFXMMRight					120
+#define kypVolFXMMBottom				138
+#define kxpVolSpeechLeft  				201
+#define kypVolSpeechTop					20
+#define kxpVolSpeechRight				251
+#define kypVolSpeechBottom				138
+#define kxpVolSpeechMMLeft  			201
+#define kypVolSpeechMMTop				20
+#define kxpVolSpeechMMRight				251
+#define kypVolSpeechMMBottom			138
+#define kxpVolMidiLeft  				332
+#define kypVolMidiTop					20
+#define kxpVolMidiRight					382
+#define kypVolMidiBottom				138
+
+#define kypListenVolSpeechMin			0
+#define kypListenVolSpeechMax			108
+
+// speech slider moves for actor sound browser
+#define kxpActorListenVolSpeech			337
+#define kypActorListenVolSpeechMin		0
+#define kypActorListenVolSpeechMax		108
+
+#define kypListenVolMidiMin				0
+#define kypListenVolMidiMax				108
+
+#define kypListenVolSpeechMMMin			0
+#define kypListenVolSpeechMMMax			108
+
+#define kypListenVolFXMMMin				0
+#define kypListenVolFXMMMax				108
+
+#define kypSliderNukeSpeech				100
+#define kypSliderNukeFX					100
+#define kypSliderNukeMidi				100
+#define kypSliderNukeSpeechMM			100
+#define kypSliderNukeFXMM				100
+
+// background nuke buttons 
+
+#define kxpListenNukeFX				    112
+#define kypListenNukeFX				    144
+#define kxpregListenNukeFX				11
+#define kypregListenNukeFX				20
+
+#define kxpListenNukeSpeech			    243
+#define kypListenNukeSpeech			    144
+#define kxpregListenNukeSpeech			11
+#define kypregListenNukeSpeech			20
+
+#define kxpListenNukeMidi				374
+#define kypListenNukeMidi				144
+#define kxpregListenNukeMidi			11
+#define kypregListenNukeMidi			20
+
+#define kxpListenNukeSpeechMM		    243
+#define kypListenNukeSpeechMM		    144
+#define kxpregListenNukeSpeechMM		11
+#define kypregListenNukeSpeechMM		20
+
+#define kxpListenNukeFXMM			    112
+#define kypListenNukeFXMM			    144
+#define kxpregListenNukeFXMM			11
+#define kypregListenNukeFXMM			20
+
+// name boxes
+
+#define kxpListenEditBoxFX				12
+#define kypListenEditBoxFX				150
+#define kxpregListenEditBoxFX			0
+#define kypregListenEditBoxFX			0
+
+#define kxpListenEditBoxSpeech			143
+#define kypListenEditBoxSpeech			150
+#define kxpregListenEditBoxSpeech		0
+#define kypregListenEditBoxSpeech		0
+
+#define kxpListenEditBoxMidi			274
+#define kypListenEditBoxMidi			150
+#define kxpregListenEditBoxMidi			0
+#define kypregListenEditBoxMidi			0
+
+
+// icons for background listener easel
+
+#define kxpListenFXIcon					13
+#define kypListenFXIcon					117
+#define kxpregListenFXIcon				0
+#define kypregListenFXIcon				0
+
+#define kxpListenSpeechIcon				144
+#define kypListenSpeechIcon				117
+#define kxpregListenSpeechIcon			0
+#define kypregListenSpeechIcon			0
+
+#define kxpListenMidiIcon				275
+#define kypListenMidiIcon				117
+#define kxpregListenMidiIcon			0
+#define kypregListenMidiIcon			0
+
+// misc.
+
+
+
+#define kxpregListenerNuke				0
+#define	kypregListenerNuke				0
+
+// nuke buttons for actor listeners (remember reg points)
+	
+#define kxpActorListenNukeSpeech		240 
+#define kypActorListenNukeSpeech		143
+
+#define kxpActorListenNukeFX			109 
+#define kypActorListenNukeFX			143
+
+#define kxpActorListenNukeSpeechMM		240 
+#define kypActorListenNukeSpeechMM		143
+
+#define kxpActorListenNukeFXMM			109 
+#define kypActorListenNukeFXMM			143
+
+// actor edit box values
+
+#define kxpListenActorEditBoxSpeech		141 
+#define kypListenActorEditBoxSpeech		150
+
+#define kxpListenActorEditBoxFX			10 	
+#define kypListenActorEditBoxFX			150
+
+#define kxpListenActorEditBoxSpeechMM	141 
+#define kypListenActorEditBoxSpeechMM	150
+
+#define kxpListenActorEditBoxFXMM		10 
+#define kypListenActorEditBoxFXMM		150
+
+// icons!
+
+#define kxpListenSpeechMMIcon			144 
+#define kypListenSpeechMMIcon			117
+#define kxpregListenSpeechMMIcon		0
+#define kypregListenSpeechMMIcon		0
+
+#define kxpListenFXMMIcon				12 
+#define kypListenFXMMIcon				117
+#define kxpregListenFXMMIcon			0
+#define kypregListenFXMMIcon			0
+
+#define kxpActorListenFXIcon			13
+#define kypActorListenFXIcon			117
+
+#define kxpActorListenSpeechIcon		144
+#define kypActorListenSpeechIcon		117
+
+
+// not used?
+
+#define kxpListenEditBoxSpeechMM		143
+#define kypListenEditBoxSpeechMM		150
+#define kxpregListenEditBoxSpeechMM		0
+#define kypregListenEditBoxSpeechMM		0
+
+#define kxpListenEditBoxFXMM			12 
+#define kypListenEditBoxFXMM			150
+#define kxpregListenEditBoxFXMM			0
+#define kypregListenEditBoxFXMM			0
+
+	
+// reused ok + cancel buttons repositioned for actor
+
+#define kxpListenActorOk				223
+#define kypListenActorOk			    233
+
+#define kxpListenActorCancel			173
+#define kypListenActorCancel		    233
+		
+// SPLETTERS EASEL popups
+
+//
+//
+// Spletters Font popdown
+//
+//
+
+#define kdxpSpltsFont                   144
+#define kdypSpltsFont                   132
+#define kxpSpltsFontLeft                36
+#define kypSpltsFontTop                 132
+#define kxpSpltsFontRight               186
+#define kypSpltsFontBottom              264
+#define kdxpSpltsFontLeft               0
+#define kdxpSpltsFontRight              0
+#define kdypSpltsFontTop                0
+#define kdypSpltsFontBottom             17
+#define kdxpSpltsFontBorder             0
+#define kdypSpltsFontBorder             0
+#define kdxpSpltsFontSpacing    		0
+#define kdypSpltsFontSpacing    		0
+#define kdxpSpltsFontFrame              144
+#define kdypSpltsFontFrame              23
+#define kdxpSpltsFontFrameBorder        3
+#define kdypSpltsFontFrameBorder        3
+#define kxpSpltsFontPageDown    		72
+#define kypSpltsFontPageDown    		115
+#define kxprSpltsFontPageDown   		0
+#define kyprSpltsFontPageDown   		0
+#define kxpSpltsFontPageUp              0
+#define kypSpltsFontPageUp              115
+#define kxprSpltsFontPageUp             0
+#define kyprSpltsFontPageUp             0
+
+//
+//
+// Spletters Shape popdown
+//
+//
+#define kdxpSpltsShape                  46
+#define kdypSpltsShape                  194
+#define kxpSpltsShapeLeft               88
+#define kypSpltsShapeTop                72
+#define kxpSpltsShapeRight              136
+#define kypSpltsShapeBottom             264
+#define kdxpSpltsShapeLeft              0
+#define kdxpSpltsShapeRight             0
+#define kdypSpltsShapeTop               0
+#define kdypSpltsShapeBottom    		18
+#define kdxpSpltsShapeBorder    		0
+#define kdypSpltsShapeBorder    		0
+#define kdxpSpltsShapeSpacing   		0
+#define kdypSpltsShapeSpacing   		0
+#define kdxpSpltsShapeFrame             46
+#define kdypSpltsShapeFrame             44
+#define kdxpSpltsShapeFrameBorder       7
+#define kdypSpltsShapeFrameBorder       7
+#define kxpSpltsShapePageDown   		0
+#define kypSpltsShapePageDown   		176
+#define kxprSpltsShapePageDown  		0
+#define kyprSpltsShapePageDown  		0
+#define kxpSpltsShapePageUp             23
+#define kypSpltsShapePageUp             176
+#define kxprSpltsShapePageUp    		0
+#define kyprSpltsShapePageUp    		0
+
+//
+//
+// Spletters Color popdown
+//
+//
+#define kdxpSpltsColor                  78
+#define kdypSpltsColor                  194
+#define kxpSpltsColorLeft               136
+#define kypSpltsColorTop                72
+#define kxpSpltsColorRight              216
+#define kypSpltsColorBottom             264
+#define kdxpSpltsColorLeft              0
+#define kdxpSpltsColorRight             0
+#define kdypSpltsColorTop               0
+#define kdypSpltsColorBottom    		18
+#define kdxpSpltsColorBorder    		0
+#define kdypSpltsColorBorder    		0
+#define kdxpSpltsColorSpacing   		0
+#define kdypSpltsColorSpacing   		0
+#define kdxpSpltsColorFrame             78
+#define kdypSpltsColorFrame             44
+#define kdxpSpltsColorFrameBorder       7
+#define kdypSpltsColorFrameBorder       7
+#define kxpSpltsColorPageDown   		0
+#define kypSpltsColorPageDown   		176
+#define kxprSpltsColorPageDown  		0
+#define kyprSpltsColorPageDown  		0
+#define kxpSpltsColorPageUp             39
+#define kypSpltsColorPageUp             176
+#define kxprSpltsColorPageUp    		0
+#define kyprSpltsColorPageUp    		0
+

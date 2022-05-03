@@ -1,0 +1,77 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+#include "socres.h"
+#include "version.h"
+
+#define stringer(x) #x              // This macro converts the parameter x to a quoted literal string
+#define VERSIONSTR(rmj, rmm, rup)  stringer(rmj) ".0." stringer(rmm) "." stringer(rup) "\0"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION rmj,0,rmm,rup
+ PRODUCTVERSION rmj,0,rmm,rup
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Microsoft Corporation\0"
+            VALUE "FileDescription", "Microsoft 3D Movie Maker\0"
+            VALUE "FileVersion", VERSIONSTR(rmj, rmm, rup)
+            VALUE "InternalName", "3DMovie\0"
+            VALUE "LegalCopyright", "Copyright \251 Microsoft Corporation, 1995\0"
+            VALUE "LegalTrademarks", "Microsoft\256 is a registered trademark of Microsoft Corporation.  Windows(tm) is a trademark of Microsoft Corporation\0"
+            VALUE "OriginalFilename", "3DMovie.exe\0"
+            VALUE "ProductName", "3D Movie Maker\0"
+            VALUE "ProductVersion", VERSIONSTR(rmj, rmm, rup)
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Data
+//
+
+RC_PID_NUMBER  RCDATA   LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+END
+
+

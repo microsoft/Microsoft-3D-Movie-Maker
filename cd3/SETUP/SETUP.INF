@@ -1,0 +1,67 @@
+;*** BEGIN **********************************************************
+;**                                                                **
+;** Automatically generated on: Fri Oct 06 21:31:43 1995           **
+;**                                                                **
+;** Diamond Version: (32) 1.00.0520 (12/16/94)                     **
+;**                                                                **
+;*** BEGIN **********************************************************
+[Source Media Descriptions]
+; <disk number>, <disk label>, <file>, <path>
+    "1","Microsoft 3D Movie Maker - 3DMovie","3DMovie\3DMovie.Exe","."
+[Default File Settings]
+"STF_BACKUP" = ""
+"STF_COPY" = "YES"
+"STF_DECOMPRESS" = ""
+"STF_OVERWRITE" = "OLDER"
+"STF_READONLY" = ""
+"STF_ROOT" = "YES"
+"STF_SETTIME" = "YES"
+"STF_TIME" = ""
+"STF_VITAL" = ""
+"STF_DATE" = ""
+;************* INF File list *****************
+;{ID=} disk,filename,Append,Backup,Copy,Date,Decompress,Language,Overwrite,Readonly,Remove,Rename,Root,SetTimeStamp,Shared,Size,System,TimeToCopy,Reserved,Ver,Vital
+[Root]
+"app" = 1,3DMovie\3DMovie.EXE,,,,1995-09-06,,1033,,,,,,,,1117696,,,,1.0.0.1006,
+
+[Templates]
+"tmpl" = 1,3DMovie\3DMOVIE.3MM,,,,1995-09-06,,,,,,,,,,425,,,,,
+
+[Setup]
+"setup.exe" = 1,SETUP.EXE,,,,1995-09-06,,1033,,,,,,,,73056,,,,1.20.0.2002,
+"setup.lst" = 1,SETUP.LST,,,,1995-09-06,,,,,,MS3DMU.LST,!ROOT,,,1533,,,,,
+[Files]
+ 1,3DMovie\3dmovie.chk,,,,1995-09-06,,,,,,,,,,132259,,,,,
+ 1,3DMovie\bldghd.chk,,,,1995-09-06,,,,,,,,,,4946434,,,,,
+ 1,3DMovie\help.chk,,,,1995-09-06,,,,,,,,,,769046,,,,,
+ 1,3DMovie\shared.chk,,,,1995-09-06,,,,,,,,,,888870,,,,,
+ 1,3DMovie\studio.chk,,,,1995-09-06,,,,,,,,,,3785836,,,,,
+ 1,3DMovie\actor.3th,,,,1995-09-06,,,,,,,,,,160670,,,,,
+ 1,3DMovie\actresl.3th,,,,1995-09-06,,,,,,,,,,10233,,,,,
+ 1,3DMovie\bkgds.3th,,,,1995-09-06,,,,,,,,,,1091088,,,,,
+ 1,3DMovie\mtrl.3th,,,,1995-09-06,,,,,,,,,,42134,,,,,
+ 1,3DMovie\prop.3th,,,,1995-09-06,,,,,,,,,,61066,,,,,
+ 1,3DMovie\sound.3th,,,,1995-09-06,,,,,,,,,,42116,,,,,
+ 1,3DMovie\tbox.3th,,,,1995-09-06,,,,,,,,,,22675,,,,,
+ 1,Pss\3dmm.hlp,,,,1995-09-06,,,,,,,,,,129398,,,,,
+ 1,Pss\3dmm.gid,,,,1995-09-06,,,,,,,,,,0,,,,,
+ 1,Pss\3dmm.fts,,,,1995-09-06,,,,,,,,,,0,,,,,
+ 1,Pss\3dmm.cnt,,,,1995-09-06,,,,,,,,,,2157,,,,,
+
+[Users]
+ 1,Setup\DIALOGUE.3MM,,,,1995-09-06,,,,READONLY,,Users\Melanie\DIALOGUE.3MM,!ROOT,,,15756,,,,,
+ 1,Setup\JOG.3MM,,,,1995-09-06,,,,READONLY,,Users\Melanie\JOG.3MM,!ROOT,,,20564,,,,,
+ 1,Setup\SURPRISE.3MM,,,,1995-09-06,,,,READONLY,,Users\Melanie\SURPRISE.3MM,!ROOT,,,16605,,,,,
+ 1,Setup\MUMMY.3MM,,,,1995-09-06,,,,READONLY,,Users\Melanie\MUMMY.3MM,!ROOT,,,27959,,,,,
+ 1,Setup\BONGO.3MM,,,,1995-09-06,,,,READONLY,,Users\Melanie\BONGO.3MM,!ROOT,,,16281,,,,,
+ 1,Setup\BRIDGE.3MM,,,,1995-09-06,,,,READONLY,,Users\Melanie\BRIDGE.3MM,!ROOT,,,19352,,,,,
+
+[Fonts]
+"comic" = 1,Setup\COMIC.TTF,,,,1995-04-03,,,,,,,,,SHARED,62152,SYSTEM,,,1.1.0.0,
+"comicbd" = 1,Setup\COMICBD.TTF,,,,1995-04-03,,,,,,,,,SHARED,55892,SYSTEM,,,1.1.0.0,
+
+;*** END ************************************************************
+;**                                                                **
+;** Automatically generated on: Fri Oct 06 21:31:43 1995           **
+;**                                                                **
+;*** END ************************************************************

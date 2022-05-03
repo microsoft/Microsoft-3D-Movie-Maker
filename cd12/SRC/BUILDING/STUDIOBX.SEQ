@@ -1,0 +1,6 @@
+REP_PPMBMP( kcell1, "building\pbm\studio\box1.pbm" )
+REP_PPMBMP( kcell2, "building\pbm\studio\box2.pbm" )
+REP_PPMBMP( kcell3, "building\pbm\studio\box3.pbm" )
+REP_PPMBMP( kcell4, "building\pbm\studio\box4.pbm" )
+REP_PPMBMP( kcell5, "building\pbm\studio\box5.pbm" )
+REP_PPMBMP( kcell6, "building\pbm\studio\box6.pbm" )

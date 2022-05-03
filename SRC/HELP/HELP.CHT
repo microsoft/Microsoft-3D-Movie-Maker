@@ -1,0 +1,60 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+#define  NO_HELP_NAMES
+#define HELP_SINGLE_CHUNK
+#define NO_HELP_SYMBOLS
+//#define PACK_HELP
+
+#include "kidgs.chh"
+#include "stdiodef.h"
+#include "helptops.h"
+#include "helpbook.h"
+#include "projmain.h"
+#include "helpres.h"
+#include "balloons.chh"
+#include "socdefn.h"
+#include "sharedef.h"
+#include "biopage.chh"
+
+#include "help\toolhelp.cht"
+#include "help\tooltips.cht"
+
+#include "help\bkhowto.cht"
+#include "help\bktips.cht"
+#include "help\bktocbas.cht"
+#include "help\bktools.cht"
+#include "help\booktpc.cht"
+#include "help\basics.cht"
+#include "help\htscenes.cht"
+#include "help\logo.cht"
+#include "help\prjalert.cht"
+#include "help\prjintro.cht"
+#include "help\prjtips.cht"
+#include "help\project1.cht"
+#include "help\project2.cht"
+#include "help\project3.cht"
+#include "help\project4.cht"
+#include "help\project5.cht"
+#include "help\project6.cht"
+#include "help\gadget1.cht"
+#include "help\gadget2.cht"
+#include "help\gadget3.cht"
+#include "help\gadget4.cht"
+#include "help\gadget5.cht"
+#include "help\gadget6.cht"
+#include "help\easelhp.cht"
+#include "help\errors.cht"
+#include "help\guidhelp.cht"
+#include "help\htactors.cht"
+#include "help\htalerts.cht"
+#include "help\htsounds.cht"
+#include "help\htwords.cht"
+#include "help\app.cht"
+
+// Help topics from the building
+#include "help\topics1.cht"
+
+// Bio page topics
+
+#include "help\bio.cht"

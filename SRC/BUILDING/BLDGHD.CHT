@@ -1,0 +1,753 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ---------------------------------------------------------
+// HD component of the building file
+// ---------------------------------------------------------
+
+// ---------------------------------------------------------
+// Project macros and definitions
+// ---------------------------------------------------------
+#define PACKALL
+
+#include "kidgs.chh"
+
+// ---------------------------------------------------------
+// Object definitions shared between studio and building
+// ---------------------------------------------------------
+
+#include <stdiodef.h>
+
+// ---------------------------------------------------------
+// Building object definitions
+// ---------------------------------------------------------
+
+#include "socdefn.h"
+
+// needed to get definition for ksclBuilding..
+#include "projmain.h"									
+// ---------------------------------------------------------
+// Start up stuff.
+// ---------------------------------------------------------
+
+#include "sharutil.chh"
+#include "biopage.chh"
+
+// Init macro values
+STARTCHUNKS( 0x00040000 )
+
+// This script gets called each time the building is loaded.  This includes
+// application startup as well as subsequent Studio=>Building transitions.
+SCRIPTCHUNK( "Start application" , kcnoStartApp )
+
+	::fInStudio = fFalse;
+	FilterCmdsGob(kgobUtil, cidLoadStudioFailed, kidNil, chidNil);
+
+	kgobGoto = GetProp(kpridBuildingGob);
+	DEBUGCMD(PrintStr("Starting Building with kpridBuildingGob = ",
+			NumToStr(kgobGoto, ""), "; kpridBuildingState = ",
+			NumToStr(GetProp(kpridBuildingState), "")));
+	ASSERT(kgobGoto != 0);
+	ASSERT(GetProp(kpridBuildingState) >= kst1);
+
+	// Any portfolio stuff the studio was doing should be cleared here.
+	EnqueueCid(cidPortfolioClear, 0, 0,0,0,0);
+
+	// Go to the specified gob.
+	// Note: kstEntry is set by LOADTOOLS on the way out of the building
+	// so it should be valid here.
+	SETGLOBAL(kstEntry, GetProp(kpridBuildingState));
+	NEXTPLACE1(kgobGoto, GLOBAL(kstEntry));
+
+	// Normally, the Studio filters for these, but if we're in the building,
+	// the studio doesn't exist, so we need to trap them.  Make sure this
+	// trap is turned off when the studio is created again.
+	FilterCmdsGob(kgobUtil, cidOpen, kidNil, kchidScript6);
+	FilterCmdsGob(kgobUtil, cidNew, kidNil, kchidScript6);
+	FilterCmdsGob(kgobUtil, cidLoadStudioDoc, kidNil, kchidScript6);
+
+	EndLongOp(fTrue);	// If the studio set the wait cursor, turn it off.
+	ENABLEACCEL(fTrue);
+ENDCHUNK
+
+
+// ---------------------------------------------------------
+// Get definitions for shared stuff - eg. bio pages
+// ---------------------------------------------------------
+#include "biopage.chh"
+
+// ---------------------------------------------------------
+// Now include all of the chunks/components.
+// ---------------------------------------------------------
+
+#include "palette.cht"
+
+
+// ---------------------------------------------------------
+// shared building components
+// ---------------------------------------------------------
+
+#include "navbars.cht"
+#include "music.cht"
+#include "portfol.cht"
+
+// ---------------------------------------------------------
+// all of the 'places' - each file includes all views
+// ---------------------------------------------------------
+#include "login.cht"
+
+// ---------------------------------------------------------
+// Street scene (the whole thing)
+
+#include "street.cht"
+
+// ---------------------------------------------------------
+// ticket booth
+// ----------------------------------------------------------
+// Definitions for the ticket booth place '1' - far off view
+// ----------------------------------------------------------
+
+OBJECT( "ticket1-far view",  kgobTicket1, 0, kcrsHand1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\ticket\ticket1.pbm" )
+	CREATE_SCRIPT( "ticket1: create" )
+		SETPALETTE( kpalSocTicket );
+		SETKEYS(kflgBuildingMin);
+
+		PLAYMIDI_LOOP( cnoNil );	// no music
+
+		CreateChildThis( kgobTicket1Doors, kgobTicket1Doors );
+		CreateChildThis( kgobTicket1Waiter, kgobTicket1Waiter );
+	ENDCHUNK
+	CLICK_SCRIPT( "ticket1: anything clicked" )
+		NEXTPLACE1( kgobTicket2, kst2 );
+	ENDCHUNK
+
+
+// -------------------------------------------------------
+// Definitions for the ticket booth place 2- close up view
+// -------------------------------------------------------
+OBJECT( "ticket2-zoom view",  kgobTicket2, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\ticket\ticket2.pbm" )
+	CREATE_SCRIPT( "ticket2 created" )
+		SETPALETTE( kpalSocTicket );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( cnoNil );
+		CreateChildThis( kgobTicket2McZee, kgobTicket2McZee );
+		CreateChildThis( kgobTicket2Exit, kgobTicket2Exit );
+		CreateChildThis( kgobTicket2Map, kgobTicket2Map );
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );			
+		CreateChildThis( kgobTic1m1, kgobTic1m1 );
+	ENDCHUNK
+
+#ifdef DEBUG
+	// If we needed to implement multiple-state entries from the map to the
+	// ticket booth, we would use this routine.  For now, ASSERT that it doesn't
+	// get used.
+	CHILD_SCRIPT("Backstage1:Dispatch", kchidScript0)
+		ASSERT(fFalse);
+	ENDCHUNK
+#endif	// DEBUG
+
+// -------------------------------------------------------
+// lobby 
+
+OBJECT( "lobby1-front view",  kgobLobby1, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\lobby\lobby1.pbm" )
+	CREATE_SCRIPT( "lobby1 startup" )
+
+		SETPALETTE( kpalSocLobby );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidLobby );
+
+		.fExitLobby=fFalse;		// if set: triggers McZee to cycle out
+
+		CreateChildThis( kgobNavbarLeft, 	kgobNavbarLeft);
+		CreateChildThis( kgobNavbarDown, 	kgobNavbarDown );
+		CreateChildThis( kgobNavbarRight, 	kgobNavbarRight ); 
+		CreateChildThis( kgobLobby1Door,	kgobLobby1Door );
+		CreateChildThis( kgobLobby1Poster3, kgobLobby1Poster3 );
+		CreateChildThis( kgobLobby1Poster4, kgobLobby1Poster4 );
+		CreateChildThis( kgobLobby1McZee,  	kgobLobby1McZee );
+		CreateChildThis( kgobLobby1m1, 		kgobLobby1m1 );
+	ENDCHUNK
+
+#ifdef DEBUG
+	// If we needed to implement multiple-state entries from the map to the
+	// lobby, we would use this routine.  For now, ASSERT that it doesn't
+	// get used.
+	CHILD_SCRIPT("Backstage1:Dispatch", kchidScript0)
+		ASSERT(fFalse);
+	ENDCHUNK
+#endif	// DEBUG
+
+
+// ------------------------------------------------------------------------
+// Stuff for view #2 of lobby.
+// ------------------------------------------------------------------------
+OBJECT( "lobby-back view",  kgobLobby2, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\lobby\lobby2.pbm" )
+	CREATE_SCRIPT( "lobby2 startup" )
+		SETPALETTE( kpalSocLobby );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidLobby );
+		CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+		CreateChildThis( kgobLobby2Doors, kgobLobby2Doors );
+		CreateChildThis( kgobLobby2Map, kgobLobby2Map );
+		CreateChildThis( kgobLobby2Exit, kgobLobby2Exit );
+	ENDCHUNK
+
+// ------------------------------------------------------------------------
+// Waiting area
+
+#include "waiting.cht"
+
+// ------------------------------------------------------------------------
+// Snackbar backgrounds
+
+OBJECT( "snackbar", kgobSnackBar, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault),  "building\pbm\snackbar\snackbr2.pbm" )
+CREATE_SCRIPT( "snackbar create" )
+	SETPALETTE( kpalSocLobby );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidLobby );
+	CreateChildThis( kgobSnackbarMczee, kgobSnackbarMczee );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	CreateChildThis( kgobLobby3m1, kgobLobby3m1 );
+	CreateChildThis( kgobLobby3m2, kgobLobby3m2 );
+ENDCHUNK
+
+
+// ------------------------------------------------------------------------
+// Theatre
+
+OBJECT( "theatre1",  kgobTheatre1, 0, kcrsArrow1 )
+	REP_RECT(CHID(kst1, krepDefault), "Theatre1 State1 Rep", 0, 0, 640, 480)
+ 	REP_PPMBMP(CHID(kst2, krepDefault),  "building\pbm\theatre\theatre1.pbm")
+	REP_PPMBMP(CHID(kst3, krepDefault),  "building\pbm\theatre\the1dark.pbm")
+	CREATE_SCRIPT( "theatre1: create" )
+		DEBUGCMD(PrintStr("Creating Theatre1"));
+		SETPALETTE( kpalSocTheatre);
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidTheatre );
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobTheatre1LeftDoor, kgobTheatre1LeftDoor );
+		CreateChildThis( kgobTheatre1RightDoor, kgobTheatre1RightDoor );
+		CreateChildThis( kgobTheatre1McZee,	kgobTheatre1McZee );
+		ChangeStateThis(kst2);
+	ENDCHUNK
+
+#ifdef DEBUG
+	// If we needed to implement multiple-state entries from the map to the
+	// theatre, we would use this routine.  For now, ASSERT that it doesn't
+	// get used.
+	CHILD_SCRIPT("Backstage1:Dispatch", kchidScript0)
+		ASSERT(fFalse);
+	ENDCHUNK
+#endif	// DEBUG
+
+
+// ---------------------------------------------------------
+// back view of the theatre & its objects
+// ---------------------------------------------------------
+OBJECT( "theatre2", kgobTheatre2, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\theatre\theatre2.pbm" )
+	CREATE_SCRIPT( "theatre2: create" )
+		SETPALETTE( kpalSocTheatre );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidTheatre );
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobTheatre2Door, kgobTheatre2Door );
+		CreateChildThis( kgobTheatre2Map, kgobTheatre2Map );
+		CreateChildThis( kgobTheatre2Exit, kgobTheatre2Exit );
+		CreateChildThis( kgobTheater2m1, kgobTheater2m1 );
+		CreateChildThis( kgobTheater2m2, kgobTheater2m2 );
+		CreateChildThis( kgobTheater2m3, kgobTheater2m3 );
+	ENDCHUNK
+
+
+// ---------------------------------------------------------
+// front left view of the theatre & its objects
+// ---------------------------------------------------------
+OBJECT( "theatre3", kgobTheatre3, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\theatre\theatre3.pbm" )
+	CREATE_SCRIPT( "theatre3: create")
+		SETPALETTE( kpalSocTheatre );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidTheatre );
+		CreateChildThis( kgobTheatre3Right, kgobTheatre3Right );
+		CreateChildThis( kgobTheatre3Door, kgobTheatre3Door );
+		CreateChildThis( kgobTheatre3Map, kgobTheatre3Exit );
+		CreateChildThis( kgobTheatre3Exit, kgobTheatre3Map );
+	ENDCHUNK
+
+// ---------------------------------------------------------
+// Front right view of the theatre & its objects
+// ---------------------------------------------------------
+OBJECT( "theatre4",  kgobTheatre4, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\theatre\theatre4.pbm" )
+	CREATE_SCRIPT( "theatre4: create" )
+		ASSERT(GLOBAL(kstEntry) >= kst2 && GLOBAL(kstEntry) <= kst4);
+		DEBUGCMD( PrintStr("Create theatre4 object") );
+		SETPALETTE( kpalSocTheatre );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidTheatre );
+
+		// If GLOBAL(kstEntry) == 2 don't run the pass thru Mz
+
+		If (GLOBAL(kstEntry) == kst3);
+			.nxtPlcState = kst3;
+			DISABLEHOTSPOTS(kflgBuildingMin);
+			CreateChildThis( kgobTheatre4McZee, kgobTheatre4McZee );
+		Elif (GLOBAL(kstEntry) == kst4);
+			.nxtPlcState = kst6;
+			DISABLEHOTSPOTS(kflgBuildingMin);
+			CreateChildThis( kgobTheatre4McZee, kgobTheatre4McZee );
+		End;
+
+		// Create the rest of the objects in this sceen
+		CreateChildThis( kgobTheatre4Left, kgobTheatre4Left );
+		CreateChildThis( kgobTheatre4Door, kgobTheatre4Door );
+		CreateChildThis( kgobTheatre4Map, kgobTheatre4Exit );
+		CreateChildThis( kgobTheatre4Exit, kgobTheatre4Map );
+	ENDCHUNK
+
+	CHILD_SCRIPT("Theater4 McZee call back.", kchidScript1 )
+		NEXTPLACE1( kgobBackstage1, .nxtPlcState );
+	ENDCHUNK 
+
+
+// backstage stuff
+
+// -----------------------------------------------------
+// Backstage view 1 & objects
+// -----------------------------------------------------
+
+OBJECT( "backstage", kgobBackstage1, 0, kcrsArrow1 )
+	CREATE_SCRIPT( "backstage1 : startup" )
+		SETPALETTE( kpalSocBackstage );
+		SETKEYS(kflgBuildingAll);
+		
+		//	There are many pass through animations in backstag.cht
+		//	which require MIDI other than Backstage MIDI so it is 
+		//	more efficent to play MIDI based on McZees state.
+		//		PLAYMIDI( cnoNil );
+
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobBackstage1Insp, kgobBackstage1Insp );
+		CreateChildThis( kgobBackstage1Studio, kgobBackstage1Studio );
+		CreateChildThis( kgobBackstage1Proj, kgobBackstage1Proj );
+		CreateChildThis( kgobBackstageMcZee, kgobBackstageMcZee );
+	ENDCHUNK
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\backstag\backstg1.pbm" )
+
+#ifdef DEBUG
+	// If we needed to implement multiple-state entries from the map to the
+	// backstage, we would use this routine.  For now, ASSERT that it doesn't
+	// get used.
+	CHILD_SCRIPT("Backstage1:Dispatch", kchidScript0)
+		ASSERT(fFalse);
+	ENDCHUNK
+#endif	// DEBUG
+
+OBJECT( "backstage view 2 ", kgobBackstage2, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\backstag\backstg2.pbm" )
+	CREATE_SCRIPT( "startup", kst1 )
+		SETPALETTE( kpalSocBackstage );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidBackstage );
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobBackstage2Right, kgobBackstage2Right );
+		CreateChildThis( kgobBackstage2Left, kgobBackstage2Left );
+		CreateChildThis( kgobBackstage2Map, kgobBackstage2Map );
+		CreateChildThis( kgobBackstage2Exit, kgobBackstage2Exit );
+		// bio page hotspots
+		CreateChildThis( kgobBackstage2m1, kgobBackstage2m1 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Backstage view 2, and objects
+// -----------------------------------------------------
+
+// -----------------------------------------------------
+OBJECT( "bs2 - left door", kgobBackstage2Left, 33, kcrsLeft )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\bk2ltdr2.bmp", 0, 0 )
+	CLICK_SCRIPT( "bs2 left door clicked!" )
+		NEXTPLACE1( kgobTheatre4, kst2 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+OBJECT( "bs2 - right door", kgobBackstage2Right, 33, kcrsRight)
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\bk2rtdr2.bmp", 0, 0 )
+	CLICK_SCRIPT( "bs2 right door clicked!" )
+		NEXTPLACE1( kgobTheatre3, kst1 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+OBJECT( "backstage2 map", kgobBackstage2Map, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\bk2map.bmp", 0, 0 )
+	CLICK_SCRIPT( "backstage2 map clicked" ) 
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+// -----------------------------------------------------
+OBJECT( "backstage2 exit", kgobBackstage2Exit, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\bk2quit.bmp", 0, 0 )
+	CLICK_SCRIPT( "backstage2 exit clicked" ) 
+		QUITAPP();
+	ENDCHUNK
+
+OBJECT( "Biopage 40 mask",  kgobBackstage2m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\backstag\bkstg2m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If( fBIO_AVAIL( 40 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 40 );
+			BIO_CREATEBOOK( 40, fFalse, kgobBackstage2 );
+		End;		
+	ENDCHUNK
+
+
+
+// Inspiration (Ideas) room
+
+OBJECT( "inspiration view 1", kgobInspiration1, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1(krepDefault), "building\pbm\inspirat\inspir1.pbm" )
+	CREATE_SCRIPT( "startup", kst1 )
+		SETKEYS(kflgBuildingAll);
+		SETPALETTE( kpalSocInspiration );
+		PLAYMIDI( kmidIdeas );
+		CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobNavbarRight, kgobNavbarRight );
+		CreateChildThis( kgobSplotMachine, kgobSplotMachine ); 
+		CreateChildThis( kgobTalentBook, kgobTalentBook ); 
+		CreateChildThis( kgobInsp1McZee, kgobInsp1McZee );
+		CreateChildThis( kgobIdea1m1, kgobIdea1m1 );	// bio hotspot
+
+		// If we've come to this room without navigating through
+		// the back stage area, then don't play the long back stage 
+		// introduction when we do go there.  This is to maintain
+		// continuity with reguard to where characters are in the building
+		// at the time of the backstage long introduction. 
+		SETGLOBAL( fBackstagePS, fFalse );
+	ENDCHUNK
+
+	CHILD_SCRIPT("Inspiration1:Dispatch", kchidScript0)
+		// Inspiration McZee never hangs out in kst1, so switching to kst1 is
+		// guaranteed to run his dispatch state.
+		ChangeStateGob(kgobInsp1McZee, kst1);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Inspiration 2 - back view
+// -----------------------------------------------------
+OBJECT( "inspiration view 2", kgobInspiration2, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1(krepDefault), "building\pbm\inspirat\inspir2.pbm" )
+CREATE_SCRIPT( "startup" )
+	SETPALETTE( kpalSocInspiration );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidIdeas );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	CreateChildThis( kgobInsp2Doors, kgobInsp2Doors );
+	CreateChildThis( kgobInsp2Map, kgobInsp2Map );
+	CreateChildThis( kgobInsp2Exit, kgobInsp2Exit );
+	
+	CreateChildThis( kgobIdea2m1, kgobIdea2m1 );
+ENDCHUNK
+
+// -----------------------------------------------------
+// Inspiration 3 - left view
+// -----------------------------------------------------
+OBJECT( "inspiration view 3",  kgobInspiration3, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1(krepDefault), "building\pbm\inspirat\inspir3.pbm" )
+CREATE_SCRIPT( "startup" )
+	SETPALETTE( kpalSocInspiration );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidIdeas );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+
+	CreateChildThis( kgobIdea3m1, kgobIdea3m1 );
+	CreateChildThis( kgobIdea3m2, kgobIdea3m2 );
+	CreateChildThis( kgobIdea3m3, kgobIdea3m3 );
+ENDCHUNK
+
+// -----------------------------------------------------
+// Inspiration 4 - right view
+// -----------------------------------------------------
+OBJECT( "inspiration view 4",  kgobInspiration4, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1(krepDefault), "building\pbm\inspirat\inspir4.pbm" )
+	CREATE_SCRIPT( "startup" )
+		SETPALETTE( kpalSocInspiration );
+		SETKEYS(kflgBuildingAll);
+		PLAYMIDI( kmidIdeas );
+		CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+		CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+		CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	
+		CreateChildThis( kgobIdea4m1, kgobIdea4m1 );
+		CreateChildThis( kgobIdea4m2, kgobIdea4m2 );
+		CreateChildThis( kgobIdea4m3, kgobIdea4m3 );
+	ENDCHUNK
+
+// Studio 
+
+// -----------------------------------------------------
+// Studio 1 - front view
+// -----------------------------------------------------
+
+OBJECT( "studio view 1",  kgobStudio1, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault),"building\pbm\studio\studio1.pbm" )
+REP_PPMBMP( CHID( kst2, krepDefault),"building\pbm\studio\studio1b.pbm" )	// state 2=tools background
+CREATE_SCRIPT( "studio1: startup" )
+	ASSERT(GLOBAL(kstEntry) == kst1 || GLOBAL(kstEntry) == kst2);
+
+	SETPALETTE( kpalSocStudio );
+	SETKEYS(kflgBuildingAll);
+
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	CreateChildThis( kgobStudio1Tools, kgobStudio1Tools );
+	CreateChildThis( kgobStudio1McZee, kgobStudio1McZee );
+	CreateChildThis( kgobStdo1m1, kgobStdo1m1 );
+
+	// If we've come to this room without navigating through
+	// the back stage area, then don't play the long back stage 
+	// introduction when we do go there.  This is to maintain
+	// continuity with reguard to where characters are in the building
+	// at the time of the backstage long introduction. 
+	SETGLOBAL( fBackstagePS, fFalse );
+
+	RunScriptThis(kchidScript0);
+
+ENDCHUNK
+
+CHILD_SCRIPT("Studio1:Dispatch", kchidScript0)
+	If (GLOBAL(kstEntry) == kst1);	// Normal Entry
+		// Turn help off and dispatch McZee directly to the waiting state.
+		PLAYMIDI( kmidStudio );
+		SETGLOBAL(fHelpOn, fFalse);
+		ChangeStateGob(kgobStudio1McZee, kst2 );
+	Else;							// Pass through to tools.
+		PLAYMIDI( cnoNil );		// stop any random MIDI that's going
+		ChangeStateGob( kgobStudio1Tools, kst2 );		// launch toolbox (sproing) and proceed into tools.
+	End;
+ENDCHUNK
+
+
+// -----------------------------------------------------
+// Studio 2 - back view (doors to backstage)
+// -----------------------------------------------------
+
+OBJECT( "studio view 2 ",  kgobStudio2, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault), "building\pbm\studio\studio2.pbm" )
+CREATE_SCRIPT( "studio2: startup" )
+	SETPALETTE( kpalSocStudio );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidStudio );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	CreateChildThis( kgobStudio2Doors, kgobStudio2Doors );
+	CreateChildThis( kgobStudio2Map, kgobStudio2Map );
+	CreateChildThis( kgobStudio2ExitWord, kgobStudio2ExitWord);
+	CreateChildThis( kgobStudio2Exit, kgobStudio2Exit);
+
+	CreateChildThis( kgobStdo2m1, kgobStdo2m1 );
+	CreateChildThis( kgobStdo2m2, kgobStdo2m2 );
+	CreateChildThis( kgobStdo2m3, kgobStdo2m3 );
+ENDCHUNK
+
+// -----------------------------------------------------
+// Studio 3 - (3 o'clock view)
+// -----------------------------------------------------
+
+
+OBJECT( "studio view 3 ",  kgobStudio3, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault), "building\pbm\studio\studio3.pbm" )
+CREATE_SCRIPT( "studio3 : startup" )
+	SETPALETTE( kpalSocStudio );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidStudio );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+
+	CreateChildThis( kgobStdo3m1, kgobStdo3m1 );
+	CreateChildThis( kgobStdo3m2, kgobStdo3m2 );
+	CreateChildThis( kgobStdo3m3, kgobStdo3m3 );
+ENDCHUNK
+
+// -----------------------------------------------------
+// Studio 4 - (9 o'clock view)
+// -----------------------------------------------------
+
+OBJECT( "studio view 4",  kgobStudio4, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault), "building\pbm\studio\studio4.pbm" )
+CREATE_SCRIPT( "studio4: startup" )
+	SETPALETTE( kpalSocStudio );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidStudio );
+	
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+
+	CreateChildThis( kgobStdo4m1, kgobStdo4m1 );
+	CreateChildThis( kgobStdo4m2, kgobStdo4m2 );
+	CreateChildThis( kgobStdo4m3, kgobStdo4m3 );
+	CreateChildThis( kgobStdo4m4, kgobStdo4m4 );
+ENDCHUNK
+
+
+
+// Projects room
+
+OBJECT( "projects view 1", kgobProjects1, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\projects\project1.pbm" )
+CREATE_SCRIPT( "projects1: startup" )
+	
+	// Projects1 states:	kst1 == Entry from another room;
+	//						kst2 == Entry from elsewhere in Projects room.
+	//						kst3 == talking
+	//						kst4 == launching logo (TV)
+	//						kst5 == launching movie tips
+
+	ASSERT(GLOBAL(kstEntry) == kst1 || GLOBAL(kstEntry) == kst2 || 
+		GLOBAL(kstEntry) == kst4 || GLOBAL(kstEntry) == kst5  );
+
+	SETPALETTE( kpalSocProjects );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidProject );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight );
+
+	// Create objects in the view. (monitors + anims)
+	CreateChildThis(kgobProj1Mon1, kgobProj1Mon1);
+	CreateChildThis(kgobProj1Mon2, kgobProj1Mon2);
+	CreateChildThis(kgobTvViewL, kgobTvViewL );
+	CreateChildThis(kgobTvViewR, kgobTvViewR );
+	CreateChildThis( kgobPrjt1m1, kgobPrjt1m1 );	// bio page 37 hs.
+
+	// Create Melanie, and start her up in the correct state.
+	// Her states are 1 == hidden; 2 == wait state; 3 == intro.
+	CreateChildThis(kgobProj1Melanie, kgobProj1Melanie);
+
+	// If we've come to this room without navigating through
+	// the back stage area, then don't play the long back stage 
+	// introduction when we do go there.  This is to maintain
+	// continuity with reguard to where characters are in the building
+	// at the time of the backstage long introduction. 
+	SETGLOBAL( fBackstagePS, fFalse );
+
+	// Run the dispatch script.
+	RunScriptThis(kchidScript0);
+
+ENDCHUNK
+
+CHILD_SCRIPT("Projects1:Dispatch", kchidScript0)
+
+	enter = GLOBAL( kstEntry );
+	If( enter == kst4 );
+		// fake user click on the logo wizard monitor
+		EnqueueCid( cidClicked, kgobProj1Mon1, 0,0,0,0 );	
+	Elif( enter == kst5 );
+		// fake user click on the movie techniques monitor
+		EnqueueCid( cidClicked, kgobProj1Mon2, 0,0,0,0 );
+	End;
+
+	// Until clicked on, Melanie always starts in her wait state.  If we're
+	// coming from elsewhere in the Projects room (kst2), leave the help in
+	// its current state; otherwise make sure it's off at this point.
+
+	If ( enter != kst1 );
+		SETGLOBAL(fHelpOn, fFalse);
+	End;
+	ChangeStateGob(kgobProj1Melanie, kst2);
+
+ENDCHUNK
+
+
+// -----------------------------------------------------
+// Projects 2 - back view, and objects
+// Called Projects Backwall on the flowchart.
+// -----------------------------------------------------
+
+OBJECT( "projects view 2 ", kgobProjects2, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\projects\project2.pbm" )
+CREATE_SCRIPT( "projects2: startup" )
+	SETPALETTE( kpalSocProjects );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidProject );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	CreateChildThis( kgobProj2Doors, kgobProj2Doors );
+	CreateChildThis( kgobProj2Exit, kgobProj2Exit );
+	CreateChildThis( kgobProj2Map, kgobProj2Map );
+
+	CreateChildThis( kgobPrjt2m1, kgobPrjt2m1 );
+	CreateChildThis( kgobPrjt2m2, kgobPrjt2m2 );
+	CreateChildThis( kgobPrjt2m3, kgobPrjt2m3 );
+	CreateChildThis( kgobPrjt2m4, kgobPrjt2m4 );
+ENDCHUNK
+
+// -----------------------------------------------------
+// Projects 3 - right (3o'clock) view, and objects
+// Called Projects Right on the flowchart.
+// -----------------------------------------------------
+OBJECT( "projects view 3",  kgobProjects3, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\projects\project3.pbm" )
+CREATE_SCRIPT( "projects3: startup" )
+	SETPALETTE( kpalSocProjects );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidProject );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+ENDCHUNK
+
+// -----------------------------------------------------
+// Projects 4 - left (9 o'clock) view, and objects
+// Called Projects Left on the flowchart.
+// -----------------------------------------------------
+OBJECT( "projects view 4",  kgobProjects4, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\projects\project4.pbm" )
+CREATE_SCRIPT( "projects4: startup" )
+	SETPALETTE( kpalSocProjects );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidProject );
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+
+	CreateChildThis( kgobPrjt4m1, kgobPrjt4m1 );
+	CreateChildThis( kgobPrjt4m2, kgobPrjt4m2 );
+	CreateChildThis( kgobPrjt4m3, kgobPrjt4m3 );
+ENDCHUNK
+
+// put the imaginpolis backgrounds on here (for now)
+OBJECT( "imaginopolis",  kgobImagin, 0, kcrsArrow1 )
+	CREATE_ANIMST( "imagin: full sequence", kst1 )
+		SETKEYS(kflgBuildingMin);
+		SETPALETTE( kpalImaginopolis );			// palette
+		PLAYMIDI( cnoNil );			// roller coaster music
+		CreateChildThis( kgobMcZeeRoller, kgobMcZeeRoller );
+	ENDCHUNK
+	REP_PPMBMP( CHID( kst1, krepDefault ),  "building\pbm\imagin\back1.pbm" )
+	REP_PPMBMP( CHID( kst2, krepDefault ),  "building\pbm\imagin\back2.pbm" )
+	REP_PPMBMP( CHID( kst3, krepDefault ),  "building\pbm\imagin\back3.pbm" )
+	REP_PPMBMP( CHID( kst4, krepDefault ),  "building\pbm\imagin\back4.pbm" )
+	REP_PPMBMP( CHID( kst5, krepDefault ),  "building\pbm\imagin\back5.pbm" )

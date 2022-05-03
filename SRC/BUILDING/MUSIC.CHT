@@ -1,0 +1,20 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ------------------------------------------------------------------------
+// music definitions
+// ------------------------------------------------------------------------
+
+MIDI_CHUNK( "building\sound\backstag\bakstage.mid", kmidBackstage );
+MIDI_CHUNK( "building\sound\ticket\boothjam.mid", 	kmidBoothjam );
+MIDI_CHUNK( "building\sound\imagin\closet.mid",		kmidCloset );
+MIDI_CHUNK( "building\sound\imagin\coaster.mid", 	kmidCoaster );
+MIDI_CHUNK( "building\sound\inspirat\ideas.mid", 	kmidIdeas );
+MIDI_CHUNK( "building\sound\ticket\jamloop.mid", 	kmidJamloop );
+MIDI_CHUNK( "building\sound\lobby\lobby.mid", 		kmidLobby );
+MIDI_CHUNK( "building\sound\projects\project.mid", 	kmidProject );
+MIDI_CHUNK( "building\sound\snackbar\snack.mid", 	kmidSnack );
+MIDI_CHUNK( "building\sound\studio\studio.mid", 	kmidStudio );
+MIDI_CHUNK( "building\sound\login\tag.mid", 		kmidTag );
+MIDI_CHUNK( "building\sound\theatre\theater.mid", 	kmidTheatre );
+MIDI_CHUNK( "building\sound\imagin\coaster.mid", 	kmidRollerCoaster );

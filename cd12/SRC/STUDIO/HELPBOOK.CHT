@@ -1,0 +1,754 @@
+// -----------------------------------------------------
+//  CHT file that defines the interaction with the
+//		Help Book.
+//
+// Modified / Reviewed:
+// 5.29.95  ***** -- made to use ::globals
+// -----------------------------------------------------
+
+// WAVE FILES for the help book 
+
+//WAVE_CHUNK("studio\sound\hmbtn.wav", kcnoHelpMainWav )
+WAVE_CHUNK("studio\sound\next.wav", kcnoHelpMainWav )
+WAVE_CHUNK("studio\sound\next.wav", kcnoHelpNextWav )
+WAVE_CHUNK("studio\sound\back.wav", kcnoHelpBackWav )
+
+// WAVE_CHUNK ("studio\sound\bingo.wav", wavBingo)
+
+//------------------------------------------------------------------
+// Help book parent object
+//------------------------------------------------------------------
+OBJECT("Help Book Parent", kgobHelpBookParent, 100, kcrsArrow)
+	REP_RECT(CHID1(krepDefault), "kgobHelpBookParent", 0,0, 640, 480 )
+	CREATE_ANIM("help book parent created")
+		
+		.last = kidNil;		// .last = kid of last primary button hilited
+		.lasthow = kidNil;	// .lasthow = kid of last how to button hilited
+		.hsshow = 0;		// flag: is how to sub section showing?
+
+		DISABLEACCEL(fFalse);
+		// Note: the above disable hotkeys while the book is up.
+		// Note that since enables have to match with disables, any way the book is killed
+		// *must* reenable the keys.  So far, the two book deconstructors are :
+		//  hit cancel (easy)    choose a tool topic or how to.
+
+		// eat all keys while the book is up
+		FilterCmdsThis(cidKey, kidNil, kchidScript9);
+
+		// Create the help gizmo and the fill	
+		CreateChildThis( kgobHelpBookGizmo, kgobHelpBookGizmo );			
+		CreateChildThis( kgobHelpBookFillPar, kgobHelpBookFillPar );
+		CreateChildThis( kgobHelpBookHowSub, kgobHelpBookHowSub );
+		
+		
+		// Switch to the current section + topic
+		RunScriptThis(kchidScript4, ::HBSection, ::HBtpcCur[::HBSection ] );
+	ENDCHUNK
+
+	//------------------------------------------------------------------
+	// Script to switch to a particular section (first page of)
+	// 
+	//------------------------------------------------------------------
+	CHILD_SCRIPT( "help book : switch to section", kchidScript1  )
+		If( _parm[0] != 1 );
+			tpc = ::HBtpcEnd[ _parm[0]-1 ] +1;
+		Else;
+			tpc = ktpcBook1TOC;
+		End;
+		// display!
+		RunScriptThis( kchidScript4, _parm[0], tpc );
+
+	ENDCHUNK
+
+
+	//------------------------------------------------------------------
+	// Script to switch to the previous page.
+	// -- no parameters --
+	//------------------------------------------------------------------
+	CHILD_SCRIPT("help book : prev page", kchidScript2)
+		
+		// find current section # and topic
+		sec = ::HBSection;
+		top = ::HBtpcCur[sec];
+
+		If (top == ktpcBookStart);	// Can't go previous at first page TOC
+			Exit();
+		End;
+		top--;
+		// Check to see if we underflow the current section
+		If (sec > 1);
+			If (top <= ::HBtpcEnd[sec - 1]);
+				// Did underflow.  Decrement section # (topic # is ok)
+				sec--;
+			End;
+		End;
+		// Then tell the book to switch to that page
+		RunScriptThis(kchidScript4, sec, top);
+	ENDCHUNK
+
+	//------------------------------------------------------------------
+	// Script to switch to the next page.
+	// -- no parameters --
+	//------------------------------------------------------------------
+	CHILD_SCRIPT( "help book : next page", kchidScript3 )
+
+		// find current section # and topic
+		sec = ::HBSection;
+		top = ::HBtpcCur[ sec ];
+
+		If (top == ktpcBookEnd);	// Can't go next at last page
+			Exit();
+		End;
+		top++;
+		If (sec < 10);
+			// Check to see if we overflow the current section
+			If (top > ::HBtpcEnd[sec]);
+				// Did overflow.  Decrement section # (topic # is ok)
+				sec++;
+			End;
+		End;
+		// tell the book to switch to that page
+		RunScriptThis(kchidScript4, sec, top );
+	ENDCHUNK
+
+	// -------------------------------------------------------------
+	// Switch book display to section passed as _parm0, topic = _parm1
+	//
+	// This is the core of the help book display; all other scripts
+	// fall through here for update.
+	//
+	// Parameters: 	_parm[0] = section #
+	//				_parm[1] = topic id
+	// -------------------------------------------------------------
+	CHILD_SCRIPT( "help book : switch to section", kchidScript4  )
+		sec = _parm[0];
+		tpc = _parm[1];
+
+		::HBSection = sec;		// update global section variable
+		::HBtpcCur[sec] = tpc;	// and MRU page in that section (for book re-open)
+
+	
+		// deselect last main section button
+		If (.last != kidNil);
+			ChangeStateGob(.last, kst1);	// - deselect the last
+		End;
+
+		// select new one
+		gob = Select(sec, kidNil,
+			kgobHelpBookPrimary1, kgobHelpBookPrimary2, kgobHelpBookPrimary3,
+			kgobHelpBookPrimary3, kgobHelpBookPrimary3, kgobHelpBookPrimary3,
+			kgobHelpBookPrimary3, kgobHelpBookPrimary3, kgobHelpBookPrimary4,
+			kgobHelpBookPrimary5);
+		
+		If( gob != kidNil );
+			ChangeStateGob(gob, kst2);
+			.last = gob;	
+		End;
+
+		// If it's a HOW TO section -- select the second piece too
+		If ( sec >= 3 && sec <= 8);	
+			// set our lastsub section value
+			::HBLastsub = sec;
+
+			// send out how sub bar
+			If (.hsshow == 0);
+				ChangeStateGob(kgobHelpBookHowSub, kst2);
+				.hsshow = 1;
+			End;
+
+			//  deselect the last "how to" subtopic
+			If (.lasthow != kidNil);
+				ChangeStateGob(.lasthow, kst1);	
+			End;
+
+			// Select current how to
+			gob = Select( sec - 2, 0,
+				kgobHelpHowButton1, kgobHelpHowButton2,
+				kgobHelpHowButton3, kgobHelpHowButton4,
+				kgobHelpHowButton5, kgobHelpHowButton6);
+
+			// Select & keep track of the last how to subtopic selected
+			ChangeStateGob(gob, kst2);
+			.lasthow = gob;				
+			
+		// wasn't a how sub section, get rid of How To subsection
+		Else;
+			If (.hsshow == 1);
+				ChangeStateGob(kgobHelpBookHowSub, kst3);
+				.hsshow = 0;
+			End;
+		End;
+
+		// Check and set state of page forward button (kst2 = disabled)
+		ChangeStateGob( kgobHelpBookPageFwd,
+			((tpc) >= ktpcBookEnd ) ? kst2 : kst1 );
+
+		// Check and set state of page back button (kst2 = disabled)
+		ChangeStateGob( kgobHelpBookPageBack,
+			(tpc <= ktpcBookStart ) ? kst2 : kst1 );
+
+		// Calculate the page # ... section one is a special case
+
+		start = (sec == 1 ) ? (ktpcBookStart - 1) : (::HBtpcEnd[sec - 1]);
+
+		// Now put values into the stringtable so help can show em.
+		NumToStr((::HBtpcEnd[sec] - start), stidMaxPage);
+		NumToStr((tpc - start), stidCurrPage);
+
+		// destroy previous gobs
+		If (FGobExists(kgobHelpBookBkgd));
+			DestroyGob(kgobHelpBookBkgd);
+			DestroyGob(kgobHelpBookPageNum);
+			DestroyGob(kgobHelpBookPageLeft);
+		End;
+		// create the title for this topic
+		CreateHelpGob(kgobHelpTitlePar, tpcTitle1 + sec - 1);
+		// and then the page itself
+		CreateHelpGob(kgobHelpBookGizmo, tpcPageNumber);
+
+		// set the rectangle which holds the topics up
+		st = (sec > 2 && sec < 9) ? kst2 : kst1;
+		ChangeStateGob( kgobHelpBookFillPar, st );
+
+		// and create the help topic
+		CreateHelpGob(kgobHelpBookFillPar, tpc);
+	ENDCHUNK
+
+	// -------------------------------------------------------------
+	// script to eat and throw away key clicks
+	CHILD_SCRIPT( "help book : switch to section", kchidScript9  )
+		Return( fTrue );
+	ENDCHUNK
+
+///////////////////////////////////
+// Help book gizmo object
+///////////////////////////////////
+// -----------------------------------------------------
+// Gizmo body image that masks stuff underneath it
+// -----------------------------------------------------
+OBJECTTY("Help Book Gizmo", kgobHelpBookGizmo, 180, kcrsArrow, kgokkRectHit )
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\gizmo.bmp")
+	CREATE_ANIM("help gizmo created")
+		
+	// Spot for the Help topic title
+	CreateChildGob( GidParThis(), kgobHelpTitlePar, kgobHelpTitlePar );
+	
+	// And controls / buttons on top...
+	CreateChildThis(kgobHelpBookVolume, kgobHelpBookVolume);		
+	CreateChildThis( kgobHelpBookVolumePath, kgobHelpBookVolumePath );
+	CreateChildThis(kgobHelpBookVoice, kgobHelpBookVoice);
+	CreateChildThis(kgobHelpBookPageBack, kgobHelpBookPageBack);
+	CreateChildThis(kgobHelpBookPageFwd, kgobHelpBookPageFwd);
+	CreateChildThis(kgobHelpBookCancel, kgobHelpBookCancel);	
+
+	CreateChildThis(kgobHelpBookPrimary1, kgobHelpBookPrimary1);
+	CreateChildThis(kgobHelpBookPrimary2, kgobHelpBookPrimary2);
+	CreateChildThis(kgobHelpBookPrimary3, kgobHelpBookPrimary3);
+	CreateChildThis(kgobHelpBookPrimary4, kgobHelpBookPrimary4);
+	CreateChildThis(kgobHelpBookPrimary5, kgobHelpBookPrimary5);
+
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The "fill" is the background page color - it changes
+// for each major book section
+// -----------------------------------------------------
+OBJECT("Help Book Fill parent", kgobHelpBookFillPar, 200, kcrsArrow)
+	REP_RECT(CHID(kst1, krepDefault), "state1:normal", kLeftPageL, kTopPage, kLeftPageR, kBottomPage )
+	REP_RECT(CHID(kst2, krepDefault), "state2:howto", kLeftPageL2, kTopPage, kLeftPageR, kBottomPage )
+
+// this object is the balloon itself
+OBJECT("Help Book Fill", kgobHelpBookFill, 200, kcrsArrow)
+	REP_FILL(CHID(kst1, krepDefault), "fill", kLeftPageL, kTopPage, kLeftPageR, kBottomPage, Transparent, Transparent)
+		PATTERN_0
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Help book primary button #1
+// -----------------------------------------------------
+OBJECT("Help Table of Contents", kgobHelpBookPrimary1, 350, kcrsHand1)
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\prim1.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\prim1s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		// set section 1
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 1 );
+	ENDCHUNK
+	ADOPT_WAVE( kcnoHelpMainWav, CHID1(krepClicked))
+
+// -----------------------------------------------------
+// Help book primary button #2
+// -----------------------------------------------------
+OBJECT("Help Basics", kgobHelpBookPrimary2, 350, kcrsHand1)
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\prim2.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\prim2s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button2 clicked")
+		// set section 1
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 2 );
+	ENDCHUNK
+	ADOPT_WAVE( kcnoHelpMainWav, CHID1(krepClicked))
+
+// -----------------------------------------------------
+// Help book primary button #3
+// -----------------------------------------------------
+OBJECT("Help How To", kgobHelpBookPrimary3, 350, kcrsHand1)
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\prim3.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\prim3s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button3 clicked")
+		// Set book to last section within "How To" section
+		RunScriptGob( kgobHelpBookParent, kchidScript1, ::HBLastsub );
+	ENDCHUNK
+	ADOPT_WAVE( kcnoHelpMainWav, CHID1(krepClicked))
+
+// -----------------------------------------------------
+// Help book primary button #4
+// -----------------------------------------------------
+OBJECT("Help Tools", kgobHelpBookPrimary4, 350, kcrsHand1)
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\prim4.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\prim4s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button4 clicked")
+		// set section 1
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 9 );
+	ENDCHUNK
+	ADOPT_WAVE( kcnoHelpMainWav, CHID1(krepClicked))
+
+// -----------------------------------------------------
+// Help book primary button #5
+// -----------------------------------------------------
+OBJECT("Help Tips", kgobHelpBookPrimary5, 350, kcrsHand1)
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\prim5.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\prim5s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button5 clicked")
+		// set section 1
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 10 );
+	ENDCHUNK
+	ADOPT_WAVE( kcnoHelpMainWav, CHID1(krepClicked))
+
+// -----------------------------------------------------
+// Gizmo volume control
+// -----------------------------------------------------
+OBJECTTTREG("Help Book Volume", kgobHelpBookVolume, 350, kcrsHand1, ttBookVolume, 39, 168)
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\volume.bmp", 39, 168)
+
+// --------------------------------------------------------------------------------
+// The thumbnail is the graphic indicator of volume level...
+// positioned within the slide path - not hittable
+// --------------------------------------------------------------------------------
+OBJECTTY( "HelpBook - volume slider",  kgobHelpBookVolumeSlider, 60, kcrsArrow1, kgokkRectNoHit )
+REP_MBMP( CHID1( krepDefault ), "studio\bmp\volthmb.bmp" )
+
+// --------------------------------------------------------------------------------
+// The slider is the rectangular path the volume slider rolls around in.
+//   kdypHelpBookSlider is the height of the slidable area; kdypHelpBookSliderTotal includes
+//   height of thumbnail to be sure it will show at the min setting
+// --------------------------------------------------------------------------------
+OBJECTREG( "map - volume slidepath", kgobHelpBookVolumePath, kxpHelpBookSlider, kypHelpBookSlider, 500, kcrsHand1)
+REP_RECT( CHID1( krepDefault), "HelpBook rectangle", 0, 0, kdxpHelpBookSlider, kdypHelpBookSliderTotal )
+CREATE_SCRIPT( "create slidepath")
+	CreateChildThis( kgobHelpBookVolumeSlider, kgobHelpBookVolumeSlider  );
+	// get initial volume value, move thumbnail
+	y = kdypHelpBookSlider  -(( GetMasterVolume() * kdypHelpBookSlider )/ (2*kvlmFull));
+	MoveAbsGob( kgobHelpBookVolumeSlider, 0, y );
+ENDCHUNK
+REP_ANIM( CHID1( krepMouseDnOn), "slider")	
+	// repeat up to 30000 times.
+	.siiLoop = PlaySoundThis( kctgWave, kwavDing, 2, 0x00010000, 30000, 1, 4 );	
+	While( 1 );
+		y = YMouseThis();
+		If( y < 0 );
+			y=0;
+		Elif( y > kdypHelpBookSlider );
+			y =kdypHelpBookSlider;
+		End;
+		// move thumb slider
+		MoveAbsGob( kgobHelpBookVolumeSlider, 0, y );
+		// track new volume
+		newvol = ( (2*kvlmFull) * (kdypHelpBookSlider-y) ) / kdypHelpBookSlider;	
+		// set the volume
+		SetMasterVolume( newvol );	
+		// Sample at 10/60ths of a second.
+		Cell(  0 , 0,0, 10 );	
+	End;
+ENDCHUNK
+REP_ANIM( CHID1( kchidDownUpOn ), "release on" )
+	StopSound( .siiLoop );
+ENDCHUNK
+ADOPT_ANIM( LAST_ANIM, CHID1( kchidDownUpOff ))
+
+
+
+// -----------------------------------------------------
+// Gizmo voice toggle control
+// -----------------------------------------------------
+OBJECTTTREG("Help Book Voice Toggle", kgobHelpBookVoice, 350, kcrsHand1, ttBookVoice, kxpHelpBookVoice, kypHelpBookVoice)
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\vocon.bmp", kxpregHelpBookVoice, kypregHelpBookVoice )
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+	ADOPT_MBMP( LAST_MBMP, CHID( kst2, krepMouseDnOn ))
+
+	REP_MBMPREG(CHID1( krepMouseDnOn ), "studio\bmp\vocoff.bmp", kxpregHelpBookVoice, kypregHelpBookVoice )
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))	
+	CREATE_ANIM("MZ Voice control")
+		// see if voice should be on or off
+		fMZAudio = GetProp( kpridMcZeeAudio ) & kflgMcZeeAudio;
+		If ( fMZAudio );		// audio suppressed = state 2
+			ChangeStateThis(kst2);
+		End;
+	ENDCHUNK
+	CLICK_SCRIPT("voice toggle clicked")
+		flg = GetProp( kpridMcZeeAudio ); 
+
+		If (StateThis() == kst1);	// audio on (suppress = FALSE)
+			flg |= kflgMcZeeAudio;	// switch to audio off (suppress = TRUE)
+			SetProp( kpridMcZeeAudio, flg );
+			ChangeStateThis(kst2);	
+		Else;
+			flg &= ~kflgMcZeeAudio;	// opposite of above
+			SetProp( kpridMcZeeAudio, flg );
+			ChangeStateThis(kst1);	// toggle audio on / off state
+		End;
+		
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Page forward control
+// -----------------------------------------------------
+GOBCHUNK("Help Book Page Forward", kgobHelpBookPageFwd, kgokkNormal)
+	DEFAULT_POSITION( kxpHelpBookPageFwd, kypHelpBookPageFwd, 350)
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsHand1, CHID(kst1, kchidClick), cidNil, ttBookPageFwd)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	CHILD_SCRIPT("page Fwd clicked", CHID(kst1, kchidClick))
+		RunScriptGob( kgobHelpBookParent, kchidScript3 );
+	ENDCHUNK
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\pgfwd.bmp" , kxpregHelpBookPageFwd, kypregHelpBookPageFwd )
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMPREG(CHID1( krepMouseDnOn), "studio\bmp\pgfwdds.bmp", kxpregHelpBookPageFwd, kypregHelpBookPageFwd )
+	REP_RECT( CHID(kst2, krepDefault), "hidden",0,0,0,0 )
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	ADOPT_WAVE( kcnoHelpNextWav , CHID1(krepClicked))		
+// -----------------------------------------------------
+// Page back control
+// -----------------------------------------------------
+GOBCHUNK("Help Book Page Back", kgobHelpBookPageBack, kgokkNormal)
+	DEFAULT_POSITION(  kxpHelpBookPageBack, kypHelpBookPageBack, 350)
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsHand1, CHID(kst1, kchidClick), cidNil, ttBookPageBack)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	CHILD_SCRIPT("page back clicked", CHID(kst1, kchidClick))
+		RunScriptGob( kgobHelpBookParent, kchidScript2 );
+	ENDCHUNK
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\pgback.bmp" , kxpregHelpBookPageBack, kypregHelpBookPageBack)
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMPREG(CHID1(krepMouseDnOn), "studio\bmp\pgbackds.bmp", kxpregHelpBookPageBack, kypregHelpBookPageBack)
+	REP_RECT( CHID(kst2, krepDefault), "hidden",0,0,0,0 )	
+	ADOPT_WAVE( kcnoHelpBackWav , CHID1(krepClicked))	
+// -----------------------------------------------------
+// Help book cancel control -- ttBookCancel
+// -----------------------------------------------------
+OBJECTTTREG("Help Book Cancel", kgobHelpBookCancel, 350, kcrsHand1, ttBookCancel, kxpHelpBookCancel, kypHelpBookCancel)
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\hcancel.bmp", kxpregHelpBookCancel, kypregHelpBookCancel)
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+	REP_MBMPREG(CHID1(krepMouseDnOn), "studio\bmp\hcancelc.bmp", kxpregHelpBookCancel, kypregHelpBookCancel)
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("Cancel clicked")
+		ENABLEACCEL(fFalse);
+		DestroyGob(kgobHelpBookParent);
+	ENDCHUNK
+	ADOPT_WAVE(kcnoCancelWav, CHID1(krepClicked))	
+
+// -----------------------------------------------------
+// How To Section subsection
+// -----------------------------------------------------
+OBJECT("Help Book How To Sub", kgobHelpBookHowSub, 250, kcrsArrow)
+	CREATE_ANIM("help book howsub-create")
+		// create all of our children and set appropriate states
+		CreateChildThis(kgobHelpHowButton1, kgobHelpHowButton1);
+		CreateChildThis(kgobHelpHowButton2, kgobHelpHowButton2);
+		CreateChildThis(kgobHelpHowButton3, kgobHelpHowButton3);
+		CreateChildThis(kgobHelpHowButton4, kgobHelpHowButton4);
+		CreateChildThis(kgobHelpHowButton5, kgobHelpHowButton5);
+		CreateChildThis(kgobHelpHowButton6, kgobHelpHowButton6);
+	ENDCHUNK
+	REP_RECT( CHID1( krepDefault ), "blank", 0, 0, 0,0 )
+	REP_MASK( CHID( kst2, krepDefault ), "studio\bmp\howmsk.bmp" );
+	REP_RECT( CHID( kst3, krepDefault ), "blank", 0, 0, 0,0 )
+
+// -----------------------------------------------------
+// First "how to" subsection button
+// -----------------------------------------------------
+OBJECT("Help Book How button1", kgobHelpHowButton1, 275, kcrsHand1)
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\hbut1.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\hbut1s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		// set book to section 3
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 3 );
+	ENDCHUNK
+
+
+
+
+// -----------------------------------------------------
+// Second "how to" subsection button
+// -----------------------------------------------------
+OBJECT("Help Book How button2", kgobHelpHowButton2, 275, kcrsHand1)
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\hbut2.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\hbut2s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 4 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Third "how to" subsection button
+// -----------------------------------------------------
+OBJECT("help book How button3", kgobHelpHowButton3, 275, kcrsHand1)
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\hbut3.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\hbut3s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 5 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Fourth "how to" subsection button
+// -----------------------------------------------------
+OBJECT("Help Book How button4", kgobHelpHowButton4, 275, kcrsHand1)
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\hbut4.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\hbut4s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 6 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Fifth "how to" subsection button
+// -----------------------------------------------------
+OBJECT("Help Book How button5", kgobHelpHowButton5, 275, kcrsHand1)
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\hbut5.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\hbut5s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 7 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Sixth "how to" subsection button
+// -----------------------------------------------------
+OBJECT("Help Book How button6", kgobHelpHowButton6, 275, kcrsHand1)
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\hbut6.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(  krepMouseDnOff))
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\hbut6s.bmp")
+	ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+	CLICK_SCRIPT("button1 clicked")
+		RunScriptGob( kgobHelpBookParent, kchidScript1, 8 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Book Bkgd = rectangle to hold Title
+// size=nil; help will resize this puppy
+// -----------------------------------------------------
+OBJECTTY("Help Book Bkgd", kgobHelpBookBkgd, 225, kcrsArrow, gokkNoHitThis )
+REP_FILL(CHID(kst1, krepDefault), "title spot", 0,0,0,0, Palette(44), Transparent )
+	PATTERN_0
+ENDCHUNK
+
+
+// this space is the parent of the help title balloon -- its 
+// reg point is at 0,0  (size of the rect is -240,0  to +240, 80
+// so the position must be 320, 80
+
+GOBCHUNK( "Title space", kgobHelpTitlePar, gokkNoHitThis )
+	DEFAULT_POSITION(kxpHelpTitle, kypHelpTitle, kzpHelpTitle)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil )
+ENDCHUNK
+REP_FILL(CHID(kst1, krepDefault), "title spot", kTitleLeft, kTitleTop, kTitleRight, kTitleBottom, Palette(21), Transparent )
+	PATTERN_0
+ENDCHUNK
+	 		
+// -----------------------------------------------------
+// Book Bkgd = rectangle to hold page # help
+// -----------------------------------------------------
+OBJECT("Help Book Page Number", kgobHelpBookPageNum, 350, kcrsArrow)
+REP_RECT(CHID(kst1, krepDefault), "kgobHelpBookPageNum", kxpPageNumLeft, kypPageNumTop, kxpPageNumRight, kypPageNumBot )
+
+// ----------------------------------------------------------------
+// Left Book Page - holds help topics
+// auto-resized to hold the help topic
+// ----------------------------------------------------------------
+GOBCHUNK("Help Book Page", kgobHelpBookPageLeft, kgokkNormal)
+	DEFAULT_POSITION( 0,0,225 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kst1, krepDefault), "kgobHelpBookPageLeft", 0, 0, 0, 0 )
+
+// ----------------------------------------------------------------
+// Mouse click in the tools section of the help book
+// *** All tool topics have this listed as the script to run
+// ----------------------------------------------------------------
+HELP_SCRIPT( ktpcBookToolTopics )
+	// parm[0] = group # passed in.  0 indicates creation only.
+	If(_parm[0] != 0);	
+		// Valid group clicked!  _parm[4] is balloon to automatically
+		// create!
+		If( _parm[4] == cnoNil );
+			// no balloon?  Error!
+			DEBUGCMD( AlertStr("Not linked to a topic!") );
+		Else;
+			// create the balloon and destroy the book
+			CreateHelpGob(kidBackground, _parm[4]);
+
+			// reenable the help book's hot keys
+			ENABLEACCEL(fFalse);
+			DestroyGob(kgobHelpBookParent);
+		End;
+		Return( fTrue );	// tell code NOT to create balloon
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+// choice button clicked in TOC #1 balloon
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcBook1TOC)
+	// _parm[0] : 0 = initialization, 1 ==BASICS, 2 = HOWTO, 3 = TOOLS, 4 = TIPS
+	If(_parm[0] != 0);	
+		// Switch to appropriate section.
+		If (_parm[0] < 3);
+			RunScriptGob(kgobHelpBookParent, kchidScript1, _parm[0]+1 );
+		Else;
+			RunScriptGob(kgobHelpBookParent, kchidScript1, _parm[0]+6 );
+		End;
+	End;
+ENDCHUNK
+
+// ----------------------------------------------------------------
+// Mouse click in basics in the help book
+// All how to objects have this listed as the script to run
+// ----------------------------------------------------------------
+HELP_SCRIPT(kidHelpBookBasics)
+	// parm[0] = group # passed in
+	If(_parm[0] != 0);	
+		// Valid group clicked _parm[4] is id of table object to run
+		If( _parm[4] == cnoNil );
+			// no table?  Error, display alert then get out
+			DEBUGCMD( AlertStr("Not linked to basics");)
+		Else;
+			// create the balloon and destroy the book
+			CreateChildGob(kidBackground, kidSequenceParent, kidSequenceParent);
+			CreateChildGob(kidBackground, _parm[4], _parm[4]);
+
+			// re-enable the hotkeys for the book
+			ENABLEACCEL(fFalse);
+			DestroyGob(kgobHelpBookParent);
+		End;
+		Return( fTrue );	// tell code NOT to create help sequence
+	End;
+ENDCHUNK
+
+// ----------------------------------------------------------------
+// Mouse click in howto in the help book
+// All how to objects have this listed as the script to run
+// ----------------------------------------------------------------
+HELP_SCRIPT(kidHelpBookHowTo)
+	// parm[0] = group # passed in
+	If(_parm[0] != 0);	
+		// Valid group clicked _parm[4] is id of table object to run
+		If( _parm[4] == cnoNil );
+			// no table?  Error, display alert then get out
+			DEBUGCMD( AlertStr("Not linked to a howto!"); )
+		Else;
+			// create the balloon and destroy the book
+			CreateChildGob(kidBackground, kidSequenceParent, kidSequenceParent);
+			CreateChildGob(kidBackground, _parm[4], _parm[4]);
+			
+			// re-enable the hotkeys for the book
+			ENABLEACCEL(fFalse);
+			DestroyGob(kgobHelpBookParent);
+		End;
+		Return( fTrue );	// tell code NOT to create help sequence
+	End;
+ENDCHUNK
+
+//
+// Click scripts for query help topics.
+//
+
+// -------------------------------------------------------
+//	Query quit
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcQueryQuit)
+	// If _parm[0] != 0 then a button has been pushed.
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+//	Query document save
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcQuerySave)
+	// If _parm[0] != 0 then a button has been pushed.
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+//	Query sound delete
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcQuerySoundDelete)
+	// If _parm[0] != 0 then a button has been pushed.
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+//	Query overwrite existing file
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcQueryOverwrite)
+	// If _parm[0] != 0 then a button has been pushed.
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+//	Query exit studio to where
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcQueryExitStudio)
+	// If _parm[0] != 0 then a button has been pushed.
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+

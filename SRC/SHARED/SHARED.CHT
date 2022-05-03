@@ -1,0 +1,52 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************
+*
+*  SHARED.CHT
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Contains objects shared between Socrates Building and Studio chunks; e.g.,
+*  Map.
+*
+******************************************************************************
+*
+*  Revision History:  Created 06/26/95 by *****.
+*
+*	06/27/95	*****	Added Map and shared cursors.
+*
+*****************************************************************************/
+
+// Include and initialized chunky macros.
+#define PACKALL
+#include "kidgs.chh"
+STARTCHUNKY
+
+// IDs
+#include "stdiodef.h"
+#include "buildgob.h"
+#include "sharedef.h"
+#include "balloons.chh"
+#include "helpbook.h"
+#include "projmain.h"
+
+// Include shared object scripts.
+#include "biopage.chh"
+#include "sharutil.chh"
+#include "util.cht"
+#include "cursors.cht"
+#include "map.cht"
+
+// Get the help topics that describe the actors from here -- for now only
+// REVIEW: Need a way to integrate these into HELP.CHK?  The only ugly thing
+// is that the building will have to load help from the studio and vice versa.
+#include "sharhelp.cht"
+
+#include "biopage.cht"
+#include "portbmp.cht"

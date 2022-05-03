@@ -1,0 +1,180 @@
+; ================================================================
+; File: mmdc1.dat  Kids Page
+
+; 1. MSB Ocean 2. Dangerous Creatures 3. MSB Human
+; 4. Creative Writer  5. MSB Solar  6.  Leopard
+; 7. Explorapedia Nature 8. Fine Artist  9. Dinosaurs
+
+; ================================================================
+[catalog]
+nproducts=9
+myTOCdib=toc3dmvm.dib
+
+prod0=dibs\msbomain.dib
+prod1=dibs\dangmain.dib
+prod2=dibs\bodymain.dib
+prod3=dibs\crtvmain.dib
+prod4=dibs\sbusmain.dib
+prod5=dibs\leopmain.dib
+prod6=dibs\xplnmain.dib
+prod8=dibs\finemain.dib
+prod7=dibs\dinomain.dib
+
+;======================== product page sounds ========================
+snd0=wavs\msbocean.wav
+snd1=wavs\dang.wav
+snd2=wavs\body.wav
+snd3=wavs\crtv.wav
+snd4=wavs\solr.wav
+snd5=wavs\leop.wav
+snd6=wavs\xpln.wav
+snd8=wavs\crtv.wav
+snd7=wavs\dino.wav
+
+; ======================== popup pictures ========================== 
+pr0pic0=dibs\msbopopa.dib
+pr0pic1=dibs\msbopopb.dib
+pr0pic2=dibs\msbopopc.dib
+pr0pic3=dibs\msbopopd.dib
+
+pr1pic0=dibs\dangpopa.dib
+pr1pic1=dibs\dangpopb.dib
+pr1pic2=dibs\dangpopc.dib
+pr1pic3=dibs\dangpopd.dib
+
+pr2pic0=dibs\bodypopa.dib
+pr2pic1=dibs\bodypopb.dib
+pr2pic2=dibs\bodypopc.dib
+pr2pic3=dibs\bodypopd.dib
+
+pr3pic0=dibs\crtvpopa.dib
+pr3pic1=dibs\crtvpopb.dib
+pr3pic2=dibs\crtvpopc.dib
+pr3pic3=dibs\crtvpopd.dib
+
+pr4pic0=dibs\sbuspopa.dib
+pr4pic1=dibs\sbuspopb.dib
+pr4pic2=dibs\sbuspopc.dib
+pr4pic3=dibs\sbuspopd.dib
+
+pr5pic0=dibs\leoppopa.dib
+pr5pic1=dibs\leoppopb.dib
+pr5pic2=dibs\leoppopc.dib
+pr5pic3=dibs\leoppopd.dib
+
+pr6pic0=dibs\xplnpopa.dib
+pr6pic1=dibs\xplnpopb.dib
+pr6pic2=dibs\xplnpopc.dib
+pr6pic3=dibs\xplnpopd.dib
+
+pr8pic0=dibs\finepopa.dib
+pr8pic1=dibs\finepopb.dib
+pr8pic2=dibs\finepopc.dib
+pr8pic3=dibs\finepopd.dib
+
+pr7pic0=dibs\dinopopa.dib
+pr7pic1=dibs\dinopopb.dib
+pr7pic2=dibs\dinopopc.dib
+pr7pic3=dibs\dinopopd.dib
+
+; ============================ product text & buttons ===========================
+
+
+;Magic School Bus Ocean 
+maintxt0=Go on an undersea adventure with the Magic School Bus crew.  Explore SEVEN different ocean zones as you follow clues to the missing treasure!
+Prod0PopupLbl0=Dive into the ocean
+Prod0PopupLbl1=Learn cool facts
+Prod0PopupLbl2=Conduct Experiments
+Prod0PopupLbl3=Play in the ocean
+pr0text0=Explore seven different ocean zones from the rocky intertidal to the deep sea.  Interact with the Friz and the rest of the class who show you cool things in the ocean and make learning science fun!
+pr0text1=Check out the reports that will help you solve clues to find the missing treasure.  Reports are all done by members of the Magic School Bus class and include video clips, fun animations and cool facts. 
+pr0text2=Learn how to create the perfect wave for Liz to surf or how fish must change to live in different environments. 
+pr0text3=Drive the bus to any of the ocean zones and put on your diving gear to explore the ocean on your own.  You can also play any of the seven games or five activities for hours of fun.
+
+;2. Dangerous Creatures
+maintxt1=The wild kingdom is yours to explore! Embark on a journey that brings 250 of the world's most feared creatures to life!
+Prod1PopupLbl0=Meet Amazing Creatures
+Prod1PopupLbl1=See Eye to Eye
+Prod1PopupLbl2=Explore Their World
+Prod1PopupLbl3=Protect Our Wildlife
+pr1text0=Get close to the wildest creatures on Earth through 800 detailed articles, hundreds of full-color photographs, over 100 video clips, and hours of sounds and narration all reviewed by World Wildlife Fund.
+pr1text1=See eye to eye with more than 250 untamed animals, such as fierce alligators, charging grizzly bears, and deadly snakes and spiders. Learn fascinating facts about each animal and its habitat as well as history, myths, and legends
+pr1text2=Explore the world of wild animals on an amazing journey that will transport you from a beautiful coral reef to a tropical rainforest with a click of the mouse. It's an enriching expedition you don't want to miss!
+pr1text3=Meet endangered species who are threatened by the forces of civilization and nature. And, your purchase of Dangerous Creatures will support the conservation efforts of World Wildlife Fund to protect the world's endangered species and their habitats.
+
+;3. MSB Human
+maintxt2=Yikes, Arnold has swallowed The Magic School Bus -- and you are inside!  Stay on the bus for an interactive, multimedia science adventure through the human body.
+Prod2PopupLbl0=Take a field trip
+Prod2PopupLbl1=Learn cool facts
+Prod2PopupLbl2=Drive the bus
+Prod2PopupLbl3=Play Inside
+pr2text0=Interact with Ms. Frizzle, Arnold and the rest of your favorite characters from the Scholastic Book series and PBS Television show.  The class comes alive to tell jokes, explain science concepts and give hints on how to escape Arnold's body.
+pr2text1=Cool reports about each organ in the body are presented by Arnold's classmates.  For example, learn about the heart and hear funny jokes and other great information--all presented from a kid's perspective.
+pr2text2=You choose the path The Magic School Bus will travel through the human body.  Pump up your knowledge at the heart, pass through the kidneys, or take a slippery, slimy trip down to the stomach.  Don't worry about getting stuck inside forever, Liz will be with you the entire trip if you need help.
+pr2text3=How well do you know your major organs?  On this journey, stop at 12 different organs for an interactive game that will help you learn about your body.  Along the way, see what Arnold had for lunch!
+
+; 4. Creative Writer
+maintxt3=Jumpstart kids' imagination with Creative Writer, a creative writing program with desktop publishing projects designed for children 8 and up.
+Prod3PopupLbl0=Engaging 
+Prod3PopupLbl1=Challenging 
+Prod3PopupLbl2=Discoverable 
+Prod3PopupLbl3=Deluxe CD
+pr3text0=With the guidance of McZee and his pal Max, children can get the inspiration, tools and help they need to explore a variety of writing activities found on different floors of the program.  Creative Writer has animations, sounds and high quality graphics to keep kids interested.
+pr3text1=The Idea Workshop provides imagination sparkers such as the Splot Machine, which provide thousands of wacky story starters to get kids beyond the blank page.  In the Writing Studio, kids can add sounds, graphics, borders, and special letter effects that make writing more fun.
+pr3text2=On the Projects Floor, kids can get step by step help from Max on creating projects such as banners, greeting cards and newspapers.  Kids can work without adult assistance and create great looking output they can show off.
+pr3text3=Creative Writer is available on the Windows and Macintosh platform, in floppy and CD-ROM formats.  The Deluxe CD-ROM version has hundreds of stickers, sounds, borders, projects, and story starters by famous children's authors to inspire budding authors to even greater creativity.
+
+;5. MSB Solar
+maintxt4=Ms. Frizzle, Arnold and the gang are on a cosmic escapade exploring the solar system -- and you are invited to join them on this interactive, multimedia science adventure.
+Prod4PopupLbl0=Blast off to outer space
+Prod4PopupLbl1=Learn cool facts
+Prod4PopupLbl2=Conduct Experiments
+Prod4PopupLbl3=Play in space
+pr4text0=Interact with Ms. Frizzle, Arnold and the rest of your favorite characters from the Scholastic Book series and PBS Television show.  The class comes alive to tell jokes, explain science concepts and give hints on how to find the Friz who is lost in space.
+pr4text1=Cool planet reports are presented by Arnold and his classmates.  See video clips from NASA and hear funny jokes and other great information--all presented from a kid's perspective.
+pr4text2=This trip is packed with great experiments all future astronauts will love.  Learn how craters are formed on the moon, create rings around Saturn or alter the elements of Venus to learn how the greenhouse effect works.
+pr4text3=The Magic School Bus lets you land on the moon, tour the planets and discover the mysteries of the Solar System.  Don't worry about getting lost in space forever, Liz will be with you the entire trip if you need help.
+
+;6. Leopard
+maintxt5=Danny Glover narrates Rudyard Kilpling’s classic children’s story in this interactive, storytelling adventure.
+Prod5PopupLbl0=Listen and Read the Story 
+Prod5PopupLbl1=Discover surprises
+Prod5PopupLbl2=Play fun games
+Prod5PopupLbl3=Explore P.J’s Home
+pr5text0=Children can have this story read to them by Danny Glover or open up the storybook to hear words and phrases pronounced and key words defined. Great for children 6-10 years old.
+pr5text1=This rich story is full of music and animation. By using the mouse to click, kids can easily explore and find the magical and fun things on each page.
+pr5text2=Choose from one of four games and play for hours. Paint animals zany colors, match musical stones, assemble a jigsaw puzzle with pictures from the story or play Mancala, an African stone game.
+pr5text3=With P.J. Rabbit as the guide, kids can discover and learn about animals, music and items original to African culture.  In P.J’s rabbit hole, kids can read animated picture books about the author, the illustrator, Mancala and South Africa.
+
+;7. Explorapedia Nature 
+maintxt6=Surprises await you every- where aboard Thaddeus "Tad" Pole's magical frogship.  Microsoft's Explorapedia™ interactive encyclopedia was designed for kids - easy to use, full of facts and fun.
+Prod6PopupLbl0=Explore different environments
+Prod6PopupLbl1=In-depth information
+Prod6PopupLbl2=Browse, Play and Learn
+Prod6PopupLbl3=Narrated by children
+pr6text0=Focus on more than 200 of the plants and animals that flourish in the Rain Forests - Grasslands - Mountains - Lakes - Savannas - Polar Regions - Oceans - Deserts - Coral Reefs - Deciduous Forests - Seashores - Farms - Rivers - Evergreen Forests - Wetlands and the Universe.
+pr6text1=In-depth information unfolds as you explore almost 400 text entries, brought to life through more than 50 videos, 44 animations, 9 original songs, and an incredible 18 hours of sound.  See and hear the most amazing things about virtually every type of natural environment.
+pr6text2=The Exploratron™ Knowledge Discovery Gadget encourages continued exploration and includes more than 24 InterActivities that engage kids.   On Tad's frogship, learning is just a click away with the help of 400 Wise Crackers games, and 26 different Wise Visors projects.
+pr6text3=All content is narrated by children, so kids can enjoy exploring on their own.  More than 1800 color photographs and illustrations highlight many fascinating facts about nature. There's no set path through the product...you can browse, explore and learn through several different "levels".
+
+;9. Fine Artist
+maintxt8=Any kid can be creative with Fine Artist, an art program with painting, drawing and multimedia projects for children 8 and up. 
+Prod8PopupLbl0=Engaging 
+Prod8PopupLbl1=Challenging 
+Prod8PopupLbl2=Great Results 
+Prod8PopupLbl3=Deluxe CD
+pr8text0=In Fine Artist, children can get the inspiration, tools and help they need to explore a variety of art activities found on different floors of the program.  Kids that know Fine Artist can easily use Creative Writer because the two products share the same design and helpful characters like McZee.
+pr8text1=In Fine Artist, kids can grow with the program to learn art skills that apply beyond the computer.  On the Drawing Tricks floor Maggie, the art expert, provides Basic Drawing Tips and lessons on 3D perspective that help kids become better artists.
+pr8text2=On the Projects Floor kids can get step-by-step help on creating buttons, stickers, multimedia picture shows and comic strips.  In the Painting Studio kids can create posters, drawings and animated paintings and achieve great results that they can be proud of.
+pr8text3=Fine Artist is available on the Windows and Macintosh platform, in floppy and CD-ROM formats.  The Deluxe CD-ROM version has hundreds of stickers, new sounds, animated stickers, backgrounds and comics by well-known cartoonists to inspire budding artists to new creative heights.  
+
+;8. Dinosaurs
+maintxt7=Come face to face with the incredible creatures that once ruled the earth. It's eye-opening education and awesome entertainment!
+Prod7PopupLbl0=Discover the past
+Prod7PopupLbl1=Get close to them
+Prod7PopupLbl2=Become an expert
+Prod7PopupLbl3=Enter their world
+pr7text0=Go your own way, or take a guided tour with noted dinosaur expert "Dino Don" Lessem. You'll see the Dinosaur Olympics, Dinosaur Fashion Show, and more! Then, the past comes to life in the dinosaur movies, with clips from the PBS series "The Dinosaurs!".
+pr7text1=Grab your jungle gear, put on your pith helmet, and brace yourself as you hear dinosaurs growl and eat, then see them loom close through full-color, detailed illustrations.
+pr7text2=Where did the Herrerasaurus live? What did the Lesothosaurus eat? No question goes unanswered, no fossil unexamined, as you dig up long-buried facts-and sounds-of the amazing age of dinosaurs.
+pr7text3=Experience the ancient world of the dinosaurs as you explore the prehistoric planet they inhabited and discover what it was really like. Learn how the dinosaurs may have become extinct and how we uncover their bones today.

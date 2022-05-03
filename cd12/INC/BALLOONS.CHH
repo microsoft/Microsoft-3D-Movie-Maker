@@ -1,0 +1,74 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+// Help balloon and control definitions
+// -----------------------------------------------------
+#ifndef BALLOONS_CHH
+#define BALLOONS_CHH
+
+// misc defs, balloons, objects, etc.
+#define kgobBalloon1 			0x00016001
+#define kgobBalloonAlert		0x00016002
+#define kgobBalloonBlank		0x00016003
+#define kgobBalloonBorder1		0x00016004
+#define kgobHelpCheck			0x00016005
+#define kgobBalloonTip			0x00016006
+#define kgobBalloon1d			0x00016007
+#define kgobBalloon1e			0x00016008
+#define kgobBalloon1a			0x00016009
+#define kgobVoiceOver			0x0001600a
+#define kgobBookTitle			0x0001600b
+#define kgobBalloonLabel		0x0001600c                                                     	
+#define kgobBalloonToolTip  	0x0001600d
+#define gobBalloonToolTip		0x0001600d
+#define kgobBalloonToolTopic 	0x0001600e
+#define kgobBalloonPageLeft 	0x0001600f
+#define kgobBalloonPageRight	0x00016010
+#define kgobHelpBookToolTopics	0x00016011
+#define kgobBalloonHowtoSeq		0x00016012
+#define kgobBalloonProject		0x00016013		
+#define kgobBalloonGuideHelp	0x00016014		
+#define kgobCalloutBalloon0		0x00016015
+#define kgobCalloutBalloon1		0x00016016
+#define kgobCalloutBalloon2		0x00016017
+#define kgobCalloutBalloon3		0x00016018
+#define kgobCalloutBalloon4		0x00016019
+#define kgobCalloutBalloon5		0x0001601a
+#define kgobCalloutBalloon6		0x0001601b
+#define kgobCalloutBalloon7		0x0001601c
+#define kgobCalloutBalloon8		0x0001601d
+#define kgobCalloutBalloonP		0x0001601e
+#define kgobCalloutBalloonAO	0x0001601f
+#define kgobCalloutHTBalloon0	0x00016020
+#define kgobCalloutHTBalloon1	0x00016021
+#define kgobCalloutHTBalloon2	0x00016022
+#define kgobCalloutHTBalloon3	0x00016023
+#define kgobCalloutHTBalloon4	0x00016024
+#define kgobCalloutHTBalloon5	0x00016025
+#define kgobCalloutHTBalloon6	0x00016026
+#define kgobCalloutHTBalloon7	0x00016027
+#define kgobCalloutHTBalloon8	0x00016028
+#define kgobCalloutHTBalloonP	0x00016029
+#define kgobQueryTopics			0x0001602a
+#define	kgobBalloonToolTipAO	0x0001602b
+#define	kgobBalloonHotHelp		0x0001602c
+#define	kgobBalloonHotGadgetHelp 0x0001602d
+#define kgobBalloonToolTip2		0x0001602e
+#define kgobEaselBalloon4		0x0001602f
+#define kgobEaselBalloon6		0x00016030
+#define kgobEaselBalloon2		0x00016031
+#define kgobEaselBalloonP		0x00016032
+
+// objects
+#define kgobHelpSquishy		0x00016100
+#define _gobHelpSquishy		0x00016100
+#define kgobTipKey			0x00016101
+#define _gobTipKey			0x00016101
+#define kgobTipGem			0x00016102
+#define _gobTipGem			0x00016102
+#define kgobOkButton		0x00016103
+#define kgobQuestionButton	0x00016104
+#define kgobCancelButton	0x00016105
+
+#endif

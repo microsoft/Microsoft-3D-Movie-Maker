@@ -1,0 +1,25 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+
+// 
+//  HELP AUDIO CHUNK FILE 
+//
+
+#include "kidgs.chh"
+#include "stdiodef.h"
+#include "helptops.h"
+#include "helpbook.h"
+#include "projmain.h"
+#include "helpres.h"
+
+// here are the WAVES to include
+
+#include "wctooltp.cht"
+#include "wcbasics.cht"
+#include "wctoolhp.cht"
+#include "wcgdelgo.cht"
+#include "wcproj.cht"
+#include "wchowto.cht"
+
+

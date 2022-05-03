@@ -1,0 +1,95 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "dialogs.h"
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+BULLET                  BITMAP  DISCARDABLE     "BULLET.DIB"
+IDB_DIRDRIVE            BITMAP  DISCARDABLE     "dirdrive.bmp"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""dialogs.h""\r\n"
+    "#include <localize.h>\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "  MIN_BUT_BMP   BITMAP MOVEABLE PURE ""APPBUTT.DIB""\r\n"
+    "  IDI_CONSUMER  ICON  DISCARDABLE  ""APP.ICO""\r\n"
+    "\r\n"
+    "#if LANG=='U'\r\n"
+    "  #include ""appsetu.rc""\r\n"
+    "#elif LANG=='Z'\r\n"
+    "  #include ""appsetu.rc""\r\n"
+    "#elif LANG=='D'\r\n"
+    "  #include ""appsetd.rc""\r\n"
+    "#elif LANG=='F'\r\n"
+    "  #include ""appsetf.rc""\r\n"
+    "#elif LANG=='E'\r\n"
+    "  #include ""appsete.rc""\r\n"
+    "#elif LANG=='I'\r\n"
+    "  #include ""appseti.rc""\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+  MIN_BUT_BMP   BITMAP MOVEABLE PURE "APPBUTT.DIB"
+  IDI_CONSUMER  ICON  DISCARDABLE  "APP.ICO"
+
+#if LANG=='U'
+  #include "appsetu.rc"
+#elif LANG=='Z'
+  #include "appsetu.rc"
+#elif LANG=='D'
+  #include "appsetd.rc"
+#elif LANG=='F'
+  #include "appsetf.rc"
+#elif LANG=='E'
+  #include "appsete.rc"
+#elif LANG=='I'
+  #include "appseti.rc"
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

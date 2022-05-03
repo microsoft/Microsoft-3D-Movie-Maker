@@ -1,0 +1,28 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+#define PORTFOLIO( _var )	kgobPortfolio->_var
+
+
+OBJECT( "The portfolio",  kgobPortfolio, 975, kcrsArrow1 )
+	REP_RECT( CHID1( krepDefault ), "portfolio back", 0, 0, 640, 480)
+	CREATE_SCRIPT( "Portfolio script" )
+		.kidCallObj = kidNil;
+		.chidCallScript = chidNil;
+
+	    EnqueueCid(cidPortfolioOpen, 0, kpfPortOpenMovie, 0, kpfPortDirUsers, 0);
+	
+		FilterCmdsThis(cidPortfolioClosed, cidNil, kchidScript1);
+	ENDCHUNK
+
+	CHILD_SCRIPT("Call back from the portfolio function", kchidScript1);
+		If(_parm[2] == fTrue);
+		//	Send a message to the frame work that a movie has been selected.
+		//	EnqueueCid(cidEaselImport, kidSpltGlass, 0, 0, 0, 0);
+			RunScriptGob( PORTFOLIO( kidCallObj ), PORTFOLIO( chidCallScript ), fTrue );
+		Else;
+			RunScriptGob( PORTFOLIO( kidCallObj ), PORTFOLIO( chidCallScript ), kidNil );
+		End;
+		
+		DestroyGob( kgobPortfolio );
+	ENDCHUNK

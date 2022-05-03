@@ -1,0 +1,381 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+WAVE_CHUNK( "building\sound\backstag\GOIDA.wav", kwavVO40 )
+WAVE_CHUNK( "building\sound\backstag\GOSTU.wav", kwavVO41 )
+WAVE_CHUNK( "building\sound\backstag\GOPRJ.wav", kwavVO43 )
+
+OBJECT( "Backstage: mczee!", kgobBackstageMcZee, 200, kcrsHand1 )
+
+	// -------------------------------------------------------------
+	// State 1: Default creation state.  And the dispatch state.  
+	// Use the global kstEntry to decide which state to enter next.
+	// ------------------------------------------------------------- 
+	
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Backstage McZee dispatch." )
+		ASSERT((GLOBAL(kstEntry) >= kst2 && GLOBAL(kstEntry) <= kst6) ||
+				GLOBAL(kstEntry) == 10);
+
+		// The following flag will control whether or not mczee audio accompanies 
+		// balloon creation. ie. in toggling help on and off McZee doesn't keep talking!
+		// If set to false, Mz audio and then the flag is set to TRUE.  If true, no audio
+		// This is reset each time you create the lobby object.
+		
+		.f1sthelp=fFalse;
+		.fLipsink = fFalse;
+
+		// If we're doing the quick passthru to the Studio, we want to go
+		// directly into the Tools.
+		If (GLOBAL(kstEntry) == kst6);
+			.nxtPlcState = kst2;
+		End;
+
+		ChangeStateThis(GLOBAL(kstEntry));
+
+	ENDCHUNK
+
+	// -------------------------------------------------------------------
+	// State 2:  The waiting McZee state, where the help balloon pops.
+	// Click McZee: turns help on and off
+	// Exits:  Click doors to enter other rooms.
+	// -------------------------------------------------------------------
+	 
+	REP_ANIM( CHID( kst2, krepDefault ), "Backstage. Entry 2. Wait state and map" )
+		PLAYMIDI( kmidBackstage );
+
+		If( GLOBAL( fBackstagePS ) );
+			SETKEYS(kflgBuildingMin);
+			SETGLOBAL( fBackstagePS, fFalse );
+			WAIT_FOR_TRANSITION();			// Wait for a complete palette transition. 
+			CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI, kgobBackstageMcZeeAVI );
+			While( PlayingGob( kgobBackstageMcZeeAVI ));
+				Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+			End;
+			DestroyGob( kgobBackstageMcZeeAVI );
+			SETKEYS(kflgBuildingAll);
+		End;
+
+		If( !FGobExists( kgobBackstage1Bag ) );
+			CreateChildGob( kgobBackstage1, kgobBackstage1Bag, kgobBackstage1Bag );		
+		End;
+
+		Cell( kcell101, 0, 0, 0 );	// This cell is necessary to give this state a representation if
+									// the AVI does not play.  A representation is needed for the help
+									// balloon to position itself properly.
+
+		// Help stuff
+		If( GLOBAL(fHelpOn) );
+			CreateHelpGob( kgobBackstage1, ktpcBackstage );
+		Elif( GLOBAL( fBkstg1stHelp ) ); 
+			SETGLOBAL( fBkstg1stHelp, fFalse );
+ 			SETGLOBAL( fHelpOn, fTrue );
+			CreateHelpGob( kgobBackstage1, ktpcBackstage );
+		End;
+
+		While( fTrue );
+			If( .fLipsink );
+			   	.fLipsink = fFalse;
+				cnt = kcell501;
+				VOICE( kwavVO59, ktpcVO59 );
+				While( cnt < kcell520 );
+					Cell( cnt++, 0, 0, 6);                                  
+				End;
+			End;
+
+			cnt = kcell1;
+			While( cnt <= kcell12 );
+				Cell( cnt, 0,0, 6 );
+				cnt++;
+			End;
+
+			rnd=Rnd(10);
+			If( rnd == 0 );
+			  	cnt = kcell21;
+				While( cnt <= kcell32 );
+					Cell( cnt, 0,0, 6 );
+					cnt++;
+				End;
+			Elif( rnd == 1 );
+			  	cnt = kcell32;
+				While( cnt >= kcell21 );
+					Cell( cnt, 0,0, 6 );
+					cnt--;
+				End;
+			Elif( rnd == 2 );
+			  	// spin faster and faster and faster!
+				Cell( kcell21, 0,0, 11 );
+				Cell( kcell22, 0,0, 10 );
+				Cell( kcell23, 0,0, 9 );
+				Cell( kcell24, 0,0, 8 );
+				Cell( kcell25, 0,0, 7 );
+				Cell( kcell26, 0,0, 6 );
+
+				Cell( kcell27, 0,0, 4 );
+				Cell( kcell28, 0,0, 4 );
+				Cell( kcell29, 0,0, 4 );
+				Cell( kcell30, 0,0, 4 );
+				Cell( kcell23, 0,0, 4 );
+				Cell( kcell24, 0,0, 4 );
+				Cell( kcell25, 0,0, 4 );
+				Cell( kcell26, 0,0, 4 );
+
+				Cell( kcell27, 0,0, 6 );
+				Cell( kcell28, 0,0, 7 );
+				Cell( kcell29, 0,0, 8 );
+				Cell( kcell30, 0,0, 9 );
+				Cell( kcell31, 0,0, 10 );
+				Cell( kcell32, 0,0, 11 );
+			End;
+		End;
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst3, krepDefault ), "Studio welcome" )
+		PLAYMIDI( kmidStudio );
+		WAIT_FOR_TRANSITION();			// Wait for a complete palette transition. 
+		CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI3, kgobBackstageMcZeeAVI3 );	
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		While( PlayingGob( kgobBackstageMcZeeAVI3 ));
+			Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+		End;
+		DestroyGob( kgobBackstageMcZeeAVI3 );			 
+		NEXTPLACE1(kgobStudio1, kst2 );
+	ENDCHUNK
+
+	REP_ANIM(CHID(kst4, krepDefault), "Ideas welcome")
+		PLAYMIDI( kmidIdeas );
+		WAIT_FOR_TRANSITION();			// Wait for a complete palette transition. 
+		CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI2, kgobBackstageMcZeeAVI2 );	
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		While( PlayingGob( kgobBackstageMcZeeAVI2 ));
+			Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+		End;
+		DestroyGob( kgobBackstageMcZeeAVI2 );			 
+		NEXTPLACE1(kgobInspiration1, kst2 );
+	ENDCHUNK
+		
+	REP_ANIM( CHID(kst5, krepDefault), "Projects welcome")
+		PLAYMIDI( kmidProject );
+		WAIT_FOR_TRANSITION();			// Wait for a complete palette transition. 
+		CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI1, kgobBackstageMcZeeAVI1 );	
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		While( PlayingGob( kgobBackstageMcZeeAVI1 ));
+			Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+		End;
+		DestroyGob( kgobBackstageMcZeeAVI1 );			 
+		NEXTPLACE1(kgobProjects1, kst1);
+	ENDCHUNK
+
+	REP_ANIM( CHID(kst6, krepDefault), "Plunger opens studio")
+		Cell( kcell21, 0,0, 1 );		// draw one cell (to place McZee)
+		If( !FGobExists( kgobBackstage1Bag ) );
+			CreateChildGob( kgobBackstage1, kgobBackstage1Bag, kgobBackstage1Bag );		
+		End;
+		WAIT_FOR_TRANSITION();			// Wait for a complete palette transition. 
+
+		// destroy the help balloon
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1d );   // This destroys the balloon that holds the tip
+
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		PLAYMIDI( kmidStudio );
+	
+		CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI6, kgobBackstageMcZeeAVI6 );	
+		While( PlayingGob( kgobBackstageMcZeeAVI6 ));
+			Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+		End;
+		DestroyGob( kgobBackstageMcZeeAVI6 );			 
+		NEXTPLACE1( kgobStudio1, .nxtPlcState );	// The next state is determined from
+	ENDCHUNK										// the entry state into this place.
+
+	REP_ANIM( CHID( kst8, krepDefault ), "Plunger opens ideas" )
+		// destroy the help balloon
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1d );   // This destroys the balloon that holds the tip
+
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		PLAYMIDI( kmidIdeas );
+		CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI4, kgobBackstageMcZeeAVI4 );	
+		While( PlayingGob( kgobBackstageMcZeeAVI4 ));
+			Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+		End;
+		DestroyGob( kgobBackstageMcZeeAVI4 );			 
+		NEXTPLACE1( kgobInspiration1, kst2 );
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst9, krepDefault ), "Plunger opens projects" )
+		// destroy the help balloon
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1d );   // This destroys the balloon that holds the tip
+
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		PLAYMIDI( kmidProject );
+		CreateChildGob( kgobBackstage1, kgobBackstageMcZeeAVI5, kgobBackstageMcZeeAVI5 );	
+		While( PlayingGob( kgobBackstageMcZeeAVI5 ));
+			Cell( kcellNull, 0,0, 6 );	// Cell command being used as a timer.
+		End;
+		DestroyGob( kgobBackstageMcZeeAVI5 );			 
+		NEXTPLACE1( kgobProjects1, kst1 );
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst10, krepDefault ), "Camera pull to backstage" )
+		Cell( kcell401, 0,0, 6 );		// This first cell is full screen so put it up and fade into it.
+		WAIT_FOR_TRANSITION();			// Wait for a complete palette transition. 
+		PLAYMIDI( kmidBackstage );
+		cnt=kcell402;
+		While( cnt <= kcell421 );
+			Cell( cnt++, 0,0, 6 );	
+		End;
+
+		// The above animation ends with McZee off stage.  If the long
+		// intro (1 time per session) animation is going to play, it ends 
+		// with	McZee in the idle loop.  Otherwise a short animation is need 
+		// to bring McZee from off screen to the idle loop.
+		// Here is the "Otherwise" animation:
+		If( !GLOBAL( fBackstagePS ) );
+ 			cnt=kcell451;
+			CreateChildGob( kgobBackstage1, kgobBackstage1Bag, kgobBackstage1Bag );		
+			ChangeStateGob( kgobBackstage1Bag, kst2 );
+			CreateChildGob( kgobBackstage1, kgobBackstage1Shadow, kgobBackstage1Shadow );		
+			While( cnt <= kcell484 );
+				Cell( cnt++, 0,0, 8 );	
+			End;
+		End;
+
+		ChangeStateThis( kst2 );
+	ENDCHUNK
+
+	CLICK_SCRIPT("Clicked Mz, toggle help")
+		If( GLOBAL( fHelpOn ) );
+			SETGLOBAL( fHelpOn, fFalse );
+			DestroyGob( kgobBalloon1d );  	// This destroys the balloon that holds the tip
+		Else;
+			SETGLOBAL( fHelpOn, fTrue );
+			CreateHelpGob( kgobBackstage1, ktpcBackstage );
+		End;
+	ENDCHUNK
+	REP_RECT( kcellNull, "No representation.", 0,0,1,1 )
+	#include "mzbkstg.seq"
+
+
+HELP_SCRIPT( ktpcBackstage )
+ 	If( _parm[0] == 0 );
+		If( !kgobBackstageMcZee->f1sthelp );		
+			kgobBackstageMcZee->fLipsink = fTrue;
+			kgobBackstageMcZee->f1sthelp = fTrue;
+		End;
+	Elif( _parm[0] == 1 );		// Work on a project.
+		DestroyGob( kgobBalloon1d );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		ChangeStateGob( kgobBackstageMcZee, kst9 );
+
+	Elif( _parm[0] == 2 );		// Get ideas for your movie.
+		DestroyGob( kgobBalloon1d );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		ChangeStateGob( kgobBackstageMcZee, kst8 );
+
+	Elif( _parm[0] == 3 );		// Work on your own movie.
+		DestroyGob( kgobBalloon1d );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		kgobBackstageMcZee->nxtPlcState	= kst2;
+		ChangeStateGob( kgobBackstageMcZee, kst6 );
+	End;
+ENDCHUNK
+
+OBJECT( "Project room opening door", kgobProjectDoor, 150, kcrsArrow1 )
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Ideas rm door opening anim" )
+		cnt=kcell1;
+		While( cnt <= kcell16 );
+			Cell( cnt++, 0,0, 6 );		
+		End;
+	ENDCHUNK
+	#include "PrDoor.seq"
+
+OBJECT( "Studio room opening door", kgobStudioDoor, 150, kcrsArrow1 )
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Ideas rm door opening anim" )
+		cnt=kcell1;
+		While( cnt <= kcell16 );
+			Cell( cnt++, 0,0, 6 );	
+		End;
+	ENDCHUNK
+	#include "StDoor.seq"
+
+OBJECT( "Ideas room opening door", kgobIdeaDoor, 150, kcrsArrow1 )
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Ideas rm door opening anim" )
+		cnt=kcell1;
+		While( cnt <= kcell18 );
+			Cell( cnt++, 0,0, 6 );	
+		End;
+	ENDCHUNK
+	#include "IdDoor.seq"
+
+ OBJECT( "Mz's carpet bag", kgobBackstage1Bag, 150, kcrsArrow1 )
+	REP_PPMBMP( CHID( kst1, krepDefault ), "building\pbm\backstag\bag12.pbm" )
+ 	REP_ANIM( CHID( kst2, krepDefault ), "Backstage carpet bag anim" )
+		cnt=kcell1;
+		While( cnt <= kcell20 );
+			Cell( cnt++, 0,0, 8 );		
+		End;
+		ChangeStateThis( kst1 );
+	ENDCHUNK
+	#include "BkstgBag.seq"
+ 
+ OBJECT( "Mz's shadow", kgobBackstage1Shadow, 150, kcrsArrow1 )
+ 	REP_ANIM( CHID( kst1, krepDefault ), "Backstage shadow anim" )
+		cnt=kcell1;
+		While( cnt <= kcell34 );
+			Cell( cnt++, 0,0, 8 );		
+		End;
+		DestroyThis();
+	ENDCHUNK
+	#include "BkShdw.seq"
+
+//------------------------------------------------------------------
+// The long backstage welcome.  An AVI sequence.
+//------------------------------------------------------------------
+OBJECTREG( "Backstage McZee AVI", kgobBackstageMcZeeAVI, 0, 0, 200, kcrsHand1 )
+	REP_VIDEO( CHID1( krepDefault ), "backstag.avi", fTrue )
+	CLICK_SCRIPT( "click McZee AVI" )
+			DestroyThis();
+	ENDCHUNK
+
+OBJECTREG( "AVI1", kgobBackstageMcZeeAVI1, 0, 0, 100, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "05LOGN4.AVI", fTrue )
+
+OBJECTREG( "AVI2", kgobBackstageMcZeeAVI2, 0, 0, 100, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "LOGN5.AVI", fTrue )
+
+OBJECTREG( "AVI3", kgobBackstageMcZeeAVI3, 0, 0, 100, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "LOGN06.AVI", fTrue )
+
+OBJECTREG( "AVI4", kgobBackstageMcZeeAVI4, 0, 0, 100, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "GOIDA.AVI", fTrue )
+
+OBJECTREG( "AVI5", kgobBackstageMcZeeAVI5, 0, 0, 100, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "GOPRJ.AVI", fTrue )
+
+OBJECTREG( "AVI6", kgobBackstageMcZeeAVI6, 0, 0, 100, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "GOSTU.AVI", fTrue )
+
+
+
+OBJECT( "bs1 - inspiration door", kgobBackstage1Insp, 150, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\Bkstgdr1.bmp", 0, 0 )
+	CLICK_SCRIPT( "bkstg2 : click insp. door" )
+		ChangeStateGob( kgobBackstageMcZee, kst8 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+OBJECT( "bs1 - studio door", kgobBackstage1Studio, 150, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\Bkstgdr2.bmp",0 ,0 )
+	CLICK_SCRIPT( "bkstg2 : click studio door" )
+		kgobBackstageMcZee->nxtPlcState	= kst1;
+		ChangeStateGob( kgobBackstageMcZee, kst6 );
+	ENDCHUNK
+
+// -----------------------------------------------------
+OBJECT( "bs1 - projects door", kgobBackstage1Proj, 150, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\backstag\Bkstgdr3.bmp", 0, 0 )
+	CLICK_SCRIPT( "bs2 : click projects door" )
+		ChangeStateGob( kgobBackstageMcZee, kst9 );
+	ENDCHUNK
+

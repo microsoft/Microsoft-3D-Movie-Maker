@@ -1,0 +1,395 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "chelpres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "framedef.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+128 MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                cidNew
+        MENUITEM "&Open...\tCtrl+O",            cidOpen
+        MENUITEM "Open &Text...",               cidOpenText
+        MENUITEM "Open &Rich Text...",          cidOpenRichText
+        MENUITEM "&Load Resources...",          cidLoadResFile
+        MENUITEM SEPARATOR
+        MENUITEM "&Close\tCtrl+W",              cidClose
+        MENUITEM "Sa&ve and Close  \tCtrl+E",   cidSaveAndClose
+        MENUITEM "&Save\tCtrl+S",               cidSave
+        MENUITEM "Save &As...",                 cidSaveAs
+        MENUITEM "Save a Cop&y...",             cidSaveCopy
+        MENUITEM "&Export Text...",             cidExportText
+        MENUITEM "&Dump Text...",               cidDumpText
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           cidPrint
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tCtrl+Q",               cidQuit
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               cidUndo
+        MENUITEM "&Redo\tCtrl+A",               cidRedo
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                cidCut
+        MENUITEM "&Copy\tCtrl+C",               cidCopy
+        MENUITEM "&Paste\tCtrl+V",              cidPaste
+        MENUITEM "&Delete\tDel",                cidClear
+        MENUITEM SEPARATOR
+        MENUITEM "&Show Clipboard",             cidShowClipboard
+        MENUITEM SEPARATOR
+        MENUITEM "&Find...\tCtrl+F",            cidFind
+        MENUITEM "Find A&gain\tCtrl+G",         cidFindAgain
+        MENUITEM "Find in &Next Topic\tCtrl+Y", cidFindNextTopic
+        MENUITEM "R&eplace then Find\tCtrl+H",  cidReplaceFind
+        MENUITEM "Rep&lace Selection\tCtrl+J",  cidReplace
+        MENUITEM SEPARATOR
+        MENUITEM "C&heck Spelling",             cidSpellCheck
+        MENUITEM "_",                           cidChooseLanguage
+    END
+    POPUP "To&pic"
+    BEGIN
+        MENUITEM "&New",                        cidNewTopic
+        MENUITEM "&Delete\tDel",                cidDeleteTopic
+        MENUITEM "&Edit\tEnter",                cidEditTopic
+        MENUITEM "Ne&xt Topic\tCtrl+Shift+N",   cidNextTopic
+        MENUITEM "&Previous Topic\tCtrl+Shift+B", cidPrevTopic
+        MENUITEM SEPARATOR
+        MENUITEM "Edit &Info...\tCtrl+Shift+I", cidEditHtop
+        MENUITEM "Insert Edit &Control...\tCtrl+Shift+E", cidInsertEdit
+    END
+    POPUP "Forma&t"
+    BEGIN
+        MENUITEM "&Plain\tCtrl+Shift+P",        cidPlain
+        MENUITEM "&Bold\tCtrl+B",               cidBold
+        MENUITEM "&Italic\tCtrl+I",             cidItalic
+        MENUITEM "&Underline\tCtrl+U",          cidUnderline
+        MENUITEM SEPARATOR
+        MENUITEM "Pic&ture...",                 cidFormatPicture
+        MENUITEM "Butt&on...",                  cidFormatButton
+        MENUITEM "&Edit Control...",            cidFormatEdit
+        MENUITEM "&Group...",                   cidGroupText
+        MENUITEM "&Vertical Adjustment...",     cidChooseSubSuper
+        MENUITEM "Li&ne Spacing...",            cidLineSpacing
+        MENUITEM SEPARATOR
+        MENUITEM "&Left Justify\tCtrl+L",       cidJustifyLeft
+        MENUITEM "&Center Justify\tCtrl+T",     cidJustifyCenter
+        MENUITEM "&Right Justify\tCtrl+R",      cidJustifyRight
+        MENUITEM SEPARATOR
+        MENUITEM "No In&dent",                  cidIndentNone
+        MENUITEM "Indent &First",               cidIndentFirst
+        MENUITEM "Indent Re&st",                cidIndentRest
+        MENUITEM "Indent &All",                 cidIndentAll
+        MENUITEM "_",                           cidChooseFontSize
+    END
+    POPUP "F&ont"
+    BEGIN
+        MENUITEM "Choose F&ont...\tCtrl+Shift+F", cidFontDialog
+        MENUITEM "$",                           cidChooseFont
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "_",                           cidChooseWnd
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "chelpres.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""framedef.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""frame.rc""\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+acidMain ACCELERATORS DISCARDABLE 
+BEGIN
+    "A",            cidRedo,                VIRTKEY, CONTROL, NOINVERT
+    "B",            cidBold,                VIRTKEY, CONTROL, NOINVERT
+    "B",            cidPrevTopic,           VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "C",            cidCopy,                VIRTKEY, CONTROL, NOINVERT
+    "E",            cidSaveAndClose,        VIRTKEY, CONTROL, NOINVERT
+    "E",            cidInsertEdit,          VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "F",            cidFind,                VIRTKEY, CONTROL, NOINVERT
+    "F",            cidFontDialog,          VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "G",            cidFindAgain,           VIRTKEY, CONTROL, NOINVERT
+    "H",            cidReplaceFind,         VIRTKEY, CONTROL, NOINVERT
+    "I",            cidItalic,              VIRTKEY, CONTROL, NOINVERT
+    "I",            cidEditHtop,            VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "J",            cidReplace,             VIRTKEY, CONTROL, NOINVERT
+    "L",            cidJustifyLeft,         VIRTKEY, CONTROL, NOINVERT
+    "N",            cidNew,                 VIRTKEY, CONTROL, NOINVERT
+    "N",            cidNextTopic,           VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "O",            cidOpen,                VIRTKEY, CONTROL, NOINVERT
+    "P",            cidPrint,               VIRTKEY, CONTROL, NOINVERT
+    "P",            cidPlain,               VIRTKEY, SHIFT, CONTROL, 
+                                                    NOINVERT
+    "Q",            cidQuit,                VIRTKEY, CONTROL, NOINVERT
+    "R",            cidJustifyRight,        VIRTKEY, CONTROL, NOINVERT
+    "S",            cidSave,                VIRTKEY, CONTROL, NOINVERT
+    "T",            cidJustifyCenter,       VIRTKEY, CONTROL, NOINVERT
+    "U",            cidUnderline,           VIRTKEY, CONTROL, NOINVERT
+    "V",            cidPaste,               VIRTKEY, CONTROL, NOINVERT
+    "W",            cidClose,               VIRTKEY, CONTROL, NOINVERT
+    "X",            cidCut,                 VIRTKEY, CONTROL, NOINVERT
+    "Y",            cidFindNextTopic,       VIRTKEY, CONTROL, NOINVERT
+    "Z",            cidUndo,                VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+dlidFormatPicture DIALOG DISCARDABLE  100, 100, 185, 49
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Picture Properties"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,7,50,14
+    PUSHBUTTON      "Cancel",2,129,25,50,14
+    EDITTEXT        3,42,11,70,12,ES_AUTOHSCROLL
+    RTEXT           "Name:",4,10,12,27,9
+END
+
+dlidFormatButton DIALOG DISCARDABLE  100, 100, 214, 67
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Button Properties"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,147,6,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,147,25,50,14
+    EDITTEXT        3,76,8,62,12,ES_AUTOHSCROLL
+    RTEXT           "Resource Name:",6,8,11,65,10
+    EDITTEXT        4,76,27,62,12,ES_AUTOHSCROLL
+    RTEXT           "Topic Number:",7,9,30,64,10
+    EDITTEXT        5,76,46,62,12,ES_AUTOHSCROLL
+    RTEXT           "Topic Name:",8,16,49,57,10
+END
+
+dlidGroupText DIALOG DISCARDABLE  100, 100, 255, 77
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Group Text"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,187,6,50,14
+    PUSHBUTTON      "Cancel",2,187,22,50,14
+    EDITTEXT        3,123,11,40,12,ES_AUTOHSCROLL
+    EDITTEXT        4,123,30,40,12,ES_AUTOHSCROLL
+    EDITTEXT        5,123,49,112,12,ES_AUTOHSCROLL
+    RTEXT           "Group Number (0 for none):",10,5,12,112,10
+    RTEXT           "Topic Number:",11,20,31,97,9
+    RTEXT           "TopicName:",12,20,51,97,9
+END
+
+dlidTopicInfo DIALOG DISCARDABLE  100, 100, 357, 203
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Topic Information"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,284,6,50,14
+    PUSHBUTTON      "Cancel",2,284,22,50,14
+    EDITTEXT        3,77,9,48,12,ES_AUTOHSCROLL
+    EDITTEXT        4,165,9,102,12,ES_AUTOHSCROLL
+    EDITTEXT        5,165,26,102,12,ES_AUTOHSCROLL
+    EDITTEXT        6,77,43,48,12,ES_AUTOHSCROLL
+    EDITTEXT        7,165,43,102,12,ES_AUTOHSCROLL
+    EDITTEXT        8,77,60,48,12,ES_AUTOHSCROLL
+    EDITTEXT        9,165,60,102,12,ES_AUTOHSCROLL
+    EDITTEXT        10,77,77,48,12,ES_AUTOHSCROLL
+    EDITTEXT        11,165,77,102,12,ES_AUTOHSCROLL
+    EDITTEXT        12,77,100,36,12,ES_AUTOHSCROLL
+    EDITTEXT        13,165,100,40,12,ES_AUTOHSCROLL
+    EDITTEXT        14,165,120,102,12,ES_AUTOHSCROLL
+    EDITTEXT        15,77,139,36,12,ES_AUTOHSCROLL
+    EDITTEXT        16,77,156,48,12,ES_AUTOHSCROLL
+    EDITTEXT        17,165,156,102,12,ES_AUTOHSCROLL
+    EDITTEXT        18,165,176,40,12,ES_AUTOHSCROLL
+    RTEXT           "Balloon (GOKD)#:",100,2,11,72,8
+    RTEXT           "Name:",101,128,11,35,8
+    RTEXT           "Topic Name:",102,100,28,63,8
+    RTEXT           "Gob ID #:",103,14,45,60,8
+    RTEXT           "Name:",104,132,45,31,8
+    RTEXT           "Target Gob ID #:",105,7,62,67,8
+    RTEXT           "Name:",106,129,62,34,8
+    RTEXT           "Script #:",107,14,79,60,8
+    RTEXT           "Name:",108,126,79,37,8
+    RTEXT           "X Offset:",109,17,102,57,7
+    RTEXT           "Y Offset:",110,118,102,45,7
+    RTEXT           "Topic Description:",111,82,123,82,8
+    RTEXT           "Sound CTG:",112,16,141,58,7
+    RTEXT           "Sound CNO:",115,14,158,60,8
+    RTEXT           "Name:",116,130,158,33,8
+    RTEXT           "Topic Width (Pixels):",114,77,178,85,9
+END
+
+dlidFontSize DIALOG DISCARDABLE  100, 100, 185, 49
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Font size"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,6,50,14
+    PUSHBUTTON      "Cancel",2,129,23,50,14
+    EDITTEXT        3,59,11,33,12,ES_AUTOHSCROLL
+    RTEXT           "Size:",4,24,13,30,7
+END
+
+dlidSubSuper DIALOG DISCARDABLE  100, 100, 210, 50
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Subscript/Superscript"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,147,6,50,14
+    PUSHBUTTON      "Cancel",2,147,23,50,14
+    EDITTEXT        3,90,11,33,12,ES_AUTOHSCROLL
+    RTEXT           "Offset (0 to 127):",5,10,13,77,10
+    CONTROL         "&Superscript",4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    48,31,63,10
+END
+
+dlidFormatEdit DIALOG DISCARDABLE  100, 100, 166, 48
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Format Edit Control"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,102,6,50,14
+    PUSHBUTTON      "Cancel",2,102,23,50,14
+    EDITTEXT        3,39,10,40,12,ES_AUTOHSCROLL
+    RTEXT           "Width:",20,5,12,30,7
+END
+
+dlidFind DIALOG DISCARDABLE  100, 100, 212, 84
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Find"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,134,6,50,14
+    PUSHBUTTON      "Cancel",2,134,23,50,14
+    EDITTEXT        3,42,9,81,12,ES_AUTOHSCROLL
+    EDITTEXT        4,42,26,81,12,ES_AUTOHSCROLL
+    CONTROL         "&Case Sensitive",5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,41,49,99,10
+    CONTROL         "&All Topics",6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,41,
+                    63,99,10
+    RTEXT           "Find:",10,6,11,33,7
+    RTEXT           "Replace:",11,3,27,36,10
+END
+
+dlidSpacing DIALOG DISCARDABLE  100, 100, 185, 100
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Line & Para Spacing"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,6,50,14
+    PUSHBUTTON      "Cancel",2,129,23,50,14
+    EDITTEXT        3,78,9,40,12,ES_AUTOHSCROLL
+    EDITTEXT        4,78,31,40,12,ES_AUTOHSCROLL
+    EDITTEXT        5,78,53,40,12,ES_AUTOHSCROLL
+    EDITTEXT        6,78,75,40,12,ES_AUTOHSCROLL
+    RTEXT           "Line Extra:",7,5,11,70,9
+    RTEXT           "Line Numerator:",8,5,33,70,9
+    RTEXT           "Para Extra:",9,5,55,70,9
+    RTEXT           "Para Numerator:",10,5,77,70,9
+END
+
+dlidCheckSpelling DIALOG DISCARDABLE  100, 100, 250, 136
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Spelling"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "&Ignore",1,194,6,50,14
+    PUSHBUTTON      "Cancel",2,194,23,50,14
+    PUSHBUTTON      "&Change",3,194,51,50,14
+    PUSHBUTTON      "C&hange All",4,194,68,50,14
+    PUSHBUTTON      "I&gnore All",5,194,98,50,14
+    PUSHBUTTON      "&Add",6,194,115,50,14
+    COMBOBOX        7,68,37,81,87,CBS_SIMPLE | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        8,73,13,92,12,ES_AUTOHSCROLL | ES_READONLY | WS_DISABLED | 
+                    NOT WS_TABSTOP
+    RTEXT           "Change To:",100,10,39,54,10
+    RTEXT           "Not in Dictionary:",101,6,14,65,10
+END
+
+dlidChooseLanguage DIALOG DISCARDABLE  100, 100, 185, 49
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Language"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,6,50,14
+    PUSHBUTTON      "Cancel",2,129,23,50,14
+    EDITTEXT        3,84,11,33,12,ES_AUTOHSCROLL
+    RTEXT           "Language Code:",4,3,13,78,10
+END
+
+dlidChooseFont DIALOG DISCARDABLE  0, 0, 235, 195
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Choose Font"
+FONT 8, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,179,9,50,14
+    PUSHBUTTON      "Cancel",2,179,28,50,14
+    COMBOBOX        3,44,12,118,166,CBS_SIMPLE | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Font:",10,6,15,34,11
+END
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "frame.rc"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

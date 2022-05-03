@@ -1,0 +1,16 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ------------------------------------------------------------------------
+// Shared cursor definitions... 
+// ------------------------------------------------------------------------
+
+CURSORCHUNK( "shared\cursors\hotspot.cur", kcrsHand1 )
+CURSORCHUNK( "shared\cursors\default.cur", kcrsArrow1 )
+CURSORCHUNK( "shared\cursors\actions2.cur", kcrsWand1 )
+CURSORCHUNK( "shared\cursors\crs1018.cur", kcrsStar )
+CURSORCHUNK( "shared\cursors\turnleft.cur", kcrsLeft )
+CURSORCHUNK( "shared\cursors\turnrigt.cur", kcrsRight )
+CURSORCHUNK( "shared\cursors\turnarnd.cur", kcrsDown )
+CURSORCHUNK( "shared\cursors\turnarnd.cur", kcrsTurn1 )
+

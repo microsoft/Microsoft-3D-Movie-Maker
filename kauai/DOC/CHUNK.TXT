@@ -1,0 +1,289 @@
+/***************************************************************************
+
+	Chunky file API.
+
+***************************************************************************/
+
+
+/****************************************
+	Types
+****************************************/
+
+	class CFL;
+	typedef class CFL *PCFL;
+		A chunky file.
+
+	class CGE;
+		An auto class to enumerate over a subgraph of a chunky file.
+		It is illegal to assign a cge to another cge.
+
+	typedef ulong CTG;
+		A chunk type.  These should all be registered in ctg.h.
+
+	typedef ulong CNO;
+		A chunk number.  These are assigned by the chunky code when a
+		chunk is created.  It is possible to create a chunk with a given
+		cno, but this is generally not a good thing to do as doing so will
+		overwrite any existing chunk with that cno.
+
+	struct CKI;
+		A struct consisting of a ctg and cno.  Identifies a chunk within
+		a chunky file.
+
+	typedef ulong CHID;
+		A child id.  When adding a child to a chunk, you can specify an
+		id by which you will refer to the child (in the context of the
+		parent).  These are preserved when chunks are copied to other
+		files (while cno's may not be).
+
+	struct KID;
+		A struct consisting of a CKI and a CHID.  Identifies a child chunk.
+
+	ulong grfcfl;
+		A group of flags indicating chunky file options.
+
+
+/****************************************
+	Constants
+****************************************/
+
+	ulong fcflNil;			// default options
+	ulong fcflWriteEnable;	// open with write permissions
+	ulong fcflTemp;			// make it a temp chunky file
+	ulong fcflMark;			// mark the chunky file (see below)
+	ulong fcflAddToExtra;	// forces added chunks to be in a temp file
+							// (until FSave is called).
+	ulong fcflFull;			// debug only - may be passed to AssertObj to
+							// do a full check of the chunky file
+
+
+/****************************************
+	Concepts
+****************************************/
+
+Chunky files have both a mark flag and an open count.  See file.txt for
+a description of how these work.
+
+If a chunky file is opened read-only, or if fcflAddToExtra is specified
+at open or create time, then chunks are added to a temp file associated
+with the chunky file.  When the chunky file is then saved, all chunk data
+is put in the same file.
+
+Opening a chunky file with write permissions (and without fAddToExtra),
+then adding chunks to the file invalidates the file until it is saved
+(the index is trashed on disk until it is saved).  Closing a chunky file
+does _not_ automatically save it.
+
+The chunks in a CFL form an acyclic directed graph.  Ie, a chunk can own
+other ("child") chunks.  Child chunks may be owned by more than one chunk
+and may themselves own chunks.  It is illegal to create a cycle, where a
+chunk is a direct or indirect descendent of itself.
+
+REVIEW shonk: assert and check for cycles.
+
+
+/****************************************
+	CFL static methods
+****************************************/
+
+	PCFL CFL::PcflFirst(void);
+		Chunky files form a linked list.  This returns the first chunky file
+		in the linked list.
+
+	PCFL CFL::PcflFromFni(FNI *pfni);
+		If the file indicated by *pfni is open as a chunky file, this returns
+		a pointer to the CFL.  Otherwise it returns pNil.
+
+	PCFL CFL::PcflOpen(FNI *pfni, ulong grfcfl);
+		Attempts to open the indicated file as a chunky file.  grfcfl may
+		include fcflWriteEnable, fcflAddToExtra, fcflMark.  fcflTemp is
+		illegal.  If the file is already open as a chunky file, this ensures
+		that the permissions are high enough and increments the open count.
+		This should be balanced with a call to pcfl->Close().  Specifying
+		fcflMark causes the cfl to be marked (but not the underlying fil).
+		Returns pNil on failure.
+
+	PCFL CFL::PcflCreate(FNI *pfni, ulong grfcfl);
+		Creates and opens the indicated file as a chunk file (asserts that it
+		isn't already open) and sets the open count to 1.  Assumes
+		fcflWriteEnable.  fcflMark is legal.  Use fcflTemp to create a temp
+		chunky file, which will be automatically deleted when it is closed.
+		Returns pNil on failure.
+
+	void CFL::ClearMarks(void);
+		Clears the mark flag on all chunky files.  See discussion under
+		concepts.
+
+	void CFL::CloseUnmarked(void);
+		Closes all chunky files that are not marked and have zero open count.
+		See discussion under concepts.
+
+
+/****************************************
+	CFL methods
+****************************************/
+
+	PCFL CFL::Next(void);
+		Returns the next chunky file (in the linked list).
+
+	void CFL::Open(void);
+		Increment the open count, nothing more.
+
+	void CFL::Close(void);
+		Decrements the open count.  If the cfl is not marked and the
+		open count becomes zero, the cfl is closed.
+
+	bool CFL::FSave(CTG ctgCreator, FNI *pfni = pNil);
+		Saves the chunky file.  Passing pNil (or the current fni of the CFL)
+		for pfni does a normal save.  Passing any other fni does a save as
+		(the original file still exists).  Note:  if you do a save as, but
+		added chunks to the file and had it open for writing, the original
+		file may be corrupt.  Adding chunks to a file opened for writing
+		corrupts the file until it is saved.
+
+	void CFL::Mark(void);
+		Set the mark flag.
+
+	void CFL::SetTemp(bool f);
+		Set whether the chunky file is a temp file.  Temp files are
+		automatically deleted when they are closed.
+
+	bool CFL::FTemp(void);
+		Return whether the chunky file is a temp file.
+
+	void CFL::GetFni(FNI *pfni);
+		Get the file name.
+
+	bool CFL::FFind(CTG ctg, CNO cno, FLO *pflo);
+		Look for the chunk and fill in *pflo with the location of its data.
+
+	HQ CFL::HqGet(CTG ctg, CNO cno);
+		Read the chunk into an hq.  Returns hqNil if there is no such
+		chunk or on memory failure.
+
+	bool CFL::FAdd(long cb, CTG ctg, CNO *pcno, FLO *pflo);
+		Adds a chunk to the file.  Fills in *pcno with the cno for the
+		chunk and fills in *pflo with the space on file allocated for
+		the chunk.
+
+	bool CFL::FAddPv(void *pv, long cb, CTG ctg, CNO *pcno);
+	bool CFL::FAddHq(HQ hq, CTG ctg, CNO *pcno);
+		Adds a chunk to the file and writes the data from the pv or hq into
+		it.  Fills in *pcno with the cno for the chunk.  pv can only be nil
+		if cb is zero.
+
+	bool CFL::FAddChild(CTG ctgPar, CNO cnoPar, CHID chid,
+			long cb, CTG ctg, CNO *pcno, FLO *pflo);
+	bool CFL::FAddChildPv(CTG ctgPar, CNO cnoPar, CHID chid,
+			void *pv, long cb, CTG ctg, CNO *pcno);
+	bool CFL::FAddChildHq(CTG ctgPar, CNO cnoPar, CHID chid,
+			HQ hq, CTG ctg, CNO *pcno);
+		These atomize the adding of a chunk and adopting the new chunk by
+		(ctgPar, cnoPar).
+
+	bool CFL::FPut(long cb, CTG ctg, CNO cno, FLO *pflo);
+		Replaces (or creates) the indicated chunk.  Use this with caution.
+		You may be nuking an existing chunk by calling this.  Preserves
+		any existing children of the node.
+
+	bool CFL::FPutPv(void *pv, long cb, CTG ctg, CNO cno);
+	bool CFL::FPutHq(HQ hq, CTG ctg, CNO cno);
+		Replaces (or creates) the indicated chunk with the data in pv or hq.
+		Use this with caution.  You may be nuking an existing chunk by
+		calling this.  Preserves any existing children of the node.  pv can
+		only be nil if cb is zero.
+
+	bool CFL::FCopy(CTG ctgSrc, CNO cnoSrc, PCFL pcflDst, CNO *pcnoDst);
+		Copies a chunk from one file to another.  If the chunk has already
+		been copied, the actual data is not copied again, but the child
+		sub-graph is verified (new descendents will be copied) and names
+		of the chunks in the graph are verified.
+
+	void CFL::Delete(CTG ctg, CNO cno);
+		Deletes a chunk.  It is illegal to call this on a child chunk.
+		It should only be called on top level chunks.  This deletes
+		(or decrements reference counts of) descendents of the chunk.
+
+	bool CFL::FAdoptChild(CTG ctgPar, CNO cnoPar,
+			CTG ctgChild, CNO cnoChild, CHID chid = 0);
+		Makes (ctgChild, cnoChild) a child of (ctgPar, cnoPar) with the
+		given chid value.  If it already is a child with this chid value,
+		this does nothing.  Note that a chunk may be a child of another
+		chunk multiple times (with different chid values).
+
+	void DeleteChild(CTG ctgPar, CNO cnoPar,
+			CTG ctgChild, CNO cnoChild, CHID chid);
+		Deletes (ctgChild, cnoChild, chid) as a child of (ctgPar, cnoPar).
+		If the child is no longer a child of any chunks, it is deleted from
+		the cfl.  This deletes (or decrements reference counts of)
+		descendents of the child.
+
+	bool CFL::FSetName(CTG ctg, CNO cno, char *pstz);
+		Sets the name of the chunk.  If pstz is pNil, makes the name empty.
+
+	bool CFL::FGetName(CTG ctg, CNO cno, char *pstz);
+		Gets the name of the chunk.  Returns fFalse iff the name is empty.
+
+	long CFL::Ccki(void);
+		Returns the number of chunks in the file.
+
+	bool CFL::FGetCki(long icki, CKI *pcki);
+		Gets a cki for the icki'th chunk.  Returns false if icki is too big.
+
+	long CFL::CckiCtg(CTG ctg);
+		Returns the number of chunks of type ctg in the file.
+
+	bool CFL::FGetCkiCtg(CTG ctg, long icki, CKI *pcki);
+		Gets a cki for the icki'th chunk of type ctg.  Returns false if icki
+		is too big.
+
+	long CFL::Ckid(CTG ctgPar, CNO cnoPar);
+		Returns the number of children of the given chunk.
+
+	bool CFL::FGetKid(CTG ctgPar, CNO cnoPar, long ikid, KID *pkid);
+		Gets a kid for the ikid'th child of (ctgPar, cnoPar).
+		Returns false if ikid is too big.
+
+	bool CFL::FGetKidChid(CTG ctgPar, CNO cnoPar, CHID chid, KID *pkid);
+		Gets a kid for the first child of (ctgPar, cnoPar) with given chid.
+
+	bool CFL::FGetKidChidCtg(CTG ctgPar, CNO cnoPar,
+			CHID chid, CTG ctg, KID *pkid);
+		Gets a kid for the first child of (ctgPar, cnoPar) with given chid
+		and ctg.
+
+
+/****************************************
+	CGE methods
+****************************************/
+
+	void CGE::Init(PCFL pcfl, CTG ctg, CNO cno);
+		This initializes an enumeration and must be called before
+		GrfcgeNextKid is called.  The enumeration is over the given
+		node and all of its descendents.
+
+	bool CGE::FNextKid(KID *pkid, CKI *pckiPar,
+			ulong *pgrfcgeOut, ulong grfcgeIn);
+		Fetches the next node in the graph enumeration.  Returns fFalse
+		iff the enumeration is done (there are no more nodes).  Generally,
+		parent nodes are returned twice (once with fcgePre and again
+		with fcgePost).  Nodes without children are returned only once
+		(with both fcgePre and fcgePost set).  The new node is put in
+		*pkid, and the node's parent (if the node is not the root of the
+		enumeration) is put in *pckiPar.  pckiPar may be nil.
+
+		If fcgeSkipToSib is passed in (in the grfcgeIn parameter), skips all
+		children and the upward touch of the last node returned.
+
+		The value of *pgrfcge on return can contain any combination of:
+		fcgePre, fcgePost, fcgeError, fcgeRoot.  These have the following
+		meanings:
+
+			fcgePre:  haven't traversed the node's children yet
+			fcgePost:  have already traversed the children (or there aren't
+				any children)
+			fcgeError:  a memory error occurred; may be set in conjunction
+				with other flags
+			fcgeRoot:  *pkid is valid (except the chid value); *pckiPar is
+				invalid; the node is the root of the enumeration
+

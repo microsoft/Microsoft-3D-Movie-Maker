@@ -1,0 +1,53 @@
+RunDll setupx.dll,InstallHinfSection <section> <reboot mode> <inf name>
+
+eg
+	RunDll setupx.dll,InstallHinfSection games 2 applets.inf would install games on you machine.
+
+There are 5 reboot modes...
+#define HOW_NEVER_REBOOT  0
+#define HOW_ALWAYS_SILENT_REBOOT 1
+#define HOW_ALWAYS_PROMPT_REBOOT 2
+#define HOW_SILENT_REBOOT        3
+#define HOW_PROMPT_REBOOT        4
+
+NeverReboot
+	whatever happens the machine will not be rebooted. Its up to the client to determin if the machine should be rebooted. For setup, this means that there is a file c:\windows\wininit.ini that is not zero bytes in size.
+
+AlwaysSilentReboot
+	The user will not be asked, the machine will just reboot - MIS win (?)
+
+AlwaysPromptReboot
+	The user will be asked to Reboot the machine, Yes/No.
+
+SilentReboot
+	If setup determins that we have to reboot, we will with no user interaction
+
+PromptReboot
+	If setup determins that we have to reboot, we will ask first Yes/No.
+
+As you can see this allows the following default association to be made to .inf files.
+	c:\windows\rundll.exe setupx.dll,InstallHinfSection AutoSection 2
+
+This will result in users being able to simply DOUBLE click on an Inf and have it install something. That means if I wanted you to beta test something, I dont need to write an install exe, just mail you the .inf that I'd be using.
+
+------------------------------------------------------------
+If you have dependencies on other INF files, we have added 
+extensions to the install section format for Optional Components.
+
+The extensions are as follows.
+
+In an optional component section you'll add the line
+Include=<inf file>
+Needs=<list of needs>
+
+They can be a comma separated lists.
+
+As a result you'll have to construct an inf that 
+contains somethings like this
+
+[InstallMyToys]
+Include=mos.inf, msmail.inf
+Needs=MSMAIL, MAPI, MicrosoftNetwork
+
+And call setupx with this section.
+

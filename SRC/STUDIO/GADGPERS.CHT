@@ -1,0 +1,81 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+//-------------------------------------------------------
+// gadgpers.cht - Persistent object for the gadget
+//-------------------------------------------------------
+//
+// Store an array that keeps track ofthe current topic for
+// each object in the gadget.  If not already created
+// everything will default to the first topic
+// 
+//	Review::This will probably be replace by globals later
+//-------------------------------------------------------
+GOBCHUNK("Persisent Gadget", kidGadgetPersistent, gokkNoHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_ANIM(CHID1(krepDefault), "Gadget Persistent")
+		// current project and step	for that project
+		::gdCurrProj = ::NextProject;
+		::gdCurrStep = 1;
+
+		// which selector button was last hit
+		::gdUpSelected = fTrue;
+
+		// number of steps in each sequence
+		::gdSeqSteps[1] = 7;	
+		::gdSeqSteps[2] = 5;
+		::gdSeqSteps[3] = 3;
+		::gdSeqSteps[4] = 6;
+		::gdSeqSteps[5] = 10;
+		::gdSeqSteps[6] = 5;
+
+		// Last step in each sequence, all are kept as one big sequence
+		::gdProjEnd[0] = 0;	
+		::gdProjEnd[1] = 7;
+		::gdProjEnd[2] = 12;
+		::gdProjEnd[3] = 15;
+		::gdProjEnd[4] = 21;
+		::gdProjEnd[5] = 31;
+		::gdProjEnd[6] = 36;
+
+		// Sequence ids for each step
+		// Review::make sequential and just use first one
+		::gdSeqNum[1] = kid1Project01;
+		::gdSeqNum[2] = kid1Project02;
+		::gdSeqNum[3] = kid1Project03;
+		::gdSeqNum[4] = kid1Project04;
+		::gdSeqNum[5] = kid1Project05;
+		::gdSeqNum[6] = kid1Project06;
+		::gdSeqNum[7] = kid1Project07;
+		::gdSeqNum[8] = kid3Project01;	 
+		::gdSeqNum[9] = kid3Project02;		 
+		::gdSeqNum[10] = kid3Project03;		
+		::gdSeqNum[11] = kid3Project04;		 
+		::gdSeqNum[12] = kid3Project05;		
+		::gdSeqNum[13] = kid2Project01;
+		::gdSeqNum[14] = kid2Project02;
+		::gdSeqNum[15] = kid2Project03;
+		::gdSeqNum[16] = kid6Project01;	   
+		::gdSeqNum[17] = kid6Project02;		  
+		::gdSeqNum[18] = kid6Project03;	  
+		::gdSeqNum[19] = kid6Project04;	  
+		::gdSeqNum[20] = kid6Project05;	 
+		::gdSeqNum[21] = kid6Project06;	 
+		::gdSeqNum[22] = kid5Project01;
+		::gdSeqNum[23] = kid5Project02;
+		::gdSeqNum[24] = kid5Project03;
+		::gdSeqNum[25] = kid5Project04;
+		::gdSeqNum[26] = kid5Project05;
+		::gdSeqNum[27] = kid5Project06;
+		::gdSeqNum[28] = kid5Project07;
+		::gdSeqNum[29] = kid5Project08;
+		::gdSeqNum[30] = kid5Project09;
+		::gdSeqNum[31] = kid5Project10;
+		::gdSeqNum[32] = kid4Project01;
+		::gdSeqNum[33] = kid4Project02;
+		::gdSeqNum[34] = kid4Project03;
+		::gdSeqNum[35] = kid4Project04;
+		::gdSeqNum[36] = kid4Project05;
+	ENDCHUNK

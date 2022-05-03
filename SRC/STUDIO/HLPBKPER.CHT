@@ -1,0 +1,51 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+//-------------------------------------------------------
+// Helppers.cht - Persistent object for the help book
+//-------------------------------------------------------
+//
+// Store an array that keeps track ofthe current topic for
+// each object in the help book.  If not already created
+// everything will default to the first topic
+//
+// REVIEW: 5.29.95 *****
+// Use Global variables (::)   Make this object go away. 
+// Take script below and wrap into Studio - it should 
+// initialize these once per studio session.
+//-------------------------------------------------------
+OBJECT("Persisent Help", kgobHelpBookPersistent, 0, kcrsArrow)
+	REP_ANIM(CHID1(krepDefault), "Help Book Persistent")
+		
+		// Set current section, howto subs are 3-8
+		::HBSection = 1;
+		
+		// set lastsub section, for remembering which section of 
+		// the "How To" section we were on. 
+		::HBLastsub = 3;	// is first
+
+		// Set current topic index -> is an absolute value
+		::HBtpcCur[1] = ktpcBook1TOC;
+		::HBtpcCur[2] = ktpcBook2Basics;
+		::HBtpcCur[3] = ktpcBook3HowTo1;
+		::HBtpcCur[4] = ktpcBook4HowTo1;
+		::HBtpcCur[5] = ktpcBook5HowTo1;
+		::HBtpcCur[6] = ktpcBook6HowTo1;
+		::HBtpcCur[7] = ktpcBook7HowTo1;
+		::HBtpcCur[8] = ktpcBook8HowTo1;
+		::HBtpcCur[9] = ktpcBookSceneTools1;
+		::HBtpcCur[10] = ktpcBook10Tips;
+
+		// Set end point for topics -> is an absolute value
+
+		::HBtpcEnd[1] = ktpcBook1TOC;
+		::HBtpcEnd[2] = ktpcBook2Basics2;
+		::HBtpcEnd[3] = ktpcBook3HowTo2;
+		::HBtpcEnd[4] = ktpcBook4HowTo4;
+		::HBtpcEnd[5] = ktpcBook5HowTo1;
+		::HBtpcEnd[6] = ktpcBook6HowTo3;
+		::HBtpcEnd[7] = ktpcBook7HowTo3;
+		::HBtpcEnd[8] = ktpcBook8HowTo4;
+		::HBtpcEnd[9] = ktpcBookMasterTools6;
+		::HBtpcEnd[10] = ktpcBook10Tips18;
+	ENDCHUNK

@@ -1,0 +1,273 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************
+
+   The bio page object.
+
+   Usage: 	set globals ::fBioCtrl if you want controls,
+			set ::nBioPage to the page,
+			then create this object
+
+	// rectangular hit region -- nothing passes through
+*****************************************************************/
+
+#include "projmain.h"	// to get ksclBuilding?
+
+WAVE_CHUNK( "shared\sound\biofound.wav", kwavFoundBio )
+WAVE_CHUNK( "shared\sound\bioalrdy.wav", kwavBioAlreadyFound )
+WAVE_CHUNK( "shared\sound\tbkopen.wav", kwavOpenBio )
+WAVE_CHUNK( "shared\sound\biocancl.wav", kwavBioCancel )
+WAVE_CHUNK( "shared\sound\biopop.wav", kwavBioPopup )
+
+OBJECTTY( "Bio Page background", kgobBioPage, 1000, kcrsArrow1, kgokkRectHit )
+REP_PPMBMP( CHID1( krepDefault ), "shared\pbm\biopage.pbm" )
+ADOPT_MBMP( LAST_MBMP, kcell1 )
+CREATE_SCRIPT( "bio page : create" )
+	// Disable keyboard accelerators while the bio book is up.
+	DISABLEACCEL(fFalse);
+	.count = 0;
+
+	// eat all clicks while the page is up
+	FilterCmdsThis(cidKey, kidNil, kchidScript9);
+
+	.snd = (::fBioCtrl ) ? kwavOpenBio : kwavFoundBio;
+	// at startup, update the page.
+	RunScriptThis( kchidScript1 );
+ENDCHUNK
+CHILD_SCRIPT( "update bio page", kchidScript1 )
+	ASSERT(::nBioPage >= 0);	// 0 = table of contents (valid)
+	DEBUGCMD(PrintStr("Updating bio pages object"));
+
+	If( ::nBioPage < 0 || ::nBioPage > NUM_BIOPAGES );
+		DEBUGCMD( AlertStr( "Invalid bio page start: default to 0 [toc]" ));
+		::nBioPage = 0;
+	End;
+
+	// Script to update the display of the bio page
+	// First, map the internal ID to a page id ...
+	id = Select( ::nBioPage, BIO_PAGE_ORDER );
+	// update the pictures
+	If ( !FGobExists( kgobBioActors ));
+		CreateChildThis( kgobBioActors, kgobBioActors );
+	End;
+	SetRepGob( kgobBioActors, kcell1 + id );	
+	NumToStr( id, kstidBioPageNum );
+
+	
+	If ( !FGobExists( kgobBioHolder ));
+		CreateChildThis( kgobBioHolder, kgobBioHolder );
+	End;
+
+	If ( !FGobExists( kgobBioPageHolder ));
+		CreateChildThis( kgobBioPageHolder, kgobBioPageHolder );
+	End;
+
+	// and the text...
+	CreateHelpGob( kgobBioHolder, ktpcBioPage1 + id );
+	
+	// page number - not for table of contents page
+	If ( id != 0 );
+		CreateHelpGob( kgobBioPageHolder, ktpcBioPageNum );
+	Else;
+		DestroyGob( kgobBioPageHolder );
+	End;
+
+	
+	If( ::fBioCtrl );
+		// panel makes the page look like it's in a book
+		If( !FGobExists( kgobBioPanel));
+			CreateChildThis( kgobBioPanel, kgobBioPanel );
+		End;
+		// forward button
+		If( !FGobExists( kgobBioFwd));
+			CreateChildThis( kgobBioFwd, kgobBioFwd );
+		End;
+		// back button
+		If( !FGobExists( kgobBioBack ));
+			CreateChildThis( kgobBioBack, kgobBioBack );
+		End;
+	End;
+
+	// and make sure we've got a cancel button!
+	If( !FGobExists( kgobBioCancel ));
+		CreateChildThis( kgobBioCancel,kgobBioCancel );
+	End;
+	
+	// play the sound as appropriate..
+	If( .snd != cnoNil );
+		// page by itself-- play the intro audio
+		PlaySoundThis(kctgWave, .snd, 1, 0x00010000, 1, 1, ksclBldgSound);
+		.snd = cnoNil;
+	End;
+
+ENDCHUNK
+// script to eat and throw away key clicks
+CHILD_SCRIPT( "help book : switch to section", kchidScript9  )
+	
+	If ( _parm[2] == Select( .count, 's', 'o', 'c', 'r', 'a', 't', 'e', 's' ));
+		++.count;
+		If( .count == 8 );
+			CreateChildThis( 7777, 7777 );	// video
+		End;
+	Else;
+		.count = 0;
+	End;
+	Return( fTrue );
+ENDCHUNK
+
+GOBCHUNK("melanie - AVI ", 7777, gokkNoHitThis )
+	DEFAULT_POSITION( 160, 120, 999 )
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_VIDEO( CHID1( krepDefault ), "bldgdata.chk", fTrue )
+
+
+// ---------------------------------------------------------------
+// graphic that contains the rings, etc.
+OBJECT( "Bio Panel", kgobBioPanel, 10, kcrsHand1 )
+REP_PPMBMP( CHID1(krepDefault ), "shared\pbm\biopanel.pbm" )
+
+
+// ---------------------------------------------------------------
+OBJECTREG( "Bio cancel", kgobBioCancel, kxpBioCancel, kypBioCancel, 10, kcrsHand1 )
+REP_PPMBMP( CHID1(krepDefault ), "shared\pbm\cancel.pbm" )
+ADOPT_MBMP(LAST_MBMP, CHID1( krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID1( krepMouseDnOff))
+REP_PPMBMP(CHID1(krepMouseDnOn), "shared\pbm\cancelc.pbm" )
+CLICK_SCRIPT("Bio cancel clicked")
+	// This is the only way out of the biobook -- re-enable keyboard
+	// accelerators here.
+	PlaySoundThis(kctgWave, kwavBioCancel, 1, 0x00010000, 1, 4, ksclBldgSound);
+	If (FGobExists(kidActorsCompose));
+		EnqueueCid(cidClicked, kidActorsCompose, 0, 0, 0, 0);
+	End;
+	DestroyGob( kgobBioPage );
+	ENABLEACCEL(fFalse);
+ENDCHUNK
+
+
+// ---------------------------------------------------------------
+OBJECTREG( "Bio Fwd", kgobBioFwd, kxpBioFwd, kypBioFwd, 10, kcrsHand1 )
+REP_PPMBMP( CHID1(krepDefault ), "shared\pbm\fwd.pbm" )
+ADOPT_MBMP(LAST_MBMP, CHID1( krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID1( krepMouseDnOff))
+REP_PPMBMP(CHID1(krepMouseDnOn), "shared\pbm\fwdc.pbm" )
+CLICK_SCRIPT("Bio forward clicked")
+	curr = ::nBioPage;
+	While( 1 );
+		++::nBioPage;			// next page
+		If ( ::nBioPage == NUM_BIOPAGES );	 // at the end?
+			::nBioPage = curr;		// don't advance then.
+			Break;
+		End;
+		If( fBIO_AVAIL( ::nBioPage ));	// do we have it?
+			wav = Rnd(2) + kwavBio3;	// play a random sound
+			PlaySoundThis(kctgWave, wav, 1, 0x00010000, 1, 4, ksclBldgSound);
+			Break;				// yep, all done.
+		End;
+	End;
+	
+	RunScriptGob( kgobBioPage, kchidScript1 );	
+ENDCHUNK
+
+// ---------------------------------------------------------------
+OBJECTREG( "Bio Back", kgobBioBack, kxpBioBack, kypBioBack, 10, kcrsHand1 )
+REP_PPMBMP( CHID1(krepDefault ), "shared\pbm\back.pbm" )
+ADOPT_MBMP(LAST_MBMP, CHID1( krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID1( krepMouseDnOff))
+REP_PPMBMP(CHID1(krepMouseDnOn), "shared\pbm\backc.pbm" )
+CLICK_SCRIPT("Bio back clicked")
+	curr = ::nBioPage;
+	While( 1 );
+		--::nBioPage;
+		If ( ::nBioPage < 0 );	 // at the beginning
+			::nBioPage = curr;	  // don't change then.
+			Break;
+		End;
+
+		If( fBIO_AVAIL( ::nBioPage ));	// do we have it?
+			wav = Rnd(2) + kwavBio1;	// play a random sound
+			PlaySoundThis(kctgWave, wav, 1, 0x00010000, 1, 4, ksclBldgSound);
+			Break;				// yep, all done.
+		End;
+	End;
+	
+	RunScriptGob( kgobBioPage, kchidScript1 );	
+ENDCHUNK
+
+
+// ---------------------------------------------------------
+// BUILDING BIO PAGE STUB
+
+WAVE_CHUNK( "shared\sound\bio\TBPAGEB1.WAV", kwavBio1 )	// back
+WAVE_CHUNK( "shared\sound\bio\TBPAGEB2.WAV", kwavBio2 )	// back 2
+WAVE_CHUNK( "shared\sound\bio\TBPAGEF1.WAV", kwavBio3 )
+WAVE_CHUNK( "shared\sound\bio\TBPAGEF2.WAV", kwavBio4 )
+
+// -----------------------------------------------------
+// transparent rectangular balloon that allows hit testing
+//
+// This'll grow to fit the text in it...
+// -----------------------------------------------------
+GOBCHUNK( "biotopic balloon", kgobBlankBalloon, 0)
+	DEFAULT_POSITION( 0,0,500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil )
+ENDCHUNK
+REP_RECT( CHID1( krepDefault), "page blank", 0,0, 300, 300 )
+
+
+// this holds the above balloon
+OBJECT( "", kgobBioHolder, 3, kcrsArrow1 )
+REP_RECT( CHID1( krepDefault), "page blank", kxpBioPageLeft, kypBioPageTop, kxpBioPageRight, kypBioPageBottom )
+
+// holds the "Page # of #" balloon
+OBJECT( "bio page #", kgobBioPageHolder, 200, kcrsArrow1 )
+REP_RECT( CHID1( krepDefault), "page blank", kxpBioPageNumLeft, kypBioPageNumTop, kxpBioPageNumRight, kypBioPageNumBottom )
+
+
+
+// -----------------------------------------------------
+// Bio tip balloon
+// -----------------------------------------------------
+GOBCHUNK("Hot help for tools", kgobPopTip, kgokkNormal)
+	DEFAULT_POSITION(0,0,700)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool topic tile", "shared\bmp\biotip.bmp", 84, 61)
+	TILEDEF( 15, 15, 24, 120, 8, 0, 0, 0, 24 )
+	TILEDEF( 12, 12, 24,  74, 8, 0, 0, 0, 24 )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for help tools balloon")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+	PlaySoundThis(kctgWave, kwavBioPopup , 1, 0x00010000, 1, 1, ksclBldgSound);
+	
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	DestroyThis();
+ENDCHUNK
+CLICK_SCRIPT("Got a click or keydown" )
+	DestroyThis();
+ENDCHUNK
+
+// This script will be invoked if the user clicks on a tip inside the bio page.
+// This'll create a pop up tip --- but as a child of the biopage, *not* of the 
+// bounding rectangle thing
+
+HELP_SCRIPT( kidBioTipScript )
+	// parm[0] = group # passed in
+	If(_parm[0] != 0);	
+		// Valid group clicked _parm[4] is id of table object to run
+		If( _parm[4] != cnoNil );
+			CreateHelpGob( kgobBioPage, _parm[4] );
+		End;
+		Return( fTrue );	// tell KAUAI NOT to create help balloon
+	End;
+ENDCHUNK
+
+

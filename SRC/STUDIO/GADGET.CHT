@@ -1,0 +1,706 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+// get our labels and gadget help
+// -----------------------------------------------------
+// -----------------------------------------------------
+// and our gadget topics
+// -----------------------------------------------------
+
+
+//////////////////////////////////
+// Gadget Start Up Ok balloon
+//////////////////////////////////
+GOBCHUNK("Gadget Start up", kidGadgetStartUp, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	// grey out bkgrd
+	REP_FILL( kcell1, "kidGadgetStartUp", 0, 0, 640, 480, Palette(73), Transparent)
+		PATTERN_50
+	ENDCHUNK
+	CREATE_SCRIPT("gadget startup created")
+		Cell( kcell1, 0,0, 0);		// draw ourselves		
+		CreateHelpThis(ktpcPrjIntro03);	// then do the help balloon
+	ENDCHUNK
+
+// ----------------------------------------------------------------
+// Gadget Start Up script to run when the ok button is hit
+// ----------------------------------------------------------------
+HELP_SCRIPT(kidGadgetStartOk)
+	// parm[0] = group # passed in
+	If(_parm[0] != 0);	
+		// create the gadget parent and sequencer
+		CreateChildGob(kidBackground, kidGadgetPersistent, kidGadgetPersistent);
+		CreateChildGob(kidBackground, kidSequenceParent, kidSequenceParent);
+		CreateChildGob(kidBackground, kidGadgetParent, kidGadgetParent);
+		// disable why button
+		ChangeStateGob(kidGadgetWhy, kst2);
+		DestroyGob(kidGadgetStartUp);
+		Return(fTrue);
+	Else;
+		fMelAudio = GetProp( kpridMcZeeAudio ) & kflgMelAudio;
+		If (._cnoSound != cnoNil && !fMelAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+
+//////////////////////////////////
+// Gadget parent object
+//////////////////////////////////
+GOBCHUNK("Gadget Parent", kidGadgetParent, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_RECT( CHID1(krepDefault), "kidGadgetParent", 0, 0, 640, 480 )
+	CREATE_SCRIPT("gadget parent created")
+
+		// Create the gadget body	
+		CreateChildThis(kidGadgetBody, kidGadgetBody);
+		CreateChildThis(kidGadgetSelectorUp, kidGadgetSelectorUp);
+		CreateChildThis(kidGadgetSelectorDown, kidGadgetSelectorDown);
+		CreateChildThis(kidGadgetSelectorNum, kidGadgetSelectorNum);
+		CreateChildThis(kidGadgetAviFrame, kidGadgetAviFrame);
+		CreateChildThis(kidGadgetPlay, kidGadgetPlay);
+		CreateChildThis(kidGadgetHow, kidGadgetHow);
+		CreateChildThis(kidGadgetCancel, kidGadgetCancel);
+		CreateChildThis(kidGadgetWhy, kidGadgetWhy);
+		CreateChildThis(kidGadgetVoice, kidGadgetVoice);
+		CreateChildThis(kidGadgetWord, kidGadgetWord);
+		CreateChildThis(kidGadgetLockerFill, kidGadgetLockerFill);
+		// change the gadget button to a black button
+		ChangeStateGob(kidGadget, kst2);
+		// start up the next sequence
+		RunScriptThis(kchidScript1);															 
+		// turn tooltips on for the gadget
+		SetProp(kpridToolTipDelay, kdtimToolTipDelay);
+	ENDCHUNK
+
+	// create a new sequence to run
+	CHILD_SCRIPT("Start up next project sequence", kchidScript1)
+		// Start the current sequence(should never be past end, but...)
+		If (::gdCurrStep <= ::gdSeqSteps[::gdCurrProj]);
+			// reinitialize the sequence generator
+			RunScriptGob(kidSequenceParent, kchidScript7);
+			tbSeq = ::gdSeqNum[::gdProjEnd[::gdCurrProj - 1] + ::gdCurrStep];
+			CreateChildGob(kidBackground, tbSeq, tbSeq);		
+			ChangeStateGob(kidGadgetSelectorNum, (kst1 + ::gdCurrProj - 1));
+			// Change locker picts, pressing play handles gdcurrstep one
+			If (::gdCurrStep > 1);
+				CreateHelpGob(kidGadgetTextBox, ktpcGadgetTextStart + ::gdProjEnd[::gdCurrProj - 1] + ::gdCurrProj + ::gdCurrStep - 1);
+				ChangeStateGob(kidGadgetLockerPict, kst2); 
+			Else;
+				CreateHelpGob(kidGadgetTextBox, ktpcGadgetTextStart + ::gdProjEnd[::gdCurrProj - 1] + (::gdCurrProj - 1) + ::gdCurrStep - 1);
+			End;
+		End;
+	ENDCHUNK
+
+	// for handling modal dialog option on selector up and down
+	CHILD_SCRIPT("Handle modal save options", kchidScript3)
+		// if they choose save do nothing let next portfolio results handle it, otherwise handle it
+		If (_parm[2] != 1);
+			// kill all filters
+			FilterCmdsThis(cidNil, kidNil, chidNil);
+			// figure out what to do, 2 go on, 3 drop back to where we were
+			If (_parm[2] == 0);
+				DestroyGob(kidGadgetAlertGlass);						
+				If (::gdUpSelected == fTrue);
+					RunScriptGob(kidGadgetSelectorUp, kchidScript1);
+				Else;
+					RunScriptGob(kidGadgetSelectorDown, kchidScript1);
+				End;
+			Else;
+				CreateHelpGob(kidGadgetAlertGlass, ktpcNewMovie);
+			End;
+		End;
+	ENDCHUNK
+
+	// for handling portfolio ok and cancel in selectors
+	CHILD_SCRIPT("Handle modal save options", kchidScript4)
+		// kill all filters
+		FilterCmdsThis(cidNil, kidNil, chidNil);
+		// Make sure we have something to go on
+		If(_parm[2] == fTrue);	
+			DestroyGob(kidGadgetAlertGlass);						
+			If (::gdUpSelected == fTrue);
+				RunScriptGob(kidGadgetSelectorUp, kchidScript1);
+			Else;
+				RunScriptGob(kidGadgetSelectorDown, kchidScript1);
+			End;
+		// cancel from portfolio, put choices back up
+		Else;
+			CreateHelpGob(kidGadgetAlertGlass, ktpcNewMovie);
+		End;
+	ENDCHUNK
+
+	// for handling modal dialog option on cancel
+	CHILD_SCRIPT("Handle modal save options", kchidScript5)
+		// if they choose save do nothing let next portfolio results handle it, otherwise handle it
+		If (_parm[2] != 1);
+			// kill all filters
+			FilterCmdsThis(cidNil, kidNil, chidNil);
+			// figure out what to do, 2 go on, 3 drop back to where we were
+			If (_parm[2] == 0);
+				DestroyGob(kidGadgetAlertGlass);						
+			Else;
+				CreateHelpGob(kidGadgetAlertGlass, ktpcProjectCancel);
+			End;
+		End;
+	ENDCHUNK
+
+	// for handling portfolio ok and cancel on cancel
+	CHILD_SCRIPT("Handle modal save options", kchidScript6)
+		// kill all filters
+		FilterCmdsThis(cidNil, kidNil, chidNil);
+		// Make sure we have something to go on
+		If(_parm[2] == fTrue);	
+			DestroyGob(kidGadgetAlertGlass);						
+		Else;
+			CreateHelpGob(kidGadgetAlertGlass, ktpcProjectCancel);
+		End;
+	ENDCHUNK
+
+///////////////////////////////////
+// gadget object
+///////////////////////////////////
+// -----------------------------------------------------
+// gadget body image that masks stuff underneath it
+// -----------------------------------------------------
+GOBCHUNK("Body of gadget object", kidGadgetBody, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 150)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMP( CHID1(krepDefault), "studio\bmp\gdbody.bmp")
+CREATE_ANIM( "gadget created" )
+	CreateChildThis( kidGadgetVolumePath, kidGadgetVolumePath );
+ENDCHUNK
+
+// -----------------------------------------------------
+// Gadget Play button 
+// -----------------------------------------------------
+GOBCHUNK("Gadget play button", kidGadgetPlay, kgokkRectHit)
+	DEFAULT_POSITION(kxpGdPlay, kypGdPlay, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttPlayButton)
+ENDCHUNK
+	REP_MBMPREG(kcell1, "studio\bmp\gdplay.bmp", kxpregGdPlay, kypregGdPlay)
+	REP_MBMPREG(kcell2, "studio\bmp\gdstop.bmp", kxpregGdPlay, kypregGdPlay)
+	REP_ANIM(CHID(kst1, krepDefault), "play button, movie stopped")
+		// Got the play button showing -- make sure the movie isn't playing
+		// reset the video to the static cell
+		ChangeStateGob(kidGadgetAvi, (kst1 + ::gdCurrProj - 1));
+		Cell(kcell1, 0, 0, 1);
+	ENDCHUNK	
+	REP_ANIM(CHID(kst2, krepDefault), "play...poll movie")
+		// tell the movie gob to play by switching state
+		ChangeStateGob(kidGadgetAvi, (kst6 + ::gdCurrProj));
+		// draw our representation
+		Cell( kcell2, 0, 0, 1 );
+		// now poll the movie ... if it finishes, switch button back to state 1 (stopped)
+		While(PlayingGob(kidGadgetAvi));
+			Cell(chidNil, 0, 0, 10);	// poll at 1/6ths of a second
+		End; 
+		ChangeStateThis(kst1);
+		EnqueueCid(cidGadgetAviStop, kidSequenceParent, 0, 0, 0, 0);
+		CreateHelpGob(kidGadgetTextBox, ktpcGadgetTextStart + ::gdProjEnd[::gdCurrProj - 1] + ::gdCurrProj + ::gdCurrStep - 1);
+		If (StateGob(kidGadgetLockerPict) == kst1);
+			ChangeStateGob(kidGadgetLockerPict, kst2);
+		End;
+		// enable why button
+		ChangeStateGob(kidGadgetWhy, kst1);
+	ENDCHUNK
+	CLICK_SCRIPT( "button clicked" );
+		If (StateThis() == kst1);		
+			ChangeStateThis(kst2);			// we are play button, switch to stop button and play movie
+		Else;
+			ChangeStateThis(kst1);
+			EnqueueCid(cidGadgetAviStop, kidSequenceParent, 0, 0, 0, 0);
+			CreateHelpGob(kidGadgetTextBox, ktpcGadgetTextStart + ::gdProjEnd[::gdCurrProj - 1] + ::gdCurrProj + ::gdCurrStep - 1);
+			If (StateGob(kidGadgetLockerPict) == kst1);
+				ChangeStateGob(kidGadgetLockerPict, kst2);
+			End;
+			// enable why button
+			ChangeStateGob(kidGadgetWhy, kst1);
+		End;
+	ENDCHUNK
+// -----------------------------------------------------
+// Gadget volume thumb 
+// -----------------------------------------------------
+GOBCHUNK("Gadget Volume Thumb", kidGadgetVolumeThumb, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_MBMP(CHID1(krepDefault), "studio\bmp\gdvolthm.bmp")
+  
+// --------------------------------------------------------------------------------
+// The slider is the rectangular path the volume slider rolls around in.
+//   kdypGadgetSlider is the height of the slidable area; kdypGadgetSliderTotal includes
+//   height of thumbnail to be sure it will show at the min setting
+// --------------------------------------------------------------------------------
+GOBCHUNK("Gadget Volume SliderPath", kidGadgetVolumePath, kgokkRectHit)
+	DEFAULT_POSITION(kxpGadgetSlider, kypGadgetSlider, 210)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttVolumeControl )
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "Gadget rectangle", 0, 0, kdxpGadgetSlider, kdypGadgetSliderTotal)
+CREATE_SCRIPT("Create sliderpath")
+	CreateChildThis(kidGadgetVolumeThumb, kidGadgetVolumeThumb);
+	// get initial volume value, move thumbnail
+	y = kdypGadgetSlider  -((GetMasterVolume() * kdypGadgetSlider) / (kvlmFull*2));
+	MoveAbsGob(kidGadgetVolumeThumb, 0, y);
+ENDCHUNK
+REP_ANIM(CHID1(krepMouseDnOn), "slider")	
+	// repeat up to 30000 times.
+	.siiLoop = PlaySoundThis( kctgWave, kwavDing, 2, 0x00010000, 30000, 1, 4 );	
+	While(1);
+		y = YMouseThis();
+		If( y < 0 );
+			y=0;
+		Elif(y > kdypGadgetSlider);
+			y =kdypGadgetSlider;
+		End;
+		// move thumb slider
+		MoveAbsGob(kidGadgetVolumeThumb, 0, y);
+		// track new volume
+		newvol = ((kvlmFull*2)* (kdypGadgetSlider-y)) / kdypGadgetSlider;	
+		// set the volume
+		SetMasterVolume(newvol);	
+		// Sample at 10/60ths of a second.
+		Cell(0, 0, 0, 10);	
+	End;
+ENDCHUNK
+REP_ANIM(CHID1(kchidDownUpOn), "release on")
+	StopSound(.siiLoop);
+ENDCHUNK
+ADOPT_ANIM( LAST_ANIM, CHID1(kchidDownUpOff))
+
+
+// -----------------------------------------------------
+// Gadget voice toggle control 
+// -----------------------------------------------------
+GOBCHUNK("Gadget Voice Toggle", kidGadgetVoice, kgokkRectHit)
+	DEFAULT_POSITION(kxpGdMelVoice, kypGdMelVoice, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttMelanieOnOff)
+ENDCHUNK
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\gdmelon.bmp", kxpregGdMelVoice, kypregGdMelVoice)
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOn))
+	REP_MBMPREG(CHID(kst2, krepDefault), "studio\bmp\gdmeloff.bmp", kxpregGdMelVoice, kypregGdMelVoice)
+	CREATE_ANIM("Mel Voice control")
+		// see if voice should be on or off
+		fMelAudio = GetProp( kpridMcZeeAudio ) & kflgMelAudio;
+		If ( fMelAudio );		// audio suppressed = state 2
+			ChangeStateThis(kst2);
+		End;
+	ENDCHUNK
+	CLICK_SCRIPT("voice toggle clicked")
+		flg = GetProp( kpridMcZeeAudio ); 
+
+		If (StateThis() == kst1);	// audio on (suppress = FALSE)
+			flg |= kflgMelAudio;	// switch to audio off (suppress = TRUE)
+			SetProp( kpridMcZeeAudio, flg );
+			ChangeStateThis(kst2);	
+			StopSoundClass(0, sclHelpSoundClass);	// shut her up immediately (heh heh)
+		Else;
+			flg &= ~kflgMelAudio;	// opposite of above
+			SetProp( kpridMcZeeAudio, flg );
+			ChangeStateThis(kst1);	// toggle audio on / off state
+		End;
+		
+	ENDCHUNK
+
+
+
+// -----------------------------------------------------
+// Gadget cancel control
+// -----------------------------------------------------
+GOBCHUNK("Gadget Cancel", kidGadgetCancel, kgokkRectHit)
+	DEFAULT_POSITION(kxpGdClose, kypGdClose, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttCloseButton)
+ENDCHUNK
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\gdclose.bmp", kxpregGdClose, kypregGdClose)
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+	REP_MBMPREG(CHID1(krepMouseDnOn), "studio\bmp\gdcloses.bmp", kxpregGdClose, kypregGdClose)
+	CLICK_SCRIPT("Cancel clicked")
+		// stop playing video from playing if playing
+		If (StateGob(kidGadgetPlay) == kst2);		
+			ChangeStateGob(kidGadgetPlay, kst1);
+		End;
+		CreateChildGob(kidBackground, kidGadgetAlertGlass, kidGadgetAlertGlass);		
+		CreateHelpGob(kidGadgetAlertGlass, ktpcProjectCancel);
+	ENDCHUNK
+	CHILD_SCRIPT("Exit the gadget", kchidScript1)
+		DestroyGob(kidSequenceParent->lastHelp);
+		DestroyGob(kidSequenceParent);
+		DestroyGob(kidGadget);
+		DestroyGob(kidGadgetParent);
+		// flag for easel help
+		::fHelpOn = fFalse;
+		CreateHelpGob(kidBackground, ktpcUserQuitsHelp);
+		ENABLEACCEL(fFalse);
+	ENDCHUNK
+	
+// -----------------------------------------------------
+// Gadget alert glass for protecting against illegal click
+// -----------------------------------------------------
+GOBCHUNK("Gadget alert glass", kidGadgetAlertGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 600)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_FILL(CHID1(krepDefault), "Gadget alert glass", 0, 0, 640, 480, Palette(73), Transparent )
+		PATTERN_50X
+	ENDCHUNK
+
+// -----------------------------------------------------
+// How button
+// -----------------------------------------------------
+GOBCHUNK("Gadget How button", kidGadgetHow, kgokkRectHit)
+	DEFAULT_POSITION(kxpGdHow, kypGdHow, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttHowButton)
+ENDCHUNK
+	REP_MBMPREG(CHID1(krepDefault), "studio\bmp\gdhow.bmp", kxpregGdHow, kypregGdHow)
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+	REP_MBMPREG(CHID1(krepMouseDnOn), "studio\bmp\gdhows.bmp", kxpregGdHow, kypregGdHow)
+	CLICK_SCRIPT("button up clicked")
+		::gdCurrStep++;
+		// turn tooltips back off
+		SetProp(kpridToolTipDelay, 999999);
+		DestroyGob(kidGadgetParent);
+		// change the gadget button to normal
+		ChangeStateGob(kidGadget, kst1);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Why button
+// -----------------------------------------------------
+GOBCHUNK("Gadget Why button", kidGadgetWhy, kgokkRectHit)				
+	DEFAULT_POSITION(kxpGdWhy, kypGdWhy, 200)
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsHand1, CHID1(kchidClick), cidNil, ttWhyButton)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, ttWhyButton)
+ENDCHUNK
+	REP_MBMPREG(CHID(kst1, krepDefault), "studio\bmp\gdwhy.bmp", kxpregGdWhy, kypregGdWhy)
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseDnOff))
+	REP_MBMPREG(CHID(kst1, krepMouseDnOn), "studio\bmp\gdwhys.bmp", kxpregGdWhy, kypregGdWhy)
+	REP_MBMPREG(CHID(kst2, krepDefault), "studio\bmp\gdwhyd.bmp", kxpregGdWhy, kypregGdWhy)
+	CLICK_SCRIPT("button clicked")
+//	  	ChangeStateGob( kidGadgetPlay, kst1 );
+	ENDCHUNK
+	REP_WAVE( CHID1( krepClicked ), "studio\sound\gemtip.wav" )
+
+// -----------------------------------------------------
+// Selector up button
+// -----------------------------------------------------
+GOBCHUNK("Gadget up button", kidGadgetSelectorUp, kgokkRectHit)
+	DEFAULT_POSITION(kxpGdSelUp, kypGdSelUp, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttNextMovie)
+ENDCHUNK
+	REP_MBMPREG(CHID(kst1, krepDefault), "studio\bmp\gdselup.bmp", kxpregGdSelUp, kypregGdSelUp)
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseDnOff))
+	REP_MBMPREG(CHID(kst1, krepMouseDnOn), "studio\bmp\gdselups.bmp", kxpregGdSelUp, kypregGdSelUp)
+	ADOPT_WAVE( kcnoPageUpWav, CHID1( krepClicked ))
+
+	CLICK_SCRIPT("button up clicked")
+		::gdUpSelected = fTrue;
+		// stop playing video from playing if playing
+		If (StateGob(kidGadgetPlay) == kst2);		
+			ChangeStateGob(kidGadgetPlay, kst1);
+		End;
+		// if already working on project#x then prompt
+		If (::gdCurrStep > 1);
+			CreateChildGob(kidBackground, kidGadgetAlertGlass, kidGadgetAlertGlass);		
+			CreateHelpGob(kidGadgetAlertGlass, ktpcNewMovie);
+		Else;
+			RunScriptThis(kchidScript1);
+		End;
+	ENDCHUNK
+	
+	CHILD_SCRIPT("Up button selected", kchidScript1)
+		// if last project then wrap around to first
+		If (::gdCurrProj > 5);
+			::gdCurrProj = 1;
+		Else;
+			::gdCurrProj++;
+		End;
+		::gdCurrStep = 1;
+		ChangeStateGob(kidGadgetSelectorNum, (kst1 + ::gdCurrProj - 1));
+		If (StateGob(kidGadgetPlay) == kst2);
+			ChangeStateGob(kidGadgetPlay, kst1);
+		Else;
+			ChangeStateGob(kidGadgetAvi, (kst1 + ::gdCurrProj - 1));
+		End;
+		If (StateGob(kidGadgetLockerPict) == kst2);
+			ChangeStateGob(kidGadgetLockerPict, kst1);
+		End;
+		// disable why button
+		ChangeStateGob(kidGadgetWhy, kst2);
+		RunScriptGob(kidGadgetParent, kchidScript1);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// Selector number
+// -----------------------------------------------------
+GOBCHUNK("Gadget selector number", kidGadgetSelectorNum, gokkNoHit)
+	DEFAULT_POSITION(kxpGdMovieNum, kypGdMovieNum, 200)
+//	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_MBMPREG(CHID(kst1, krepDefault), "studio\bmp\gdmovie1.bmp", kxpregGdMovieNum, kypregGdMovieNum)
+	REP_MBMPREG(CHID(kst2, krepDefault), "studio\bmp\gdmovie2.bmp", kxpregGdMovieNum, kypregGdMovieNum)
+	REP_MBMPREG(CHID(kst3, krepDefault), "studio\bmp\gdmovie3.bmp", kxpregGdMovieNum, kypregGdMovieNum)
+	REP_MBMPREG(CHID(kst4, krepDefault), "studio\bmp\gdmovie4.bmp", kxpregGdMovieNum, kypregGdMovieNum)
+	REP_MBMPREG(CHID(kst5, krepDefault), "studio\bmp\gdmovie5.bmp", kxpregGdMovieNum, kypregGdMovieNum)
+	REP_MBMPREG(CHID(kst6, krepDefault), "studio\bmp\gdmovie6.bmp", kxpregGdMovieNum, kypregGdMovieNum)
+
+// -----------------------------------------------------
+// Selector down button
+// -----------------------------------------------------
+GOBCHUNK("Gadget down button", kidGadgetSelectorDown, kgokkRectHit)
+	DEFAULT_POSITION(kxpGdSelDn, kypGdSelDn, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, CHID1(kchidClick), cidNil, ttPreviousMovie)
+ENDCHUNK
+	REP_MBMPREG(CHID(kst1, krepDefault), "studio\bmp\gdseldn.bmp", kxpregGdSelDn, kypregGdSelDn)
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseUpOn))
+	ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseDnOff))
+	REP_MBMPREG(CHID(kst1, krepMouseDnOn), "studio\bmp\gdseldns.bmp", kxpregGdSelDn, kypregGdSelDn)
+	ADOPT_WAVE( kcnoPageDnWav, CHID1( krepClicked ))
+	CLICK_SCRIPT("button down clicked")
+		::gdUpSelected = fFalse;
+		// stop playing video from playing if playing
+		If (StateGob(kidGadgetPlay) == kst2);		
+			ChangeStateGob(kidGadgetPlay, kst1);
+		End;
+		// if already working on project#x then prompt
+		If (::gdCurrStep > 1);
+			CreateChildGob(kidBackground, kidGadgetAlertGlass, kidGadgetAlertGlass);		
+			CreateHelpGob(kidGadgetAlertGlass, ktpcNewMovie);
+		Else;
+			RunScriptThis(kchidScript1);
+		End;
+	ENDCHUNK
+	CHILD_SCRIPT("Down button selected", kchidScript1)
+		// if first project then wrap around to last
+		If (::gdCurrProj < 2);
+			::gdCurrProj = 6;
+		Else;
+			::gdCurrProj--;
+		End;	
+		::gdCurrStep = 1;
+		ChangeStateGob(kidGadgetSelectorNum, (kst1 + ::gdCurrProj - 1));
+		If (StateGob(kidGadgetPlay) == kst2);
+			ChangeStateGob(kidGadgetPlay, kst1);
+		Else;
+			ChangeStateGob(kidGadgetAvi, (kst1 + ::gdCurrProj - 1));
+		End;
+		If (StateGob(kidGadgetLockerPict) == kst2);
+			ChangeStateGob(kidGadgetLockerPict, kst1);
+		End;
+		// disable why button
+		ChangeStateGob(kidGadgetWhy, kst2);
+		RunScriptGob(kidGadgetParent, kchidScript1);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The frame around the movie, movies parent
+// -----------------------------------------------------
+GOBCHUNK("Gadget movie avi frame", kidGadgetAviFrame, gokkNoHit)
+	DEFAULT_POSITION( 241, 84, 200)
+//	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_RECT(CHID1(krepDefault), "avi", 0, 0, 160, 90 )
+	CREATE_ANIM("")
+		CreateChildThis(kidGadgetAvi, kidGadgetAvi);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The area inside the movie frame
+// -----------------------------------------------------
+GOBCHUNK("Gadget movie avi", kidGadgetAvi, gokkNoHit)
+	DEFAULT_POSITION( 0, 0, 100)
+//	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\gdavi1.bmp")
+	REP_MBMP(CHID(kst2, krepDefault), "studio\bmp\gdavi3.bmp")
+	REP_MBMP(CHID(kst3, krepDefault), "studio\bmp\gdavi2.bmp")
+	REP_MBMP(CHID(kst4, krepDefault), "studio\bmp\gdavi6.bmp")
+	REP_MBMP(CHID(kst5, krepDefault), "studio\bmp\gdavi5.bmp")
+	REP_MBMP(CHID(kst6, krepDefault), "studio\bmp\gdavi4.bmp")
+	REP_VIDEO(CHID(kst7, krepDefault), "proj1.avi", fTrue)
+	REP_VIDEO(CHID(kst8, krepDefault), "proj2.avi", fTrue)
+	REP_VIDEO(CHID(kst9, krepDefault), "proj3.avi", fTrue)
+	REP_VIDEO(CHID(kst10, krepDefault), "proj4.avi", fTrue)
+	REP_VIDEO(CHID(kst11, krepDefault), "proj5.avi", fTrue)
+	REP_VIDEO(CHID(kst12, krepDefault), "proj6.avi", fTrue)
+	CREATE_ANIM("")
+		ChangeStateThis(kst1 + (::gdCurrProj - 1));
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The frame behind the text
+// -----------------------------------------------------
+GOBCHUNK("Gadget text area", kidGadgetWord, gokkNoHit)
+	DEFAULT_POSITION(0, 0, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_MBMP(CHID(kst1, krepDefault), "studio\bmp\gdword.bmp")
+	CREATE_ANIM("Text box created")
+		CreateChildThis(kidGadgetTextBox, kidGadgetTextBox);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The "fill" is the area that is writable on the word bitmap
+// -----------------------------------------------------
+GOBCHUNK("Gadget text box fill", kidGadgetTextBox, gokkNoHit)
+	DEFAULT_POSITION(0, 0, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_FILL(CHID(kst1, krepDefault), "Text Box Fill", kTextBoxFillLeft, kTextBoxFillTop, kTextBoxFillRight, kTextBoxFillBottom, Transparent, Transparent)
+		PATTERN_0
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The "fill" is behind the locker bmps, lockers parent
+// -----------------------------------------------------
+GOBCHUNK("Gadget locker fill", kidGadgetLockerFill, gokkNoHit)
+	DEFAULT_POSITION(0, 0, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_FILL(CHID(kst1, krepDefault), "Locker Fill", kLockerFillLeft, kLockerFillTop, kLockerFillRight, kLockerFillBottom, Palette(20), Transparent)
+		PATTERN_50X
+	ENDCHUNK
+	CREATE_ANIM("gadget created")
+		CreateChildThis(kidGadgetLockerPict, kidGadgetLockerPict);
+	ENDCHUNK
+
+// -----------------------------------------------------
+// The picture in the gadgets locker area
+// -----------------------------------------------------
+GOBCHUNK("Gadget locker picture", kidGadgetLockerPict, gokkNoHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	
+	REP_MBMP(kcell1, "studio\bmp\pnshot7.bmp")
+	REP_MBMP(kcell2, "studio\bmp\pnshot7a.bmp")
+	REP_MBMP(kcell3, "studio\bmp\pnshot7b.bmp")
+	REP_MBMP(kcell4, "studio\bmp\pnshot7c.bmp")
+	REP_MBMP(kcell5, "studio\bmp\pnshot7d.bmp")
+	REP_MBMP(kcell6, "studio\bmp\pnshot7e.bmp")
+	REP_MBMP(kcell7, "studio\bmp\pnshot7f.bmp")
+
+	REP_MBMP(kcell8, "studio\bmp\pnshot5.bmp")
+	REP_MBMP(kcell9, "studio\bmp\pnshot5a.bmp")
+	REP_MBMP(kcell10, "studio\bmp\pnshot5b.bmp")
+	REP_MBMP(kcell11, "studio\bmp\pnshot5c.bmp")
+	REP_MBMP(kcell12, "studio\bmp\pnshot5d.bmp")
+
+	REP_MBMP(kcell13, "studio\bmp\pnshot9a.bmp")
+	REP_MBMP(kcell14, "studio\bmp\pnshot9b.bmp")
+	REP_MBMP(kcell15, "studio\bmp\pnshot9c.bmp")
+
+	// Review::temps - need bitmaps for project 6
+
+	REP_MBMP(kcell16, "studio\bmp\pnshot4.bmp")
+	REP_MBMP(kcell17, "studio\bmp\pnshot4a.bmp")
+	REP_MBMP(kcell18, "studio\bmp\pnshot4b.bmp")
+	REP_MBMP(kcell19, "studio\bmp\pnshot4c.bmp")
+	REP_MBMP(kcell20, "studio\bmp\pnshot4d.bmp")
+	REP_MBMP(kcell21, "studio\bmp\pnshot4e.bmp")
+
+	REP_MBMP(kcell22, "studio\bmp\pnshot6.bmp")
+	REP_MBMP(kcell23, "studio\bmp\pnshot6a.bmp")
+	REP_MBMP(kcell24, "studio\bmp\pnshot6b.bmp")
+	REP_MBMP(kcell25, "studio\bmp\pnshot6c.bmp")
+	REP_MBMP(kcell26, "studio\bmp\pnshot6d.bmp")
+	REP_MBMP(kcell27, "studio\bmp\pnshot6e.bmp")
+	REP_MBMP(kcell28, "studio\bmp\pnshot6f.bmp")
+	REP_MBMP(kcell29, "studio\bmp\pnshot6g.bmp")
+	REP_MBMP(kcell30, "studio\bmp\pnshot6h.bmp")
+	REP_MBMP(kcell31, "studio\bmp\pnshot6i.bmp")
+
+	REP_MBMP(kcell32, "studio\bmp\pnshot8.bmp")
+	REP_MBMP(kcell33, "studio\bmp\pnshot8a.bmp")
+	REP_MBMP(kcell34, "studio\bmp\pnshot8b.bmp")
+	REP_MBMP(kcell35, "studio\bmp\pnshot8c.bmp")
+	REP_MBMP(kcell36, "studio\bmp\pnshot8d.bmp")
+
+	REP_MBMP(kcell37, "studio\bmp\pnclosed.bmp")
+	REP_ANIM(CHID(kst1, krepDefault), "Show closed locker")
+		Cell(kcell37, 0, 0, 1);
+	ENDCHUNK	
+	REP_ANIM(CHID(kst2, krepDefault), "Show first step of current project")
+		Cell((kcell1 + ::gdProjEnd[::gdCurrProj - 1] + ::gdCurrStep - 1) , 0, 0, 1);
+	ENDCHUNK
+
+// -------------------------------------------------------
+//	Up and down selector arrows function
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcNewMovie)
+	// 0 means play sound, else see what button was hit
+	If (_parm[0] != 0);	
+		// try another movie
+		If (_parm[0] == 1);
+			// clear existing moving in studio
+			EnqueueCid(cidNew, khidStudio, 0, 0, 0, 0);
+			// if we are past step 1 save stuff will come up, need to handle it
+			If (::gdCurrStep > 1);
+				FilterCmdsGob(kidGadgetParent, cidQuerySaveDocResult, kidNil, kchidScript3);
+				FilterCmdsGob(kidGadgetParent, cidPortfolioResult, kidNil, kchidScript4);
+				DestroyGob(kgobProjectHot);						
+			Else;
+				If (::gdUpSelected == fTrue);
+					RunScriptGob(kidGadgetSelectorUp, kchidScript1);
+				Else;
+					RunScriptGob(kidGadgetSelectorDown, kchidScript1);
+				End;
+				DestroyGob(kidGadgetAlertGlass);						
+			End;
+		// continue with current project
+		Else;
+			DestroyGob(kidGadgetAlertGlass);						
+		End;
+		Return(fTrue);
+	Else;
+//		If (._cnoSound != cnoNil && ::fMelAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+//			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+//		End;
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+//	Cancel button function
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcProjectCancel)
+	// 0 means play sound, else see what button was hit
+	If(_parm[0] != 0);	
+		// work on your own
+		If (_parm[0] == 1);
+			// work on my own case
+			RunScriptGob(kidGadgetCancel, kchidScript1);
+			DestroyGob(kidGadgetAlertGlass);						
+		// go to projects room
+		Elif (_parm[0] == 2);
+			If (::gdCurrStep > 1);
+				FilterCmdsGob(kidGadgetParent, cidQuerySaveDocResult, kidNil, kchidScript5);
+				FilterCmdsGob(kidGadgetParent, cidPortfolioResult, kidNil, kchidScript6);
+				DestroyGob(kgobProjectHot);						
+			End;
+			// go back to the projects room case
+			ENABLEACCEL(fFalse);
+		 	EnqueueCid(cidLoadBuilding, 0, 0, 0, 0, 0);
+		// continue project
+		Else;
+			DestroyGob(kidGadgetAlertGlass);						
+		End;		
+		Return(fTrue);
+	Else;
+		fMelAudio = GetProp( kpridMcZeeAudio ) & kflgMelAudio;		
+		If (._cnoSound != cnoNil && !fMelAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+

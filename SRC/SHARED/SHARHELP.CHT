@@ -1,0 +1,646 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+//
+// Main build chunky text file for the Socrates Shared Help
+// Main build chunky text file for the Socrates Studio Help
+//
+// Sean Selitrennikoff
+// *******
+//
+// -----------------------------------------------------
+// Help objects for Errors
+// -----------------------------------------------------
+// -----------------------------------------------------
+// Utest errors balloon
+// -----------------------------------------------------
+GOBCHUNK("Utest Error", kgobBalloonError, kgokkNormal)
+	DEFAULT_POSITION(0,0,700)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool page tile", "shared\bmp\alert.bmp", 115, 72 )
+	TILEDEF( 14,14,24,183,8,0,0,0,24 )
+	TILEDEF( 14,14,24,95,8,0,0,0,24 )
+ENDCHUNK
+REP_WAVE( CHID1( krepDefault ), "shared\sound\alert2.wav" )
+
+// scripts to run
+SCRIPTCHUNK("Handling error messages", ktpcErrorScript)
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+
+// -------------------------------------------------------
+//	Query CD not found
+// -------------------------------------------------------
+HELP_SCRIPT(ktpcQueryCD)
+	// If _parm[0] != 0 then a button has been pushed.
+	If(_parm[0] != 0);	
+		EnqueueCid(cidEndModal, 0, _parm[0], 0, 0, 0);
+	End;
+ENDCHUNK
+
+// -----------------------------------------------------
+// Help objects(Balloons)
+// -----------------------------------------------------
+// -----------------------------------------------------
+// normal help balloon (mid right speech dippty)
+// -----------------------------------------------------
+GOBCHUNK( "help balloon #1", kgobBalloon1, 0)
+	DEFAULT_POSITION( 40,40,500 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "help balloon 1 tile", "shared\bmp\balln1b.bmp", 93, 29 )
+	TILEDEF( 7, 24, 7, 64, 8, 0,0,0,22 )
+	TILEDEF( 7, 8, 7, 22, 8, 17, 8, 8, 8 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Tooltip balloon
+// -----------------------------------------------------
+GOBCHUNK( "tooltip balloon", kgobBalloonToolTip, 0)
+	DEFAULT_POSITION( 0,0,500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool tip tile", "shared\bmp\tooltip.bmp", 0, 0 )
+	TILEDEF( 4,4,4, 160,8, 0, 0, 0, 4 )
+	TILEDEF( 3,3,3,50,8,0,0,0,3 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Tooltip balloon, with reg point at bottom right
+// -----------------------------------------------------
+GOBCHUNK( "tooltip balloon", kgobBalloonToolTip2, 0)
+	DEFAULT_POSITION( 0,0,500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool tip tile", "shared\bmp\tooltip.bmp", 168, 56 )
+	TILEDEF( 4,4,4, 160,8, 0, 0, 0, 4 )
+	TILEDEF( 3,3,3,50,8,0,0,0,3 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon Invisible for audio only
+// -----------------------------------------------------
+GOBCHUNK("Audio Only balloon", kgobBalloonToolTipAO, gokkNoHit)
+	DEFAULT_POSITION( 0,0,500 )
+ENDCHUNK
+REP_FILL(CHID1(krepDefault), "Callout BalloonAO", 0, 0, 1, 1, Transparent, Transparent)
+	PATTERN_0
+ENDCHUNK
+
+// -----------------------------------------------------
+// Tool topic balloon
+// -----------------------------------------------------
+GOBCHUNK( "tool topic", kgobBalloonToolTopic, 0)
+	DEFAULT_POSITION( 40,40,500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool page tile", "shared\bmp\toolhelp.bmp", 231, 143 )
+	TILEDEF( 14,14,24,183,8,0,0,0,24 )
+	TILEDEF( 14,14,24,95,8,0,0,0,24 )
+ENDCHUNK
+
+
+// -----------------------------------------------------
+// Query help balloon
+// -----------------------------------------------------
+GOBCHUNK("Query help topic", kgobQueryTopics, kgokkNormal)
+	DEFAULT_POSITION(100,100,700)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool page tile", "shared\bmp\alert.bmp", 120, 72 )
+	TILEDEF( 14,14,24,191,8,0,0,0,24 )
+	TILEDEF( 14,14,24,95,8,0,0,0,24 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Label balloon, -- no hit testing
+// -----------------------------------------------------
+GOBCHUNK( "blank label balloon", kgobBalloonLabel, gokkNoHit )
+	DEFAULT_POSITION( 0,0,899 )
+ENDCHUNK
+REP_FILL(CHID1(krepDefault), "kgobBalloonLabel", 0, 0, 1, 1, Transparent, Transparent)
+	PATTERN_0
+ENDCHUNK
+
+// -----------------------------------------------------
+// Help Book left page balloon -- no hit testing
+// -----------------------------------------------------
+GOBCHUNK( "blank label balloon", kgobBalloonPageLeft, kgokkNormal )
+	DEFAULT_POSITION( 0,0,899 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Invisible", "shared\bmp\balln3.bmp", 1, 1)
+	TILEDEF( 0, 0, 0, 32, 1, 0, 0, 0,0  )
+	TILEDEF( 0, 0, 0, 32, 1, 0, 0, 0,0  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Help Book right page balloon -- no hit testing
+// -----------------------------------------------------
+GOBCHUNK( "blank label balloon", kgobBalloonPageRight, kgokkNormal )
+	DEFAULT_POSITION( 0,0,899 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Invisible", "shared\bmp\balln3.bmp", 1, 1)
+	TILEDEF( 0, 0, 0, 32, 1, 0, 0, 0,0  )
+	TILEDEF( 0, 0, 0, 32, 1, 0, 0, 0,0  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// transparent rectangular balloon, that allows hit testing
+// -----------------------------------------------------
+GOBCHUNK( "blank, invisible balloon", kgobBalloonBlank, kgokkNormal )
+	DEFAULT_POSITION( 0,0,899 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Invisible", "shared\bmp\balln3.bmp", 1, 1)
+	TILEDEF( 0, 0, 0, 32, 1, 0, 0, 0,0  )
+	TILEDEF( 0, 0, 0, 32, 1, 0, 0, 0,0  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Centered,rectangular alert help balloon
+// -----------------------------------------------------
+GOBCHUNK( "alert help", kgobBalloonAlert, 0)
+	DEFAULT_POSITION( 0, 0,999 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "alert tile", "shared\bmp\balln2.bmp", 40, 29 )
+	TILEDEF( 7, 24, 7, 64, 8, 0,0,0, 22 )
+	TILEDEF( 3, 8, 7, 20, 8, 17, 8, 8, 8 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Close caption balloon
+// -----------------------------------------------------
+GOBCHUNK( "voice over balloon", kgobVoiceOver, gokkNoHit )
+	DEFAULT_POSITION( 0, 0,999 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "alert tile", "shared\bmp\vo.bmp", 40, 29 )
+	TILEDEF( 7, 24, 7, 64, 8, 0,0,0, 22 )
+	TILEDEF( 3, 8, 7, 20, 8, 17, 8, 8, 8 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Top left arrowed bordered balloon
+// -----------------------------------------------------
+GOBCHUNK( "alert help", kgobBalloonBorder1, 0)
+	DEFAULT_POSITION( 0,0,999 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Bordered tile", "shared\bmp\border1.bmp", 30, 5 )
+	TILEDEF( 11, 20, 31, 40, 1, 0,0,0, 8 )
+	TILEDEF( 25, 8, 25, 32, 1, 0,0,0, 8 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Help book tool help balloon, does filtering
+// -----------------------------------------------------
+GOBCHUNK("Tool help", kgobHelpBookToolTopics, kgokkNormal)
+	DEFAULT_POSITION(100,100,700)
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID1(kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool page tile", "shared\bmp\tooltip.bmp", 168, 56 )
+	TILEDEF( 4,4,4, 160,8, 0, 0, 0, 4 )
+	TILEDEF( 3,3,3,50,8,0,0,0,3 )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for help tools balloon")
+	// get all mouse downs, keys or the F1 hotkey
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+	// F1 key fixes bug # 678
+	FilterCmdsThis(cidHelpBook, kidNil, kchidScript1);
+	FilterCmdsThis(cidToggleXY, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	If (!FIsDescendent(_parm[0], GidThis()));
+		DestroyThis();
+	End;
+ENDCHUNK
+CLICK_SCRIPT("Tool help balloon got clicked")
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// balloon that comes up from clicks in hotspots of tool help
+// -----------------------------------------------------
+GOBCHUNK("Hot help for tools", kgobBalloonHotHelp, kgokkNormal)
+	DEFAULT_POSITION(100,100,700)
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, kchidScript1, cidNil, cnoNil) 
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool page tile", "shared\bmp\tooltip.bmp", 84, 28 )
+	TILEDEF( 4,4,4, 160,8, 0, 0, 0, 4 )
+	TILEDEF( 3,3,3,50,8,0,0,0,3 )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for help tools balloons")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// balloon that comes up from clicks in hotspots of gadget help
+// -----------------------------------------------------
+GOBCHUNK("Hot help for projects", kgobBalloonHotGadgetHelp, kgokkNormal)
+	DEFAULT_POSITION(100,100,700)
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, kchidScript1, cidNil, cnoNil) 
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "Tool page tile", "shared\bmp\tooltip.bmp", 84, 28 )
+	TILEDEF( 4,4,4, 160,8, 0, 0, 0, 4 )
+	TILEDEF( 3,3,3,50,8,0,0,0,3 )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for project hot balloons")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+	// F1 key fixes bug # 678
+	FilterCmdsThis(cidHelpBook, kidNil, kchidScript1);
+	FilterCmdsThis(cidToggleXY, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon crinkly style
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon0", kgobCalloutBalloon0, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon0 Tile", "shared\bmp\coblln0.bmp", 83, 61 )
+	TILEDEF( 5, 5, 8, 151, 8, 0, 0,0, 8  )
+	TILEDEF( 4, 4, 8, 106, 8, 0, 0, 0,8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to upper left
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon1", kgobCalloutBalloon1, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon1 Tile", "shared\bmp\coblln1.bmp", 1, 1)
+	TILEDEF( 29, 8, 36, 146, 8, 0, 0, 0,8 )
+	TILEDEF( 28, 8, 32, 103, 8, 0, 0, 0,8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to upper mid
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon2", kgobCalloutBalloon2, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon2 Tile", "shared\bmp\coblln2.bmp", 83, 1)
+	TILEDEF( 4, 8, 8, 58, 8, 35, 60, 8,8  )
+	TILEDEF( 41, 8, 42, 108, 8, 0, 0, 0,8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to upper right
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon3", kgobCalloutBalloon3, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon3 Tile", "shared\bmp\coblln3.bmp", 189, 2 )
+	TILEDEF( 4, 32, 8, 147, 8, 0, 0, 0, 36 )
+	TILEDEF( 30, 8, 34, 103, 4, 0, 0, 0, 8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to right
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon4", kgobCalloutBalloon4, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon4 Tile", "shared\bmp\coblln4.bmp", 201, 65)
+	TILEDEF( 4, 46, 8, 148, 8, 0, 0, 0, 48 )
+	TILEDEF( 3, 8, 8, 40, 4, 34, 40, 4, 8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to lower right
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon5", kgobCalloutBalloon5, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon5 Tile", "shared\bmp\coblln5.bmp", 189, 143 )
+	TILEDEF( 4, 32, 8, 148, 8, 0, 0, 0, 36 )
+	TILEDEF( 3, 32, 8, 102, 8, 0, 0, 0, 36 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to lower mid
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon6", kgobCalloutBalloon6, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon6 Tile", "shared\bmp\coblln6.bmp", 83, 155 )
+	TILEDEF( 4, 8, 8, 60, 8, 33, 60, 8, 8  )
+	TILEDEF( 3, 38, 8, 105, 8, 0, 0, 0, 44  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to lower left
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon7", kgobCalloutBalloon7, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon7 Tile", "shared\bmp\coblln7.bmp", 0, 147 )
+	TILEDEF( 30, 8, 34, 149, 8, 0, 0, 0, 8 )
+	TILEDEF( 3, 28, 8, 101, 8, 0, 0, 0, 38 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to left
+// -----------------------------------------------------
+GOBCHUNK( "Callout Balloon8", kgobCalloutBalloon8, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon8 Tile", "shared\bmp\coblln8.bmp", 0, 66)
+	TILEDEF( 32, 8, 42, 150, 8, 0, 0, 0, 8  )
+	TILEDEF( 3,8, 8, 40, 4, 34, 32, 4, 8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon plain
+// -----------------------------------------------------
+GOBCHUNK( "Callout BalloonP", kgobCalloutBalloonP, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 500 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon0 Tile", "shared\bmp\coblln0.bmp", 83, 61 )
+	TILEDEF( 5, 5, 8, 151, 8, 0, 0,0, 8  )
+	TILEDEF( 4, 4, 8, 106, 8, 0, 0, 0,8  )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon Invisible for audio only
+// -----------------------------------------------------
+GOBCHUNK("Audio Only balloon", kgobCalloutBalloonAO, gokkNoHit)
+	DEFAULT_POSITION( 0,0,500 )
+ENDCHUNK
+REP_FILL(CHID1(krepDefault), "Callout BalloonAO", 0, 0, 1, 1, Transparent, Transparent)
+	PATTERN_0
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to upper mid for easel help
+// -----------------------------------------------------
+GOBCHUNK( "Easel Callout Balloon2", kgobEaselBalloon2, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 700 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID1(kchidClick), cidNil, cnoNil) 
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon2 Easel Tile", "shared\bmp\coblln2.bmp", 83, 1)
+	TILEDEF( 4, 8, 8, 58, 8, 35, 60, 8,8  )
+	TILEDEF( 41, 8, 42, 108, 8, 0, 0, 0,8  )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for easel help balloons")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	If (!FIsDescendent(_parm[0], GidThis()));
+		DestroyThis();
+	End;
+ENDCHUNK
+CLICK_SCRIPT("Easel2 balloon got clicked")
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to right for easel help 
+// -----------------------------------------------------
+GOBCHUNK( "Easel Callout Balloon4", kgobEaselBalloon4, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 700 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID1(kchidClick), cidNil, cnoNil) 
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon4 Easel Tile", "shared\bmp\coblln4.bmp", 201, 65)
+	TILEDEF( 8, 46, 8, 148, 8, 0, 0, 0, 48 )
+	TILEDEF( 8, 8, 8, 40, 4, 34, 40, 4, 8  )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for easel help balloons")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	If (!FIsDescendent(_parm[0], GidThis()));
+		DestroyThis();
+	End;
+ENDCHUNK
+CLICK_SCRIPT("Easel4 balloon got clicked")
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon no arrow easel help 
+// -----------------------------------------------------
+GOBCHUNK( "Easel Callout BalloonP", kgobEaselBalloonP, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 700 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID1(kchidClick), cidNil, cnoNil) 
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon0 Tile", "shared\bmp\coblln0.bmp", 83, 61 )
+	TILEDEF( 5, 5, 8, 151, 8, 0, 0,0, 8  )
+	TILEDEF( 4, 4, 8, 106, 8, 0, 0, 0,8  )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for easel help balloons")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	If (!FIsDescendent(_parm[0], GidThis()));
+		DestroyThis();
+	End;
+ENDCHUNK
+CLICK_SCRIPT("Easel4 balloon got clicked")
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// Callout balloon arrow to lower mid for easel help
+// -----------------------------------------------------
+GOBCHUNK( "Easel Callout Balloon6", kgobEaselBalloon6, kgokkNormal)
+	DEFAULT_POSITION(0, 0, 700 )
+	ACTION(fcustHotText, fcustHotText, fgrfstAll, kcrsHand1, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID1(kchidClick), cidNil, cnoNil) 
+ENDCHUNK
+REP_TILE(CHID1(krepDefault), "Callout Balloon6 Easel Tile", "shared\bmp\coblln6.bmp", 83, 155 )
+	TILEDEF( 8, 8, 8, 60, 8, 33, 60, 8, 8  )
+	TILEDEF( 8, 38, 8, 105, 8, 0, 0, 0, 44  )
+ENDCHUNK
+// filtering messages
+CREATE_ANIM("Filtering messages for easel help balloons")
+	// get all mouse downs
+	FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+	FilterCmdsThis(cidKey, kidNil, kchidScript1);
+ENDCHUNK
+// Handle mouse clicks
+CHILD_SCRIPT("Got a click or keydown", kchidScript1)
+	If (!FIsDescendent(_parm[0], GidThis()));
+		DestroyThis();
+	End;
+ENDCHUNK
+CLICK_SCRIPT("Easel6 help balloon got clicked")
+	DestroyThis();
+ENDCHUNK
+
+// -----------------------------------------------------
+// Scripts for playing help sounds
+// -----------------------------------------------------
+// -----------------------------------------------------
+// For playing help sounds
+// -----------------------------------------------------
+SCRIPTCHUNK("Playing help sounds", kidPlayHelpSounds)
+	If(_parm[0] == 0);	
+		fMZAudio = GetProp( kpridMcZeeAudio ) & kflgMcZeeAudio;
+		If (._cnoSound != cnoNil && !fMZAudio);	// not suppressing audio
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+
+// -----------------------------------------------------
+// For playing project sounds
+// -----------------------------------------------------
+SCRIPTCHUNK("Playing project sounds", kidPlayProjectSounds)
+	If(_parm[0] == 0);	
+		fMelAudio = GetProp( kpridMcZeeAudio ) & kflgMelAudio;
+		If (._cnoSound != cnoNil && !fMelAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+
+// -----------------------------------------------------
+// For playing guidehelp sounds
+// -----------------------------------------------------
+SCRIPTCHUNK("Playing logo sounds", kidPlayLogoSounds)
+	If(_parm[0] == 0);	
+		fMelAudio = GetProp( kpridMcZeeAudio ) & kflgMelAudio;		
+		If (._cnoSound != cnoNil && !fMelAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+
+// -----------------------------------------------------
+// For playing guidehelp sounds
+// -----------------------------------------------------
+SCRIPTCHUNK("Playing guide help sounds", kidPlayGuideSounds)
+	If(_parm[0] == 0);	
+		fMZAudio = GetProp( kpridMcZeeAudio ) & kflgMcZeeAudio;
+		If (._cnoSound != cnoNil && !fMZAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+
+// -----------------------------------------------------
+// For playing tooltip sounds
+// -----------------------------------------------------
+SCRIPTCHUNK("Playing other sounds", kidPlayToolTipSounds)
+	If(_parm[0] == 0);	
+		fMZAudio = GetProp( kpridMcZeeAudio ) & kflgMcZeeAudio;
+		If (._cnoSound != cnoNil && !fMZAudio);
+			StopSoundClass(0, sclHelpSoundClass);		
+			PlaySoundGob(GidParThis(), ._ctgSound, ._cnoSound, ksqnNone, 0x10000, 1, 0, sclHelpSoundClass);
+		End;
+	End;
+ENDCHUNK
+
+// -----------------------------------------------------
+// Main build chunky text file for the Socrates Building Help
+// -----------------------------------------------------
+// -----------------------------------------------------
+// normal help balloon
+// -----------------------------------------------------
+GOBCHUNK( "help balloon #1a", kgobBalloon1a, 0)
+	DEFAULT_POSITION( 40,40,800 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "help balloon 1 tile", "shared\bmp\balln1a.bmp", 93, 29 )
+	TILEDEF( 7, 7, 7, 133, 4, 0, 0, 0, 7 )
+	TILEDEF( 7, 7, 7, 89, 4, 0, 0, 0, 7 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// normal help balloon (mid right speech dippty down)
+// -----------------------------------------------------
+GOBCHUNK( "help balloon #1e", kgobBalloon1e, 0)
+	DEFAULT_POSITION( 40,40,800 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "help balloon 1 tile", "shared\bmp\balln1e.bmp", 170, 103 )
+	TILEDEF( 7, 32, 7, 131, 4, 0, 0, 0, 32 )
+	TILEDEF( 7, 7, 7, 70, 4, 0, 0, 0, 26 )
+ENDCHUNK
+
+
+// -----------------------------------------------------
+// normal help balloon (bottom left speech dippty down)
+// -----------------------------------------------------
+GOBCHUNK( "help balloon #1d", kgobBalloon1d, 0)
+	DEFAULT_POSITION( 40,40,800 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "help balloon 1 tile", "shared\bmp\balln1d.bmp", 0, 102 )
+	TILEDEF( 32, 7, 32, 131, 4, 0, 0, 0, 7 )
+	TILEDEF( 7, 7, 7, 68, 4, 0, 0, 0, 26 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// Tip help balloon
+// -----------------------------------------------------
+GOBCHUNK( "alert help", kgobBalloonTip, 0)
+	DEFAULT_POSITION( 0, 0,999 )
+ENDCHUNK
+REP_TILE( CHID1( krepDefault), "alert tile", "shared\bmp\balln2.bmp", 40, 29 )
+	TILEDEF( 7, 24, 7, 64, 8, 0,0,0, 22 )
+	TILEDEF( 7, 8, 7, 20, 8, 17, 8, 8, 8 )
+ENDCHUNK
+
+// -----------------------------------------------------
+// squishy control, with tracking
+// -----------------------------------------------------
+GOBCHUNK( "kgobHelpSquishy", kgobHelpSquishy, 0 )
+	DEFAULT_POSITION( 0,0,1)
+	ACTION( fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil )
+ENDCHUNK
+// normal
+REP_MBMP( CHID1( krepDefault), "shared\bmp\squishy1.bmp"  )
+// splotted
+REP_MBMP( CHID1( krepMouseDnOn ), "shared\bmp\squishy3.bmp" )
+REP_MBMP( CHID1( krepMouseUpOn ), "shared\bmp\squishy2.bmp" )
+ADOPT_MBMP( LAST_MBMP, CHID1( krepMouseDnOff ))
+REP_WAVE( CHID1( krepClicked ), "shared\sound\ok.wav" )

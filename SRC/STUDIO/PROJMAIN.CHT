@@ -1,0 +1,569 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+//////////////////////////////////
+//	Help Sequence reader main file 
+//////////////////////////////////
+
+#define INITIALIZE_TABLE() \
+	SET _indx = 0;
+
+// initializing the arrays with the project table
+#define PROJECT_TABLE(_inst, _return, _ID0, _next, _ID1, _ID2) \
+	kidSequenceParent->word1[_indx] = _inst; \
+	kidSequenceParent->word2[_indx] = _return; \
+	kidSequenceParent->word3[_indx] = _ID0; \
+	kidSequenceParent->word4[_indx] = _next; \
+	kidSequenceParent->word6[_indx] = _ID1; \
+	kidSequenceParent->word7[_indx] = _ID2; \
+	SET _indx++;
+
+// takes us to the next state, unless is previous state
+#define NEXTSTATE(_next) \
+	DEBUGCMD(PrintStr("Project Interpreter: Going to state ", NumToStr(_next, "")));\
+	If (_next != PrevState); \
+		kidSequenceParent->prev2State = kidSequenceParent->prevState; \
+		kidSequenceParent->prevState = kidSequenceParent->currState; \
+		kidSequenceParent->currState = _next; \
+		kidSequenceParent->currLine = kidSequenceParent->nsjTable[_next]; \
+		kidSequenceParent->stateLine = kidSequenceParent->currLine; \
+	Else; \
+		kidSequenceParent->currState = kidSequenceParent->prevState; \
+		kidSequenceParent->prevState = kidSequenceParent->prev2State; \
+		kidSequenceParent->currLine = kidSequenceParent->nsjTable[kidSequenceParent->currState]; \
+		kidSequenceParent->stateLine = kidSequenceParent->currLine; \
+	End;
+
+////////////////////////////////////////////////////////////
+// Sequence parent object - this object is responsible for reading
+//	and executing the help state machine(more or less) code.
+//  Create this from other object, read in table from other object,
+//  then start kchidScript1 from other object
+////////////////////////////////////////////////////////////
+GOBCHUNK("Sequence Parent", kidSequenceParent, kgokkRectHit)
+	DEFAULT_POSITION(0,0,350)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	// grey out bkgrd in state one, also inits vars
+	REP_FILL(CHID(kst1, krepDefault), "kidSequenceParent", 0, 0, 0, 0, Transparent, Transparent)
+		PATTERN_0
+	ENDCHUNK
+	// background is transparent in state two, tiny object
+	REP_FILL(CHID(kst2, krepDefault), "kidSequenceParent", 0, 0, 0, 0, Transparent, Transparent)
+		PATTERN_0
+	ENDCHUNK
+	// grey out bkgrd in state three
+	REP_FILL(CHID(kst3, krepDefault), "kidSequenceParent", 0, 0, 640, 480, Palette( 73 ), Transparent)
+		PATTERN_50X
+	ENDCHUNK
+	CREATE_ANIM("Sequence parent created")
+		// Turn off hotkeys. They get restored in the various exit
+		// commands interpreted below.
+		DISABLEACCEL(fFalse);
+		// turn off tool tips, gadget will turn them on for itself
+		SetProp(kpridToolTipDelay, 999999);
+		// flag for easel help
+		::fHelpOn = fTrue;
+		RunScriptThis(kchidScript6);
+	ENDCHUNK
+	// init the vars, child so it can be run for each new sequence
+	CHILD_SCRIPT("Instruction Parser", kchidScript6)
+		// logo vars
+		.lastHelp = 0;
+		.prevState = 1;		// stores previous state in case jump back is required
+		.prev2State = 1;	// stores second previous state
+		.currState = 1;		// stores current state
+		.stateLine = 0;		// stores place of first non-initializing instruction in a state	
+		.currLine = 0;		// stores current line
+		.tbInst = 0;
+		.tbReturn = fFalse;
+		.tbID0 = 0;
+		.tbNext = 1;
+		.tbState = 1;
+		.tbID1 = 0;
+		.tbID2 = 0;	// vars from tables
+	ENDCHUNK
+	CHILD_SCRIPT("Previous help destroyer", kchidScript7)
+		If (.lastHelp != 0);
+			DestroyGob(.lastHelp);
+		End;
+		RunScriptThis(kchidScript6);
+	ENDCHUNK
+
+	// ---------------------------------------------------------
+	//	Parses the current instruction then sends it to the proper handler
+	//
+	//      _parm[0] -- _parm[3] are optional parameters passed to the
+	//		interpreter when it is called via an Enqueued event.  When
+	//		the interpreter is called from other places in the code, these
+	//		parameters may or may not be set.  The meaning of these
+	//		parameters depends on the cid.
+	// ---------------------------------------------------------
+	CHILD_SCRIPT("Instruction Parser", kchidScript1)
+
+		// script will loop back to here until it hits a waitevent or a return
+		ParseLoop@
+
+			// get the table line to parse
+			RunScriptThis(kchidScript4, .currLine);
+
+			// branch to the instruction 				
+			Goto(Match(.tbInst, NotFound$, InitState, _InitState$, MatchGoto, _MatchGoto$, MatchDescGoto, _MatchDescGoto$,
+				 MatchChildrenGoto, _MatchChildrenGoto$, MatchParentGoto, _MatchParentGoto$,  MatchAllGoto, _MatchAllGoto$, IgnoreMatch, _IgnoreMatch$,
+				 IgnoreChildren, _IgnoreChildren$, IgnoreParentMatch, _IgnoreParentMatch$,IgnoreAll, _IgnoreAll$, BoolCondGoto, _BoolCondGoto$,
+				 StateCondGoto, _StateCondGoto$, SpecialInstr, _SpecialInstr$, WaitEvent, _WaitEvent$, 
+				 JumpToState, _JumpToState$, EndState, _EndState$));
+		
+			// initialize the state, put up help, set filters
+			_InitState@
+				// Set the state of the parent
+				If (StateThis() != (kst2 + .tbID0));
+					ChangeStateThis(kst2 + .tbID0);
+				End;
+				// create the help topic, if there is one(do last for filtering balloons)
+				If (.tbID2 != 0);
+					.lastHelp = CreateHelpGob(kidBackground, .tbID2);
+				Else;
+					.lastHelp = 0;
+				End;
+				// set up the filters
+				RunScriptThis(kchidScript3, .tbID1);
+				// move down a line
+				.stateLine++;
+				.currLine++;
+				// loop back
+				Goto(ParseLoop$);
+
+			// on match of both IDs goto next state
+			_MatchGoto@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (_parm[.tbID0] == .tbID2));
+					NEXTSTATE(.tbNext)
+					// destroy the last help, if there was one
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					// need to come back and init next state, so send message to recall this script
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match of the item or its descendents goto the next state
+			_MatchDescGoto@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (FIsDescendent(_parm[0], .tbID2)));
+					NEXTSTATE(.tbNext)
+					// destroy the last help, if there was one
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					// need to come back and init next state, so send message to recall this script
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match children(of a balloon) goto the next state
+			_MatchChildrenGoto@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (_parm[0] == (.tbID2->_gidBase + .tbID0)));
+					NEXTSTATE(.tbNext)
+					// destroy the last help, if there was one
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					// need to come back and init next state, so send message to recall this script
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match of ID1 goto the next state
+			_MatchAllGoto@
+				// if both ids match move to the next state
+				If (_parm[1] == .tbID1);
+					NEXTSTATE(.tbNext)
+					// destroy the last help, if there was one
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					// need to come back and init next state, so send message to recall this script
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match of the items parent goto the next state
+			_MatchParentGoto@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (_parm[0] == GidParGob(.tbID2)));
+					NEXTSTATE(.tbNext)
+					// destroy the last help, if there was one
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					// need to come back and init next state, so send message to recall this script
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match ignore the event
+			_IgnoreMatch@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (_parm[.tbID0] == .tbID2));
+					.currLine = .stateLine;
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match on the object or it's children ignore the event
+			_IgnoreChildren@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (FIsDescendent(_parm[0], .tbID2)));
+					.currLine = .stateLine;
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// on a match on the object or it's children ignore the event
+			_IgnoreParentMatch@
+				// if both ids match move to the next state
+				If ((_parm[1] == .tbID1) && (_parm[0] == GidParGob(.tbID2)));
+					.currLine = .stateLine;
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+				
+			// ignore any event that comes in
+			_IgnoreAll@
+				If (_parm[1] == .tbID1);
+					.currLine = .stateLine;
+					Return(.tbReturn);
+				Else;
+					.currLine++;				
+				End;
+				Goto(ParseLoop$);
+
+			// conditional, checks a flag to see if a state should be skipped
+			_BoolCondGoto@
+				// see if the flag is set to same as tbID2
+				If (.tbID1 == .tbID2); 
+					NEXTSTATE(.tbNext)
+				// flags didn't match, do nothing and move to the next instruction
+				Else;
+					.currLine++;
+				End;
+				Goto(ParseLoop$);
+
+			// conditional, see's what state an object is in to see if a state should be skipped
+			_StateCondGoto@
+				// see if the object is in the desired state
+				If (StateGob(.tbID1) == .tbID2);
+					NEXTSTATE(.tbNext)
+				// wrong state, do nothing and move to the next instruction
+				Else;
+					.currLine++;
+				End;
+				Goto(ParseLoop$);
+
+			// stops the processing and returns to waiting for an event
+			_WaitEvent@
+				.currLine++;
+				.stateLine = .currLine;
+				Return(fTrue);
+
+			_JumpToState@
+				NEXTSTATE(.tbNext)
+				EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+				Return(.tbReturn);
+
+			// signifies the last operation in a state
+			_EndState@
+				.currLine = .stateLine;
+				Return(fTrue);
+
+			// handles all weirdities that can happen(hopefully)
+			_SpecialInstr@
+				// find the special case that was in id1
+				Goto(Match(.tbID1, NoSpecial$,	QuitMM, _QuitMM$, QuitHelp, _QuitHelp$,
+							QuitGadgetHelp, _QuitGadgetHelp$, SetHelpAlarm, _SetHelpAlarm$,
+							ProjectsRoom, _ProjectsRoom$, ResetTipDelay, _ResetTipDelay$,
+							ClearStudio, _ClearStudio$, LoadProjectMovie, _LoadProjectMovie$,
+							OpenDoorCovers, _OpenDoorCovers$, SimulateClick, _SimulateClick$,
+							SetSceneAndFrame, _SetSceneAndFrame$, SetBlinkingGadget, _SetBlinkingGadget$, 
+							OpenAllDoors, _OpenAllDoors$, ChangeToNextMovie, _ChangeToNextMovie$,
+							SetBrowserItem, _SetBrowserItem$, SetNextProject, _SetNextProject$));
+				// special functions
+				_QuitMM@
+					EnqueueCid(cidQuit, 0, 0, 0, 0, 0);
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					.currLine++;
+					Return(.tbReturn);
+				_QuitHelp@
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					SetProp(kpridToolTipDelay, kdtimToolTipDelay);
+					ENABLEACCEL(fFalse);
+					// flag for easel help
+					::fHelpOn = fFalse;
+					SetProp(kpridBrwsOverrideThum, -1);
+					SetProp(kpridBrwsOverrideKidThum, -1);
+					ret = .tbReturn;
+					DestroyThis();
+					Return(ret);
+				_QuitGadgetHelp@
+					If (.lastHelp != 0);
+						DestroyGob(.lastHelp);
+					End;
+					If (FGobExists(kidGadget));
+						DestroyGob(kidGadget);
+					End;
+					If (FGobExists(kidGadgetParent));
+						DestroyGob(kidGadgetParent);
+					End;
+					SetProp(kpridToolTipDelay, kdtimToolTipDelay);
+					ENABLEACCEL(fFalse);
+					// flag for easel help
+					::fHelpOn = fFalse;
+					SetProp(kpridBrwsOverrideThum, -1);
+					SetProp(kpridBrwsOverrideKidThum, -1);
+					// create transition help
+					CreateHelpGob(kidBackground, ktpcUserQuitsHelp);
+					ret = .tbReturn;	//Tmp var because of DestroyThis.
+					DestroyThis();
+					Return(ret);
+				_SetHelpAlarm@
+					// ID2 is in 60ths of a second
+					SetAlarmThis(khidClokGokReset, .tbID2, chidNil);	
+					.currLine++;
+					Goto(ParseLoop$);
+				_SetBlinkingGadget@
+					// make gadget blink
+					ChangeStateGob(kidGadget, kst3);	
+					.currLine++;
+					Goto(ParseLoop$);
+				_OpenAllDoors@
+					// open all the doors
+					RunScriptGob(kidBackground, CHID1(kchidOpenDoorsAll)); 
+					.currLine++;
+					Goto(ParseLoop$);
+				_ChangeToNextMovie@
+					// Change to the next movie
+					RunScriptGob(kidGadgetSelectorUp, kchidScript1); 
+					Return(.tbReturn);
+				_ProjectsRoom@
+				 	EnqueueCid(cidLoadBuilding, 0, 0, 0, 0, 0);
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					.currLine++;
+					Return(.tbReturn);
+				_ResetTipDelay@
+					SetProp(kpridToolTipDelay, .tbID2);
+					.currLine++;
+					Goto(ParseLoop$);
+				_ClearStudio@
+					EnqueueCid(cidNew, khidStudio, 0, 0, 0, 0);
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					.currLine++;
+					Return(.tbReturn);
+				_LoadProjectMovie@   
+					EnqueueCid(cidLoadProjectMovie, 0, .tbID2, 0, 0, 0); 
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					.currLine++;
+					Return(.tbReturn);
+				_OpenDoorCovers@								
+					RunScriptGob(.tbID2, CHID(kstClosed, kchidClick)); 
+					.currLine++;
+					Goto(ParseLoop$);
+				_SetSceneAndFrame@
+					EnqueueCid(cidMovieGoto, 0, .tbID0, .tbID2, 0, 0);
+					EnqueueCid(cidParse, kidSequenceParent, 0, 0, 0, 0);
+					.currLine++;
+					Return(.tbReturn);
+				_SimulateClick@								
+					RunScriptGob(.tbID2, CHID(kstDefault, kchidClick)); 
+					.currLine++;
+					Goto(ParseLoop$);
+			   	_SetBrowserItem@
+					SetProp(kpridBrwsOverrideThum, .tbID2);
+					SetProp(kpridBrwsOverrideSidThum,2);
+					SetProp(kpridBrwsOverrideKidThum, kidReserveProjects);
+					.currLine++;
+					Goto(ParseLoop$);
+				_SetNextProject@
+					::NextProject = .tbID2;
+					.currLine++;
+					Goto(ParseLoop$);
+				NoSpecial@
+						Return(fTrue);
+			NotFound@
+				.currLine++;
+				Goto(ParseLoop$);		
+	ENDCHUNK	
+
+///////////////////////////////////////////////////////////////
+// Builds the state table in word five
+///////////////////////////////////////////////////////////////
+	CHILD_SCRIPT("Building state table", kchidScript5)
+		iLine = 0;
+		iState = 1;
+		// go until we hit the end of the table
+		While (.word1[iLine] != EndTable);
+			.word5[iLine] = iState;
+			// if its the EndState increment the state
+			If (.word1[iLine] == EndState);
+				iState++;
+			End;		
+			iLine++;
+		End;
+		.word5[iLine] = 0;	// End state
+	ENDCHUNK
+
+///////////////////////////////////////////////////////////////
+// Builds a next state jump right after the arrays are initialized
+///////////////////////////////////////////////////////////////
+	CHILD_SCRIPT("Building next state jump table", kchidScript2)
+		iLine = 0;
+		iState = 0;
+		// go through the list setting the array elements to the
+		// line numbers of the first line in the state
+		While(.word5[iLine] > 0);
+			If (.word5[iLine] != iState);
+				iState++;
+				.nsjTable[iState] = iLine;
+			End;				
+			iLine++;
+		End;
+	ENDCHUNK
+
+////////////////////////////////////////////////////////////
+// reset filters according to what state we're in
+////////////////////////////////////////////////////////////
+	CHILD_SCRIPT("Change filtering", kchidScript3)
+ 		// reset all filters
+		FilterCmdsThis(cidNil, kidNil, chidNil);
+
+		FilterCmdsThis(cidParse, kidNil, kchidScript1);
+
+		// now set the current states filters
+		If ((_parm[0] & kFltrMouse) == kFltrMouse);
+			FilterCmdsThis(cidMouseDown, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrKey) == kFltrKey);
+			FilterCmdsThis(cidKey, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrBrwOk) == kFltrBrwOk);
+			FilterCmdsThis(cidBrowserOk, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrBrwCancel) == kFltrBrwCancel);
+			FilterCmdsThis(cidBrowserCancel, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrBrwSelect) == kFltrBrwSelect);
+			FilterCmdsThis(cidBrowserSelect, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrClicked) == kFltrClicked);
+			FilterCmdsThis(cidClicked, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrEslOk) == kFltrEslOk);
+			FilterCmdsThis(cidEaselOk, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrEslClosing) == kFltrEslClosing);
+			FilterCmdsThis(cidEaselClosing, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrEslCancel) == kFltrEslCancel);
+			FilterCmdsThis(cidEaselCancel, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrActorIn) == kFltrActorIn);
+			FilterCmdsThis(cidActorPlaced, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrActorOut) == kFltrActorOut);
+			FilterCmdsThis(cidActorPlacedOutOfView, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrActorClicked) == kFltrActorClicked);
+			FilterCmdsThis(cidActorClicked, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrActorClickedDown) == kFltrActorClickedDown);
+			FilterCmdsThis(cidActorClickedDown, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrScnSortOk) == kFltrScnSortOk);
+			FilterCmdsThis(cidSceneSortOk, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrScnSortCancel) == kFltrScnSortCancel);
+			FilterCmdsThis(cidSceneSortCancel, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrAlarmOff) == kFltrAlarmOff);
+			FilterCmdsThis(cidHelpAlarmOff, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrMoviePlaying) == kFltrMoviePlaying);
+			FilterCmdsThis(cidMviePlaying, kidNil, kchidScript1);
+		End;
+		If ((_parm[0] & kFltrTBoxClicked) == kFltrTBoxClicked);
+			FilterCmdsThis(cidTboxClicked, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrBrwVisible) == kFltrBrwVisible);
+			FilterCmdsThis(cidBrowserVisible, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrEslVisible) == kFltrEslVisible);
+			FilterCmdsThis(cidEaselVisible, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrScnSortVisible) == kFltrScnSortVisible);
+			FilterCmdsThis(cidSceneSortInit, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrGadgetAviStop) == kFltrGadgetAviStop);
+			FilterCmdsThis(cidGadgetAviStop, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrScnSortSelect) == kFltrScnSortSelect);
+			FilterCmdsThis(cidSceneSortSelect, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrMovieLoaded) == kFltrMovieLoaded);
+			FilterCmdsThis(cidProjectMovieLoaded, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrModalClosed) == kFltrModalClosed);
+			FilterCmdsThis(cidQuerySaveDocResult, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrSceneLoaded) == kFltrSceneLoaded);
+			FilterCmdsThis(cidSceneLoaded, kidNil, kchidScript1);
+		End;
+ 		If ((_parm[0] & kFltrPortfolioResult) == kFltrPortfolioResult);
+			FilterCmdsThis(cidPortfolioResult, kidNil, kchidScript1);
+		End;
+ 	ENDCHUNK			  
+
+///////////////////////////////////////////////////////////////
+// Get the current line in the table
+///////////////////////////////////////////////////////////////
+	CHILD_SCRIPT("Get current line", kchidScript4)
+		// get all vars for the line
+		.tbInst = .word1[_parm[0]];
+		.tbReturn = .word2[_parm[0]];
+		.tbID0 = .word3[_parm[0]];
+		.tbNext = .word4[_parm[0]];
+		.tbState = .word5[_parm[0]];
+		.tbID1 = .word6[_parm[0]];
+		.tbID2 = .word7[_parm[0]]; 
+	ENDCHUNK
+
+///////////////////////////////////////////////////////////////
+// The alarm went off
+///////////////////////////////////////////////////////////////
+	CHILD_SCRIPT("Alarm went off", CHID(kst2, kchidAlarm))
+		EnqueueCid(cidHelpAlarmOff, kidSequenceParent, 0, 0, 0, 0);
+	ENDCHUNK

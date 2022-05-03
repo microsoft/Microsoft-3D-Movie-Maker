@@ -1,0 +1,883 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+//	THEATRE.CHT
+//
+//	 Copyright (C) Microsoft Corporation 1995.
+//	 All Rights reserved.
+//
+// -----------------------------------------------------
+//	Module Intent:
+//
+//	Contains the kauai script code for the Theatre and Movie object.
+//
+//
+// 	Revisions:
+// 
+// 	mm-dd-yy
+// 	??-??-94    *****         - Created
+// 	
+// -----------------------------------------------------
+// Notes: .MzNextAction is used in Theatre1McZee kst3 to determine what
+// should happen after McZee leaves the stage.  Here are the values:
+// 		kst20	Create a movie object.
+//		kst21	Short trip to Tools -- edit this movie.
+//		kst22	Longer trip to Tools -- create new movie.
+//		kst23	Press Play on movie object.
+//		kst24	McZee goes into NULL rep.
+
+
+// Movie object dimensions.
+#define xLeftMovie		48
+#define yTopMovie		85
+#define xRightMovie		592
+#define yBottomMovie	391
+
+// ---------------------------------------------------------
+// kgobMovieClickFilter is similar to kgobGlass0 in the util object.  This
+// one is used to trap clicks while the movie object is up, but it allows
+// clicks to the movie controls and to McZee and his help balloons to go
+// through.
+// ---------------------------------------------------------
+#define SHOWMOVIECLICKFILTER(_fShow)\
+	If (_fShow && !FGobExists(kgobMovieClickFilter));\
+		CreateChildGob(kgobTheatre1, kgobMovieClickFilter, kgobMovieClickFilter);\
+		SETKEYS(kflgBuildingMin);\
+		DISABLEACCEL(fFalse);\
+	Elif (!_fShow && FGobExists(kgobMovieClickFilter));\
+		DestroyGob(kgobMovieClickFilter);\
+		SETKEYS(kflgBuildingAll);\
+		ENABLEACCEL(fFalse);\
+	End
+
+// ---------------------------------------------------------
+// Macros used only in this file to create and destroy the movie object and
+// movie control objects.
+// ---------------------------------------------------------
+#define CREATEMOVIE()	\
+	SHOWMOVIECLICKFILTER(fTrue);\
+	ChangeStateGob(kgobTheatre1, kst3);\
+	CreateChildGob(kgobTheatre1, kgobMovie, kgobMovie);\
+	CreateChildGob(kgobTheatre1, kgobTheaterVolume, kgobTheaterVolume);\
+	CreateChildGob(kgobTheatre1, kgobPlayButton, kgobPlayButton);\
+	CreateChildGob(kgobTheatre1, kgobRewindButton, kgobRewindButton)
+
+
+#define DESTROYMOVIE()	\
+	DEBUGCMD(PrintStr("Enqueuing TheaterClose");)\
+	EnqueueCid(cidTheaterClose, 0, 0, 0, 0, 0);\
+	ChangeStateGob(kgobTheatre1, kst2);\
+	DestroyGob(kgobMovie);\
+	DestroyGob(kgobTheaterVolume);\
+	DestroyGob(kgobPlayButton);\
+	DestroyGob(kgobRewindButton);\
+	SHOWMOVIECLICKFILTER(fFalse)
+
+
+// ---------------------------------------------------------
+// Main view of the theatre & its objects
+// ---------------------------------------------------------
+
+WAVE_CHUNK( "building\sound\theatre\30_thr4.wav", kwav30_thr4 )
+WAVE_CHUNK( "building\sound\theatre\21_thr1a.wav", kwav21_thr1a )
+WAVE_CHUNK( "building\sound\theatre\VO74B.wav", kwavVO74B )
+WAVE_CHUNK( "building\sound\theatre\VO75.wav", kwavVO75 )
+WAVE_CHUNK( "building\sound\theatre\VO76.wav", kwavVO76 )
+WAVE_CHUNK( "building\sound\theatre\21_thr1b.wav", kwav21_thr1b )
+
+OBJECT( "Theater1 McZee", kgobTheatre1McZee , 550, kcrsHand1 )
+	REP_RECT( kcellNull, "No representation.", 0,0,1,1 )
+	#include "mzthea.seq"
+
+ 	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Theater1: McZee!")	 		
+		DEBUGCMD( PrintStr("Theater McZee: State 1") );
+
+		// The only entry states are kst4, kst5, and kst7
+		ASSERT(GLOBAL(kstEntry) == kst4 || GLOBAL(kstEntry) == kst5 ||
+				GLOBAL(kstEntry) == kst7);
+
+		// Help is always on on entry -- bug #900.
+		SETGLOBAL(fHelpOn, fTrue);
+
+		.fHelpState = 1;	// Useage: 	fHelpState=1: Sets help balloon to Theater help.
+							// 			fHelpState=2: Sets help balloon to Movie help.
+		.fWay = fFalse;		// Flag is set in CHILD_SCRIPT kchidScript1 (the call back function
+							// from the portfolio object) to direct what action to take after
+							// the "close portfolio animation", state kst10.
+		.MzNextAction = 0;
+		WAIT_FOR_TRANSITION();	// pause if there's a dissolve going on
+		If (GLOBAL(kstEntry) == kst7);
+			.MzNextAction = kst7;
+			SETGLOBAL(kstEntry, kst2);
+		End;
+
+		ChangeStateThis(GLOBAL(kstEntry));
+	ENDCHUNK
+
+	// The following 2 states, kst2 and kst3, are the animation for McZee leaning
+	// on to the stage and leaving the stage respectively.  These are transition states
+	// to other animations or actions.  The variable MzNextAction is used in the following manner.
+	// From a state in the McZee object or in other objects, the variable MzNextAction is set to an
+	// approite value and then this McZee object state is changed to kst2 or kst3 after
+	// the animation is completed the next state or action is determined by the value
+	// of the MzNextAction variable.
+
+	REP_ANIM( CHID( kst2, krepDefault ), "McZee leans onto the stage" )
+		DEBUGCMD( PrintStr("Theater McZee: State 2") );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		// Animation "thr2a" (Mz leaning onto the stage).
+		cnt=kcell1;
+		While( cnt <= kcell13 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+		ChangeStateThis( .MzNextAction );
+	ENDCHUNK 
+
+	REP_ANIM( CHID( kst3, krepDefault ), "McZee leaves the stage" )
+		DEBUGCMD(PrintStr("Theater McZee: State 3"));
+		DISABLEHOTSPOTS(kflgBuildingMin);
+
+		// Animation "thr2a" backwards.
+		cnt=kcell14;
+		While( cnt >= kcell1 );
+			Cell( cnt--, 0, 0, 6 );
+		End;
+		If (FGobExists(kgobMovie));
+			ENABLEHOTSPOTS(kflgBuildingMin);
+		Else;
+			ENABLEHOTSPOTS(kflgBuildingAll);
+		End;
+
+		If( .MzNextAction == kst20 );
+			SETGLOBAL(kstEntry, kst3);
+
+			// If another movie was playing, destroy it before creating a
+			// new one.
+			If (FGobExists(kgobMovie));
+				DESTROYMOVIE();
+			End;
+			CREATEMOVIE();
+
+		Elif( .MzNextAction == kst21 );
+ 			NEXTPLACE1( kgobTheatre4, kst4 );   // Pass through theater to backstage to studio to tools.
+		Elif( .MzNextAction == kst22 );
+			NEXTPLACE1( kgobTheatre4, kst3 );
+		Elif( .MzNextAction == kst23 );
+ 			ChangeStateGob( kgobMovie, kst3 ); 
+		Elif( .MzNextAction == kst24	);
+ 			ChangeStateThis( kst12 ); 
+		End;
+
+	ENDCHUNK 
+
+  	REP_ANIM( CHID( kst4, krepDefault ), "Wait state.")
+		DEBUGCMD( PrintStr("Theater McZee: State 4") );
+		
+		If (FGobExists(kgobMovie));
+			ENABLEHOTSPOTS(kflgBuildingMin);
+		Else;
+			ENABLEHOTSPOTS(kflgBuildingAll);
+		End;
+
+		ENDVOICE();								// This is a precautionary ENDVOICE to
+												// capture any sound channels left open.
+		Cell( kcell181, 0, 0, 6 );	
+		If( GLOBAL( fHelpOn ) == fTrue );
+			If( .fHelpState == 1 );
+				CreateHelpGob( kgobTheatre1, ktpcTheatre1 );
+			Elif( .fHelpState == 2);
+				CreateHelpGob( kgobTheatre1, ktpcTheatre2 );
+			End;
+		End;
+
+		// Waiting sequence
+		While( fTrue );
+			cnt = kcell181;
+			While( cnt <= kcell208);
+				Cell( cnt++, 0, 0, 6 );					 
+			End;
+		End;
+	ENDCHUNK	
+
+  	REP_ANIM( CHID( kst5, krepDefault ), "Decsion and shadow puppet.")
+		DEBUGCMD( PrintStr("Theater McZee: State 5") );
+		If( GLOBAL( fMovie ) == fTrue );
+			SETGLOBAL( fMovie, fFalse ); 				
+			DISABLEHOTSPOTS(kflgBuildingMin);
+ 			WAIT_FOR_TRANSITION();	   			// Pause to allow transition to complete.
+
+			VOICE( kwav21_thr1a, ktpc21_thr1a );			
+			cnt=kcell251;						// Animation "thr1_" (Shadow puppet animation).
+			While( cnt <= kcell308 );
+				Cell( cnt++, 0, 0, 6 );
+			End;
+			ENDVOICE();
+
+			ENABLEHOTSPOTS(kflgBuildingMin);
+			SETGLOBAL(kstEntry, kst3);			// Set the entry point to the movie	object to kst3.
+			CREATEMOVIE();
+		Else;
+			.fHelpState=1;
+
+			If( GLOBAL(fHelpOn)	== fTrue );
+				.MzNextAction = 	kst6;	// Help1 animation after...
+				ChangeStateThis( kst2 ); 	// Leaning onto stage.
+			Else;
+				.MzNextAction = 	kst4;	// Goto wait animation after...
+				ChangeStateThis( kst2 ); 	// Leaning onto stage.
+			End;
+
+		End; 
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst6, krepDefault ), "Theater help1 animation" )
+		DEBUGCMD( PrintStr("Theater McZee: State 6") );
+		Cell( kcell101, 0, 0, 6 );
+
+		VOICE( kwavVO75, ktpcVO75 );
+		// Animation "thr2e".
+		cnt=kcell102;
+		While( cnt <= kcell121 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+		ENDVOICE();
+
+		ChangeStateThis( kst4 );
+	ENDCHUNK 
+
+	REP_ANIM( CHID( kst7, krepDefault ), "Open the portfolio." )
+		DEBUGCMD(PrintStr("Theater McZee: State 7"));
+
+		DISABLEHOTSPOTS(kflgBuildingMin);
+
+		// Animation "thr2d".
+		cnt=kcell61;
+		While( cnt <= kcell81 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+
+
+		// Bring up the Movie Open portfolio.
+    	EnqueueCid(cidPortfolioOpen, 0, kpfPortOpenMovie, 0, kpfPortDirUsers, 0);
+	
+		// Look out for the cid indicating that the portfolio has been closed.
+		FilterCmdsThis(cidPortfolioClosed, cidNil, kchidScript1);
+
+	ENDCHUNK 
+
+	REP_ANIM( CHID( kst8, krepDefault ), "Movie paused animation" )
+		.fHelpState=2;
+		ENABLEHOTSPOTS(kflgBuildingMin); // Enabeling hotspots here allows the help balloon to be
+							  // preempted by clicking the play button again.
+		DEBUGCMD( PrintStr("Theater McZee: State 8") );
+		// Using sequence "thr2b" in this state also.
+		VOICE( kwavVO74B, ktpcVO74B );
+		cnt=kcell21;
+		While( cnt <= kcell49 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+		ENDVOICE();
+
+ 		SETGLOBAL( fHelpOn, fTrue );
+
+		ChangeStateThis( kst4 );
+	ENDCHUNK 
+
+	REP_ANIM( CHID( kst9, krepDefault ), "Movie done animation" )
+ 		.fHelpState=2;
+
+		DEBUGCMD( PrintStr("Theater McZee: State 9") );
+		// Animation "thr2b".
+		
+		VOICE( kwavVO74B, ktpcVO74B );
+		cnt=kcell21;
+		Cell( cnt++, 0, 0, 6 );
+		SetNoSlipThis( fTrue );		// we can now drop frames!
+		While( cnt <= kcell48 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+		SetNoSlipThis( fFalse);		// don't drop frames
+		Cell( cnt++, 0, 0, 6 );
+		ENDVOICE();
+
+		SETGLOBAL( fHelpOn, fTrue );
+
+		ChangeStateThis( kst4 );
+	ENDCHUNK 
+
+   	REP_ANIM( CHID( kst10, krepDefault ), "Close the portfolio.")
+		DEBUGCMD( PrintStr("Theater McZee: State 10") );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		// Destroy portfolio help.
+ 		DestroyGob( kgobBalloon1a );
+
+		// Animation back down thr2d.
+		cnt=kcell81;
+		While( cnt >= kcell61 );
+			Cell( cnt--, 0, 0, 6 );
+		End;							// This endvoice accompanies the voice
+		ENDVOICE();	 					// macro started at the END of the open
+										// portfolio animation (kst7).									
+		If( .fWay == fTrue );
+			.MzNextAction = kst20; 		// Being used as a flag only..
+			ChangeStateThis( kst3 ); 	// McZee leaves the stage.
+		Else;
+			SETGLOBAL(fHelpOn, fTrue);
+			ChangeStateThis( kst4 );
+		End;
+	ENDCHUNK;
+
+
+  	REP_ANIM( CHID( kst11, krepDefault ), "Let explore animation" )
+		DEBUGCMD( PrintStr("Theater McZee: State 11") );
+		// Animation thr2f.
+
+		VOICE( kwavVO76, ktpcVO76 );
+		cnt=kcell131;
+		Cell( cnt++, 0, 0, 6 );
+		SetNoSlipThis( fTrue );		// we can now drop frames!
+		While( cnt <= kcell164 );
+			Cell( cnt++, 0, 0, 6 );
+		End;
+		SetNoSlipThis( fFalse );		// don't drop frames!		
+		Cell( cnt++, 0, 0, 6 );
+
+		ENDVOICE();
+
+ 		ChangeStateThis( kst4 ); 
+	ENDCHUNK 
+
+    REP_ANIM( CHID( kst12, krepDefault ), "Theater McZee null representation.")
+		DEBUGCMD( PrintStr("Theater McZee: State 12") );
+		Cell( kcellNull, 0, 0, 0 );
+	ENDCHUNK 
+
+	CHILD_SCRIPT("kgobTheater1McZee Portfolio Callback", kchidScript1)
+		// End this filter as it is no longer required.
+		FilterCmdsThis(cidPortfolioClosed, cidNil, chidNil);
+		.fWay = _parm[2];
+		If (.fWay);
+			// Hide the movie object until the movie has loaded.
+			ResizeGob(kgobMovie, 0, 0);
+		End;
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		ChangeStateThis(kst10);	
+	ENDCHUNK
+
+
+	CLICK_SCRIPT("Theatre Mz click.")		
+		DEBUGCMD( PrintStr("Theater McZee: Click script") );
+		If( StateThis() != kst4 );	// If not in the wait state..
+			SETGLOBAL( fHelpOn, fTrue );
+			ChangeStateThis( kst4 );// go to the wait state.
+		Elif( GLOBAL( fHelpOn ) == fFalse );
+			SETGLOBAL( fHelpOn, fTrue );
+			If( .fHelpState == 1 );
+				CreateHelpGob( kgobTheatre1, ktpcTheatre1 );
+			Elif( .fHelpState == 2);
+				CreateHelpGob( kgobTheatre1, ktpcTheatre2 );
+			End;
+		End;
+	ENDCHUNK
+		
+HELP_SCRIPT( ktpcTheatre1 )
+ 	If( _parm[0] == 0 );
+		// Do nothing
+	Elif( _parm[0] == 1 );		// Yes, see a movie.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		ChangeStateGob( kgobTheatre1McZee, kst7 ); 
+	Elif( _parm[0] == 2 );		// No.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		ChangeStateGob( kgobTheatre1McZee, kst11 ); 
+	End;
+ENDCHUNK
+
+HELP_SCRIPT( ktpcTheatre2 )
+ 	If( _parm[0] == 0 );
+		// Do nothing
+	Elif( _parm[0] == 1 );				// Work on this movie.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		DESTROYMOVIE();
+		kgobTheatre1McZee->MzNextAction = kst21;
+ 		ChangeStateGob( kgobTheatre1McZee, kst3 );
+
+	Elif( _parm[0] == 2 );				// Create a new movie.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		DEBUGCMD(PrintStr("Enqueuing PortfolioClear"));
+		EnqueueCid(cidPortfolioClear, 0, 0,0,0,0);
+		DESTROYMOVIE();
+		kgobTheatre1McZee->MzNextAction = kst22;
+ 		ChangeStateGob( kgobTheatre1McZee, kst3);
+
+	Elif( _parm[0] == 3 );				// See this movie again.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		// Rewind and play the movie.
+		DEBUGCMD(PrintStr("Enqueuing TheaterRewind"));
+		EnqueueCid(cidTheaterRewind, 0, 0, 0, 0, 0);
+		kgobTheatre1McZee->MzNextAction = kst23;
+  		ChangeStateGob( kgobTheatre1McZee, kst3 );
+		
+	Elif (_parm[0] == 4);				// Watch another movie.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		ChangeStateGob( kgobTheatre1McZee, kst7 );	// Open the portfolio book.
+	Elif( _parm[0] == 5 );				// Stop watching movies.
+		SETGLOBAL( fHelpOn, fFalse );
+		DestroyGob( kgobBalloon1e );
+		DEBUGCMD(PrintStr("Enqueuing PortfolioClear"));
+		EnqueueCid(cidPortfolioClear, 0, 0,0,0,0);
+		DESTROYMOVIE();
+		kgobTheatre1McZee->fHelpState=1;
+		ChangeStateGob( kgobTheatre1McZee, kst11 );
+	End;
+ENDCHUNK
+
+OBJECT( "theatre1, left door",   kgobTheatre1LeftDoor, 450, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\leftdr.bmp", 0, 0 )
+	CLICK_SCRIPT( "left door clicked" )
+ 		NEXTPLACE1( kgobTheatre3, kst2 );
+	ENDCHUNK
+
+OBJECT( "theatre 1, right door",   kgobTheatre1RightDoor, 450, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\rightdr.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre right fwd door" )
+ 		NEXTPLACE1( kgobTheatre4, kst2  );
+	ENDCHUNK
+
+//*******************************************************************************
+//*******************************************************************************
+//				Movie Work Space object
+//*******************************************************************************
+
+OBJECT( "Movie Work Space",  kgobMovie, 400, kcrsArrow1 )
+	REP_RECT(kcell4, "Movie workspace dimensions",
+			xLeftMovie, yTopMovie, xRightMovie, yBottomMovie)
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "lobby1: McZee!")
+		DEBUGCMD( PrintStr("Movie Work space: Entry state ", NumToStr(GLOBAL(kstEntry), "")));
+		ASSERT(GLOBAL(kstEntry) == kst2 || GLOBAL(kstEntry) == kst3);
+
+		Cell( kcell4, 0, 0, 0 );
+
+		// Prepare to capture theatre success/failure cids.
+		FilterCmdsThis(cidTheaterOpenCompleted, kidNil, kchidScript2);
+		FilterCmdsThis(cidTheaterLoadCompleted, kidNil, kchidScript2);
+
+		// Load the theatre object -- the movie will have to be loaded in
+		// kchidScript2 when the OpenCompleted cid has been received.
+		DEBUGCMD(PrintStr("Enqueuing TheaterOpen"));
+		EnqueueCid(cidTheaterOpen, 0, kgobMovie, 0, 0, 0);
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst2, krepDefault ), "Movie ready.")
+		DEBUGCMD( PrintStr("Movie Work space: State 2") );
+		Cell( kcell4, 0, 0, 0 ); 
+
+		If( StateGob( kgobTheatre1McZee ) != kst12 );  	// If McZee is not in the NULL state,
+			kgobTheatre1McZee->MzNextAction = kst24;	// McZee go's to a null state after 
+			ChangeStateGob( kgobTheatre1McZee, kst3 ); 	// McZee leaves the stage.
+		End;
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst3, krepDefault ), "Count down.")
+		DEBUGCMD( PrintStr("Movie Work space: State 3") );
+		PLAYMIDI(cnoNil);
+		Cell( kcell4, 0, 0, 0 );
+		ChangeStateGob( kgobTheatre1McZee, kst12 );  	// Put McZee in a null representation state.
+		ChangeStateGob( kgobPlayButton, kst2 );			// Put the play button in the on state.
+		ChangeStateGob(kgobRewindButton, kst2);
+		If( .f1stMovie == fTrue );
+			.f1stMovie = fFalse;
+			WAIT_FOR_TRANSITION();						// Wait for a complete palette transition. 
+			// Unhide the movie object.
+			If (HeightGob(kgobMovie) == 0);
+				ResizeGob(kgobMovie, xRightMovie-xLeftMovie, yBottomMovie-yTopMovie);
+			End;
+			CreateChildThis( kgobCountDn, kgobCountDn );	
+			DISABLEHOTSPOTS(kflgBuildingMin);
+			While( PlayingGob( kgobCountDn ));
+				Cell( kcellNull, 0,0, 6 );				// Cell command being used as a timer.
+			End;
+			DestroyGob( kgobCountDn );
+			ENABLEHOTSPOTS(kflgBuildingMin);		 
+		End;
+		ChangeStateThis( kst4 );	
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst4, krepDefault ), "Movie playing.")
+		DEBUGCMD( PrintStr("Movie Work space: State 4") );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		PLAYMIDI(cnoNil);
+		ChangeStateGob( kgobPlayButton, kst2 );			// Put the play button in the on state.
+		ChangeStateGob(kgobRewindButton, kst2);
+
+		If( StateGob( kgobTheatre1McZee ) != kst12 );  	// If McZee is not in the NULL state,
+			kgobTheatre1McZee->MzNextAction = kst24;	// McZee go's to a null state after 
+			ChangeStateGob( kgobTheatre1McZee, kst3 ); 	// McZee leaves the stage.
+			While( StateGob( kgobTheatre1McZee ) != kst12 );
+				Cell( 0, 0, 0, 6 );						// Pole the state of McZee to insure
+			End;
+		Else;
+			ENABLEHOTSPOTS(kflgBuildingMin);		 
+		End;
+ 		Cell( kcell4, 0, 0, 0 );
+		//--------------------------------------------------
+		//			Play the movie	 (functionality)
+		//--------------------------------------------------
+		DEBUGCMD(PrintStr("Enqueuing TheaterPlay"));
+		EnqueueCid(cidTheaterPlay, 0, 0, 0, 0, 0);
+
+		// Look out for the cid indicating that the movie has stopped.
+		FilterCmdsThis(cidMviePlaying, cidNil, kchidScript1);
+
+ 	ENDCHUNK
+
+	REP_ANIM( CHID( kst5, krepDefault ), "Movie done.")
+		DEBUGCMD( PrintStr("Movie Work space: State 5") );
+		Cell( kcell4, 0, 0, 0 );
+		ChangeStateGob(kgobPlayButton, kst1);			// put play button in stopped
+		ChangeStateGob(kgobRewindButton, kst1);			// position.
+		kgobTheatre1McZee->MzNextAction = kst9;
+		kgobTheatre1McZee->fHelpState = 2;
+		ChangeStateGob( kgobTheatre1McZee, kst2 );
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst6, krepDefault ), "Movie paused.")
+		DEBUGCMD( PrintStr("Movie Work space: State 6") );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+ 		Cell( kcell4, 0, 0, 0 );
+		//--------------------------------------------------
+		//			Pause the movie	 (functionality)
+		//--------------------------------------------------
+		// There is no pause.  Just stop the movie and don't rewind.
+		DEBUGCMD(PrintStr("kgobMovie kst6: Enqueuing TheaterStop"));
+		EnqueueCid(cidTheaterStop, 0, 0, 0, 0, 0);
+		kgobTheatre1McZee->MzNextAction = kst8;
+		kgobTheatre1McZee->fHelpState = 2;
+		ChangeStateGob( kgobTheatre1McZee, kst2 );
+	ENDCHUNK
+
+	CHILD_SCRIPT("kgobMovie cidMviePlaying Callback", kchidScript1)
+		// Only take action if the movie has stopped.
+		If (!_parm[2] && StateGob(kgobPlayButton) == kst2);
+			FilterCmdsThis(cidMviePlaying, cidNil, chidNil);
+			ChangeStateThis(kst5);
+		End;
+	ENDCHUNK
+
+	CHILD_SCRIPT("kgobMovie cidTheaterXCompleted Callback", kchidScript2)
+		If (_parm[2] == fFalse);	// Theater command failed.
+			// TATR will have already alerted the user. We just need to lose
+			// the movie object and put the theatre in a reasonable state.
+			DEBUGCMD(PrintStr("Warning: cidTheaterLoad or cidTheaterOpen failed!"));
+			DEBUGCMD(PrintStr("Enqueuing PortfolioClear"));
+			EnqueueCid(cidPortfolioClear, 0, 0,0,0,0);
+			DESTROYMOVIE();
+			kgobTheatre1McZee->fHelpState=1;
+			SETGLOBAL(fHelpOn, fTrue);
+			ChangeStateGob(kgobTheatre1McZee, kst4);
+		Elif (_parm[1] == cidTheaterOpenCompleted);
+			DEBUGCMD(PrintStr("Enqueuing TheaterLoad"));
+			EnqueueCid(cidTheaterLoad, 0, 0, 0, 0, 0);
+		Else;
+			.f1stMovie=fTrue;	
+			ChangeStateThis(GLOBAL(kstEntry));
+		End;
+	ENDCHUNK
+
+OBJECTREG( "Movie count down", kgobCountDn, 0, 1, 150, kcrsArrow1 )
+	REP_VIDEO( CHID1( krepDefault ), "CNTDWN5.AVI", fTrue )
+
+// Note, the movie controls need to be above the movie click filter, which
+// I've put at 450.
+
+// ---------------------------------------------------------
+// This object is used to lock out clicks while a movie is loaded.
+// ---------------------------------------------------------
+OBJECT("movie click filter", kgobMovieClickFilter, 450, kcrsArrow1)
+	REP_RECT(CHID1(krepDefault), "movie click filter", 0, 0, 640, 480)
+
+// --------------------------------------------------------------------------------
+// The thumbnail is the graphic indicator of volume level...
+// positioned within the slide path - not hittable
+// --------------------------------------------------------------------------------
+OBJECTTY( "Theater - volume slider",  kgobVolumeButton, 451, kcrsArrow1, kgokkRectNoHit )
+	REP_PPMBMP( CHID1( krepDefault ), "building\pbm\theatre\thumb.pbm" )
+
+#define _kdySlider 62  // Range the volume can slide in
+
+OBJECTREG( "theater - volume slidepath", kgobTheaterVolume, 9, 110, 451, kcrsHand1 )
+	REP_RECT( CHID1( krepDefault), "rectangle", 0, 0, 12, 74 )
+	CREATE_SCRIPT( "create slidepath")
+		CreateChildThis( kgobVolumeButton, kgobVolumeButton  );
+		// get initial volume value, move thumbnail
+		y = _kdySlider  -(( GetMasterVolume() * _kdySlider )/ (2*kvlmFull));
+		MoveAbsGob( kgobVolumeButton, 0, y );
+	ENDCHUNK
+	REP_ANIM( CHID1( krepMouseDnOn), "slider")	
+		// repeat up to 30000 times.
+		.siiLoop = PlaySoundThis(kctgWave, kwavDing, 2, 0x00010000, 30000, 1,
+				ksclBldgSound);	
+		While( 1 );
+			y = YMouseThis();
+			If( y < 0 );
+				y=0;
+			Elif	( y > _kdySlider );
+				y =_kdySlider;
+			End;	
+		
+			// move thumb slider
+			MoveAbsGob( kgobVolumeButton, 0, y );
+		
+			// track new volume
+			newvol = ( (2*kvlmFull)* (_kdySlider-y) ) / _kdySlider;	
+	 	
+			// set the volume
+			SetMasterVolume( newvol );	
+	 	
+			// Sample at 10/60ths of a second.
+			Cell(  0 , 0,0, 10 );	
+		End;
+	ENDCHUNK
+	REP_ANIM( CHID1( kchidDownUpOn ), "release on" )
+		StopSound( .siiLoop );
+	ENDCHUNK
+	ADOPT_ANIM( LAST_ANIM, CHID1( kchidDownUpOff ))
+
+	#undef _kdySlider
+
+OBJECTREG( "Movie play/stop button", kgobPlayButton, 318, 7, 451, kcrsHand1 )
+	REP_PPMBMP( CHID( kst1, krepDefault ), "building\pbm\theatre\play1.pbm" )
+	REP_PPMBMP( CHID( kst2, krepDefault ), "building\pbm\theatre\play2.pbm" )
+	CLICK_SCRIPT( "Movie play/stop button clicked." )
+		// Pressing play to start the movie...
+		If( StateThis() == kst1 ); 
+			// Take down help balloon if one is up.
+			If( FGobExists( kgobBalloon1e ) );
+				DestroyGob( kgobBalloon1e );   // This destroys the balloon that holds the tip
+			Elif( FGobExists( kgobBalloon1a ) );
+				DestroyGob( kgobBalloon1a );
+			End; 
+		
+			// Changing the movie state to 3 or 4 will cause the "Play"
+			// command to be sent.
+			If( kgobMovie->f1stMovie == fTrue );
+				ChangeStateGob( kgobMovie, kst3 );	
+			Else;
+				ChangeStateGob( kgobMovie, kst4 );
+			End;
+			ChangeStateThis( kst2 );
+			ChangeStateGob(kgobRewindButton, kst2);
+		// Pressing stop to stop the movie...
+		Else;
+			// Changing the movie state to 6 will cause the "Stop" command
+			// to be sent.
+			ChangeStateGob( kgobMovie, kst6 );
+			ChangeStateThis( kst1 );
+			ChangeStateGob(kgobRewindButton, kst1);
+		End;		
+	ENDCHUNK		
+
+GOBCHUNK("Movie rewind button", kgobRewindButton, kgokkNormal)
+	DEFAULT_POSITION(293, 7, 451)
+	ACTION(fcustNil, fcustNil, fgrfstDefault, kcrsHand1, kchidScript1, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsArrow1, chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_PPMBMP( kcell1, "building\pbm\theatre\rewind1.pbm" )
+	REP_PPMBMP( kcell2, "building\pbm\theatre\rewind2.pbm" )
+
+	REP_ANIM( CHID( kst1, krepDefault ), "Default" )
+		Cell (kcell1, 0, 0, 0);
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst2, krepDefault ), "Default" )
+		Cell (kcell1, 0, 0, 0);
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst1, krepMouseDnOn ), "Rewind down on" )
+		Cell (kcell2, 0, 0, 0);
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst1, krepMouseDnOff ), "Rewind down off" )
+		Cell (kcell1, 0, 0, 0);
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst1, krepMouseUpOn ), "Rewind up on" )
+		Cell (kcell1, 0, 0, 0);
+	ENDCHUNK
+
+	CHILD_SCRIPT("Rewind button clicked", kchidScript1)
+		// The movie should not be playing.
+		ASSERT(StateGob(kgobPlayButton) == kst1);
+		If( FGobExists( kgobBalloon1a ) );
+			DestroyGob( kgobBalloon1a );
+		End;
+		If (FGobExists(kgobBalloon1e));
+			DestroyGob(kgobBalloon1e);
+		End;
+		// This'll start McZee leaving the stage if he's on it; otherwise, it
+		// really just makes sure that we're not already in kst4 so changing
+		// to kst4 later will actually do something.
+		ChangeStateGob(kgobMovie, kst2);
+		DEBUGCMD(PrintStr("Enqueuing TheaterRewind"));
+		EnqueueCid(cidTheaterRewind, 0, 0, 0, 0, 0);
+		// And start the movie playing again.
+		ChangeStateGob( kgobMovie, kst4 );
+		
+	ENDCHUNK
+
+
+OBJECT( "theatre 2, back door",   kgobTheatre2Door, 50, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\the2door.bmp", 0, 0 )
+	CLICK_SCRIPT( "Theatre 2 back door clicked" )
+ 		NEXTPLACE1( kgobLobby2, kst2 );
+	ENDCHUNK
+
+OBJECT( "theatre2 map", kgobTheatre2Map, 50, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\the2map.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre 2 map clicked" ) 
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+OBJECT( "theatre2 exit",  kgobTheatre2Exit, 50, kcrsHand1 )
+	REP_RECT( CHID1( krepDefault ),  "exit sign" , 420, 194, 445, 206 )
+	CLICK_SCRIPT( "theatre 2 exit clicked" ) 
+		QUITAPP();
+	ENDCHUNK
+
+
+
+OBJECT( "right screen",  kgobTheatre3Right, 10, kcrsRight )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\right.bmp", 0, 0 )
+	CLICK_SCRIPT( "right screen clicked" )
+ 		NEXTPLACE1( kgobTheatre1, kst4 ); // Goto theatre1, wait state.
+	ENDCHUNK
+
+OBJECT( "left front door",  kgobTheatre3Door, 10, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\bkleft.bmp", 0, 0 )
+	CLICK_SCRIPT( "left front door clicked" )
+		NEXTPLACE1( kgobBackstage1, kst2 );
+	ENDCHUNK
+	
+OBJECT( "theatre3 map",  kgobTheatre3Map, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\the3map.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre 3 map clicked") 
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+OBJECT( "theatre3 exit",  kgobTheatre3Exit, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\the3quit.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre 3 exit clicked" ) 
+		QUITAPP();
+	ENDCHUNK
+
+
+OBJECT( "Theater4 McZee", kgobTheatre4McZee , 550, kcrsArrow1 )
+    REP_ANIM( CHID( kst1, krepDefault ), "Theatre4 McZee pass thru!")
+		DEBUGCMD(PrintStr("Create theatre4 McZee"));
+
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		VOICE( kwav30_thr4, ktpc30_thr4 );
+		cnt = kcell1;
+		While( cnt <= kcell44 );
+			If( cnt == kcell39 );
+				CreateChildGob( kgobTheatre4, kgobThe4OpenDoor, kgobThe4OpenDoor );
+			End;
+			Cell( cnt, 0, 0, 6 );
+			cnt++;
+		End;
+		ENDVOICE();
+		DestroyThis();
+		RunScriptGob( kgobTheatre4, kchidScript1 );
+	ENDCHUNK
+    #include "mzthea4.seq"
+
+OBJECT( "Theatre  left door opening", kgobThe4OpenDoor, 150, kcrsArrow1 )
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "Theatre4 door opening" )
+		PLAYMIDI( kmidTheatre );
+		cnt=kcell1;
+		While( cnt <= kcell5 );
+			Cell( cnt++, 0,0, 6 );
+		End;
+	ENDCHUNK
+	REP_PPMBMP( kcell1, "building\pbm\theatre\Ldoor49.pbm" )
+	REP_PPMBMP( kcell2, "building\pbm\theatre\Ldoor50.pbm" )
+	REP_PPMBMP( kcell3, "building\pbm\theatre\Ldoor51.pbm" )
+	REP_PPMBMP( kcell4, "building\pbm\theatre\Ldoor52.pbm" )
+	REP_PPMBMP( kcell5, "building\pbm\theatre\Ldoor53.pbm" )
+		
+OBJECT( "left screen",  kgobTheatre4Left, 10, kcrsLeft )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\left.bmp", 0, 0 )
+	CLICK_SCRIPT( "Left screen clicked" )
+ 		NEXTPLACE1( kgobTheatre1, kst4 );   // Goto theatre1, wait state.
+	ENDCHUNK
+
+OBJECT( "right front door",  kgobTheatre4Door, 10, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\bkright.bmp", 0, 0 )
+	CLICK_SCRIPT( "left front door clicked" )
+		NEXTPLACE1( kgobBackstage1, kst2 );
+	ENDCHUNK
+	
+OBJECT( "theatre4 map",  kgobTheatre4Map, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\the4map.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre 4 map clicked" ) 
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+OBJECT( "theatre4 exit",  kgobTheatre4Exit, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\theatre\the4quit.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre 2 exit clicked" ) 
+		QUITAPP();
+	ENDCHUNK
+
+//------------------------------------------------------------
+//	Bio page hotspots
+//----------------------------------------------------------
+OBJECT( "Biopage 31 mask",  kgobTheater2m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\the2m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 31 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 31 );
+			BIO_CREATEBOOK( 31, fFalse, kgobTheatre2 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 32 mask",  kgobTheater2m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\the2m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 32 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 32 );
+			BIO_CREATEBOOK( 32, fFalse, kgobTheatre2 );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 33 mask",  kgobTheater2m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\theatre\the2m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 33 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 33 );
+			BIO_CREATEBOOK( 33, fFalse, kgobTheatre2 );
+		End;		
+	ENDCHUNK
+
+//Cleaning up defines that are only to be used in this file.
+#undef SHOWMOVIECLICKFILTER  
+#undef CREATEMOVIE  
+#undef DESTROYMOVIE

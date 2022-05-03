@@ -1,0 +1,75 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ---------------------------------------------------------
+// main build script for Socrates
+//
+// Revisions:
+//
+// mm-dd-yy
+// 11-18-94     *****         - Created
+// 02-17-95     *****         - cleaned up
+// 02-27-95     *****         - Made to use KIDSGS.H;
+//                               removed secret passage
+// 04-26-95		ScottR			- Removed path information from include files.
+// 04-28-95		ScottR			- Changed _gob to kgob
+// 05-16-95		ScottR			- Renamed socrates.cht to building.cht
+// 05-16-85		*****			- temp adding string initialization
+// ---------------------------------------------------------
+
+// ---------------------------------------------------------
+// Project macros and definitions
+// ---------------------------------------------------------
+
+#include "kidgs.chh"
+
+// ---------------------------------------------------------
+// Object definitions shared between studio and building
+// ---------------------------------------------------------
+
+#include <stdiodef.h>
+
+// ---------------------------------------------------------
+// Building object definitions
+// ---------------------------------------------------------
+
+#include <socdefn.h>
+									
+// ---------------------------------------------------------
+// Start up stuff.
+// ---------------------------------------------------------
+
+// Init macro values
+STARTCHUNKS( 0x00030000 )
+
+// ---------------------------------------------------------
+// main utility object
+// ---------------------------------------------------------
+
+#include "sharutil.chh"
+#include "biopage.chh"
+
+// ---------------------------------------------------------
+// Get definitions for shared stuff - eg. bio pages
+// ---------------------------------------------------------
+#include "biopage.chh"
+
+// ---------------------------------------------------------
+// some needed help defines -- REALLLY!
+#include "projmain.h"
+
+// ---------------------------------------------------------
+// all of the 'places' - each file includes all views
+// ---------------------------------------------------------
+
+#include "ticket.cht"
+#include "imagin.cht"
+#include "lobby.cht"
+#include "snackbar.cht"
+#include "theatre.cht"
+#include "backstag.cht"
+#include "inspirat.cht"
+#include "studiobg.cht"
+#include "projects.cht"
+
+

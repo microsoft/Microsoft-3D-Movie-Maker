@@ -1,0 +1,71 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************
+*
+*  ASSERT.CHH
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Contains ASSERT macros used for debugging chunky files.  Note: the
+*	expression passed to the ASSERT macro is thrown away in the non-debug
+*	build, but the expression passed to the VERIFY macro is executed in the
+*	non-debug build.
+*		e.g.	ASSERT(.next == 0);
+*		e.g.  VERIFY(Launch("Notepad.exe"));
+*
+*	A DEBUGCMD(cmd); macro is also provided.  This is equivalent to:
+*		#ifdef DEBUG
+*			cmd;
+*		#endif	// DEBUG
+*	and is provided mainly to wrap Print and PrintStr commands.  In non-debug
+*	builds, the DEBUGCMD and its argument are both thrown away.
+*
+******************************************************************************
+*
+*  Revision History:  Created 5/31/95 by *****.
+*
+*	06/02/95	*****		Added DEBUGCMD macro; renamed file from ASSERT.H to
+*							ASSERT.CHH.
+*
+*****************************************************************************/
+
+#ifndef ASSERT_CHH
+#define ASSERT_CHH
+
+/*****************************************************************************
+*                                                                            *
+*                                Macros                                      *
+*                                                                            *
+*****************************************************************************/
+
+#ifdef DEBUG
+
+#define ASSERT(f)						\
+	If (!(f));							\
+		AlertStr("Assertion failed: ", __FILE__, ", line ", NumToStr(__LINE__,""));	\
+	End
+
+#define VERIFY(f)						\
+	If (!(f));							\
+		AlertStr("Assertion failed: ", __FILE__, ", line ", NumToStr(__LINE__,""));	\
+	End
+
+#define DEBUGCMD(cmd) cmd
+
+#else		// NOT DEBUG
+
+#define ASSERT(f)
+
+#define VERIFY(f) f
+
+#define DEBUGCMD(cmd)
+
+#endif	// DEBUG
+
+#endif	// ASSERT_CHH

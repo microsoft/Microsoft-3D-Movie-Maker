@@ -1,0 +1,35 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// wave chunks for logo wizard
+WAVE_CHUNK ("helpaud\sound\logo\VMP0001.WAV", kwavLogo00)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0001A.WAV", kwavLogo01)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0002.WAV", kwavLogo02)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0003.WAV", kwavLogo03)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0004.WAV", kwavLogo04)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0005.WAV", kwavLogo05)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0006.WAV", kwavLogo06)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0007.WAV", kwavLogo07)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0008.WAV", kwavLogo08)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0009.WAV", kwavLogo09)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0010.WAV", kwavLogo0A)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0011.WAV", kwavLogo0B)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0012.WAV", kwavLogo0C)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0013.WAV", kwavLogo11)
+WAVE_CHUNK ("helpaud\sound\logo\VMP0014.WAV", kwavLogo12)
+
+// wave chunks for guidehelp
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG001.WAV", kwavGuideHelp00)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG002.WAV", kwavGuideHelp01)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG003.WAV", kwavGuideHelp02)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG004.WAV", kwavGuideHelp03)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG005.WAV", kwavGuideHelp04)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG006.WAV", kwavGuideHelp05)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG007.WAV", kwavGuideHelp06)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG008.WAV", kwavGuideHelp07)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG009.WAV", kwavGuideHelp08)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG010.WAV", kwavGuideHelp09)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG011.WAV", kwavGuideHelp0A)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG012.WAV", kwavGuideHelp0B)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG013.WAV", kwavGuideHelp0C)
+WAVE_CHUNK ("helpaud\sound\guidhelp\VZG014.WAV", kwavGuideHelp10)

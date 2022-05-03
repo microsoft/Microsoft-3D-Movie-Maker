@@ -1,0 +1,65 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+// Definitions for the waiting area in the lobby
+// -----------------------------------------------------
+
+
+OBJECT( "waiting area", kgobWaiting, 0, kcrsArrow1 )
+REP_PPMBMP( CHID1( krepDefault ),  "building\pbm\waiting\waiting.pbm" )
+CREATE_SCRIPT( "waiting: create" )
+	SETPALETTE( kpalSocLobby );
+	SETKEYS(kflgBuildingAll);
+	PLAYMIDI( kmidLobby );
+
+	CreateChildThis( kgobNavbarLeft, kgobNavbarLeft);
+	CreateChildThis( kgobNavbarDown, kgobNavbarDown );
+	CreateChildThis( kgobNavbarRight, kgobNavbarRight ); 
+	CreateChildThis( kgobLobby2m1, kgobLobby2m1 );
+	CreateChildThis( kgobLobby2m2, kgobLobby2m2 );
+	CreateChildThis( kgobLobby2m3, kgobLobby2m3 );
+ENDCHUNK
+
+//------------------------------------------------------------
+//	Bio page hotspots
+//----------------------------------------------------------
+OBJECT( "Biopage 25 mask",  kgobLobby2m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\lobby\lobby3m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 25 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 25 );
+			BIO_CREATEBOOK( 25, fFalse, kgobWaiting );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 26 mask",  kgobLobby2m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\lobby\lobby3m2.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 26 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 26 );
+			BIO_CREATEBOOK( 26, fFalse, kgobWaiting );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 27 mask",  kgobLobby2m3, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\lobby\lobby3m3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 27 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 27 );
+			BIO_CREATEBOOK( 27, fFalse, kgobWaiting );
+		End;		
+	ENDCHUNK
+

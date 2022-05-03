@@ -1,0 +1,112 @@
+# makefile.kmk
+#
+# This is the makefile used by kmake.bat.  It knows how to build everything
+# in Socrates.
+
+LOCAL_BUILD=1
+
+# Included files should append targets as follows:
+#   *** Any target that should be executed for a clean should be appended
+#     to "CLEAN_TARGETS_ROOT"
+#   *** Any target that should be built by default should be appended to
+#     "ALL_TARGETS_ROOT".  Note that there *will* be targets defined which
+#     should not be appended to this, because they are only interesting
+#     when used as dependents to something else.
+
+CLEAN_TARGETS_ROOT=
+ALL_TARGETS_ROOT=
+
+#############################################################################
+## Process ERRLVL                                                          ##
+#############################################################################
+
+# CHKERR is used in any build rule that should cause the build to stop
+!IF "$(ERRLVL)" == "FATAL"
+CHKERR=@@if errorlevel 1 goto error
+!ELSE
+CHKERR=@@if errorlevel 1 (echo Removing goodmake.log & rm goodmake.log)
+!ENDIF
+
+# CHKERRW is used in any build rule that should report an error, but should
+# never cause the build to stop, even if ERRLVL == FATAL
+CHKERRW=@@if errorlevel 1 (echo Removing goodmake.log & rm goodmake.log)
+
+.SUFFIXES: .cpp .asm .c .obj .rc
+
+# NOTE: we don't want to build all Kauai targets; we use Kauai's makefiles
+# only for their dependencies.  Also, we don't want Kauai sources built in
+# our current directory.
+
+!IF "$(ALL_TARGETS_ROOT)" != ""
+!ERROR Should not have any ALL targets defined yet
+!ENDIF
+
+!IF "$(CLEAN_TARGETS_ROOT)" != ""
+!ERROR Should not have any CLEAN targets defined yet
+!ENDIF
+
+LOCAL_BUILD=0
+
+# These guys always get built elsewhere
+
+!INCLUDE $(KAUAI_ROOT)\makefile.def
+
+!INCLUDE $(KAUAI_ROOT)\src\makefile
+
+# Bren gets built elsewhere, but should still be cleaned as part of a SOC clean
+ALL_TARGETS_ROOT=
+CLEAN_TARGETS_ROOT=
+
+!INCLUDE $(SOC_ROOT)\bren\makefile
+
+LOCAL_BUILD=1
+
+!INCLUDE $(SOC_ROOT)\src\engine\makefile
+
+!INCLUDE $(SOC_ROOT)\src\studio\makefile
+
+!IF "$(TYPE)" == "DBSHIP" || "$(TYPE)" == "SHIP" || "$(BLDG_DEBUG)" != ""
+!INCLUDE $(SOC_ROOT)\src\building\makefile
+!ENDIF
+
+!IF "$(TYPE)" == "DBSHIP" || "$(TYPE)" == "SHIP" || "$(HELP_DEBUG)" != ""
+!INCLUDE $(SOC_ROOT)\src\help\makefile
+!ENDIF
+
+!IF "$(TYPE)" == "DBSHIP" || "$(TYPE)" == "SHIP" || "$(HELPA_DEBUG)" != ""
+!INCLUDE $(SOC_ROOT)\src\helpaud\makefile
+!ENDIF
+
+!IF "$(TYPE)" == "DBSHIP" || "$(TYPE)" == "SHIP" || "$(SHARED_DEBUG)" != ""
+!INCLUDE $(SOC_ROOT)\src\shared\makefile
+!ENDIF
+
+!INCLUDE $(SOC_ROOT)\tools\makefile
+
+#  Leave this name blank, since it's hardly ever correct anyway
+TGT_NAME=
+
+# NOTE: unlike the other "CLEAN" targets, this does not actually do a build.
+# This is intentional (BY DESIGN).
+CLEAN: CLEAN_BREN_OBJ
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.obj 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.pch 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.pdb 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.exe 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.res 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.chk 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.cht 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.cod 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.map 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.thd 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.lib 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.lnk 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.ilk 2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.i   2> nul
+    -del $(SOC_ROOT)\obj\$(BLD_TYPE_DIR)\*.thd 2> nul
+
+CLEAN_BY_FILE: $(CLEAN_TARGETS_ROOT)
+    @echo on
+
+
+ALL: $(ALL_TARGETS_ROOT)

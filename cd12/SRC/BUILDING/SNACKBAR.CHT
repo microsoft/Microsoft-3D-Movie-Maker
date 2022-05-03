@@ -1,0 +1,62 @@
+// -----------------------------------------------------
+// Snackbar and contents
+// -----------------------------------------------------
+
+WAVE_CHUNK( "building\sound\snackbar\VO60.wav", kwavVO60 )
+//OBJECT( "Snackbar McZee", kgobSnackbarMczee, 0, kcrsHand1 )
+GOBCHUNK("Snackbar McZee", kgobSnackbarMczee, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0 )
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsHand1, kchidScript0, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsArrow1,chidNil, cidNil, cnoNil)
+ENDCHUNK
+	REP_ANIM( CHID( kst1, krepDefault ), "Snackbar Idle" )
+		While( fTrue );
+			cnt=kcell150;
+			While( cnt <= kcell164 );
+				Cell( cnt++, 0, 0, 6 );		
+			End;
+		End;
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst2, krepDefault ), "Snackbar Mz anim" )
+		PLAYMIDI( cnoNil ); 	// stop and reset lobby MIDI if it's going
+		VOICE( kwavVO60, 0 );
+		cnt=kcell1;
+		While( cnt <= kcell147 );
+			Cell( cnt++, 0, 0, 6 );		
+		End;
+		//ENDVOICE();
+		ChangeStateThis( kst1 );
+	ENDCHUNK
+
+	CHILD_SCRIPT( "SnackBar McZee: clicked", kchidScript0 )
+		ChangeStateThis( kst2 );
+	ENDCHUNK
+	#include "snackbar.seq"
+
+OBJECT( "Biopage 28 mask",  kgobLobby3m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\lobby\lobby2m1.bmp", 0, 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 28 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 28 );
+			BIO_CREATEBOOK( 28, fFalse, kgobSnackBar );
+		End;		
+	ENDCHUNK
+
+OBJECT( "Biopage 29 mask",  kgobLobby3m2, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\lobby\lobby2m2.bmp", 0, 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 29 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 29 );
+			BIO_CREATEBOOK( 29, fFalse, kgobSnackBar );
+		End;		
+	ENDCHUNK
+

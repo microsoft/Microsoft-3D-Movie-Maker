@@ -1,0 +1,325 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// file to build the actor bio pages 
+
+
+
+#define kgobBioPage				0x00015100
+#define kgobBioBook				0x00015101
+#define kgobBioActors			0x00015102
+#define kgobBioCancel			0x00015103
+#define kgobBioFwd				0x00015104
+#define kgobBioBack				0x00015105
+#define kgobBlankBalloon		0x00015106
+#define kgobPopTip				0x00015107
+#define kgobBioPanel			0x00015108
+#define kgobBioHolder			0x00015109
+#define kgobBioResizable		0x0001510a
+#define kgobBioPageHolder		0x0001510b
+					 
+#define ktpcBioPage1			0x00015201		
+#define ktpcBioPage2			0x00015202		
+#define ktpcBioPage3			0x00015203		
+#define ktpcBioPage4			0x00015204		
+#define ktpcBioPage5			0x00015205		
+#define ktpcBioPage6			0x00015206		
+#define ktpcBioPage7			0x00015207		
+#define ktpcBioPage8			0x00015208		
+#define ktpcBioPage9			0x00015209		
+#define ktpcBioPage10			0x0001520a	
+#define ktpcBioPage11			0x0001520b	
+#define ktpcBioPage12			0x0001520c	
+#define ktpcBioPage13			0x0001520d	
+#define ktpcBioPage14			0x0001520e	
+#define ktpcBioPage15			0x0001520f	
+#define ktpcBioPage16			0x00015210	
+#define ktpcBioPage17			0x00015211	
+#define ktpcBioPage18			0x00015212	
+#define ktpcBioPage19			0x00015213	
+#define ktpcBioPage20			0x00015214	
+#define ktpcBioPage21			0x00015215	
+#define ktpcBioPage22			0x00015216	
+#define ktpcBioPage23			0x00015217	
+#define ktpcBioPage24			0x00015218	
+#define ktpcBioPage25			0x00015219	
+#define ktpcBioPage26			0x0001521a	
+#define ktpcBioPage27			0x0001521b	
+#define ktpcBioPage28			0x0001521c	
+#define ktpcBioPage29			0x0001521d	
+#define ktpcBioPage30			0x0001521e	
+#define ktpcBioPage31			0x0001521f	
+#define ktpcBioPage32			0x00015220	
+#define ktpcBioPage33			0x00015221	
+#define ktpcBioPage34			0x00015222	
+#define ktpcBioPage35			0x00015223	
+#define ktpcBioPage36			0x00015224	
+#define ktpcBioPage37			0x00015225	
+#define ktpcBioPage38			0x00015226	
+#define ktpcBioPage39			0x00015227	
+#define ktpcBioPage40			0x00015228	
+#define ktpcBioPage41			0x00015229	
+#define ktpcBioPage42			0x0001522a	
+#define ktpcBioPage43			0x0001522b	
+#define ktpcBioPage44			0x0001522c	
+
+#define ktpcBioPageNum			0x0001522d
+#define kidBioTipScript			0x0001522e		// script tip invocation runs
+
+#define ktpcBioTip001			0x00015301 
+#define ktipbio1					0x00015302 		
+#define ktipbio2					0x00015303 		
+#define ktipbio3					0x00015304 		
+#define ktipbio4					0x00015305 		
+#define ktipbio5					0x00015306 		
+#define ktipbio6					0x00015307 		
+#define ktipbio7					0x00015308 		
+#define ktipbio8					0x00015309 		
+#define ktipbio9					0x0001530a 		
+#define ktipbio10					0x0001530b 	
+#define ktipbio11					0x0001530c 	
+#define ktipbio12					0x0001530d 	
+#define ktipbio13					0x0001530e 	
+#define ktipbio14					0x0001530f 	
+#define ktipbio15					0x00015310 	
+#define ktipbio16					0x00015311 	
+#define ktipbio17					0x00015312 	
+#define ktipbio18					0x00015313 	
+#define ktipbio19					0x00015314 	
+#define ktipbio20					0x00015315 	
+#define ktipbio21					0x00015316 	
+#define ktipbio22					0x00015317 	
+#define ktipbio23					0x00015318 	
+#define ktipbio24					0x00015319 	
+#define ktipbio25					0x0001531a 	
+#define ktipbio26					0x0001531b 	
+#define ktipbio27					0x0001531c 	
+#define ktipbio28					0x0001531d 	
+#define ktipbio29					0x0001531e 	
+#define ktipbio30					0x0001531f 	
+#define ktipbio31					0x00015320 	
+#define ktipbio32					0x00015321 	
+#define ktipbio33					0x00015322 	
+#define ktipbio34					0x00015323 	
+#define ktipbio35					0x00015324 	
+#define ktipbio36					0x00015325 	
+#define ktipbio37					0x00015326 	
+#define ktipbio38					0x00015327 	
+#define ktipbio39					0x00015328 	
+#define ktipbio40					0x00015329 	
+#define ktipbio41					0x0001532a 	
+#define ktipbio42					0x0001532b 	
+#define ktipbio43					0x0001532c 	
+#define ktipbio44					0x0001532d 	
+#define ktipbio45					0x0001532e 	
+#define ktipbio46					0x0001532f 	
+#define ktipbio47					0x00015330 	
+#define ktipbio48					0x00015331 	
+#define ktipbio49					0x00015332 	
+#define ktipbio50					0x00015333 	
+#define ktipbio51					0x00015334 	
+#define ktipbio52					0x00015335 	
+#define ktipbio53					0x00015336 	
+#define ktipbio54					0x00015337 	
+#define ktipbio55					0x00015338 	
+#define ktipbio56					0x00015339 	
+#define ktipbio57					0x0001533a 	
+#define ktipbio58					0x0001533b 	
+#define ktipbio59					0x0001533c 	
+#define ktipbio60					0x0001533d 	
+#define ktipbio61					0x0001533e 	
+#define ktipbio62					0x0001533f 	
+#define ktipbio63					0x00015340 	
+#define ktipbio64					0x00015341 	
+#define ktipbio65					0x00015342 	
+#define ktipbio66					0x00015343 	
+#define ktipbio67					0x00015344 	
+#define ktipbio68					0x00015345 	
+#define ktipbio69					0x00015346 	
+#define ktipbio70					0x00015347 	
+#define ktipbio71					0x00015348 	
+#define ktipbio72					0x00015349 	
+#define ktipbio73					0x0001534a 	
+#define ktipbio74					0x0001534b 	
+#define ktipbio75					0x0001534c 	
+#define ktipbio76					0x0001534d 	
+#define ktipbio77					0x0001534e 	
+#define ktipbio78					0x0001534f 	
+#define ktipbio79					0x00015350 	
+#define ktipbio80					0x00015351 	
+#define ktipbio81					0x00015352 	
+#define ktipbio82					0x00015353 	
+#define ktipbio83					0x00015354 	
+#define ktipbio84					0x00015355 	
+#define ktipbio85					0x00015356 	
+#define ktipbio86					0x00015357 	
+#define ktipbio87					0x00015358 	
+#define ktipbio88					0x00015359 	
+#define ktipbio89					0x0001535a 	
+#define ktipbio90					0x0001535b 	
+#define ktipbio91					0x0001535c 	
+#define ktipbio92					0x0001535d 	
+#define ktipbio93					0x0001535e 	
+#define ktipbio94					0x0001535f 	
+#define ktipbio95					0x00015360 	
+#define ktipbio96					0x00015361 	
+#define ktipbio97					0x00015362 	
+#define ktipbio98					0x00015363 	
+#define ktipbio99					0x00015364 	
+#define ktipbio100					0x00015365 	
+#define ktipbio101					0x00015366 	
+#define ktipbio102					0x00015367 	
+#define ktipbio103					0x00015368 	
+#define ktipbio104					0x00015369 	
+#define ktipbio105					0x0001536a 	
+#define ktipbio106					0x0001536b 	
+#define ktipbio107					0x0001536c 	
+#define ktipbio108					0x0001536d 	
+#define ktipbio109					0x0001536e 	
+#define ktipbio110					0x0001536f 	
+#define ktipbio111					0x00015370 	
+#define ktipbio112					0x00015371 	
+#define ktipbio113					0x00015372 	
+#define ktipbio114					0x00015373 	
+#define ktipbio115					0x00015374 	
+#define ktipbio116					0x00015375 	
+#define ktipbio117					0x00015376 	
+#define ktipbio118					0x00015377 	
+#define ktipbio119					0x00015378 	
+#define ktipbio120					0x00015379 	
+#define ktipbio121					0x0001537a 	
+#define ktipbio122					0x0001537b 	
+#define ktipbio123					0x0001537c 	
+#define ktipbio124					0x0001537d 	
+#define ktipbio125					0x0001537e 	
+#define ktipbio126					0x0001537f 	
+#define ktipbio127					0x00015380 	
+#define ktipbio128					0x00015381 	
+#define ktipbio129					0x00015382 	
+#define ktipbio130					0x00015383 	
+#define ktipbio131					0x00015384 	
+#define ktipbio132					0x00015385 	
+#define ktipbio133					0x00015386 	
+#define ktipbio134					0x00015387 	
+#define ktipbio135					0x00015388 	
+#define ktipbio136					0x00015389 	
+#define ktipbio137					0x0001538a 	
+#define ktipbio138					0x0001538b 	
+#define ktipbio139					0x0001538c 	
+#define ktipbio140					0x0001538d 	
+#define ktipbio141					0x0001538e 	
+#define ktipbio142					0x0001538f 	
+#define ktipbio143					0x00015390 	
+#define ktipbio144					0x00015391 	
+#define ktipbio145					0x00015392 	
+#define ktipbio146					0x00015393 	
+#define ktipbio147					0x00015394 	
+#define ktipbio148					0x00015395 	
+#define ktipbio149					0x00015396 	
+#define ktipbio150					0x00015397 	
+#define ktipbio151					0x00015398 	
+#define ktipbio152					0x00015399 	
+#define ktipbio153					0x0001539a 	
+#define ktipbio154					0x0001539b 	
+#define ktipbio155					0x0001539c 	
+#define ktipbio156					0x0001539d 	
+#define ktipbio157					0x0001539e 	
+#define ktipbio158					0x0001539f 	
+#define ktipbio159					0x000153a0 	
+#define ktipbio160					0x000153a1 	
+#define ktipbio161					0x000153a2 	
+#define ktipbio162					0x000153a3 	
+#define ktipbio163					0x000153a4 	
+#define ktipbio164					0x000153a5 	
+#define ktipbio165					0x000153a6 	
+#define ktipbio166					0x000153a7 	
+#define ktipbio167					0x000153a8 	
+#define ktipbio168					0x000153a9
+
+#define kxpBioPageLeft	 		215
+#define kypBioPageTop			58
+#define kxpBioPageRight			422
+#define kypBioPageBottom		407
+
+#define kxpBioPageNumLeft	 	282
+#define kypBioPageNumTop		424
+#define kxpBioPageNumRight		344
+#define kypBioPageNumBottom		451
+
+
+// the following tools assume 0,0 reg points
+
+#define kxpBioCancel			511
+#define kypBioCancel			415
+
+#define kxpBioBack				229
+#define kypBioBack				410
+
+#define kxpBioFwd				339
+#define kypBioFwd				410
+
+
+// String ID for page numbering
+
+#define kstidBioPageNum			100
+
+// waves for bio pages 
+
+#define kwavBio1				0x00010040
+#define kwavBio2				0x00010041
+#define kwavBio3				0x00010042
+#define kwavBio4				0x00010043
+#define kwavFoundBio 			0x00010044
+#define kwavBioAlreadyFound		0x00010045
+#define kwavOpenBio 			0x00010046
+
+/**********************************************************************
+
+	The following define the interface to the Bio book
+
+**********************************************************************/
+
+//  The following is the mapping from internal page # to
+//  displayed page number.  This may change to allow sorting
+//  for international versions... just make sure there's 40 of these!
+
+#define BIO_PAGE_ORDER	0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, \
+		21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46
+
+#define NUM_BIOPAGES  41
+
+#define fBIO_AVAIL( x ) \
+	((x > 31) ? ( ::fBio2 & (1<<(x&31)) ) : ( ::fBio1 & (1<<(x&31)) ))
+
+// all found = 41 = 32  + 9 , eg. ffffffffff:0000001ff
+
+#define fBIO_FOUNDALL() \
+	((GetProp( kpridUserData0 ) == 0xffffffff) && ((GetProp( kpridUserData1 ) & 0x000001ff )==0x000001ff ))
+
+// init the bio pages - always have page #1 loaded, hence the |1 bit
+// write back at INIT to make sure TOC is set.
+#define BIO_INIT() \
+	::fBio1 = GetProp( kpridUserData0 )|1;\
+	::fBio2 = GetProp( kpridUserData1 );\
+	SetProp( kpridUserData0, ::fBio1 );
+
+#define BIO_MARKFOUND( x1 ) \
+	__t = 1<< (x1 & 31); \
+	If (x1 > 31 ); \
+		::fBio2 |= __t; \
+		SetProp( kpridUserData1, ::fBio2 );\
+	Else; \
+		::fBio1 |= __t; \
+		SetProp( kpridUserData0, ::fBio1 );\
+	End;
+
+#define BIO_CREATEBOOK( __nPage, __fControls, __kgobPar )\
+	::nBioPage = __nPage;\
+	::fBioCtrl = __fControls;\
+	CreateChildGob( __kgobPar, kgobBioPage, kgobBioPage )
+
+#define BIO_GETPAGE() \
+	::nBioPage
+
+#define BIO_SETPAGE( x )\
+	::nBioPage = x;

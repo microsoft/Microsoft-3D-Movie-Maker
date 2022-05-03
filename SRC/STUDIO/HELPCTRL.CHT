@@ -1,0 +1,89 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+PALETTECHUNK("Palette", kidResPal, "studio\bmp\socpal2.bmp")
+
+// -----------------------------------------------------
+// squishy control, with tracking 
+// -----------------------------------------------------
+GOBCHUNK("_gobHelpSquishy", _gobHelpSquishy, 0)
+	DEFAULT_POSITION(0,0,1)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+// normal
+REP_MBMP( CHID1( krepDefault), "studio\bmp\squishy1.bmp"  )
+// splotted
+REP_MBMP( CHID1( krepMouseDnOn ), "studio\bmp\squishy2.bmp" )
+REP_MBMP( CHID1( krepMouseUpOn ), "studio\bmp\squishy3.bmp" )
+ADOPT_MBMP( LAST_MBMP, CHID1( krepMouseDnOff ))
+REP_WAVE( CHID1( krepClicked ), "studio\sound\sqshbtn.wav" )
+
+// ok button in help topics
+GOBCHUNK("kgobOkButton", kgobOkButton, 0)
+	DEFAULT_POSITION( 0,0,1)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+// normal
+REP_MBMPREG(CHID1( krepDefault), "studio\bmp\okbtn1.bmp", 10,10)
+ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+// ring
+REP_MBMPREG(CHID1(krepMouseDnOn), "studio\bmp\okbtn3.bmp", 10, 10)
+// splotted
+REP_MBMPREG(CHID1(krepMouseUpOn), "studio\bmp\okbtn2.bmp", 10, 10)
+REP_WAVE( CHID1( krepClicked ), "studio\sound\ok.wav" )
+
+// question mark in help topics
+// changed to gem - ***** 
+GOBCHUNK("kgobQuestionButton", kgobQuestionButton, 0)
+	DEFAULT_POSITION( 0,0,1)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+// normal
+REP_MBMP( CHID1( krepDefault), "studio\bmp\pic1016.bmp"  )
+// splotted
+REP_MBMP( CHID1( krepMouseDnOn ), "studio\bmp\pic1016d.bmp" )
+REP_MBMP( CHID1( krepMouseUpOn ), "studio\bmp\pic1016r.bmp" )
+ADOPT_MBMP( LAST_MBMP, CHID1( krepMouseDnOff ))
+REP_WAVE( CHID1( krepClicked ), "studio\sound\gemtip.wav" )
+
+// Tip gem - pic1016
+GOBCHUNK("_gobTipGem", _gobTipGem, 0)
+	DEFAULT_POSITION( 0,0,1)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+// normal
+REP_MBMP( CHID1( krepDefault), "studio\bmp\pic1016.bmp"  )
+// splotted
+REP_MBMP( CHID1( krepMouseDnOn ), "studio\bmp\pic1016d.bmp" )
+REP_MBMP( CHID1( krepMouseUpOn ), "studio\bmp\pic1016r.bmp" )
+ADOPT_MBMP( LAST_MBMP, CHID1( krepMouseDnOff ))
+REP_WAVE( CHID1( krepClicked ), "studio\sound\gemtip.wav" )
+
+// Key tip  - pic1020
+GOBCHUNK("_gobTipKey", _gobTipKey, 0)
+	DEFAULT_POSITION( 0,0,1)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+// normal
+REP_MBMP( CHID1( krepDefault), "studio\bmp\pic1020.bmp"  )
+// splotted
+REP_MBMP( CHID1( krepMouseDnOn ), "studio\bmp\pic1020d.bmp" )
+REP_MBMP( CHID1( krepMouseUpOn ), "studio\bmp\pic1020r.bmp" )
+ADOPT_MBMP( LAST_MBMP, CHID1( krepMouseDnOff ))
+REP_WAVE( CHID1( krepClicked ), "studio\sound\ok.wav" )
+
+// Cancel Button in help topics
+GOBCHUNK("kgobCancelButton", kgobCancelButton, 0)
+	DEFAULT_POSITION( 0,0,1)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand1, kchidClick, cidNil, cnoNil)
+ENDCHUNK
+// normal
+REP_MBMPREG(CHID1(krepDefault), "studio\bmp\cancbtn1.bmp", 10,10)
+ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff))
+REP_MBMPREG(CHID1(krepMouseDnOn), "studio\bmp\cancbtn3.bmp", 10, 10)
+
+
+
+
+
+

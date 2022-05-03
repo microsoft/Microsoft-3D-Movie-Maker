@@ -1,0 +1,19 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ------------------------------------------------------------------------
+// Read in all of the palettes
+// ------------------------------------------------------------------------
+
+PALETTECHUNK( "Soc Base 140 Palette", kpalSocBase, "building\bitmaps\palette\socbase.bmp" )
+PALETTECHUNK( "Soc Imaginoplis Palette", kpalImaginopolis, "building\bitmaps\palette\imaginpl.bmp" )
+PALETTECHUNK( "Soc Ticket booth palette", kpalSocTicket, "building\bitmaps\palette\ticketpl.bmp" )
+PALETTECHUNK( "Soc Lobby Palette", kpalSocLobby, "building\bitmaps\palette\lobbypl.bmp" )
+PALETTECHUNK( "Soc Theatre Palette", kpalSocTheatre, "building\bitmaps\palette\theatpl.bmp" )
+PALETTECHUNK( "Soc Backstage Palette", kpalSocBackstage, "building\bitmaps\palette\bkstagpl.bmp" )
+PALETTECHUNK( "Soc Inspiration Palette", kpalSocInspiration, "building\bitmaps\palette\insppl.bmp" )
+PALETTECHUNK( "Soc Projects Palette", kpalSocProjects, "building\bitmaps\palette\projpal.bmp" )
+PALETTECHUNK( "Soc Studio Palette", kpalSocStudio, "building\bitmaps\palette\studiopl.bmp" )
+
+PALETTECHUNK( "Soc Street Scene Palette", kpalSocStreet, "building\bitmaps\palette\streetpl.bmp" )
+

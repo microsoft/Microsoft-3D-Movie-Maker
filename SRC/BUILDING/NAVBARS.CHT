@@ -1,0 +1,150 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ---------------------------------------------------------
+// Definitions for the navigation bar hotspots on the edge
+// of the screens.
+// ---------------------------------------------------------
+// BIG ASSUMPTION -- where there's a navbar, there's always
+// a Down navbar.
+
+//----------------------------------------------------------
+// Function to map a Place to an entry state
+// return value is kstState to use for navbar entry
+//----------------------------------------------------------
+#define NAVBARENTRY(_kgobPlc)\
+	Match(	_kgobPlc,			kst1,\
+			kgobWaiting,		kst1,\
+			kgobSnackBar,		kst1,\
+			kgobLobby2,			kst1,\
+			kgobLobby1,			kst2,\
+			kgobTheatre2,		kst1,\
+			kgobTheatre1,		kst4,\
+			kgobBackstage1,		kst2,\
+			kgobBackstage2,		kst1,\
+			kgobStudio4,		kst1,\
+			kgobStudio2,		kst1,\
+			kgobStudio1,		kst1,\
+			kgobStudio3,		kst1,\
+			kgobInspiration4,	kst1,\
+			kgobInspiration2,	kst1,\
+			kgobInspiration1,	kst6,\
+			kgobInspiration3,	kst1,\
+			kgobTicket2,		kst3,\
+			kgobProjects4,		kst1,\
+			kgobProjects2,		kst1,\
+			kgobProjects1,		kst2,\
+			kgobProjects3,		kst1  )
+
+GOBCHUNK( "left nav. bar", kgobNavbarLeft, 0 )
+	DEFAULT_POSITION( 0,0, 400 )
+	ACTION( fcustNil, fcustNil, fgrfstAll, kcrsLeft, CHID1( kchidClick), cidNil, cnoNil )
+ENDCHUNK
+REP_RECT( CHID1( krepDefault), "left clicker", 0, 0, 50, 480 )
+CLICK_SCRIPT( "navbar clicked left" )
+	plc = GET_CURRENTPLACE();
+	nxt = Match( plc, plc,
+			kgobLobby1, 		kgobWaiting,
+			kgobLobby2, 		kgobSnackBar,
+			kgobWaiting, 		kgobLobby2,
+			kgobSnackBar, 		kgobLobby1,
+			kgobTheatre2, 		kgobTheatre1,
+			kgobTheatre1, 		kgobTheatre2,
+			kgobBackstage1, 	kgobBackstage2,
+			kgobBackstage2, 	kgobBackstage1,
+			kgobStudio1, 		kgobStudio4,
+			kgobStudio2, 		kgobStudio3,
+			kgobStudio3, 		kgobStudio1,
+			kgobStudio4, 		kgobStudio2,
+			kgobInspiration1, 	kgobInspiration4,
+			kgobInspiration2, 	kgobInspiration3,
+			kgobInspiration3, 	kgobInspiration1,
+			kgobInspiration4, 	kgobInspiration2,
+			kgobProjects1, 		kgobProjects4,
+			kgobProjects2, 		kgobProjects3,
+			kgobProjects3, 		kgobProjects1,
+			kgobProjects4, 		kgobProjects2
+		);
+	ASSERT(plc != nxt);
+
+	Transition( gftNil, kgfdRight, 30, Transparent, cnoNil );		
+	NEXTPLACE1(nxt, NAVBARENTRY(nxt));
+
+ENDCHUNK
+
+GOBCHUNK( "right nav. bar", kgobNavbarRight, 0 )
+	DEFAULT_POSITION( 0, 0, 400 )
+	ACTION( fcustNil, fcustNil, fgrfstAll, kcrsRight, CHID1( kchidClick), cidNil, cnoNil )
+ENDCHUNK
+REP_RECT( CHID1( krepDefault), "right clicker", 590, 0, 640, 480 )
+CLICK_SCRIPT( "navbar clicked right" )
+	plc = GET_CURRENTPLACE();
+	nxt = Match( plc, plc,
+			kgobWaiting, 	kgobLobby1,
+			kgobSnackBar,  	kgobLobby2,
+			kgobLobby2,		kgobWaiting,
+			kgobLobby1, 	kgobSnackBar,
+			kgobTheatre2, 	kgobTheatre1,
+			kgobTheatre1, 	kgobTheatre2 ,
+			kgobBackstage1, kgobBackstage2,
+			kgobBackstage2, kgobBackstage1,
+			kgobStudio4, 	kgobStudio1,
+			kgobStudio2, 	kgobStudio4,
+			kgobStudio1, 	kgobStudio3,
+			kgobStudio3, 	kgobStudio2,
+			kgobInspiration4, kgobInspiration1,
+			kgobInspiration2, kgobInspiration4,
+			kgobInspiration1, kgobInspiration3,
+			kgobInspiration3, kgobInspiration2,
+			kgobProjects4, 	kgobProjects1,
+			kgobProjects2, 	kgobProjects4,
+			kgobProjects1, 	kgobProjects3,
+			kgobProjects3, 	kgobProjects2
+
+		);
+
+	ASSERT(plc != nxt);
+
+	Transition( gftNil, kgfdLeft, 30, Transparent, cnoNil );
+	NEXTPLACE1(nxt, NAVBARENTRY(nxt));
+
+ENDCHUNK
+
+GOBCHUNK( "bottom nav. bar", kgobNavbarDown, 0 )
+	DEFAULT_POSITION( 0, 430, 400 )
+	ACTION( fcustNil, fcustNil, fgrfstAll, kcrsTurn1, CHID1( kchidClick), cidNil, cnoNil )
+ENDCHUNK
+REP_RECT( CHID1( krepDefault), "bottom clicker", 0, 0, 640, 50 )
+CLICK_SCRIPT( "navbar clicked down")
+	plc = GET_CURRENTPLACE();
+	nxt = Match( plc, plc,
+			kgobWaiting, 	kgobSnackBar,
+			kgobSnackBar,  	kgobWaiting,
+			kgobLobby2,		kgobLobby1,
+			kgobLobby1, 	kgobLobby2,
+			kgobTheatre1, 	kgobTheatre2,
+			kgobTheatre2, 	kgobTheatre1,
+			kgobBackstage1, kgobBackstage2,
+			kgobBackstage2, kgobBackstage1,
+			kgobStudio1, 	kgobStudio2,
+			kgobStudio2, 	kgobStudio1,
+			kgobStudio3, 	kgobStudio4,
+			kgobStudio4, 	kgobStudio3,
+			kgobInspiration1, kgobInspiration2,
+			kgobInspiration2, kgobInspiration1,
+			kgobInspiration3, kgobInspiration4,
+			kgobInspiration4, kgobInspiration3,
+			kgobProjects1, 	kgobProjects2,
+			kgobProjects2, 	kgobProjects1,
+			kgobProjects3, 	kgobProjects4,
+			kgobProjects4, 	kgobProjects3,
+			kgobTicket2, kgobTicket1
+
+		);
+
+	ASSERT(plc != nxt);
+	Transition( gftNil, kgfdDown, 30, Transparent, cnoNil );		
+	NEXTPLACE1(nxt, NAVBARENTRY(nxt));
+
+ENDCHUNK
+

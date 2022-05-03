@@ -1,0 +1,17 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ------------------------------------------------------------------------
+// cursor definitions... to be included after STARTCHUNKY command
+// ------------------------------------------------------------------------
+
+CURSORCHUNK( "building\cursors\crs1018.cur", kcrsHand1 )
+CURSORCHUNK( "building\cursors\crs128.cur", kcrsArrow1 )
+CURSORCHUNK( "building\cursors\crs142.cur", kcrsWand1 )
+CURSORCHUNK( "building\cursors\crs143.cur", kcrsStar )
+CURSORCHUNK( "building\cursors\left.cur", kcrsLeft )
+CURSORCHUNK( "building\cursors\right.cur", kcrsRight )
+CURSORCHUNK( "building\cursors\down.cur", kcrsDown )
+CURSORCHUNK( "building\cursors\up.cur", kcrsUp )
+CURSORCHUNK( "building\cursors\turn1.cur", kcrsTurn1 )
+

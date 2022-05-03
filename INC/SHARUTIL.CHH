@@ -1,0 +1,257 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// ---------------------------------------------------------
+// These 'routines' and macros are for Socrates to use via 
+// the UTIL object
+//
+// Revisions:
+// 
+// mm-dd-yy
+// ??-??-94     *****         - Created
+// 05-16-95		*****			- remove unimplemented hooks 
+// 06/27/95		*****			- moved to soc\inc directory,
+//								  renamed sharutil.chh.
+//
+// ---------------------------------------------------------
+
+#ifndef SHARUTIL_CHH
+#define SHARUTIL_CHH
+
+// -----------------------------------------------------
+// Utility object definition
+// -----------------------------------------------------
+
+#define kgobUtil			0x00010000
+
+// -----------------------------------------------------
+// Transition time in 1/60 seconds
+// -----------------------------------------------------
+#define kTransitionTime		60
+
+// -----------------------------------------------------
+// Util object ids
+// -----------------------------------------------------
+
+#define kgobGlass1			0x0001010b
+#define kgobGlass0			0x0001010c
+
+// -----------------------------------------------------
+// Hotkey definitions 
+// -----------------------------------------------------
+//
+// These flags are used to enable and disable particular hotkeys within the
+// building though they are overridden by the app cid to disable all hotkeys.
+//
+#define kflgKEYALL			0xffffffff
+#define kflgKEYNONE			0x00000000
+
+#define kflgKEYMAP			0x00000001
+#define kflgKEYQUIT			0x00000002
+#define kflgKEYABOUT		0x00000004
+#define kflgKEYPORTFOLIO	0x00000008
+#define kflgKEYTOOLS		0x00000010
+#define kflgLOADSTUDIO		0x00000020
+
+#define kwavSplot			0x00010010
+
+// -----------------------------------------------------
+// These are the keys that are generally enabled in the building.
+// -----------------------------------------------------
+#define kflgBuildingAll\
+	(kflgKEYABOUT | kflgKEYQUIT | kflgKEYMAP | kflgKEYPORTFOLIO | kflgKEYTOOLS | kflgLOADSTUDIO)
+#define kflgBuildingMin\
+	(kflgKEYQUIT)
+
+// ---------------------------------------------------------
+// Quit the application
+// ---------------------------------------------------------
+#define QUITAPP() \
+	EnqueueCid(cidQuit, 0, 0, 0, 0, 0);
+
+// ---------------------------------------------------------
+// Switch to the next place.
+// ---------------------------------------------------------
+#define NEXTPLACE(_kgobNext) \
+	RunScriptGob(kgobUtil, kchidScript1, _kgobNext, kst1)
+
+// ---------------------------------------------------------
+// New and improved Switch to the next place.
+// It includes a parameter to set the entry state at the next place.
+// I'll use this to migrate to th enew type of NEXTPLACE and then
+// remove the above define and rename this one to NEXTPLACE.
+// ---------------------------------------------------------
+#define NEXTPLACE1(_kgobNext, _state) \
+	RunScriptGob(kgobUtil, kchidScript1, _kgobNext, _state) 
+
+//----------------------------------------------------------
+// Wrappers for cidEnable/DisableAccel so we can keep track
+// of how many times they've been called and use absolutes
+// to enable and disable.
+//		_fAbsolute means override the counting mechanism.
+//----------------------------------------------------------
+#define ENABLEACCEL(_fAbsolute)\
+	DEBUGCMD(	If (kgobUtil->cDisable <= 0 && !_fAbsolute));\
+	DEBUGCMD(		PrintStr("Enable Accels takes disable count below 0."));\
+	DEBUGCMD(	End);\
+	If (_fAbsolute);\
+		If (kgobUtil->cDisable >= 1);\
+			EnqueueCid(cidEnableAccel, 0, 0, 0, 0, 0);\
+		End;\
+		kgobUtil->cDisable = 0;\
+	Else;\
+		kgobUtil->cDisable--;\
+		If (kgobUtil->cDisable == 0);\
+			EnqueueCid(cidEnableAccel, 0, 0, 0, 0, 0);\
+		End;\
+	End
+
+#define DISABLEACCEL(_fAbsolute)\
+	DEBUGCMD(	If (kgobUtil->cDisable >= 1 && !_fAbsolute));\
+	DEBUGCMD(		PrintStr("Disable Accels takes disable count above 1."));\
+	DEBUGCMD(	End);\
+	If (_fAbsolute);\
+		If (kgobUtil->cDisable <= 0);\
+			EnqueueCid(cidDisableAccel, 0, 0, 0, 0, 0);\
+		End;\
+		kgobUtil->cDisable = 1;\
+	Else;\
+		If (kgobUtil->cDisable == 0);\
+			EnqueueCid(cidDisableAccel, 0, 0, 0, 0, 0);\
+		End;\
+		kgobUtil->cDisable++;\
+	End;
+
+//----------------------------------------------------------
+// Function to lock out hot spots.  Disable hot keys too.
+//----------------------------------------------------------
+#define DISABLEHOTSPOTS( _flgKeys )\
+	StartLongOp();\
+	RunScriptGob( kgobUtil, kchidScript3, _flgKeys )
+
+//----------------------------------------------------------
+// Function to enable hot spots.
+//----------------------------------------------------------
+#define ENABLEHOTSPOTS( _flgKeys )\
+	EndLongOp( fTrue );\
+	If( FGobExists(	kgobGlass0 ) );\
+		DestroyGob( kgobGlass0 );\
+	End;\
+	SETKEYS(_flgKeys)
+
+//----------------------------------------------------------
+// Function to manage music.
+//----------------------------------------------------------
+#define PLAYMIDI( _cnoMidi )\
+	RunScriptGob( kgobUtil, kchidScript4, _cnoMidi, fFalse )
+
+#define PLAYMIDI_LOOP( _cnoMidi )\
+	RunScriptGob( kgobUtil, kchidScript4, _cnoMidi, fTrue )
+
+// ---------------------------------------------------------
+// Returns gobid of global mondo parent daddy. 
+// ---------------------------------------------------------
+#define SUPERPARENT() \
+	GidParGob( kgobUtil )
+
+// ---------------------------------------------------------
+// Return the current place.
+// ---------------------------------------------------------
+#define GET_CURRENTPLACE() ::kgobCurrentPlace
+
+// ---------------------------------------------------------
+// Set the current place.
+// ---------------------------------------------------------
+#define SET_CURRENTPLACE(_kgob) \
+	::kgobCurrentPlace = _kgob
+
+// ---------------------------------------------------------
+// Enable/disable hotkeys
+// ---------------------------------------------------------
+#define HOTKEYS( _enable, _disable ) \
+	RunScriptGob( kgobUtil, kchidScript6 );
+
+// ---------------------------------------------------------
+// reference a global variable value
+// ---------------------------------------------------------
+#define GLOBAL(__x) \
+	(kgobUtil->__x)
+
+// ---------------------------------------------------------
+// Set a global variable value
+// ---------------------------------------------------------
+#define SETGLOBAL( __x, __y )\
+	kgobUtil->__x = (__y)
+
+// ---------------------------------------------------------
+// Hotkeys : Return, enable, disable or set absolutely all 
+// ---------------------------------------------------------
+
+#define KEYSTATE() \
+	(GLOBAL( keys ))
+
+#define KEYENABLED( _flgkey ) \
+	((GLOBAL( keys ) & _flgkey) == _flgkey)
+
+#define ENABLEKEYS( _flgKeys )\
+	__foo = GLOBAL( keys ) | _flgKeys; \
+	SETGLOBAL( keys, __foo ) 
+
+#define SETKEYS( _flgKeys )\
+	SETGLOBAL( keys, _flgKeys ) 
+
+#define DISABLEKEYS( _flgKeys )\
+	__foo = GLOBAL( keys ) & ~(_flgKeys); \
+	SETGLOBAL( keys, __foo ) 
+
+// --------------------------------------------------------------
+// Palette setting shortcut.  Will perform a transition if req'd
+// --------------------------------------------------------------
+
+#define SETPALETTE(_cnoPalNew) \
+	RunScriptGob(kgobUtil, kchidScript7, _cnoPalNew)
+
+// --------------------------------------------------------------
+// Macro to play WAVE and display character close caption balloon.
+//  w= wave chunk, t= help topic (prev. for hearing impaired baln)
+// --------------------------------------------------------------
+
+#define VOICE( w, t )\
+	If( ::siiVoice );\
+		StopSound( ::siiVoice );\
+	End;\
+	::siiVoice = PlaySoundThis(kctgWave, w, 0, 0x00010000, 1, 0, ksclBldgSound)
+
+//	CreateHelpGob( GET_CURRENTPLACE(), t )	Was used for putting up hearing impaired balloon
+
+// --------------------------------------------------------------
+//	Macro to stop wave file audio invoked with the VOICE macro.
+// --------------------------------------------------------------	
+#define ENDVOICE()\
+	If( ::siiVoice );\
+		StopSound( ::siiVoice );\
+		::siiVoice = 0;\
+	End;
+
+//	DestroyGob( kgobVoiceOver );	Was used for destroying hearing impaired balloon
+
+// --------------------------------------------------------------
+//	Macro to load the studio tools.
+// 	_kgobReturn specifies where the studio should come back to when it
+//			returns to the Building.
+//		_project specifies which project the tools should be loaded with, if
+//			any.  Set to 0 to indicate no project.
+// --------------------------------------------------------------
+
+#define LOADTOOLS(_kgobReturn, _kstReturn, _project)\
+	RunScriptGob(kgobUtil, kchidScript8, _kgobReturn, _kstReturn, _project);
+
+
+#define WAIT_FOR_TRANSITION()\
+	If( ::fTransition );\
+		Cell( 0, 0, 0, kTransitionTime );\
+		::fTransition = fFalse;\
+	End
+
+#endif	//!SHARUTIL_CHH
+

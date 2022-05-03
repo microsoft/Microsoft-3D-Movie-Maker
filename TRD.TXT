@@ -1,0 +1,497 @@
+
+                  Test Release Document for Socrates
+
+
+                        ---------------------
+                        Last updated: 4/27/95
+                        ---------------------
+
+Status options:
+---------------
+waiting for xxx = not implemented because of a dependency
+not done = ready to implement but not implemented yet
+not yet reviewed = implemented but code has not been reviewed
+zd = zero defect, code is reviewed and ready to test
+not ready for testing = self-explanatory, "NOTE:" required to elaborate
+
+Formatting notes:
+-----------------
+So that this file can be viewed with aribitrary tab stops, tabs should
+appear only at the beginning of a line.  Alignment after non-tab characters
+should be accomplished using spaces.  Any item in the "status" column should
+be defined above in "Status options."  For additional information, add a
+"NOTE:" comment on the line below the main line-item.  Try very hard to keep
+line-items short enough to fit on one line.
+
+
+Product wide failure handling
+
+	UI error messages                               waiting for spec
+
+	actor.cpp ((*****))
+	actor oom & file i/o                            zd
+
+	scene.cpp (seanse)
+	Scene functionality                             zd
+
+	movie.cpp (seanse)
+	Movie functionality                             zd
+
+	tbox.cpp (seanse)
+	Textbox functionality                           zd
+
+
+Backgrounds and Camera Views
+
+	bkgd.cpp ((*****)):
+	Background RGB and Z buffers                    zd
+	Light sources                                   zd
+	Cameras                                         zd
+	Switching backgrounds                           zd
+	Switching views                                 zd
+	Switching palettes ((*****))                      zd
+		NOTE: only HH-Lab background uses it
+
+	scene.cpp (seanse):
+	Camera change events                            zd
+	Scene change events                             zd
+
+
+Materials and Texture Maps
+
+	tmap.cpp ((*****))
+	Load texmap from chunky file                    not yet reviewed
+	Save texmap to chunky file                      not yet reviewed
+	Import texmap from PIX                          not yet reviewed
+	Import texmap from BMP ((*****))                  not yet reviewed
+
+	mtrl.cpp ((*****))
+	Shade table management                          zd
+	Load MTRL (stock material) from chunky file     zd
+	Save MTRL to chunky file                        zd
+	Load CMTL (custom material) from chunky file    zd
+
+	tmpl.cpp ((*****))
+	Manage default costume and custom materials
+		for actors                                  zd
+
+	body.cpp ((*****))
+	Attach and remove stock and custom materials
+		to body parts                               zd
+
+	actor.cpp ((*****))
+	Manage costume change events                    zd
+
+
+Models - the actual shape of the body parts
+
+	modl.cpp ((*****))
+	Load model from chunky file                     zd
+	Save model to chunky file                       zd
+	Import model from DAT                           zd
+
+	tmpl.cpp ((*****))
+	Loads models based on the current action and
+		tells body to attach them                   zd
+
+	body.cpp ((*****))
+	Attaches models to body parts                   zd	
+	
+	
+Rendering
+
+	zbmp.cpp ((*****))
+	Load Z-buffer from chunky file                  zd
+	Draw Z-buffer into gpt, clipping to regn        zd
+
+	bwld.cpp ((*****))
+	Manage BRender actor hierarchy, including
+		cameras and all actors                      zd
+	Manage background RGB and Z buffer              zd
+	Render into working RGB and Z buffer            zd
+	Dirty region management                         zd
+	2-D Actor Pick                                  zd
+	Half and quarter-resolution rendering           zd
+	Prerender static actors                         not done
+	Other performance improvements                  not done
+
+
+Actor Templates
+
+	tmpl.cpp ((*****))
+	Read TMPL from chunky file                      zd
+	Set default costume                             zd
+	Get custom costume                              zd
+	Set models and matrices based on action         zd
+	3-D Text actors                                 zd (see section below)
+	Accessories (optional hats and hammers)         not done
+
+
+3-D Text
+
+	tdf.cpp ((*****))
+	Code                                            zd
+
+	tdt.cpp ((*****))
+	Code                                            zd
+
+	Spletter Easel script (seanse)                  not yet reviewed
+	Spletter Easel code ((*****))                   not done
+
+	tdfmake.exe (font authoring tool) ((*****))     not yet reviewed
+
+
+Costume Changer Easel
+
+	Scripting (seanse)                              not yet reviewed
+	Code (*****)                                    not done
+
+
+Content Conversion - Tools to bring designer's data into Socrates.
+	See Materials and Texture Maps
+
+	sitobren.cpp ((*****))
+	Actor conversion
+		NOTE: no final actors have been received from the content
+			production staff; if problems appear in existing
+			actors, let NVarma and PeteD know, but don't report
+			a bug.
+		Hierarchy/mesh data                         not reviewed
+		Basic non-texture-mapped materials          not reviewed
+		Texture-mapped materials                    waiting for spec
+	Background conversion                           not reviewed
+		NOTE: HH-Lab background should be completely correct,
+			except that it has no overhead view yet.
+
+Text Boxes
+
+	tbox.cpp (seanse)
+	Load/Save text boxes in documents               zd
+	Cut/Copy/Paste entire text boxes                zd
+	Cut/Copy/Paste text in text boxes               zd
+	Undo/Redo text box edits                        zd
+	Text box background color                       zd
+	Text box foreground color                       zd
+        External clipboard support                      zd
+	
+
+Sound tools
+	Scripting (seanse)                              not done
+	Code (*****/******)                             not done
+	Sound recording Easel script (seanse)           not done
+	Sound recording Easel code (******)             not done
+
+Scenes - Scene level functionality.
+
+	scene.cpp (seanse)
+	Load scene in document                          zd
+	Save scene in document                          zd
+	Scene chopper                                   zd
+	Scene chopper - backwards                       zd
+	Scene nuker                                     zd
+	Transitions (seanse/(*****))                    zd
+	Pauses                                          zd
+	Undo/Redo for scene edits                       zd
+	Sound                                           not done.
+
+
+Movies - Movie level functionality.
+
+	movie.cpp* (seanse)
+	Load movie document                             zd
+	Save movie document                             zd
+	Roll-call management                            zd
+	
+
+Actor - Actor manipulations:
+
+	actor.cpp ((*****))
+	Static/non-static April spec changes            zd
+	Orientation during placement drag               zd
+	Path orientation (single & multi point)         zd
+	Ground zero                                     zd
+	Add new actor from rolls                        zd
+	Add actor from rollcall (not present in scene)  zd
+	Add actor from rollcall (out of view)           zd
+	Initial Actor orientation  (*******)            zd
+	Initial Actor position/scale (*******)          not done
+	Static & non-static Actions                     zd
+	Path Compose                                    zd
+	Path Recording and Rerecording                  zd
+	Path Tweaking                                   zd
+	Motion Fill                                     zd
+	Floating                                        zd
+	Freezing                                        zd
+	Transformers                                    zd
+		Squash/Stretch                              zd
+		Normalize                                   zd
+		Rotate                                      zd
+		Grow/Shrink                                 zd
+	Costumes                                        zd
+	Subpaths (including attribute inheritance)      zd
+	Sooner/Later tool                               zd
+	Sound                                           not done
+	Cut Actor (forwards & back for scene chop)      zd
+
+	actrsave.cpp ((*****))
+	Save actor to document                          zd
+	Load actor from document                        zd
+	Manage actor's tags                             zd
+
+	actredit.cpp* ((*****)/seanse)
+	Cut Actor                                       zd
+	Copy Actor                                      zd
+	Paste Actor                                     zd
+	Copy Route                                      zd
+	Paste Route                                     zd
+
+	actredit.cpp (seanse/*****)
+	Undo/redo for actors                            zd
+
+Studio Master Controls
+
+	stdioscb.[cpp,cht] (*****)
+	Frame/scene scrollbars, buttons                 zd
+	Frame/scene counters, name, fps                 zd
+
+Tag Manager - references to content on CD
+
+	tagman.cpp ((*****))
+	Search all drives for content sources           zd
+	Report missing CD (and retry)                   zd
+	Read objects from content sources               zd
+	Read objects from user document (sidNil tags)   zd
+
+Ctrl, Shift, Hot Keys (Stest only)
+
+	Ctrl drag (Tweak)                               zd
+	Ctrl N (new movie)                              not done
+	Ctrl O (open movie)                             not done
+	Ctrl Q (quit)                                   zd
+	Ctrl S (save)                                   zd
+	Ctrl X (Cut)                                    zd
+	Shift Ctrl X (end of scene cut)                 not done
+	Shift Cut Tool (end of scene cut)               zd
+	Ctrl C (Copy)                                   zd
+	Shift Ctrl C (end of scene copy)                not done
+	Shift Copy Tool (end of scene copy)             zd
+	Ctrl V (Paste)                                  zd
+	Ctrl Z (Undo)                                   not done
+	Ctrl esc (Chicago)                              zd
+	Ctrl esc-esc (Chicago)                          zd
+	Ctrl motion-fill, Create Path (starting cel)    zd
+	Shift during mousedown drag                     zd
+	Shift motion fill (freeze)                      zd
+	Shift new textbox (square)                      not done
+	f1 (open help book)                             not done
+	F9 Toggle x-y, y-z                              not done
+	UP, DOWN arrows while recording                 not done
+	alt-tab                                         zd
+
+
+Socrates exe stuff and Win95 ((*****))            waiting for spec
+
+	Maintain "HomeDirectory" entry in registry      not done
+	Determine current user name                     not done
+	Find or Create user directory                   not done
+	Maintain "MSKidsDirectory" entry in registry    not done
+	Maintain user preferences in registry           not done
+	Resolution Switch to/from 640x480               not done
+	mda: "ChangeResolution" entry in registry?      waiting for spec
+	mda: "RunInWindow" entry in registry?           waiting for spec
+	Read version and PID resources and put in
+		string table so about box can read 'em      not done
+
+
+Utest stuff (User Interface behaviour) [seanse]
+
+NOTE: THE FOLLOWING AREAS ARE FOR UI TESTING ONLY!  BECAUSE THESE
+ARE 'zd' DOES NOT IMPLY THE CODE BEHIND THE UI IS 'zd'.
+
+   Primary Tools:
+        Covers behave as a radio group                  zd
+        Settings browser                                zd
+        Actors browser                                  zd
+        Props browser                                   not done
+        Spletters browser                               zd
+        Sound Efx browser                               not done
+        Music browser                                   not done
+        Recorded browser                                not done
+        Text box create                                 not done
+
+   Settings Secondary Tools:
+        Scene sorter (*****)                            not done
+        Camera browser                                  zd
+        Scene pauses                                    zd
+
+   Actors Secondary Tools:
+        Costume Easel                                   not done
+        Sizer popup                                     zd
+        Rotate popup                                    zd
+        Sooner/Later                                    zd
+        Compose tool                                    zd
+        Select tool                                     zd
+        Action browser                                  not done
+        Same action tool                                zd
+        Rerecord button                                 zd
+        Respect ground button                           zd
+        X/Y button                                      zd
+        Actor biographies                               not done
+        Tools behave as radio group                     not done (actions mess this up)
+
+   Sounds Secondary Tools:
+        Attach to cell                                  not done
+        Play once                                       not done
+        Looping                                         not done
+        Listen                                          not done
+
+   Texts Secondary Tools:
+        Edit/Select tool                                zd
+        Font popup                                      not done
+        Style popup                                     not done
+        Size popup                                      not done
+        Text color popup                                not done
+        Background color popup                          not done
+        Scroll type popup                               zd
+
+   Scrollbars:
+        Frame Fwd/Back                                  zd
+        Frame Thumbnail                                 zd
+        Frame Counter                                   zd
+        Scene Fwd/Back                                  zd
+        Scene Thumbnail                                 zd
+        Scene Counter                                   zd
+
+   Play:                                                zd
+
+   Volume Control:                                      not done
+
+   Undo/Redo:                                           zd
+
+   Cut/Copy/Paste:
+        Chop Fwd                                        zd
+        Chop Back                                       zd
+        Scene nuke                                      zd
+        Actor/Tbox nuke                                 zd
+        Copy route                                      zd
+        Paste                                           zd
+        Copy                                            zd
+        Cut                                             zd
+
+   Portfolio:
+        Open                                            zd
+        New                                             zd
+        Save                                            zd
+        Save As                                         zd
+
+   Map:                                                 not done
+
+   Help book:                                           not done
+
+   Other:
+        Tooltips                                        not done
+        Leveling                                        zd
+        Open file dialog                                not done
+
+
+   Ctrl, Shift, Hot Keys (Utest only)
+
+	Ctrl drag (Tweak)                               zd
+	Ctrl N (new movie)                              not done
+	Ctrl O (open movie)                             not done
+	Ctrl Q (quit)                                   not done
+	Ctrl S (save)                                   not done
+	Ctrl X (Cut)                                    not done
+	Shift Ctrl X (end of scene cut)                 not done
+	Shift Cut Tool (end of scene cut)               not done
+	Ctrl C (Copy)                                   not done
+	Shift Ctrl C (end of scene copy)                not done
+	Shift Copy Tool (end of scene copy)             not done
+	Ctrl V (Paste)                                  not done
+	Ctrl Z (Undo)                                   not done
+	Ctrl esc (Chicago)                              zd
+	Ctrl esc-esc (Chicago)                          zd
+	Ctrl motion-fill, Create Path (starting cel)    zd
+	Shift during mousedown drag                     zd
+	Shift motion fill (freeze)                      zd
+	Shift new textbox (square)                      CUT FROM PRODUCT
+	f1 (open help book)                             not done
+	F9 Toggle x-y, y-z                              not done
+	UP, DOWN arrows while recording                 not done
+	alt-tab                                         zd
+
+
+
+Utest stuff (Code Specific to the studio):
+
+NOTE: IF SOMETHING IS NOT LISTED HERE, IT IS NOT STUDIO SPECIFIC
+AND YOU SHOULD REFER TO THE 'ENGINE' LISTING TO FIND ITS STATUS.
+
+   Primary Tools:
+        Settings browser                                not yet reviewed
+        Actors browser                                  not yet reviewed
+        Props browser                                   not yet reviewed
+        Spletters browser                               not yet reviewed
+        Sound Efx browser                               not done
+        Music browser                                   not done
+        Recorded browser                                not done
+        Text box create browser                         zd
+
+   Settings Secondary Tools:
+        Scene sorter (peted)                            not yet reviewed
+        Camera browser                                  not yet reviewed
+
+   Actors Secondary Tools:
+        Costume Easel                                   not yet reviewed
+        Actor tool popups                               zd
+        Action browser selection                        not yet reviewed   (*NOTE:  Selection is temporarily object verb)
+		Action browser cel cycling						not done
+		Action browser preview							not done
+        Actor biographies                               not done
+
+   Texts Secondary Tools:
+        Font popup                                      not done
+        Style popup                                     not done
+        Size popup                                      not done
+        Text color popup                                not done
+        Background color popup                          not done
+        Scroll type popup                               zd
+
+   Scrollbars:
+        Frame Fwd/Back                                  zd
+        Frame Thumbnail                                 zd
+        Frame Counter                                   zd
+        Scene Fwd/Back                                  zd
+        Scene Thumbnail                                 zd
+        Scene Counter                                   zd
+
+   Portfolio:
+        Open                                            not yet reviewed
+        New                                             not yet reviewed
+        Save                                            not yet reviewed
+        Save As                                         not yet reviewed
+
+   Map:                                                 not done
+
+   Help book:                                           not done
+
+   Other:
+        Open file dialog                                not done
+
+
+
+Chunky tools
+
+	Note: These are all authoring/editing tools
+	and not	part of Socrates.  All Kauai (framework)
+	functionality is also owned by shonk.
+	
+	ched.exe ((*****))
+	Chunky editor                                   not yet reviewed
+
+	chomp.exe ((*****))
+	Chunky compiler                                 not yet reviewed
+
+	chelp.exe ((*****))
+	Chunky help editor                              not yet reviewed
+

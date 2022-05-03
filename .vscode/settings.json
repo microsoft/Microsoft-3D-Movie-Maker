@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "W95INST.C": "cpp",
+        "STDFILE.C": "cpp",
+        "STDMEM.C": "cpp"
+    }
+}

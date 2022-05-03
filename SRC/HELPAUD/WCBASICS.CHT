@@ -1,0 +1,21 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// wave chunks for help book basics
+WAVE_CHUNK ("helpaud\sound\basics\VZH1001.WAV", kwavBasics00)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1002.WAV", kwavBasics01)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1003.WAV", kwavBasics02)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1004.WAV", kwavBasics03)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1005.WAV", kwavBasics04)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1006.WAV", kwavBasics05)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1007.WAV", kwavBasics06)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1008.WAV", kwavBasics07)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1009.WAV", kwavBasics08)
+//WAVE_CHUNK ("helpaud\sound\basics\VZH1000.WAV", kwavBasics09)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1010.WAV", kwavBasics0A)
+//WAVE_CHUNK ("helpaud\sound\basics\VZH1000.WAV", kwavBasics0B)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1011.WAV", kwavBasics0C)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1012.WAV", kwavBasics0D)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1014.WAV", kwavBasics0E)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1015.WAV", kwavBasics0F)
+WAVE_CHUNK ("helpaud\sound\basics\VZH1013.WAV", kwavBasics10)

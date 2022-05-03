@@ -1,0 +1,33 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// This is the source file for portbmp.chk. Contain the bitmap related to the portfolio.
+
+// "Portfolio open background")
+MBMPCHUNK ("studio\bmp\portfolo.bmp", kcnoMbmpPortBackOpen, 0,0,0 )
+
+// "Portfolio save background")
+MBMPCHUNK ("studio\bmp\portfols.bmp", kcnoMbmpPortBackSave, 0,0,0 )
+
+// "Portfolio ok button background")
+MBMPCHUNK ("studio\bmp\portok.bmp", kcnoMbmpPortBtnOk, 0,0,0 )
+
+// "Portfolio ok button selected background")
+MBMPCHUNK ("studio\bmp\portokc.bmp", kcnoMbmpPortBtnOkSel, 0,0,0 )
+
+// "Portfolio cancel button background")
+MBMPCHUNK ("studio\bmp\portcan.bmp", kcnoMbmpPortBtnCancel, 0,0,0 )
+
+// "Portfolio cancel button selected background")
+MBMPCHUNK ("studio\bmp\portcanc.bmp", kcnoMbmpPortBtnCancelSel, 0,0,0 )
+
+// "Portfolio home button background")
+MBMPCHUNK ("studio\bmp\porthm.bmp", kcnoMbmpPortBtnHome, 0,0,0 )
+
+// "Portfolio home button selected background")
+MBMPCHUNK ("studio\bmp\porthmc.bmp", kcnoMbmpPortBtnHomeSel, 0,0,0 )
+
+
+WAVE_CHUNK( "shared\sound\util\vzh1016.wav", kwavPortSaveMovie)
+WAVE_CHUNK( "shared\sound\util\vzh1017.wav", kwavPortOpenMovie)
+WAVE_CHUNK( "shared\sound\util\vzh1018.wav", kwavPortOpenSound)

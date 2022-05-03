@@ -1,0 +1,365 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************\
+ *
+ *	stdioscb.cht
+ *
+ *	Scrollbars and Buttons (Frame and Scene) for Socrates
+ *
+ *	Author: ****** (*****)
+ *	Date:   95/03/28
+ *
+\*****************************************************************************/
+
+
+// kXXXDelayXXX -
+//
+// pick these delay numbers so that
+//
+// 		klwDelayMin + (n * kdlwDelay) = klwDelayMax
+//
+// for some integral n to guarantee that delay in Cell() call is always
+// positive
+//
+// also we never want to go faster than 7 fps in ship build so klwDelayMin
+// should be >= 9 for non-DEBUG
+//
+// kfUpdateDrag - update the counters while dragging the thumb tab
+#ifdef DEBUG
+#define klwDelayMax 60
+#define klwDelayMin 24
+#define kdlwDelay 6
+#define kfUpdateDrag 0
+#else
+#define klwDelayMax 60
+#define klwDelayMin 10
+#define kdlwDelay 25
+#define kfUpdateDrag 1
+#endif
+
+#define kdxpSnap 32
+#define kdypSnap 32
+
+
+/*****************************************************************************\
+ *
+ *	NORMALGOB
+ *		a generic ordinary normal gob
+ *
+ *	Description:
+ * 		boooooring!
+ *
+ *	Parameters:
+ * 		__szTitle		name for the gob
+ *		__kid			kid for the gob
+ * 		__xp, __yp		default x and y position for the gob
+ * 		__xpreg, __ypreg	x and y registration points for the button gob
+ *		__szPath		path to the default mbmp representation
+ *
+\*****************************************************************************/
+#define NORMALGOB(__szTitle, __kid, __xp, __yp,__xpreg, __ypreg, __szPath) \
+	GOBCHUNK(__szTitle, __kid, gokkNoHitKids) \
+	DEFAULT_POSITION(__xp, __yp, 10) \
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil) \
+ENDCHUNK \
+REP_MBMPREG(CHID1(krepDefault), __szPath, __xpreg, __ypreg)
+
+/*****************************************************************************\
+ *
+ *	BUTTONONCEGOB
+ *		a generic push-once button
+ *
+ *	Description:
+ * 		holding the button does nothing special
+ * 		cid is enqueued when button is pressed (mouse down on the button)
+ *
+ *		cid format:
+ *			param0	=	tool type (chtt)
+ *
+ *	Parameters:
+ * 		__szTitle			name for the button gob
+ *		__kid				kid for the button gob
+ * 		__xp, __yp			default x and y position for the button gob
+ * 		__xpreg, __ypreg	x and y registration points for the button gob
+ *		__szPathDefault		path to the default mbmp representation
+ *		__szPathSelected	path to the selected mbmp representation
+ *		__cid				command id to enqueue
+ *		__chtt				current tool id
+ *
+\*****************************************************************************/
+#define BUTTONONCEGOB(__szTitle, __kid, __xp, __yp, __xpreg, __ypreg, __szPathDefault, __szPathSelected, __cid, __chtt, __cno) \
+	GOBCHUNK(__szTitle, __kid, kgokkRectHit) \
+		DEFAULT_POSITION(__xp, __yp, 10) \
+		ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(krepMouseDnOn), cidNil, __cno) \
+	ENDCHUNK \
+	REP_MBMPREG(CHID1(krepDefault), __szPathDefault, __xpreg, __ypreg) \
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn)) \
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff)) \
+	REP_MBMPREG(CHID1(krepMouseDnOn), __szPathSelected, __xpreg, __ypreg) \
+	CHILD_SCRIPT("Pressed", CHID1(krepMouseDnOn)) \
+		EnqueueCid(__cid, 0, __chtt, GetModifierState(), 0, 0); \
+	ENDCHUNK
+
+/*****************************************************************************\
+ *
+ *	BUTTONHOLDGOB
+ *		a generic accelerating-rate push-and-hold button
+ *
+ *	Description:
+ * 		holding the button enqueues cids at a rate which increases over time
+ *
+ *		cid format:
+ *			param0	=	tool type (chtt)
+ *
+ *	Parameters:
+ * 		__szTitle			name for the button gob
+ *		__kid				kid for the button gob
+ * 		__xp, __yp			default x and y position for the button gob
+ * 		__xpreg, __ypreg	x and y registration points for the button gob
+ *		__szPathDefault		path to the default mbmp representation
+ *		__szPathSelected	path to the selected mbmp representation
+ *		__cid				command id to enqueue
+ *		__chtt				current tool id
+ *
+\*****************************************************************************/
+#define BUTTONHOLDGOB(__szTitle, __kid, __xp, __yp, __xpreg, __ypreg, __szPathDefault, __szPathSelected, __cid, __chtt, __cno) \
+	GOBCHUNK(__szTitle, __kid, kgokkRectHit) \
+		DEFAULT_POSITION(__xp, __yp, 10) \
+		ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(krepMouseDnOn), cidNil, __cno) \
+	ENDCHUNK \
+	REP_MBMPREG(CHID1(krepDefault), __szPathDefault, __xpreg, __ypreg) \
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseUpOn)) \
+	ADOPT_MBMP(LAST_MBMP, CHID1(krepMouseDnOff)) \
+	REP_MBMPREG( kcell1, __szPathSelected, __xpreg, __ypreg) \
+	REP_ANIM(CHID1(krepMouseDnOn), "Pressed") \
+		EnqueueCid(cidStartScroll, 0, __chtt, GetModifierState(), 0, 0); \
+		lwDelay = klwDelayMax; \
+		CellNoPause(kcell1, 0, 0, 0); \
+		While(); \
+			EnqueueCid(__cid, 0, __chtt, 0, 0, 0); \
+			Cell(chidNil, 0, 0, lwDelay); \
+			SetNoSlipThis(fTrue); \
+			If(lwDelay > klwDelayMin); \
+				lwDelay -= kdlwDelay; \
+			End; \
+		End; \
+	ENDCHUNK
+
+/*****************************************************************************\
+ *
+ *	SCROLLBARGOB
+ *		a generic scrollbar
+ *
+ *	Description:
+ * 		clicking on the scrollbar brings the thumb control to that position
+ *
+ *		cid format:
+ *			param0	=	tool type (chtt)
+ *			param1	=	mouse position
+ *			param2	=	0 : just update counters
+ *						1 : update all scrollbar views
+ *
+ *	Parameters:
+ * 		__szTitle			name for the scrollbar gob
+ *		__kid				kid for the scrollbar gob
+ *		__kidThumb			kid for the corresponding thumbtab gob
+ * 		__xp, __yp			default x and y position for the scrollbar gob
+ * 		__xpreg, __ypreg	x and y registration points for the scrollbar gob
+ *		__szPath			path to the default mbmp representation
+ *		__cid				command id to enqueue
+ *
+\*****************************************************************************/
+#define SCROLLBARGOB(__szTitle, __kid, __kidThumb, __xp, __yp, __xpreg, __ypreg	, __szPath, __cid, __cno) \
+	GOBCHUNK(__szTitle, __kid, kgokkRectHit) \
+		DEFAULT_POSITION(__xp, __yp, 10) \
+		ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(krepMouseDnOn), cidNil, __cno) \
+	ENDCHUNK \
+	REP_MBMPREG(CHID1(krepDefault), __szPath,  __xpreg, __ypreg ) \
+	CHILD_SCRIPT("Pressed", CHID1(krepMouseDnOn)) \
+		cxThumbTab = WidthGob(__kidThumb); \
+		If((XMouseThis() - cxThumbTab) < 0);\
+			EnqueueCid(__cid, 0, chttScrollbar, 0, 1, 0); \
+		Else;\
+			EnqueueCid(__cid, 0, chttScrollbar, XMouseThis() - cxThumbTab, 1, 0); \
+        End;\
+	ENDCHUNK
+
+/*****************************************************************************\
+ *
+ *	THUMBGOB
+ *		a generic thumb tab for a scroll bar
+ *
+ *	Description:
+ * 		clicking and dragging the thumbtab moves the control
+ *
+ *		cid format:
+ *			param0	=	tool type (chtt)
+ *			param1	=	mouse position
+ *			param2	=	0 : just update counters
+ *						1 : update all scrollbar views
+ *
+ *	Parameters:
+ * 		__szTitle			name for the thumb tab gob
+ *		__kid				kid for the thumb tab gob
+ *		__kidScroll			the id for the corresponding scrollbar
+ * 		__xp, __yp			default x and y position for the thumb tab gob
+ *		__szPath			path to the default mbmp representation
+ *		__cid				command id to enqueue
+ *		__fVert				is this a vertical scrollbar?
+ *
+\*****************************************************************************/
+#define THUMBGOB(__szTitle, __kid, __kidScroll, __xp, __yp, __szPath, __szPathSnd, __cid, __fVert) \
+	GOBCHUNK(__szTitle, __kid, kgokkRectHit) \
+		DEFAULT_POSITION(__xp, __yp, 11) \
+		ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(krepMouseDnOn), cidNil, cnoNil) \
+		ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(krepClicked), cidNil, cnoNil) \
+		ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID1(krepDrop), cidNil, cnoNil) \
+	ENDCHUNK \
+	REP_MBMP(CHID1(krepDefault), __szPath) \
+	REP_MBMP(CHID(kst2, krepDefault), __szPathSnd) \
+	REP_ANIM(CHID1(krepMouseDnOn), "Pressed") \
+		xpSav = XThis(); \
+		ypSav = YThis(); \
+		If(__fVert); \
+			.click = ypSav; \
+			cyScrollbar = HeightGob(__kidScroll); \
+			cyThumbTab = HeightThis(); \
+			ypMax = cyScrollbar - cyThumbTab; \
+		Else; \
+			.click = xpSav; \
+			cxScrollbar = WidthGob(__kidScroll); \
+			cxThumbTab = WidthThis(); \
+			xpMax = cxScrollbar - cxThumbTab; \
+		End; \
+		.fSnap = 0; \
+		While(); \
+			If(__fVert); \
+				dxp = XMouseThis(); \
+				dyp = YMouseThis() - (cyThumbTab / 2); \
+				yp = YThis(); \
+				If(Abs(dxp - xpSav) > kdxpSnap || yp + dyp < -kdypSnap || yp + dyp > ypMax + kdypSnap); \
+					.fSnap = 1; \
+					dyp = ypSav - yp; \
+				Else; \
+					.fSnap = 0; \
+					If(yp + dyp < 0); \
+						dyp = -yp; \
+					End; \
+					If(yp + dyp > ypMax); \
+						dyp = ypMax - yp; \
+					End; \
+				End; \
+				Cell(chidNil, 0, dyp, 0); \
+				Cell(chidNil, 0, 0, 0); \
+				.click = yp + dyp; \
+			Else; \
+				dxp = XMouseThis() - (cxThumbTab / 2); \
+				dyp = YMouseThis(); \
+				xp = XThis(); \
+				If(Abs(dyp - ypSav) > kdypSnap || xp + dxp < -kdxpSnap || xp + dxp > xpMax + kdxpSnap); \
+					.fSnap = 1; \
+					dxp = xpSav - xp; \
+				Else; \
+					.fSnap = 0; \
+					If(xp + dxp < 0); \
+						dxp = -xp; \
+					End; \
+					If(xp + dxp > xpMax); \
+						dxp = xpMax - xp; \
+					End; \
+				End; \
+				Cell(chidNil, dxp, 0, 0); \
+				Cell(chidNil, 0, 0, 0); \
+				.click = xp + dxp; \
+			End; \
+			If(kfUpdateDrag); \
+				EnqueueCid(__cid, 0, chttThumb, .click, 0, 0); \
+			End; \
+		End; \
+	ENDCHUNK \
+	ADOPT_ANIM(LAST_ANIM, CHID(kst2, krepMouseDnOn)) \
+	REP_ANIM(CHID1(krepClicked), "Released") \
+		If(.fSnap == 0); \
+			EnqueueCid(__cid, 0, chttThumb, .click, 1, 0); \
+		End; \
+	ENDCHUNK \
+	ADOPT_ANIM(LAST_ANIM, CHID1(krepDrop)) \
+	ADOPT_ANIM(LAST_ANIM, CHID(kst2, krepClicked)) \
+	ADOPT_ANIM(LAST_ANIM, CHID(kst2, krepDrop))
+
+
+/*****************************************************************************\
+ *
+ *	Frame buttons, scrollbar and thumb tab
+ *
+\*****************************************************************************/
+
+NORMALGOB("Frame Title", kidFrameTitle, kxpFrameTitle, kypFrameTitle, kxpregFrameTitle, kypregFrameTitle, "studio\bmp\fttl.bmp")
+NORMALGOB("Frame Text Box", kidFrameText, kxpFrameText, kypFrameText, kxpregFrameText, kypregFrameText, "studio\bmp\ftxt.bmp")
+
+BUTTONHOLDGOB("Frame Button FW", kidFrameFW, kxpFrameFW, kypFrameFW, kxpregFrameFW, kypregFrameFW,
+			  "studio\bmp\ffw.bmp", "studio\bmp\ffws.bmp", cidFrameScrollbar, chttFButtonFW, kttFForward)
+REP_ANIM(CHID1(krepDragOff), "Pressed")
+	SetNoSlipThis(fFalse);
+	SetRepThis(CHID1(krepDefault));
+ENDCHUNK
+REP_ANIM(CHID1(krepClicked), "Pressed")
+	SetNoSlipThis(fFalse);
+	SetRepThis(CHID1(krepDefault));
+ENDCHUNK
+
+BUTTONONCEGOB("Frame Button FW End", kidFrameFWEnd, kxpFrameFWEnd, kypFrameFWEnd, kxpregFrameFWEnd, kypregFrameFWEnd,
+              "studio\bmp\ffwe.bmp", "studio\bmp\ffwes.bmp", cidFrameScrollbar, chttButtonFWEnd, kttFForwardEnd)
+ADOPT_WAVE(kcnoGoLastFWav, CHID(kstDefault, krepClicked))
+BUTTONHOLDGOB("Frame Button RW", kidFrameRW, kxpFrameRW, kypFrameRW, kxpregFrameRW, kypregFrameRW,
+			  "studio\bmp\frw.bmp", "studio\bmp\frws.bmp", cidFrameScrollbar, chttFButtonRW, kttRewind)
+REP_ANIM(CHID1(krepDragOff), "Pressed")
+	SetNoSlipThis(fFalse);
+	SetRepThis(CHID1(krepDefault));
+ENDCHUNK
+REP_ANIM(CHID1(krepClicked), "Pressed")
+	SetNoSlipThis(fFalse);
+	SetRepThis(CHID1(krepDefault));
+ENDCHUNK
+
+BUTTONONCEGOB("Frame Button RW End", kidFrameRWEnd, kxpFrameRWEnd, kypFrameRWEnd, kxpregFrameRWEnd, kypregFrameRWEnd,
+			  "studio\bmp\frwe.bmp", "studio\bmp\frwes.bmp", cidFrameScrollbar, chttButtonRWEnd, kttRewindEnd)
+ADOPT_WAVE(kcnoGoFrstFWav, CHID(kstDefault, krepClicked))
+
+SCROLLBARGOB("Frame Scrollbar", kidFrameScrollbar, kidFrameThumb, kxpFrameScrollbar, kypFrameScrollbar,
+	kypregFrameScrollbar, kypregFrameScrollbar, "studio\bmp\fscl.bmp", cidFrameScrollbar, kttFrameSlider)
+
+THUMBGOB("Frame Thumb Tab", kidFrameThumb, kidFrameScrollbar, kxpFrameThumb,
+	kypFrameThumb, "studio\bmp\fthm.bmp", "studio\bmp\fthms.bmp",
+	cidFrameThumb, 0)
+
+/*****************************************************************************\
+ *
+ *	Scene buttons, scrollbar and thumb tab
+ *
+\*****************************************************************************/
+
+NORMALGOB("Scene Title", kidSceneTitle, kxpSceneTitle, kypSceneTitle,
+	kxpregSceneTitle, kypregSceneTitle, "studio\bmp\sttl.bmp")
+NORMALGOB("Scene Text Box", kidSceneText, kxpSceneText, kypSceneText,
+			kxpregSceneText, kypregSceneText, "studio\bmp\stxt.bmp")
+
+BUTTONONCEGOB("Scene Button FW", kidSceneFW, kxpSceneFW, kypSceneFW, kxpregSceneFW, kypregSceneFW,
+			  "studio\bmp\sfw.bmp", "studio\bmp\sfws.bmp", cidSceneScrollbar, chttSButtonFW, kttNextScene)
+BUTTONONCEGOB("Scene Button FW End", kidSceneFWEnd, kxpSceneFWEnd, kypSceneFWEnd, kxpregSceneFWEnd, kypregSceneFWEnd,
+		      "studio\bmp\sfwe.bmp", "studio\bmp\sfwes.bmp", cidSceneScrollbar, chttButtonFWEnd, kttLastScene)
+ADOPT_WAVE(kcnoGoLastSWav, CHID(kstDefault, krepClicked))
+BUTTONONCEGOB("Scene Button RW", kidSceneRW, kxpSceneRW, kypSceneRW, kxpregSceneRW, kypregSceneRW,
+			  "studio\bmp\srw.bmp", "studio\bmp\srws.bmp", cidSceneScrollbar, chttSButtonRW, kttPrevScene)
+BUTTONONCEGOB("Scene Button RW End", kidSceneRWEnd, kxpSceneRWEnd, kypSceneRWEnd, kxpregSceneRWEnd, kypregSceneRWEnd,
+			  "studio\bmp\srwe.bmp", "studio\bmp\srwes.bmp", cidSceneScrollbar, chttButtonRWEnd, kttFirstScene)
+ADOPT_WAVE(kcnoGoFrstSWav, CHID(kstDefault, krepClicked))
+
+SCROLLBARGOB("Scene Scrollbar", kidSceneScrollbar, kidSceneThumb, kxpSceneScrollbar, kypSceneScrollbar,
+		kxpregSceneScrollbar, kypregSceneScrollbar, "studio\bmp\sscl.bmp", cidSceneScrollbar, kttSceneSlider)
+
+THUMBGOB("Scene Thumb Tab", kidSceneThumb, kidSceneScrollbar, kxpSceneThumb,
+	kypSceneThumb, "studio\bmp\stmb.bmp", "studio\bmp\stmb.bmp",
+	cidSceneThumb, 0)
+

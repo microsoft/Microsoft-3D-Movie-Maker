@@ -1,0 +1,66 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+// Script code for login place
+// -----------------------------------------------------
+
+OBJECT( "login: main view",  kgobLogin, 0, kcrsArrow1 )
+	REP_PPMBMP( CHID1( krepDefault), "building\pbm\login\login.pbm" )
+	CREATE_ANIM( "login : create" )
+		SETPALETTE( kpalImaginopolis );
+		SETKEYS(kflgBuildingMin);
+		SETGLOBAL( fTrans, fFalse );  // No palette transition.
+		CreateHelpThis( ktpcLoginChoice );
+	ENDCHUNK
+
+	//----------------------------------------------------------
+	// This function is called when the user calls up the Portfolio via
+	// CTRL+O and then closes it by pressing either Cancel or OK.  The
+	// Portfolio is opened in the Keyboard handler in Script6.
+	//
+	//		_parm[2] is fTrue if the user pressed OK; fFalse if they
+	//				pressed Cancel.
+	//----------------------------------------------------------
+	CHILD_SCRIPT("Login place: Portfolio Callback", kchidScript2)
+		// End this filter as it is no longer required.
+		FilterCmdsThis(cidPortfolioClosed, cidNil, chidNil);
+		If (_parm[2]);	// User clicked OK
+			LOADTOOLS(kgobStudio1, kst1, chidNil);
+		End;
+	ENDCHUNK
+
+
+HELP_SCRIPT( ktpcLoginChoice )
+	If( _parm[0] == 0 );		// startup script invocation.  Do nothing
+		Exit();	
+	
+	Elif( _parm[0] == 1 );	  	// choice 1  - Create a New Movie
+		NEXTPLACE1(kgobStudio1, kst2);
+
+	Elif( _parm[0] == 2 );	// choice 2 : Work on an old Movie
+
+		// Bring up the Movie Open portfolio.
+   		EnqueueCid(cidPortfolioOpen, 0, kpfPortOpenMovie, 0, 0, 0);
+		// tell login to watch for the cid indicating that the portfolio has been closed.
+		FilterCmdsGob( kgobLogin, cidPortfolioClosed, cidNil, kchidScript2);
+	
+	Elif( _parm[0] == 3 ); 	// choice 3 : Watch a movie
+		NEXTPLACE1( kgobLobby1, kst5 );	
+
+	Elif( _parm[0] == 4 ); 	// choice 4 : Make a movie with Melanie
+		NEXTPLACE1(kgobBackstage1, kst5);
+
+	Elif( _parm[0] == 5 ); 	// choice 5 : Get an idea for a movie
+		NEXTPLACE1(kgobBackstage1, kst4);
+
+	Elif( _parm[0] == 6 );	// choice 6 : Goto Imaginopolis
+		NEXTPLACE1( kgobCloset, kst1 );
+
+	Elif( _parm[0] == 7 );	// choice 6 : QUIT!
+		QUITAPP();
+	End;
+ENDCHUNK
+
+
+

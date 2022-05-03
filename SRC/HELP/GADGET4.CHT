@@ -1,0 +1,460 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+#undef __HELP_NAME
+#undef __HELP_SYMBOL
+#undef __HELP_PACK
+#undef __HELP_PACK2
+#ifdef NO_HELP_NAMES
+#define __HELP_NAME(name) ""
+#else
+#define __HELP_NAME(name) name
+#endif
+#ifdef NO_HELP_SYMBOLS
+#define __HELP_SYMBOL(stuff)
+#else
+#define __HELP_SYMBOL(stuff) stuff
+#endif
+#ifdef PACK_HELP
+#define __HELP_PACK PACK
+#else
+#define __HELP_PACK
+#endif
+#ifdef HELP_SINGLE_CHUNK
+#define __HELP_PACK2
+#else
+#define __HELP_PACK2 __HELP_PACK
+#endif
+
+SET _help_48544F50_0= ktpc4Gadget00
+
+#ifdef HELP_SINGLE_CHUNK
+CHUNK('HTOP', _help_48544F50_0, __HELP_NAME("The Bridge")) __HELP_PACK
+SUBFILE
+#endif //HELP_SINGLE_CHUNK
+
+CHUNK('HTOP', _help_48544F50_0, __HELP_NAME("The Bridge")) __HELP_PACK2
+	BO OSK LONG kgobBalloonLabel kgobGadgetText 0x0 0xFFFFFFFF 0x0 0x0 0x57415645 0xFFFFFFFF
+ENDCHUNK
+
+#ifndef NO_HELP_SYMBOLS
+SET _help_cno++
+SET _help_47535420_4=_help_cno
+CHUNK('GST ', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_0, 0x0)
+	GST(0)
+	ITEM
+		"kgobBalloonLabel"
+	ITEM
+		"ktpc4Gadget00"
+	ITEM
+		"kgobGadgetText"
+	ITEM
+		""
+	ITEM
+		""
+	ITEM
+		""
+ENDCHUNK
+#endif //!NO_HELP_SYMBOLS
+
+SET _help_cno++
+SET _help_52545854_4=_help_cno
+CHUNK('RTXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_0, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x6F 0x00 0x00 0x00    // '????o???' 
+	0x0C 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF    // '????ÿÿÿÿ' 
+	0x03 0x03 0x0D 0x43 0x6F 0x6D 0x69 0x63    // '???Comic' 
+	0x20 0x53 0x61 0x6E 0x73 0x20 0x4D 0x53    // ' Sans MS' 
+	0x00                                       // '?' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_474C4D50_4=_help_cno
+CHUNK('GLMP', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_4, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x08 0x00 0x00 0x00    // '????????' 
+	0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x01    // '????????' 
+	0x01 0x00 0x00 0x00 0x1A 0x00 0x00 0x01    // '????????' 
+	0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x03    // '????????' 
+	0x0F 0x00 0x00 0xFD 0x1A 0x00 0x00 0x03    // '???ý????' 
+	0x00 0x00 0x00 0x00                        // '????' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_54455854_4=_help_cno
+CHUNK('TEXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_4, 0x0)
+	BYTE
+	0x03 0x03 0x4D 0x61 0x6B 0x65 0x20 0x74    // '??Make t' 
+	0x68 0x69 0x6E 0x67 0x73 0x20 0x6D 0x6F    // 'hings mo' 
+	0x76 0x65 0x20 0x74 0x6F 0x67 0x65 0x74    // 've toget' 
+	0x68 0x65 0x72 0x2E                        // 'her.' 
+ENDCHUNK
+
+#ifdef HELP_SINGLE_CHUNK
+ENDCHUNK
+#endif //HELP_SINGLE_CHUNK
+
+
+SET _help_48544F50_1= ktpc4Gadget01
+
+#ifdef HELP_SINGLE_CHUNK
+CHUNK('HTOP', _help_48544F50_1, __HELP_NAME("Step 1:  Action")) __HELP_PACK
+SUBFILE
+#endif //HELP_SINGLE_CHUNK
+
+CHUNK('HTOP', _help_48544F50_1, __HELP_NAME("Step 1:  Action")) __HELP_PACK2
+	BO OSK LONG kgobBalloonLabel kgobGadgetText 0x0 0xFFFFFFFF 0x0 0x0 0x57415645 0xFFFFFFFF
+ENDCHUNK
+
+#ifndef NO_HELP_SYMBOLS
+SET _help_cno++
+SET _help_47535420_8=_help_cno
+CHUNK('GST ', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_1, 0x0)
+	GST(0)
+	ITEM
+		"kgobBalloonLabel"
+	ITEM
+		"ktpc4Gadget01"
+	ITEM
+		"kgobGadgetText"
+	ITEM
+		""
+	ITEM
+		""
+	ITEM
+		""
+ENDCHUNK
+#endif //!NO_HELP_SYMBOLS
+
+SET _help_cno++
+SET _help_52545854_8=_help_cno
+CHUNK('RTXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_1, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0xA0 0x00 0x00 0x00    // '???? ???' 
+	0x0C 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF    // '????ÿÿÿÿ' 
+	0x03 0x03 0x0D 0x43 0x6F 0x6D 0x69 0x63    // '???Comic' 
+	0x20 0x53 0x61 0x6E 0x73 0x20 0x4D 0x53    // ' Sans MS' 
+	0x00                                       // '?' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_474C4D50_8=_help_cno
+CHUNK('GLMP', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_8, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x08 0x00 0x00 0x00    // '????????' 
+	0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x01    // '????????' 
+	0x01 0x00 0x00 0x00 0x0F 0x00 0x00 0x01    // '????????' 
+	0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x03    // '????????' 
+	0x0F 0x00 0x00 0xFD 0x0F 0x00 0x00 0x03    // '???ý????' 
+	0x00 0x00 0x00 0x00                        // '????' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_54455854_8=_help_cno
+CHUNK('TEXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_8, 0x0)
+	BYTE
+	0x03 0x03 0x53 0x74 0x65 0x70 0x20 0x31    // '??Step 1' 
+	0x3A 0x20 0x20 0x41 0x63 0x74 0x69 0x6F    // ':  Actio' 
+	0x6E                                       // 'n' 
+ENDCHUNK
+
+#ifdef HELP_SINGLE_CHUNK
+ENDCHUNK
+#endif //HELP_SINGLE_CHUNK
+
+
+SET _help_48544F50_2= ktpc4Gadget02
+
+#ifdef HELP_SINGLE_CHUNK
+CHUNK('HTOP', _help_48544F50_2, __HELP_NAME("Step 2:  Action")) __HELP_PACK
+SUBFILE
+#endif //HELP_SINGLE_CHUNK
+
+CHUNK('HTOP', _help_48544F50_2, __HELP_NAME("Step 2:  Action")) __HELP_PACK2
+	BO OSK LONG kgobBalloonLabel kgobGadgetText 0x0 0xFFFFFFFF 0x0 0x0 0x57415645 0xFFFFFFFF
+ENDCHUNK
+
+#ifndef NO_HELP_SYMBOLS
+SET _help_cno++
+SET _help_47535420_1=_help_cno
+CHUNK('GST ', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_2, 0x0)
+	GST(0)
+	ITEM
+		"kgobBalloonLabel"
+	ITEM
+		"ktpc4Gadget02"
+	ITEM
+		"kgobGadgetText"
+	ITEM
+		""
+	ITEM
+		""
+	ITEM
+		""
+ENDCHUNK
+#endif //!NO_HELP_SYMBOLS
+
+SET _help_cno++
+SET _help_52545854_0=_help_cno
+CHUNK('RTXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_2, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0xA0 0x00 0x00 0x00    // '???? ???' 
+	0x0C 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF    // '????ÿÿÿÿ' 
+	0x03 0x03 0x0D 0x43 0x6F 0x6D 0x69 0x63    // '???Comic' 
+	0x20 0x53 0x61 0x6E 0x73 0x20 0x4D 0x53    // ' Sans MS' 
+	0x00                                       // '?' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_474C4D50_0=_help_cno
+CHUNK('GLMP', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_0, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x08 0x00 0x00 0x00    // '????????' 
+	0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x01    // '????????' 
+	0x01 0x00 0x00 0x00 0x0D 0x00 0x00 0x01    // '????????' 
+	0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x03    // '????????' 
+	0x0F 0x00 0x00 0xFD 0x08 0x00 0x00 0x03    // '???ý????' 
+	0x00 0x00 0x00 0x00                        // '????' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_54455854_0=_help_cno
+CHUNK('TEXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_0, 0x0)
+	BYTE
+	0x03 0x03 0x53 0x74 0x65 0x70 0x20 0x32    // '??Step 2' 
+	0x3A 0x20 0x20 0x50 0x72 0x6F 0x70         // ':  Prop' 
+ENDCHUNK
+
+#ifdef HELP_SINGLE_CHUNK
+ENDCHUNK
+#endif //HELP_SINGLE_CHUNK
+
+
+SET _help_48544F50_3= ktpc4Gadget03
+
+#ifdef HELP_SINGLE_CHUNK
+CHUNK('HTOP', _help_48544F50_3, __HELP_NAME("Step 3:  Action")) __HELP_PACK
+SUBFILE
+#endif //HELP_SINGLE_CHUNK
+
+CHUNK('HTOP', _help_48544F50_3, __HELP_NAME("Step 3:  Action")) __HELP_PACK2
+	BO OSK LONG kgobBalloonLabel kgobGadgetText 0x0 0xFFFFFFFF 0x0 0x0 0x57415645 0xFFFFFFFF
+ENDCHUNK
+
+#ifndef NO_HELP_SYMBOLS
+SET _help_cno++
+SET _help_47535420_0=_help_cno
+CHUNK('GST ', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_3, 0x0)
+	GST(0)
+	ITEM
+		"kgobBalloonLabel"
+	ITEM
+		"ktpc4Gadget03"
+	ITEM
+		"kgobGadgetText"
+	ITEM
+		""
+	ITEM
+		""
+	ITEM
+		""
+ENDCHUNK
+#endif //!NO_HELP_SYMBOLS
+
+SET _help_cno++
+SET _help_52545854_1=_help_cno
+CHUNK('RTXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_3, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0xA0 0x00 0x00 0x00    // '???? ???' 
+	0x0C 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF    // '????ÿÿÿÿ' 
+	0x03 0x03 0x0D 0x43 0x6F 0x6D 0x69 0x63    // '???Comic' 
+	0x20 0x53 0x61 0x6E 0x73 0x20 0x4D 0x53    // ' Sans MS' 
+	0x00                                       // '?' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_474C4D50_1=_help_cno
+CHUNK('GLMP', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_1, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x08 0x00 0x00 0x00    // '????????' 
+	0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x01    // '????????' 
+	0x01 0x00 0x00 0x00 0x0F 0x00 0x00 0x01    // '????????' 
+	0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x03    // '????????' 
+	0x0F 0x00 0x00 0xFD 0x0F 0x00 0x00 0x03    // '???ý????' 
+	0x00 0x00 0x00 0x00                        // '????' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_54455854_1=_help_cno
+CHUNK('TEXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_1, 0x0)
+	BYTE
+	0x03 0x03 0x53 0x74 0x65 0x70 0x20 0x33    // '??Step 3' 
+	0x3A 0x20 0x20 0x41 0x63 0x74 0x69 0x6F    // ':  Actio' 
+	0x6E                                       // 'n' 
+ENDCHUNK
+
+#ifdef HELP_SINGLE_CHUNK
+ENDCHUNK
+#endif //HELP_SINGLE_CHUNK
+
+
+SET _help_48544F50_4= ktpc4Gadget04
+
+#ifdef HELP_SINGLE_CHUNK
+CHUNK('HTOP', _help_48544F50_4, __HELP_NAME("Step 4:  Copy Path")) __HELP_PACK
+SUBFILE
+#endif //HELP_SINGLE_CHUNK
+
+CHUNK('HTOP', _help_48544F50_4, __HELP_NAME("Step 4:  Copy Path")) __HELP_PACK2
+	BO OSK LONG kgobBalloonLabel kgobGadgetText 0x0 0xFFFFFFFF 0x0 0x0 0x57415645 0xFFFFFFFF
+ENDCHUNK
+
+#ifndef NO_HELP_SYMBOLS
+SET _help_cno++
+SET _help_47535420_3=_help_cno
+CHUNK('GST ', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_4, 0x0)
+	GST(0)
+	ITEM
+		"kgobBalloonLabel"
+	ITEM
+		"ktpc4Gadget04"
+	ITEM
+		"kgobGadgetText"
+	ITEM
+		""
+	ITEM
+		""
+	ITEM
+		""
+ENDCHUNK
+#endif //!NO_HELP_SYMBOLS
+
+SET _help_cno++
+SET _help_52545854_3=_help_cno
+CHUNK('RTXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_4, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0xA0 0x00 0x00 0x00    // '???? ???' 
+	0x0C 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF    // '????ÿÿÿÿ' 
+	0x03 0x03 0x0D 0x43 0x6F 0x6D 0x69 0x63    // '???Comic' 
+	0x20 0x53 0x61 0x6E 0x73 0x20 0x4D 0x53    // ' Sans MS' 
+	0x00                                       // '?' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_474C4D50_3=_help_cno
+CHUNK('GLMP', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_3, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x08 0x00 0x00 0x00    // '????????' 
+	0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x01    // '????????' 
+	0x01 0x00 0x00 0x00 0x12 0x00 0x00 0x01    // '????????' 
+	0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x03    // '????????' 
+	0x0F 0x00 0x00 0xFD 0x07 0x00 0x00 0x03    // '???ý????' 
+	0x00 0x00 0x00 0x00                        // '????' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_54455854_3=_help_cno
+CHUNK('TEXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_3, 0x0)
+	BYTE
+	0x03 0x03 0x53 0x74 0x65 0x70 0x20 0x34    // '??Step 4' 
+	0x3A 0x20 0x20 0x43 0x6F 0x70 0x79 0x20    // ':  Copy ' 
+	0x50 0x61 0x74 0x68                        // 'Path' 
+ENDCHUNK
+
+#ifdef HELP_SINGLE_CHUNK
+ENDCHUNK
+#endif //HELP_SINGLE_CHUNK
+
+
+SET _help_48544F50_7= ktpc4Gadget07
+
+#ifdef HELP_SINGLE_CHUNK
+CHUNK('HTOP', _help_48544F50_7, __HELP_NAME("The Bridge")) __HELP_PACK
+SUBFILE
+#endif //HELP_SINGLE_CHUNK
+
+CHUNK('HTOP', _help_48544F50_7, __HELP_NAME("The Bridge")) __HELP_PACK2
+	BO OSK LONG kgobBalloonLabel kgobGadgetText 0x0 0xFFFFFFFF 0x0 0x0 0x57415645 0xFFFFFFFF
+ENDCHUNK
+
+#ifndef NO_HELP_SYMBOLS
+SET _help_cno++
+SET _help_47535420_5=_help_cno
+CHUNK('GST ', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_7, 0x0)
+	GST(0)
+	ITEM
+		"kgobBalloonLabel"
+	ITEM
+		"ktpc4Gadget07"
+	ITEM
+		"kgobGadgetText"
+	ITEM
+		""
+	ITEM
+		""
+	ITEM
+		""
+ENDCHUNK
+#endif //!NO_HELP_SYMBOLS
+
+SET _help_cno++
+SET _help_52545854_5=_help_cno
+CHUNK('RTXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('HTOP', _help_48544F50_7, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x6F 0x00 0x00 0x00    // '????o???' 
+	0x0C 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF    // '????ÿÿÿÿ' 
+	0x03 0x03 0x0D 0x43 0x6F 0x6D 0x69 0x63    // '???Comic' 
+	0x20 0x53 0x61 0x6E 0x73 0x20 0x4D 0x53    // ' Sans MS' 
+	0x00                                       // '?' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_474C4D50_5=_help_cno
+CHUNK('GLMP', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_5, 0x0)
+	BYTE
+	0x01 0x00 0x03 0x03 0x08 0x00 0x00 0x00    // '????????' 
+	0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x01    // '????????' 
+	0x01 0x00 0x00 0x00 0x1A 0x00 0x00 0x01    // '????????' 
+	0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x03    // '????????' 
+	0x0F 0x00 0x00 0xFD 0x1A 0x00 0x00 0x03    // '???ý????' 
+	0x00 0x00 0x00 0x00                        // '????' 
+ENDCHUNK
+
+SET _help_cno++
+SET _help_54455854_5=_help_cno
+CHUNK('TEXT', _help_cno, __HELP_NAME("")) __HELP_PACK2
+PARENT('RTXT', _help_52545854_5, 0x0)
+	BYTE
+	0x03 0x03 0x4D 0x61 0x6B 0x65 0x20 0x74    // '??Make t' 
+	0x68 0x69 0x6E 0x67 0x73 0x20 0x6D 0x6F    // 'hings mo' 
+	0x76 0x65 0x20 0x74 0x6F 0x67 0x65 0x74    // 've toget' 
+	0x68 0x65 0x72 0x2E                        // 'her.' 
+ENDCHUNK
+
+#ifdef HELP_SINGLE_CHUNK
+ENDCHUNK
+#endif //HELP_SINGLE_CHUNK
+

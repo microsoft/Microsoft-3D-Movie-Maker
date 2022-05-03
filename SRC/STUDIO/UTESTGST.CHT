@@ -1,0 +1,64 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+//
+// TDT action names
+//
+// REVIEW: hardcoded numerical constants
+CHUNK (kctgGst kcnoGstAction "TDT Action Names")
+	LONG
+	GST(4)
+	ITEM "At Rest"				0
+	ITEM "Flip Letters"			1
+	ITEM "Spin Letters"			2
+	ITEM "Cartwheel Letters"	3
+	ITEM "Side to Side"			4
+	ITEM "Rock"					5
+	ITEM "Back and Forth"		6
+	ITEM "Grow and Shrink"		7
+	ITEM "Flip"					8
+	ITEM "Spin"					9
+	ITEM "Cartwheel"			10
+	ITEM "The Wave"				11
+	ITEM "Hide and Appear"		12
+	ITEM "Walk Forward*"		13
+	ITEM "Hop"					14
+	ITEM "Stretch"				15
+ENDCHUNK
+
+//
+// Misc app global strings
+//
+CHUNK (kctgGst kcnoGstApp "Misc. App global strings")
+	LONG
+	GST(4)
+	ITEM "Microsoft 3D Movie Maker" idsWindowTitle
+	ITEM "3D Movie Maker" idsProductLong
+	ITEM "3DMovie" idsProductShort
+	ITEM "My_Stuff" idsDefaultUser
+	ITEM "Copy of" idsEngineCopyOf
+	ITEM "A New Movie" idsEngineDefaultTitle
+	ITEM "Comic Sans MS" idsDefaultFont
+	ITEM "12" idsDefaultDypFont
+	ITEM "Users" idsUsersDir
+	ITEM "Error from net provider \"%z\": \n%x  :  %z" idsWNetError
+	ITEM "Save a movie" idsPortfSaveMovieTitle
+	ITEM "Open a movie" idsPortfOpenMovieTitle
+	ITEM "Import a sound" idsPortfOpenSoundTitle
+	ITEM "Import a texture" idsPortfOpenTextureTitle
+	ITEM "Movie Files" idsPortfMovieFilterLabel
+	ITEM "*.3mm" idsPortfMovieFilterExt
+	ITEM "Sound Files" idsPortfSoundFilterLabel
+	ITEM "*.mid;*.3mm" idsPortfSoundMidiFilterExt
+	ITEM "*.wav;*.3mm" idsPortfSoundWaveFilterExt
+	ITEM "Bitmap Files" idsPortfTextureFilterLabel
+	ITEM "*.bmp" idsPortfTextureFilterExt
+	ITEM "Melanie" idsMelanie
+	ITEM "Out-of-Memory Error" idsOOM
+	ITEM "Do you want to go to the building? Press 'No' to leave 3D Movie Maker completely" idsExitStudio
+	ITEM "Save changes to %s?" idsSaveChangesBkp
+	ITEM "Do you really want to leave 3D Movie Maker?" idsConfirmExitBkp
+	ITEM "Delete sound: %s?" idsDeleteSound
+	ITEM "Overwrite existing file: %s?" idsReplaceFile
+	ITEM "Remove all unused user sounds from file?" idsPurgeSounds
+ENDCHUNK

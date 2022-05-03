@@ -1,0 +1,2555 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+///////////////////////////////////////////////////////////
+// How to actors tables, all sound tables are help dir  
+///////////////////////////////////////////////////////////
+/////////////////////////////////////
+// how to actors callout sequence 1
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors01 initializer", kidHowToActors01, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors01 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			3, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors01)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsBrowser)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsBrowser)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrBrwVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		5,	 		cidBrowserVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrBrwOk|kFltrBrwCancel, ktpcHowToActors02)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidBrowserOk,		NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		8,			cidBrowserCancel,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrActorIn|kFltrActorOut,	ktpcHowToActors03)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	3,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors04)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 2
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors02 initializer", kidHowToActors02, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors02 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			3, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors05)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsPropBrowser)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsPropBrowser)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrBrwVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		5,	 		cidBrowserVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrBrwOk|kFltrBrwCancel, ktpcHowToActors06)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidBrowserOk,		NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		8,			cidBrowserCancel,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrActorIn|kFltrActorOut,	ktpcHowToActors07)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	3,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors08)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 3
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors03 initializer", kidHowToActors03, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors03 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			3, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors09)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsSpletters)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSpletters)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrEslVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		5,	 		cidEaselVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrEslClosing|kFltrEslCancel, ktpcEaselHelp0B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse,	2,			6,			cidEaselClosing,	fTrue)
+	PROJECT_TABLE(MatchGoto,			fFalse,	2,			8,			cidEaselClosing,	fFalse)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		8,			cidEaselCancel,		NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrActorIn|kFltrActorOut,	ktpcHowToActors0B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	3,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors0C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 4
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors04 initializer", kidHowToActors04, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors04 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallActorBorder1,	kstBrowserEnabled)
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallActorBorder1,	kstBrowserSelected)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors12)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			5, 		 	cidClicked, 		kidRollCallActorBorder1)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder1)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			6, 		 	cidClicked, 		kidRollCallActorBorder2)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder2)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			7, 		 	cidClicked, 		kidRollCallActorBorder3)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder3)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			8, 		 	cidClicked, 		kidRollCallActorBorder4)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder4)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallActorDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallActorUpArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorUpArrow)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder1,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder2,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder3,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder4,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	SimulateClick,		kidActorsCompose)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrActorIn|kFltrActorOut|kFltrActorClicked,	ktpcHowToActors13)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,	 		cidActorClicked,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors14)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 5
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors05 initializer", kidHowToActors05, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors05 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallPropBorder1,	kstBrowserEnabled)
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallPropBorder1,	kstBrowserSelected)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors15)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			5, 		 	cidClicked, 		kidRollCallPropBorder1)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder1)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			6, 		 	cidClicked, 		kidRollCallPropBorder2)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder2)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			7, 		 	cidClicked, 		kidRollCallPropBorder3)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder3)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			8, 		 	cidClicked, 		kidRollCallPropBorder4)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder4)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallPropDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallPropUpArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropUpArrow)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder1,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder2,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder3,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder4,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	SimulateClick,		kidActorsCompose)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrActorIn|kFltrActorOut|kFltrActorClicked,	ktpcHowToActors16)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,	 		cidActorClicked,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors17)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 6
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors06 initializer", kidHowToActors06, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors06 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			10,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors18)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsActionBrowser)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsActionBrowser)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			10,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors19)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			10,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrBrwVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,	 		cidBrowserVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrBrwOk|kFltrBrwCancel, ktpcEaselHelp2D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		8,			cidBrowserOk,		NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,			cidBrowserCancel,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			10,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors1B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		9,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			10,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors1C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			10,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//10
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 7
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors07 initializer", kidHowToActors07, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors07 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors1D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsActionBrowser)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsActionBrowser)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors1E)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrBrwVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,	 		cidBrowserVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrBrwOk|kFltrBrwCancel, ktpcEaselHelp2D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		8,			cidBrowserOk,		NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		9,			cidBrowserCancel,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors1F)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 8
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors08 initializer", kidHowToActors08, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors08 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors20)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsCompose)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCompose)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors21)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors22)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//7
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 9
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors09 initializer", kidHowToActors09, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors09 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	5,	 		kidActorsContinue,	kstSelected)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors23)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsContinue)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsContinue)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors23)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidMouseDown, 		kidActorsContinue)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors24)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors25)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 10
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors10 initializer", kidHowToActors10, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors10 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors2A)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsRecordMode)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRecordMode)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors91)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsContinue)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsContinue)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors2B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors2C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 11
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors11 initializer", kidHowToActors11, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors11 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(SpecialInstr, 		fTrue,  NotRel,	 	NotRel, 	OpenAllDoors,		NotRel)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors30)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsSooner)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSooner)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors31)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors32)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidActorsSoonerButton)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSoonerButton)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidActorsLaterButton)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsLaterButton)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7, 		 	cidClicked, 		kidPlay)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidPlay)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouseBoth|kFltrMoviePlaying,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 2, 			8,			cidMviePlaying, 	fFalse)
+	PROJECT_TABLE(IgnoreMatch,			fFalse,	2, 			NotRel,		cidMviePlaying, 	fTrue)
+	PROJECT_TABLE(MatchAllGoto,			fTrue, 	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors33)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 12
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors12 initializer", kidHowToActors12, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors12 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	OpenAllDoors,		NotRel)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors34)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsSooner)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSooner)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors35)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors36)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidActorsSoonerButton)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSoonerButton)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidActorsLaterButton)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsLaterButton)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7, 		 	cidClicked, 		kidPlay)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidPlay)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouseBoth|kFltrMoviePlaying,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 2, 			8,			cidMviePlaying, 	fFalse)
+	PROJECT_TABLE(IgnoreMatch,			fFalse,	2, 			NotRel,		cidMviePlaying, 	fTrue)
+	PROJECT_TABLE(MatchAllGoto,			fTrue, 	NotRel, 	9,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors37)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	9,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 13
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors13 initializer", kidHowToActors13, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors13 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,		3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors38)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors39)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidCCPCopyRoute)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPCopyRoute)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors3A)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors3B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors3C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9, 		 	cidClicked, 		kidCCPPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors3D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors3E)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 14
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors14 initializer", kidHowToActors14, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors14 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors3F)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors40)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidCCPCopy)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPCopy)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClickedDown,	ktpcHowToActors41)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClickedDown,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors42)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors43)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9, 		 	cidClicked, 		kidCCPPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrActorIn|kFltrActorOut,	ktpcHowToActors44)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors45)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 15
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors15 initializer", kidHowToActors15, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors15 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors46)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors47)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidCCPCut)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPCut)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClickedDown,	ktpcHowToActors48)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClickedDown,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors49)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors4A)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			9, 		 	cidClicked, 		kidCCPPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrActorIn|kFltrActorOut,	ktpcHowToActors4B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors4C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 16
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors16 initializer", kidHowToActors16, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors16 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors4D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidCutCopyPaste)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCutCopyPaste)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors4E)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidCCPActorNuke)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidCCPActorNuke)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClickedDown,	ktpcHowToActors4F)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClickedDown,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors50)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 17
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors17 initializer", kidHowToActors17, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors17 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors51)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsRotate)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotate)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors52)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsRotateX)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotateX)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors53)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors54)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 18
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors18 initializer", kidHowToActors18, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors18 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors55)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsRotate)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotate)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors56)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsRotateY)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotateY)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors57)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors58)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 19
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors19 initializer", kidHowToActors19, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors19 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors59)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsRotate)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotate)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors5A)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsRotateZ)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotateZ)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors5B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors5C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 20
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors20 initializer", kidHowToActors20, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors20 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors5D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsRotate)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotate)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors5E)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsRotateNorm)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsRotateNorm)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors5F)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors60)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 21
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors21 initializer", kidHowToActors21, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors21 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors61)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsSelect)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSelect)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors62)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors63)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			7,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	7,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//7
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 22
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors22 initializer", kidHowToActors22, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors22 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallActorBorder1,	kstBrowserEnabled)
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallActorBorder1,	kstBrowserSelected)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors64)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			5, 		 	cidClicked, 		kidRollCallActorBorder1)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder1)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			6, 		 	cidClicked, 		kidRollCallActorBorder2)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder2)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			7, 		 	cidClicked, 		kidRollCallActorBorder3)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder3)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			8, 		 	cidClicked, 		kidRollCallActorBorder4)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorBorder4)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallActorDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallActorUpArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallActorUpArrow)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder1,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder2,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder3,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallActorBorder4,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	SimulateClick,		kidActorsCompose)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrActorIn|kFltrActorOut|kFltrActorClicked,	ktpcHowToActors13)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,	 		cidActorClicked,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors65)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 23
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors23 initializer", kidHowToActors23, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors23 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallPropBorder1,	kstBrowserEnabled)
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	3,	 		kidRollCallPropBorder1,	kstBrowserSelected)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors66)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			5, 		 	cidClicked, 		kidRollCallPropBorder1)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder1)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			6, 		 	cidClicked, 		kidRollCallPropBorder2)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder2)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			7, 		 	cidClicked, 		kidRollCallPropBorder3)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder3)
+	PROJECT_TABLE(MatchDescGoto,		fFalse, 0, 			8, 		 	cidClicked, 		kidRollCallPropBorder4)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropBorder4)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallPropDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropDownArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidClicked, 		kidRollCallPropUpArrow)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidRollCallPropUpArrow)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder1,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder2,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder3,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	11,	 		kidRollCallPropBorder4,	kstBrowserInvisible)
+	PROJECT_TABLE(JumpToState,			fTrue,	NotRel,		9,			NotRel,				NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	SimulateClick,		kidActorsCompose)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrActorIn|kFltrActorOut|kFltrActorClicked,	ktpcHowToActors16)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlaced, 	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	10,		 	cidActorPlacedOutOfView,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,	 		cidActorClicked,	NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors67)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 24
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors24 initializer", kidHowToActors24, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors24 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(SpecialInstr, 		fTrue,  NotRel,	 	NotRel, 	OpenAllDoors,		NotRel)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors68)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsTransform)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsTransform)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors69)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsShrink)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsShrink)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors6A)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors6B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 25
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors25 initializer", kidHowToActors25, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors25 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	OpenAllDoors,		NotRel)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors6C)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsTransform)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsTransform)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors6D)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsSquash)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsSquash)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors6E)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors6F)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 26
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors26 initializer", kidHowToActors26, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors26 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(SpecialInstr, 		fTrue, 	NotRel,	 	NotRel, 	OpenAllDoors,		NotRel)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors70)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsTransform)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsTransform)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors71)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			6, 		 	cidClicked, 		kidActorsTransformNorm)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsTransformNorm)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors72)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors73)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			8,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	8,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//8
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK
+
+/////////////////////////////////////
+// how to actors callout sequence 27
+/////////////////////////////////////
+GOBCHUNK("HowTo Actors27 initializer", kidHowToActors27, kgokkNormal)
+	DEFAULT_POSITION( 0, 0, 0)
+ENDCHUNK
+CREATE_ANIM("HowTo Actors27 Table")
+	
+// Init the table, then fill it up the project
+	INITIALIZE_TABLE()
+//				  inst 			  		return  ID0 		next  		st  ID1 				ID2
+//				  ----					------	---			----		--	---					---
+//1
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	 	2,	 		kidBackground->fEnableSceneTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Scene)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//2
+	PROJECT_TABLE(BoolCondGoto,			NotRel, NotRel,	  	3,	 		kidBackground->fEnableActorTools,	fTrue)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			No_Actor)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//3
+	PROJECT_TABLE(StateCondGoto,		NotRel, NotRel, 	4,	 		kidActorsCover,		kstOpen)
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouseBoth,		ktpcHowToActors00)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			4, 		 	cidClicked, 		kidActorsCover)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCover)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//4
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel, 	kFltrMouseBoth,		ktpcHowToActors74)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel,		NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidFrameBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidClicked, 		kidSceneBackground)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidSceneBackground)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			5, 		 	cidClicked, 		kidActorsCostume)
+	PROJECT_TABLE(IgnoreMatch,			fFalse, 0, 			NotRel,	 	cidMouseDown, 		kidActorsCostume)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//5
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrActorClicked,	ktpcHowToActors75)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 4, 			8,		 	cidActorClicked, 	2)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		6,			cidActorClicked,	NotRel)
+	PROJECT_TABLE(IgnoreChildren,		fFalse,	NotRel,		NotRel,		cidMouseDown,		kidWorkspace) 
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//6
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrEslVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		7,	 		cidEaselVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//7
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrEslOk|kFltrEslCancel, ktpcEaselHelp15)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,			cidEaselOk,			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		11,			cidEaselCancel,		NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//8
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,		kFltrMouse|kFltrEslVisible,	NoHelpHere)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		9,	 		cidEaselVisible,	NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,			cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,		NotRel, 			NotRel)
+//9
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse|kFltrEslOk|kFltrEslCancel, ktpcEaselHelp0B)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		10,			cidEaselOk,			NotRel)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel,		11,			cidEaselCancel,		NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreAll,			fFalse, NotRel,		NotRel, 	cidMouseDown,		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+//10
+	PROJECT_TABLE(InitState, 			NotRel, ParState2, 	NotRel,  	kFltrMouse,			ktpcHowToActors77)
+	PROJECT_TABLE(WaitEvent, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+	PROJECT_TABLE(MatchGoto,			fFalse, 0, 			11,		 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(IgnoreChildren,		fFalse, 0, 			NotRel,	 	cidMouseDown, 		kgobHowtoSequence)
+	PROJECT_TABLE(MatchAllGoto,			fFalse,	NotRel, 	11,		 	cidMouseDown, 		NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// Special(QuitHelp)
+//11
+	PROJECT_TABLE(SpecialInstr, 		fFalse,	NotRel, 	NotRel,  	QuitHelp, 			NotRel)
+	PROJECT_TABLE(EndState, 			NotRel, NotRel, 	NotRel,  	NotRel, 			NotRel)
+// *End of the table*
+	PROJECT_TABLE(EndTable,0,0,0,0,0)	// End of File
+
+	// Calculate the states, build our NextState jump table, then run this thingy
+	RunScriptGob(kidSequenceParent, kchidScript5);
+	RunScriptGob(kidSequenceParent, kchidScript2);
+	RunScriptGob(kidSequenceParent, kchidScript1);
+	DestroyThis();
+ENDCHUNK

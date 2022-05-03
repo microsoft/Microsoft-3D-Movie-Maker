@@ -1,0 +1,1790 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************\
+ *
+ *	browser.cht
+ *
+ *	All browsers that appear in the studio
+ *
+ *	Author: Sean Selitrennikoff
+ *
+ * 	Status: REVIEWED
+ *
+\*****************************************************************************/
+
+//
+//
+// Generic objects shared by browsers
+// NOTE**: Generic controls need to be directed to parent of parent of control
+//
+GOBCHUNK("Generic browser page fwd", kidGenericPageFwd, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttGenericPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\fwd.bmp",
+	kxpregGenericPageFwd, kypregGenericPageFwd)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\fwdc.bmp",
+	kxpregGenericPageFwd, kypregGenericPageFwd)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Browser page fwd clicked")
+	EnqueueCid(cidBrowserFwd, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Generic browser page back", kidGenericPageBack, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttGenericPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\bback.bmp",
+	kxpregGenericPageBack, kypregGenericPageBack)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\bbackc.bmp",
+	kxpregGenericPageBack, kypregGenericPageBack)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Browser page back clicked")
+	EnqueueCid(cidBrowserBack, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Generic browser cancel", kidGenericCancel, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttEaselCancel)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\cancel.bmp",
+	kxpregGenericCancel, kypregGenericCancel)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\cancelc.bmp",
+	kxpregGenericCancel, kypregGenericCancel)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoCancelWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Browser cancel clicked")
+	EnqueueCid(cidBrowserCancel, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Generic browser Okay", kidGenericOk, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttEaselOk)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\okay.bmp",
+	kxpregGenericOk, kypregGenericOk)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\okayc.bmp",
+	kxpregGenericOk, kypregGenericOk)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoOkWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Browser Ok clicked")
+	EnqueueCid(cidBrowserOk, GidParGob(GidParThis()), GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Generic browser pane of glass", kidGenericGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstDefault, krepDefault ), "Max", 0, 0, kdxpBackground, kdypBackground)
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+GOBCHUNK("Generic disable pane of glass", kidGenericDisableGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+
+// Transparent area for page number insertion.
+OBJECT("Browser page number", kidGenericPageNum, 100, kcrsArrow)
+REP_RECT(CHID(kstDefault, krepDefault), "Visible", 0, 0, kxpBrwsPageNumWidth, kypBrwsPageNumHeight)
+
+//
+// Settings browsers' very own glass
+//
+GOBCHUNK("Settings browser pane of glass", kidSettingsGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Settings background")
+	CreateChildThis(kidBrwsBackground, kidBrwsBackground);
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+//
+// Background
+//
+// Create self + NxM frames + controls, all are invisable
+// Enqueues: cidScenesBrowserReady when ready to go.
+//
+GOBCHUNK("Scene browser background", kidBrwsBackground, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsBackground, kypBrwsBackground, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault ), "studio\bmp\book1.bmp", kxpregBrwsBackground, kypregBrwsBackground )
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Scene browser created")
+	CreateChildThis(kidBrowserPageFwd, kidGenericPageFwd);
+	MoveAbsGob(kidBrowserPageFwd, kxpScenePageFwd, kypScenePageFwd);
+	CreateChildThis(kidBrowserPageBack, kidGenericPageBack);
+	MoveAbsGob(kidBrowserPageBack, kxpScenePageBack, kypScenePageBack);
+
+	CreateChildThis(kidBrowserPageNum, kidGenericPageNum);
+	MoveAbsGob(kidBrowserPageNum, kxpScenePageNum, kypScenePageNum);
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpSceneCancel, kypSceneCancel);
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	yp = kdypSceneTop;
+	nFrame = 0;
+
+	While(yp <= (kdypScene - kdypSceneFrame - kdypSceneBottom));
+
+		xp = kdxpSceneLeft;
+
+		While(xp <= (kdxpScene - kdxpSceneRight - kdxpSceneFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidBrowserFrame + nFrame, kidBrwsSceneFrame);
+			MoveAbsGob(kidBrowserFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpSceneSpacing + kdxpSceneFrame;
+        End;
+		
+		yp += kdypSceneSpacing + kdypSceneFrame;
+	End;
+
+	//
+	// This browser shuts when a selection occurs -- or when a thumb gets
+	// clicked.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If(((kid >= kidBrowserFrame) && (kid < kidBrowserFrameLim)) ||
+		   (kid == kidBrowserCancel) ||
+		   (kid == kidBrowserPageFwd) ||
+		   (kid == kidBrowserPageBack));
+		    Return(fFalse);
+        End;
+
+	End;
+ENDCHUNK
+//
+// 		A frame object for the settings browser.
+//
+GOBCHUNK("Scene browser Frame", kidBrwsSceneFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame1.bmp",
+	kxpregBrwsSceneFrame, kypregBrwsSceneFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame1h.bmp",
+	kxpregBrwsSceneFrame, kypregBrwsSceneFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Browser frame clicked")
+	ChangeStateThis(kstBrowserSelected);
+	EnqueueCid(cidBrowserSelect, kidSettingsGlass, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidSettingsGlass, GidThis(), 0, 0, 0);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+
+//
+// Camera browsers' very own glass
+//
+GOBCHUNK("Camera browser pane of glass", kidCameraGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Camera background")
+	CreateChildThis(kidBrwsCamera, kidBrwsCamera);
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+//
+// Background
+//
+// Create self + NxM frames + controls, all are invisible
+// Enqueues: cidCamerasBrowserReady when ready to go.
+//
+GOBCHUNK("Camera browser background", kidBrwsCamera, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsCamera, kypBrwsCamera, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault ), "studio\bmp\book2.bmp", kxpregBrwsCamera, kypregBrwsCamera )
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Camera browser created")
+	CreateChildThis(kidBrowserPageFwd, kidGenericPageFwd);
+	MoveAbsGob(kidBrowserPageFwd, kxpCameraPageFwd, kypCameraPageFwd);
+	CreateChildThis(kidBrowserPageBack, kidGenericPageBack);
+	MoveAbsGob(kidBrowserPageBack, kxpCameraPageBack, kypCameraPageBack);
+
+	CreateChildThis(kidBrowserPageNum, kidGenericPageNum);
+	MoveAbsGob(kidBrowserPageNum, kxpCameraPageNum, kypCameraPageNum);
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpCameraCancel, kypCameraCancel);
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	yp = kdypCameraTop;
+	nFrame = 0;
+
+	While(yp <= (kdypCamera - kdypCameraFrame - kdypCameraBottom));
+
+		xp = kdxpCameraLeft;
+
+		While(xp <= (kdxpCamera - kdxpCameraRight - kdxpCameraFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidBrowserFrame + nFrame, kidBrwsCameraFrame);
+			MoveAbsGob(kidBrowserFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpCameraSpacing + kdxpCameraFrame;
+        End;
+		
+		yp += kdypCameraSpacing + kdypCameraFrame;
+	End;
+
+	//
+	// This browser shuts when a selection ockcrs -- or when a thumb gets
+	// clicked.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If(((kid >= kidBrowserFrame) && (kid < kidBrowserFrameLim)) ||
+		   (kid == kidBrowserCancel) ||
+		   (kid == kidBrowserPageFwd) ||
+		   (kid == kidBrowserPageBack));
+		    Return(fFalse);
+        End;
+
+	End;
+ENDCHUNK
+
+//
+// 	A frame object for the camera view browser
+//
+GOBCHUNK("Object browser Frame", kidBrwsCameraFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame2.bmp",
+	kxpregBrwsCameraFrame, kypregBrwsCameraFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame2h.bmp",
+	kxpregBrwsCameraFrame, kypregBrwsCameraFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Browser frame clicked")
+	ChangeStateThis(kstBrowserSelected);
+	EnqueueCid(cidBrowserSelect, kidCameraGlass, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidCameraGlass, GidThis(), 0, 0, 0);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+
+
+//
+// Actor browsers' very own glass
+//
+GOBCHUNK("Actor browser pane of glass", kidActorGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Actor background")
+	CreateChildThis(kidBrwsActor, kidBrwsActor);
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+//
+// Background
+//
+// Create self + NxM frames + controls, all are invisible
+// Enqueues: cidActorsBrowserReady when ready to go.
+//
+GOBCHUNK("Actor browser background", kidBrwsActor, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsActor, kypBrwsActor, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault ), "studio\bmp\book3.bmp", kxpregBrwsActor, kypregBrwsActor )
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Actor browser created")
+	CreateChildThis(kidBrowserPageFwd, kidGenericPageFwd);
+	MoveAbsGob(kidBrowserPageFwd, kxpActorPageFwd, kypActorPageFwd);
+	CreateChildThis(kidBrowserPageBack, kidGenericPageBack);
+	MoveAbsGob(kidBrowserPageBack, kxpActorPageBack, kypActorPageBack);
+
+	CreateChildThis(kidBrowserPageNum, kidGenericPageNum);
+	MoveAbsGob(kidBrowserPageNum, kxpActorPageNum, kypActorPageNum);
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpActorCancel, kypActorCancel);
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	yp = kdypActorTop;
+	nFrame = 0;
+
+	While(yp <= (kdypActor - kdypActorFrame - kdypActorBottom));
+
+		xp = kdxpActorLeft;
+
+		While(xp <= (kdxpActor - kdxpActorRight - kdxpActorFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidBrowserFrame + nFrame, kidBrwsActorFrame);
+			MoveAbsGob(kidBrowserFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpActorSpacing + kdxpActorFrame;
+        End;
+		
+		yp += kdypActorSpacing + kdypActorFrame;
+	End;
+
+	//
+	// This browser shuts when a selection ockcrs -- or when a thumb gets
+	// clicked.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If(((kid >= kidBrowserFrame) && (kid < kidBrowserFrameLim)) ||
+		   (kid == kidBrowserCancel) ||
+		   (kid == kidBrowserPageFwd) ||
+		   (kid == kidBrowserPageBack));
+		    Return(fFalse);
+        End;
+
+	End;
+ENDCHUNK
+
+//
+//	A frame object for the actors browser
+//
+GOBCHUNK("Actor browser Frame", kidBrwsActorFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame3.bmp",
+	kxpregBrwsActorFrame, kypregBrwsActorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame3h.bmp",
+	kxpregBrwsActorFrame, kypregBrwsActorFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Browser frame clicked")
+	ChangeStateThis(kstBrowserSelected);
+	EnqueueCid(cidBrowserSelect, kidActorGlass, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidActorGlass, GidThis(), 0, 0, 0);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+
+
+//
+// Prop browsers' very own glass
+//
+GOBCHUNK("Prop browser pane of glass", kidPropGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Prop background")
+	CreateChildThis(kidBrwsProp, kidBrwsProp);
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+//
+// Background
+//
+// Create self + NxM frames + controls, all are invisible
+// Enqueues: cidPropsBrowserReady when ready to go.
+//
+GOBCHUNK("Prop browser background", kidBrwsProp, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsProp, kypBrwsProp, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault ), "studio\bmp\book4.bmp", kxpregBrwsProp, kypregBrwsProp )
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Prop browser created")
+	CreateChildThis(kidBrowserPageFwd, kidGenericPageFwd);
+	MoveAbsGob(kidBrowserPageFwd, kxpPropPageFwd, kypPropPageFwd);
+	CreateChildThis(kidBrowserPageBack, kidGenericPageBack);
+	MoveAbsGob(kidBrowserPageBack, kxpPropPageBack, kypPropPageBack);
+
+	CreateChildThis(kidBrowserPageNum, kidGenericPageNum);
+	MoveAbsGob(kidBrowserPageNum, kxpPropPageNum, kypPropPageNum);
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpPropCancel, kypPropCancel);
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	yp = kdypPropTop;
+	nFrame = 0;
+
+	While(yp <= (kdypProp - kdypPropFrame - kdypPropBottom));
+
+		xp = kdxpPropLeft;
+
+		While(xp <= (kdxpProp - kdxpPropRight - kdxpPropFrame));
+
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidBrowserFrame + nFrame, kidBrwsPropFrame);
+			MoveAbsGob(kidBrowserFrame + nFrame, xp, yp);
+			nFrame++;
+			xp += kdxpPropSpacing + kdxpPropFrame;
+        End;
+		
+		yp += kdypPropSpacing + kdypPropFrame;
+	End;
+
+	//
+	// This browser shuts when a selection ockcrs -- or when a thumb gets
+	// clicked.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If(((kid >= kidBrowserFrame) && (kid < kidBrowserFrameLim)) ||
+		   (kid == kidBrowserCancel) ||
+		   (kid == kidBrowserPageFwd) ||
+		   (kid == kidBrowserPageBack));
+		    Return(fFalse);
+        End;
+
+	End;
+ENDCHUNK
+
+
+//
+// 	A frame object for the Prop browser
+//
+GOBCHUNK("Prop browser Frame", kidBrwsPropFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame4.bmp",
+	kxpregBrwsPropFrame, kypregBrwsPropFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame4h.bmp",
+	kxpregBrwsPropFrame, kypregBrwsPropFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Browser frame clicked")
+	ChangeStateThis(kstBrowserSelected);
+	EnqueueCid(cidBrowserSelect, kidPropGlass, GidThis(), 0, 0, 0);
+	EnqueueCid(cidBrowserOk, kidPropGlass, GidThis(), 0, 0, 0);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+//
+// Action browsers' very own glass
+//
+GOBCHUNK("Action browser pane of glass", kidActionGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Action background")
+	CreateChildThis(kidBrwsAction, kidBrwsAction);
+	// help balloon
+	If (!::fHelpOn);
+		CreateHelpGob(kidBackground, ktpcEaselHelp3A);
+	End;
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+//
+// Background
+//
+// Create self + NxM frames + controls, all are invisible
+// Enqueues: cidActionsBrowserReady when ready to go.
+//
+GOBCHUNK("Action browser background", kidBrwsAction, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsAction, kypBrwsAction, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault ), "studio\bmp\book5.bmp", kxpregBrwsAction, kypregBrwsAction )
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Action browser created")
+	CreateChildThis(kidBrowserPageFwd, kidGenericPageFwd);
+	MoveAbsGob(kidBrowserPageFwd, kxpActionPageFwd, kypActionPageFwd);
+	CreateChildThis(kidBrowserPageBack, kidGenericPageBack);
+	MoveAbsGob(kidBrowserPageBack, kxpActionPageBack, kypActionPageBack);
+	
+	CreateChildThis(kidBrowserPageNum, kidGenericPageNum);
+	MoveAbsGob(kidBrowserPageNum, kxpActionPageNum, kypActionPageNum);
+
+	CreateChildThis(kidBrowserOk, kidGenericOk);
+	MoveAbsGob(kidBrowserOk, kxpActionOk, kypActionOk);	
+	// REVIEW: make the OK button enabled	
+	ChangeStateGob( kidBrowserOk, kstBrowserEnabled );
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpActionCancel, kypActionCancel);
+	// REVIEW: make the cancel button enabled	
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	CreateChildThis(kidBrwsActionPrev, kidBrwsActionPrev);
+	ChangeStateGob(kidBrwsActionPrev, kstBrowserEnabled);
+
+	CreateChildThis(kidBrowserActionBackCel, kidBrowserActionBackCel);
+	ChangeStateGob(kidBrowserActionBackCel, kstBrowserEnabled);
+
+	CreateChildThis(kidBrowserActionFwdCel, kidBrowserActionFwdCel);
+	ChangeStateGob(kidBrowserActionFwdCel, kstBrowserEnabled);
+
+	xp = kdxpActionLeft;
+	nFrame = 0;
+
+	While(xp <= (kdxpAction - kdxpActionRight - kdxpActionFrame));
+
+		yp = kdypActionTop;
+
+		While(yp <= (kdypAction - kdypActionFrame - kdypActionBottom));
+			//
+			// create and position frames
+			//
+			CreateChildThis(kidBrowserFrame + nFrame, kidBrwsActionFrame);
+			MoveAbsGob(kidBrowserFrame + nFrame, xp, yp);
+			nFrame++;
+			yp += kdypActionSpacing + kdypActionFrame;
+        End;
+		
+		xp += kdxpActionSpacing + kdxpActionFrame;
+	End;
+
+	//
+	// This browser shuts when a selection occurs -- or when a thumb gets
+	// clicked.
+	//	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If(((kid >= kidBrowserFrame) && (kid < kidBrowserFrameLim)) ||
+		   (kid == kidBrowserOk) ||
+		   (kid == kidBrowserCancel) ||
+		   (kid == kidBrowserPageFwd) ||
+		   (kid == kidBrowserPageBack));
+
+		    Return(fFalse);
+        End;
+
+	End;
+ENDCHUNK
+
+//
+// A frame object for the action browser
+//
+GOBCHUNK("Action browser Frame", kidBrwsActionFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame5.bmp",
+	kxpregBrwsActionFrame, kypregBrwsActionFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame5h.bmp",
+	kxpregBrwsActionFrame, kypregBrwsActionFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT("Browser frame clicked")
+	ChangeStateThis(kstBrowserSelected);
+	EnqueueCid(cidBrowserSelect, kidActionGlass, GidThis(), 0, 0, 0);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+//
+// The preview area for the action browser
+//
+GOBCHUNK("Action Browser preview", kidBrwsActionPrev, gokkNoHit )
+	DEFAULT_POSITION(0, 0, 100)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden5", 0, 0, 0, 0)
+REP_RECT(CHID(kstBrowserEnabled, krepDefault), "preview window",
+	kxpBrwsActionPrevLeft, kypBrwsActionPrevTop, kxpBrwsActionPrevRight, kypBrwsActionPrevBottom)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+
+//
+// Back starting cell button
+//
+GOBCHUNK("Action browser - change cell", kidBrowserActionBackCel, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsActionBackCel, kypBrwsActionBackCel, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttBrwsActionBackCel)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\b5celbk.bmp",
+	kxpregBrwsActionBackCel, kypregBrwsActionBackCel)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\b5celbks.bmp",
+	kxpregBrwsActionBackCel, kypregBrwsActionBackCel)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSyStepBWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Browser Back cel clicked")
+	EnqueueCid(cidBrowserChangeCel, kidActionGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+//
+// Fwd starting cell button
+//
+GOBCHUNK("Action browser - change cell", kidBrowserActionFwdCel, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsActionFwdCel, kypBrwsActionFwdCel, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttBrwsActionFwdCel)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\b5celfw.bmp",
+	kxpregBrwsActionFwdCel, kypregBrwsActionFwdCel)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\b5celfws.bmp",
+	kxpregBrwsActionFwdCel, kypregBrwsActionFwdCel)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoSyStepFWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Browser Fwd cel clicked")
+	EnqueueCid(cidBrowserChangeCel, kidActionGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+
+//
+//
+// Textbox create browser
+//
+//
+
+GOBCHUNK("Textbox create browser background", kidBrwsTextCreate, kgokkRectHit)
+	DEFAULT_POSITION( kxpBrwsTextCreate, kypBrwsTextCreate , 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault ), "studio\bmp\book9.bmp", kxpregBrwsTextCreate, kypregBrwsTextCreate )
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+CREATE_SCRIPT("Action browser created")
+	CreateChildGob(kidBackground, kidGenericDisableGlass, kidGenericDisableGlass);
+	CreateChildThis(kidCTextsStory, kidCTextsStory);
+	CreateChildThis(kidCTextsScroll, kidCTextsScroll);
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpCTextsCancel, kypCTextsCancel);
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	DISABLEACCEL(fFalse);
+
+	//
+	// This browser shuts when a selection occurs -- or when a thumb gets
+	// clicked.
+	//	
+	
+	// enqueue for Tony's tracking (how to's and projects)
+	EnqueueCid( cidBrowserVisible, 0,0,0,0, 0 );
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+	FilterCmdsThis(cidSelIdle, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Trap script", kchidScript2)
+	Return(fTrue);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If((kid == kidCTextsStory) ||
+		   (kid == kidCTextsScroll));
+
+		    Return(fFalse);
+
+        Elif (kid == kidBrowserCancel);
+			ENABLEACCEL(fFalse);
+			EnqueueCid(cidBrowserCancel, 0, 0, 0, 0, 0);
+			DestroyGob(kidGenericDisableGlass);
+			DestroyThis();
+			Return(fTrue);
+        End;
+
+	End;
+ENDCHUNK
+
+GOBCHUNK("Textbox create - story", kidCTextsStory, kgokkRectHit)
+	DEFAULT_POSITION(kxpCTextsStory, kypCTextsStory, 10)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttCTextsStory)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault), "studio\bmp\e6stor.bmp",
+	kxpregCTextsStory,	kypregCTextsStory)
+ADOPT_MBMP(LAST_MBMP, CHID(kstDefault, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstDefault, krepMouseDnOff))
+REP_MBMPREG(CHID(kstDefault, krepMouseDnOn), "studio\bmp\e6stors.bmp",
+	kxpregCTextsStory, kypregCTextsStory)
+ADOPT_MBMP(LAST_MBMP, CHID(kstSelected, krepDefault))
+CHILD_SCRIPT("Click, create story", CHID(kstDefault, kchidClick))
+	ENABLEACCEL(fFalse);
+	EnqueueCid(cidCreateTbox, khidStudio, fFalse, 0, 0, 0);
+	EnqueueCid(cidBrowserOk, 0, 0, 0, 0, 0);
+	DestroyGob(kidGenericDisableGlass);
+	DestroyGob(kidBrwsTextCreate);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+GOBCHUNK("Textbox create - scroll", kidCTextsScroll, kgokkRectHit)
+	DEFAULT_POSITION(kxpCTextsScroll, kypCTextsScroll, 10)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttCTextsScroll)
+ENDCHUNK
+REP_MBMPREG(kcell1, "studio\bmp\e6scr1.bmp", kxpregCTextsScroll, kypregCTextsScroll);
+REP_MBMPREG(kcell2, "studio\bmp\e6scr2.bmp", kxpregCTextsScroll, kypregCTextsScroll);
+REP_MBMPREG(kcell3, "studio\bmp\e6scr3.bmp", kxpregCTextsScroll, kypregCTextsScroll);
+REP_MBMPREG(kcell4, "studio\bmp\e6scr4.bmp", kxpregCTextsScroll, kypregCTextsScroll);
+REP_ANIM(CHID(kstDefault, krepDefault), "Scroll tbox")
+	cell = 0;
+	While();
+		Cell(kcell1 + cell, 0, 0, 60);
+		cell = cell+1;
+		If( cell==4 );
+			cell = 0;
+		End;
+		// cell = (cell++) % 4
+	End;	
+ENDCHUNK
+ADOPT_MBMP(LAST_MBMP, CHID(kstDefault, krepMouseDnOff))
+REP_MBMPREG(CHID(kstDefault, krepMouseDnOn), "studio\bmp\e6scr1s.bmp",
+	kxpregCTextsScroll, kypregCTextsScroll)
+ADOPT_MBMP(LAST_MBMP, CHID(kstSelected, krepDefault))
+CHILD_SCRIPT("Click, create Scroll", CHID(kstDefault, kchidClick))
+	ENABLEACCEL(fFalse);
+	EnqueueCid(cidCreateTbox, khidStudio, fTrue, 0, 0, 0);
+	EnqueueCid(cidBrowserOk, 0, 0, 0, 0, 0);
+	DestroyGob(kidGenericDisableGlass);
+	DestroyGob(kidBrwsTextCreate);
+	PlaySoundGob(kidBackground, kctgWave, kcnoBrwzPicWav, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+
+//
+// Sound Effects browser's very own glass
+//
+GOBCHUNK("Sound FX browser pane of glass", kidFXGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Sound FX background")
+	CreateChildThis(kidBrwsSoundsBackground, kidBrwsSoundsBackground);
+	// help balloon
+	If (!::fHelpOn);
+		CreateHelpGob(kidBackground, ktpcEaselHelp36);
+	End;
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+GOBCHUNK("Sound MIDI browser pane of glass", kidMidiGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Sound Midi background")
+	CreateChildThis(kidBrwsSoundsBackground, kidBrwsSoundsBackground);
+	// help balloon
+	If (!::fHelpOn);
+		CreateHelpGob(kidBackground, ktpcEaselHelp39);
+	End;
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+GOBCHUNK("Sound Speech browser pane of glass", kidSpeechGlass, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Sound Speech background")
+	CreateChildThis(kidBrwsSoundsBackground, kidBrwsSoundsBackground);
+	// help balloon
+	If (!::fHelpOn);
+		CreateHelpGob(kidBackground, ktpcEaselHelp38);
+	End;
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+GOBCHUNK("Sound browser background", kidBrwsSoundsBackground, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsSoundsBackground, kypBrwsSoundsBackground, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(kcell1, "studio\bmp\book6.bmp", kxpregBrwsSoundsBackground, kypregBrwsSoundsBackground )
+REP_MBMPREG(kcell2, "studio\bmp\book7.bmp", kxpregBrwsSoundsBackground, kypregBrwsSoundsBackground )
+REP_MBMPREG(kcell3, "studio\bmp\book8.bmp", kxpregBrwsSoundsBackground, kypregBrwsSoundsBackground )
+REP_RECT(CHID(kstClosed, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+REP_ANIM(CHID(kstDefault, krepDefault), "Sound browser background")
+
+	// Display a background appropriate to the type of sound browser.
+
+	If (GidParThis() == kidMidiGlass);
+		Cell(kcell1, 0, 0, 10);
+	Elif (GidParThis() == kidFXGlass);
+		Cell(kcell2, 0, 0, 10);
+	Else;
+		Cell(kcell3, 0, 0, 10);
+	End;
+
+ENDCHUNK
+CREATE_SCRIPT("Sound browser created")
+
+	CreateChildThis(kidBrowserPageFwd, kidGenericPageFwd);
+	MoveAbsGob(kidBrowserPageFwd, kxpSoundPageFwd, kypSoundPageFwd);
+
+	CreateChildThis(kidBrowserPageBack, kidGenericPageBack);
+	MoveAbsGob(kidBrowserPageBack, kxpSoundPageBack, kypSoundPageBack);
+
+	CreateChildThis(kidBrowserPageNum, kidGenericPageNum);
+	MoveAbsGob(kidBrowserPageNum, kxpSoundPageNum, kypSoundPageNum);
+
+	CreateChildThis(kidBrowserOk, kidGenericOk);
+	MoveAbsGob(kidBrowserOk, kxpSoundOk, kypSoundOk);	
+	ChangeStateGob( kidBrowserOk, kstBrowserEnabled );
+
+	CreateChildThis(kidBrowserCancel, kidGenericCancel);
+	MoveAbsGob(kidBrowserCancel, kxpSoundCancel, kypSoundCancel);	
+	ChangeStateGob( kidBrowserCancel, kstBrowserEnabled );
+
+	CreateChildThis(kidBrowserImport, kidBrowserImport);
+	MoveAbsGob(kidBrowserImport, kxpBrowserImport, kypBrowserImport);
+
+	// Change the state of the import button to use the appropriate tool tip.
+	If (GidParThis() == kidFXGlass);
+		ChangeStateGob(kidBrowserImport, kst1);
+	Elif (GidParThis() == kidSpeechGlass);
+		ChangeStateGob(kidBrowserImport, kst2);
+	Elif (GidParThis() == kidMidiGlass);
+		ChangeStateGob(kidBrowserImport, kst3);
+	End;	
+
+	// No recording button for Midi browser.
+	If (GidParThis() != kidMidiGlass);
+		CreateChildThis(kidBrowserRecord, kidBrowserRecord);
+		MoveAbsGob(kidBrowserRecord, kxpBrowserRecord, kypBrowserRecord);
+	End;
+
+	// Display sound name frames on the browser.
+	xp = kdxpSoundLeft;
+	nFrame = 0;
+
+	// Create frames to order by column not row.
+	While(xp <= (kdxpSound - kdxpSoundRight - kdxpSoundFrame));
+
+		yp = kdypSoundTop;
+
+		While(yp <= (kdypSound - kdypSoundFrame - kdypSoundBottom));
+
+			//
+			// create and position frames
+			//
+
+			CreateChildThis(kidBrowserFrame + nFrame, kidBrwsSoundFrame);
+
+			MoveAbsGob(kidBrowserFrame + nFrame, xp, yp);
+			nFrame++;
+			yp += kdypSoundSpacing + kdypSoundFrame;
+		End;
+		
+		xp += kdxpSoundSpacing + kdxpSoundFrame;
+	End;
+
+	// Filter out the mouse dn events, to close the browser if click outside.
+	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+	FilterCmdsThis(cidKey, cidNil, kchidScript2);
+ENDCHUNK
+CHILD_SCRIPT("Delete user snd", kchidScript2)
+	kid = _parm[0];
+	cid = _parm[1];
+	vk = _parm[3];
+
+	// If the record easel is displayed in front of the sound browser,
+	// then don't take any action here as the key press was intended
+	// for the record easel. We must take this action here as the
+	// alternatives wold be to...
+	// 1. Disable the borwser filter when the record easel is invoked
+	// and reinstate the filter when the easel OK/Cancel is clicked.
+	// This doesn't work because the easel is not necessarily dismissed
+	// when the OK button is clicked, (may get error and keep easel up).
+	// 2. Initiate key filter for record easel. This does indeed prevent
+	// the browser acting on the key presses, but it also means the
+	// keys don't have the desired effect in the edit ctrl. Presumably
+	// we must pass the key press through the easel, otherwise it never
+	// gets to whatever actually manipulates the text.
+
+	If(!FGobExists(kidRecordBackground));
+		If ((cid == cidKey) && ((vk == 46) || (vk == 8)));
+		    EnqueueCid(cidBrowserDel, GidParGob( kidBrwsSoundsBackground ), GidThis(), 0, 0, 0);
+		End;
+	End;
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	// Dismiss the Sound browser if the user btns down on anything
+	// that is not the browser or is a child of the browser.
+
+	If(cid == cidMouseDown);
+
+		If((kid == GidThis()) ||
+		   (GidParGob(kid) == GidThis()));
+
+		    Return(fFalse);
+
+        End;
+
+	End;
+ENDCHUNK
+
+//
+// A frame object for the sound browser
+//
+GOBCHUNK("Sound browser Frame", kidBrwsSoundFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame5.bmp", kxpregBrwsActionFrame, kypregBrwsActionFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame5h.bmp", kxpregBrwsActionFrame, kypregBrwsActionFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT( "Sound frame clicked" )
+	ChangeStateThis(kstBrowserSelected);
+	
+	// send the message to the parent of this browser - the glass gob
+	EnqueueCid(cidBrowserSelect, GidParGob( kidBrwsSoundsBackground ), GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Sounds Browser Record", kidBrowserRecord, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttBrowserRecord)
+ENDCHUNK
+REP_MBMPREG(CHID(kstDefault, krepDefault), "studio\bmp\mike.bmp",
+	kxpregBrowserRecord, kypregBrowserRecord)
+ADOPT_MBMP(LAST_MBMP, CHID(kstDefault, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstDefault, krepMouseDnOff))
+REP_MBMPREG(CHID(kstDefault, krepMouseDnOn), "studio\bmp\mikes.bmp",
+	kxpregBrowserRecord, kypregBrowserRecord )
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+ADOPT_WAVE(kcnoMikeWav, CHID(kstDefault, krepClicked))
+CHILD_SCRIPT("Sounds Browser Record", CHID(kstDefault, kchidClick))
+
+	// Need to tell whether we're recording SFX or Speech
+	If(GidParGob( kidBrwsSoundsBackground) == kidFXGlass);
+		EnqueueCid(cidOpenSoundRecord, 0, 0, 0, 0, 0);
+	Elif(GidParGob( kidBrwsSoundsBackground) == kidSpeechGlass);
+		EnqueueCid(cidOpenSoundRecord, 0, 1, 0, 0, 0);
+	End;	
+
+ENDCHUNK
+
+GOBCHUNK("Sounds Browser Import", kidBrowserImport, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfst1, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttBrowserImportFX)
+	ACTION(fcustNil, fcustNil, fgrfst2, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttBrowserImportSpeech)
+	ACTION(fcustNil, fcustNil, fgrfst3, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttBrowserImportMidi)
+ENDCHUNK
+REP_MBMPREG(CHID(kst1, krepDefault), "studio\bmp\sndport.bmp",
+	kxpregBrowserImport, kypregBrowserImport)
+ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kst1, krepMouseDnOff))
+ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepDefault))
+ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepMouseDnOff))
+ADOPT_MBMP(LAST_MBMP, CHID(kst3, krepDefault))
+ADOPT_MBMP(LAST_MBMP, CHID(kst3, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kst3, krepMouseDnOff))
+REP_MBMPREG(CHID(kst1, krepMouseDnOn), "studio\bmp\sndports.bmp",
+	kxpregBrowserImport, kypregBrowserImport)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+ADOPT_MBMP(LAST_MBMP, CHID(kst2, krepMouseDnOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kst2, kstBrowserSelected))
+ADOPT_MBMP(LAST_MBMP, CHID(kst3, krepMouseDnOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kst3, kstBrowserSelected))
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kst1, krepClicked))
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kst2, krepClicked))
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kst3, krepClicked))
+CHILD_SCRIPT("Sounds Browser Import", CHID(kstDefault, kchidClick))
+	// Bring up the Sound import portfolio.
+    EnqueueCid(cidPortfolioOpen, 0, kpfPortOpenSound, GidParGob( kidBrwsSoundsBackground ), 0, 0);
+	
+	// Look out for the cid indicating that the portfolio has been closed.
+	FilterCmdsThis(cidPortfolioClosed, cidNil, kchidScript1);
+
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	// End this filter as it is no longer required.
+	FilterCmdsThis(cidPortfolioClosed, cidNil, chidNil);
+
+	// Let the sound code know a file has been selected.
+
+	If(_parm[2] == fTrue);
+		EnqueueCid(cidPortfolioFile, GidParGob(kidBrwsSoundsBackground), GidThis(), 0, 0, 0);
+		// Now watch for the command to display the import browser.
+		FilterCmdsThis(cidLaunchImport, cidNil, kchidScript2);
+	End;
+
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript2)
+	// End this filter as it is no longer required.
+	FilterCmdsThis(cidLaunchImport, cidNil, chidNil);
+
+	EnqueueCid(cidBrowserReady, khidStudio, _parm[2], kidImportFrame, kidImportPageFwd,
+			   (kdxpImportFrameBorder << 16) | kdypImportFrameBorder);
+ENDCHUNK
+
+//
+// Sound import browser's very own glass
+//
+GOBCHUNK("Sound import browser pane of glass", kidSoundsImportGlass, kgokkRectHit)
+	// Raise the z-coord of this browser above the background browser.
+	DEFAULT_POSITION(0, 0, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_FILL( CHID(kstDefault, krepDefault ), "Max", 0,0, kdxpBackground, kdypBackground, Transparent, Palette( 73 	))
+	PATTERN_50
+ENDCHUNK
+CREATE_SCRIPT("Sound import background")
+	CreateChildThis(kidBrwsSoundsImportBackground, kidBrwsSoundsImportBackground);
+ENDCHUNK
+CHILD_SCRIPT("Glass clicked", CHID(kstDefault, kchidClick))
+	PlaySoundGob(kidBackground, kctgWave, kwavSplot, 0, 0x10000, 1, 0, 1);
+ENDCHUNK
+
+GOBCHUNK("Sound import browser background", kidBrwsSoundsImportBackground, kgokkRectHit)
+	DEFAULT_POSITION(kxpBrwsImportBackground, kypBrwsImportBackground, 200)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_MBMPREG(kcell1, "studio\bmp\book6.bmp", kxpregBrwsImportBackground, kypregBrwsImportBackground )
+REP_MBMPREG(kcell2, "studio\bmp\book7.bmp", kxpregBrwsImportBackground, kypregBrwsImportBackground )
+REP_MBMPREG(kcell3, "studio\bmp\book8.bmp", kxpregBrwsImportBackground, kypregBrwsImportBackground )
+REP_RECT(CHID(kstClosed, krepDefault), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoPBrowseWav, CHID(kstDefault, krepEnterAnimation))
+REP_ANIM(CHID(kstDefault, krepDefault), "Sound import browser background")
+
+	// Display a background appropriate to the type of underlying sound browser.
+
+	If (GidParGob(kidBrwsSoundsBackground) == kidMidiGlass);
+		Cell(kcell1, 0, 0, 10);
+	Elif (GidParGob(kidBrwsSoundsBackground) == kidFXGlass);
+		Cell(kcell2, 0, 0, 10);
+	Else;
+		Cell(kcell3, 0, 0, 10);
+	End;
+
+ENDCHUNK
+CREATE_SCRIPT("Sound import browser created")
+	
+	CreateChildThis(kidImportPageFwd, kidImportPageFwd);
+	MoveAbsGob(kidImportPageFwd, kxpImportPageFwd, kypImportPageFwd);
+	CreateChildThis(kidImportPageBack, kidImportPageBack);
+	MoveAbsGob(kidImportPageBack, kxpImportPageBack, kypImportPageBack);
+
+	CreateChildThis(kidImportPageNum, kidImportPageNum);
+	MoveAbsGob(kidImportPageNum, kxpImportPageNum, kypImportPageNum);
+
+	CreateChildThis(kidImportOk, kidGenericOk);
+	MoveAbsGob(kidImportOk, kxpImportOk, kypImportOk);	
+	ChangeStateGob( kidImportOk, kstBrowserEnabled );
+
+	CreateChildThis(kidImportCancel, kidGenericCancel);
+	MoveAbsGob(kidImportCancel, kxpImportCancel, kypImportCancel);	
+	ChangeStateGob( kidImportCancel, kstBrowserEnabled );
+
+	// Display import sound name frames on the browser.
+	// Reuse the same positions as used for the other sound browsers.
+	xp = kdxpSoundLeft;
+	nFrame = 0;
+
+	While(xp <= (kdxpSound - kdxpSoundRight - kdxpSoundFrame));
+
+		yp = kdypSoundTop;
+
+		While(yp <= (kdypSound - kdypSoundFrame - kdypSoundBottom));
+
+			//
+			// create and position frames
+			//
+
+			CreateChildThis(kidImportFrame + nFrame, kidBrwsSoundImportFrame);
+
+			MoveAbsGob(kidImportFrame + nFrame, xp, yp);
+			nFrame++;
+			yp += kdypSoundSpacing + kdypSoundFrame;
+		End;
+		
+		xp += kdxpSoundSpacing + kdxpSoundFrame;
+	End;
+
+	// Filter out the mouse dn events, to close the browser if click outside.
+	
+	FilterCmdsThis(cidMouseDown, cidNil, kchidScript1);
+ENDCHUNK
+CHILD_SCRIPT("par / filter cids", kchidScript1)
+	kid = _parm[0];
+	cid = _parm[1];
+
+	If(cid == cidMouseDown);
+
+		If((kid == GidThis()) ||
+		   (GidParGob(kid) == GidThis()));
+
+		    Return(fFalse);
+
+        End;
+
+	End;
+ENDCHUNK
+
+//
+// A frame object for the sound import browser
+//
+GOBCHUNK("Sound import browser Frame", kidBrwsSoundImportFrame, kgokkRectNoKids)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\frame5.bmp", kxpregBrwsActionFrame, kypregBrwsActionFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\frame5h.bmp", kxpregBrwsActionFrame, kypregBrwsActionFrame)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserSelected, krepDefault))
+REP_RECT(CHID(kstBrowserDisabled, krepDefault), "hidden", 0, 0, 0, 0)
+CLICK_SCRIPT( "Sound import frame clicked" )
+	ChangeStateThis(kstBrowserSelected);
+	// Send the message to the parent of this browser - the glass gob
+	EnqueueCid(cidBrowserSelect, kidSoundsImportGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+// No generic page up/down to be used here, as sounds browser still up behind this browser.
+
+GOBCHUNK("Sound import browser page fwd", kidImportPageFwd, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttImportPageFwd)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\fwd.bmp",
+	kxpregImportPageFwd, kypregImportPageFwd)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\fwdc.bmp",
+	kxpregImportPageFwd, kypregImportPageFwd)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Import browser page fwd clicked")
+	EnqueueCid(cidBrowserFwd, kidSoundsImportGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Sound import browser page back", kidImportPageBack, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttImportPageBack)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\bback.bmp",
+	kxpregImportPageBack, kypregImportPageBack)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\bbackc.bmp",
+	kxpregImportPageBack, kypregImportPageBack)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Import browser page back clicked")
+	EnqueueCid(cidBrowserBack, kidSoundsImportGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Import browser cancel", kidImportCancel, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttEaselCancel)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\cancel.bmp",
+	kxpregImportCancel, kypregImportCancel)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\cancelc.bmp",
+	kxpregImportCancel, kypregImportCancel)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoCancelWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Import browser cancel clicked")
+	EnqueueCid(cidBrowserCancel, kidSoundsImportGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("Import browser Okay", kidImportOk, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 100)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsHand, CHID(kstDefault, kchidClick), cidNil, kttEaselOk)
+ENDCHUNK
+REP_RECT(CHID(kstBrowserInvisible, krepDefault ), "hidden", 0, 0, 0, 0)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault ), "studio\bmp\okay.bmp",
+	kxpregImportOk, kypregImportOk)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\okayc.bmp",
+	kxpregImportOk, kypregImportOk)
+REP_RECT(CHID(kstBrowserDisabled, krepDefault ), "hidden", 0, 0, 0, 0)
+ADOPT_WAVE(kcnoOkWav, CHID(kstBrowserEnabled, krepClicked))
+CLICK_SCRIPT("Import browser Ok clicked")
+	EnqueueCid(cidBrowserOk, kidSoundsImportGlass, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+// Transparent area for page number insertion.
+OBJECT("Import browser page number", kidImportPageNum, 100, kcrsArrow)
+REP_RECT(CHID(kstDefault, krepDefault), "Visible", 0, 0, kxpImportPageNumWidth, kypImportPageNumHeight)
+
+//
+//
+// Actor RollCall browser
+//
+//
+
+GOBCHUNK("RollCall actor browser background", kidRollCallActor, kgokkRectHit)
+	DEFAULT_POSITION( 0, 0, 10)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT( CHID1( krepDefault ), "actor rollcall", kxpRollCallActorLeft, kypRollCallActorTop,
+	kxpRollCallActorRight, kypRollCallActorBottom )
+CREATE_SCRIPT("RollCall actor browser created")
+
+	// Create page up and page down btns.
+	CreateChildThis(kidRollCallActorUpArrow, kidRollCallActorUpArrow);
+	MoveAbsGob(kidRollCallActorUpArrow, kxpRollCallActorPageUp, kypRollCallActorPageUp);
+	CreateChildThis(kidRollCallActorDownArrow, kidRollCallActorDownArrow);
+	MoveAbsGob(kidRollCallActorDownArrow, kxpRollCallActorPageDown, kypRollCallActorPageDown);
+
+	// Display actor thumbnail frames on the browser.
+
+	yp = kdypRollCallActorBorderTop;
+		
+	// Create four separate frames.
+
+	CreateChildThis(kidRollCallActorBorder1, kidRollCallActorBorder1);
+	MoveAbsGob(kidRollCallActorBorder1, kdxpRollCallActorBorderLeft, yp);
+	
+	yp += kdypRollCallActorSpacing + kdypRollCallActorBorder;
+
+	CreateChildThis(kidRollCallActorBorder2, kidRollCallActorBorder2);
+	MoveAbsGob(kidRollCallActorBorder2, kdxpRollCallActorBorderLeft, yp);
+	
+	yp += kdypRollCallActorSpacing + kdypRollCallActorBorder;
+
+	CreateChildThis(kidRollCallActorBorder3, kidRollCallActorBorder3);
+	MoveAbsGob(kidRollCallActorBorder3, kdxpRollCallActorBorderLeft, yp);
+	
+	yp += kdypRollCallActorSpacing + kdypRollCallActorBorder;
+
+	CreateChildThis(kidRollCallActorBorder4, kidRollCallActorBorder4);
+	MoveAbsGob(kidRollCallActorBorder4, kdxpRollCallActorBorderLeft, yp);
+
+ENDCHUNK
+
+// Create four separate frames here to allow different tooltips, (and bitmaps if necessary)
+
+GOBCHUNK("RollCall Actor browser border 1", kidRollCallActorBorder1, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame1)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame1)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcact1.bmp",
+	kxpregRollCallActorBorder1, kypregRollCallActorBorder1)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcact1e.bmp",
+	kxpregRollCallActorBorder1, kypregRollCallActorBorder1)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcact1s.bmp",
+	kxpregRollCallActorBorder1, kypregRollCallActorBorder1)
+CREATE_SCRIPT("Actor Rollcall border 1 create frame")
+	// We end up here ever time the state is changed to BrowserInvisible, because the
+	// create state and BrowserInvisible have the same value. Therefore only create
+	// the child frame here if it doesn't already exist.
+
+	If(!FGobExists(kidRollCallActorFrame1));
+		CreateChildThis(kidRollCallActorFrame1, kidRollCallActorFrame1);
+		MoveAbsGob(kidRollCallActorFrame1, kdxpRollCallActorLeft, kdypRollCallActorTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Actor enabled/selected border/frame 1 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallActor, kidRollCallActorFrame1, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Actor browser Frame 1", kidRollCallActorFrame1, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallActorRight, kdypRollCallActorBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+GOBCHUNK("RollCall Actor browser border 2", kidRollCallActorBorder2, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame2)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame2)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcact2.bmp",
+	kxpregRollCallActorBorder2, kypregRollCallActorBorder2)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcact2e.bmp",
+	kxpregRollCallActorBorder2, kypregRollCallActorBorder2)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcact2s.bmp",
+	kxpregRollCallActorBorder2, kypregRollCallActorBorder2)
+CREATE_SCRIPT("Actor Rollcall border 2 create frame")
+	If(!FGobExists(kidRollCallActorFrame2));
+		CreateChildThis(kidRollCallActorFrame2, kidRollCallActorFrame2);
+		MoveAbsGob(kidRollCallActorFrame2, kdxpRollCallActorLeft, kdypRollCallActorTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Actor enabled/selected border/frame 2 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallActor, kidRollCallActorFrame2, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Actor browser Frame 2", kidRollCallActorFrame2, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallActorRight, kdypRollCallActorBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+GOBCHUNK("RollCall Actor browser border 3", kidRollCallActorBorder3, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame3)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame3)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcact3.bmp",
+	kxpregRollCallActorBorder3, kypregRollCallActorBorder3)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcact3e.bmp",
+	kxpregRollCallActorBorder3, kypregRollCallActorBorder3)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcact3s.bmp",
+	kxpregRollCallActorBorder3, kypregRollCallActorBorder3)
+CREATE_SCRIPT("Actor Rollcall border 3 create frame")
+	If(!FGobExists(kidRollCallActorFrame3));
+		CreateChildThis(kidRollCallActorFrame3, kidRollCallActorFrame3);
+		MoveAbsGob(kidRollCallActorFrame3, kdxpRollCallActorLeft, kdypRollCallActorTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Actor enabled/selected border/frame 3 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallActor, kidRollCallActorFrame3, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Actor browser Frame 3", kidRollCallActorFrame3, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallActorRight, kdypRollCallActorBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+GOBCHUNK("RollCall Actor browser border 4", kidRollCallActorBorder4, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame4)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorFrame4)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcact4.bmp",
+	kxpregRollCallActorBorder4, kypregRollCallActorBorder4)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcact4e.bmp",
+	kxpregRollCallActorBorder4, kypregRollCallActorBorder4)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcact4s.bmp",
+	kxpregRollCallActorBorder4, kypregRollCallActorBorder4)
+CREATE_SCRIPT("Actor Rollcall border 4 create frame")
+	If(!FGobExists(kidRollCallActorFrame4));
+		CreateChildThis(kidRollCallActorFrame4, kidRollCallActorFrame4);
+		MoveAbsGob(kidRollCallActorFrame4, kdxpRollCallActorLeft, kdypRollCallActorTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Actor enabled/selected border/frame 4 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallActor, kidRollCallActorFrame4, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Actor browser Frame 4", kidRollCallActorFrame4, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, chidNil, cidNil, kttRollCallActorFrame4)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, chidNil, cidNil, kttRollCallActorFrame4)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallActorRight, kdypRollCallActorBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+// No generic page up/down to be used here, so must create these btns explicitly.
+
+GOBCHUNK("RollCall Actor up arrow", kidRollCallActorUpArrow, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 10)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorUpArrow)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcaup.bmp",
+	kxpregRollCallActorUp, kypregRollCallActorUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\rcaupc.bmp",
+	kxpregRollCallActorUp, kypregRollCallActorUp)
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcaupd.bmp",
+	kxpregRollCallActorUp, kypregRollCallActorUp)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CHILD_SCRIPT("RollCall Actor up arrow clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserBack, kidRollCallActor, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Actor down arrow", kidRollCallActorDownArrow, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 10)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallActorDownArrow)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcadwn.bmp",
+	kxpregRollCallActorDown, kypregRollCallActorDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\rcadwnc.bmp",
+	kxpregRollCallActorDown, kypregRollCallActorDown)
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcadwnd.bmp",
+	kxpregRollCallActorDown, kypregRollCallActorDown)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CHILD_SCRIPT("RollCall Actor down arrow clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserFwd, kidRollCallActor, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+
+//
+//
+// Prop RollCall browser
+//
+//
+
+GOBCHUNK("RollCall Prop browser background", kidRollCallProp, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 10)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT( CHID1( krepDefault ), "actor rollcall", kxpRollCallPropLeft, kypRollCallPropTop,
+	kxpRollCallPropRight, kypRollCallPropBottom )
+CREATE_SCRIPT("RollCall Prop browser created")
+
+	// Create page up and page down btns.
+
+	CreateChildThis(kidRollCallPropUpArrow, kidRollCallPropUpArrow);
+	MoveAbsGob(kidRollCallPropUpArrow, kxpRollCallPropPageUp, kypRollCallPropPageUp);
+	CreateChildThis(kidRollCallPropDownArrow, kidRollCallPropDownArrow);
+	MoveAbsGob(kidRollCallPropDownArrow, kxpRollCallPropPageDown, kypRollCallPropPageDown);
+
+	// Display Prop thumbnail frames on the browser.
+
+	yp = kdypRollCallPropBorderTop;
+		
+	// Create four separate frames.
+
+	CreateChildThis(kidRollCallPropBorder1, kidRollCallPropBorder1);
+	MoveAbsGob(kidRollCallPropBorder1, kdxpRollCallPropBorderLeft, yp);
+	
+	yp += kdypRollCallPropSpacing + kdypRollCallPropBorder;
+
+	CreateChildThis(kidRollCallPropBorder2, kidRollCallPropBorder2);
+	MoveAbsGob(kidRollCallPropBorder2, kdxpRollCallPropBorderLeft, yp);
+	
+	yp += kdypRollCallPropSpacing + kdypRollCallPropBorder;
+
+	CreateChildThis(kidRollCallPropBorder3, kidRollCallPropBorder3);
+	MoveAbsGob(kidRollCallPropBorder3, kdxpRollCallPropBorderLeft, yp);
+	
+	yp += kdypRollCallPropSpacing + kdypRollCallPropBorder;
+
+	CreateChildThis(kidRollCallPropBorder4, kidRollCallPropBorder4);
+	MoveAbsGob(kidRollCallPropBorder4, kdxpRollCallPropBorderLeft, yp);
+
+ENDCHUNK
+
+// Create four separate frames here to allow different tooltips, (and bitmaps if necessary)
+
+GOBCHUNK("RollCall Prop browser border 1", kidRollCallPropBorder1, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame1)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame1)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcp1.bmp",
+	kxpregRollCallPropBorder1, kypregRollCallPropBorder1)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcp1e.bmp",
+	kxpregRollCallPropBorder1, kypregRollCallPropBorder1)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcp1s.bmp",
+	kxpregRollCallPropBorder1, kypregRollCallPropBorder1)
+CREATE_SCRIPT("Prop Rollcall border 1 create frame")
+	If(!FGobExists(kidRollCallPropFrame1));
+		CreateChildThis(kidRollCallPropFrame1, kidRollCallPropFrame1);
+		MoveAbsGob(kidRollCallPropFrame1, kdxpRollCallPropLeft, kdypRollCallPropTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Prop enabled/selected border/frame 1 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallProp, kidRollCallPropFrame1, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Prop browser Frame 1", kidRollCallPropFrame1, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstAll, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallPropRight, kdypRollCallPropBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+GOBCHUNK("RollCall Prop browser border 2", kidRollCallPropBorder2, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame2)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame2)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcp2.bmp",
+	kxpregRollCallPropBorder2, kypregRollCallPropBorder2)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcp2e.bmp",
+	kxpregRollCallPropBorder2, kypregRollCallPropBorder2)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcp2s.bmp",
+	kxpregRollCallPropBorder2, kypregRollCallPropBorder2)
+CREATE_SCRIPT("Prop Rollcall border 2 create frame")
+	If(!FGobExists(kidRollCallPropFrame2));
+		CreateChildThis(kidRollCallPropFrame2, kidRollCallPropFrame2);
+		MoveAbsGob(kidRollCallPropFrame2, kdxpRollCallPropLeft, kdypRollCallPropTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Prop enabled/selected border/frame 2 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallProp, kidRollCallPropFrame2, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Prop browser Frame 2", kidRollCallPropFrame2, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallPropRight, kdypRollCallPropBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+GOBCHUNK("RollCall Prop browser border 3", kidRollCallPropBorder3, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame3)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame3)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcp3.bmp",
+	kxpregRollCallPropBorder3, kypregRollCallPropBorder3)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcp3e.bmp",
+	kxpregRollCallPropBorder3, kypregRollCallPropBorder3)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcp3s.bmp",
+	kxpregRollCallPropBorder3, kypregRollCallPropBorder3)
+CREATE_SCRIPT("Prop Rollcall border 3 create frame")
+	If(!FGobExists(kidRollCallPropFrame3));
+		CreateChildThis(kidRollCallPropFrame3, kidRollCallPropFrame3);
+		MoveAbsGob(kidRollCallPropFrame3, kdxpRollCallPropLeft, kdypRollCallPropTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Prop enabled/selected border/frame 3 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallProp, kidRollCallPropFrame3, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Prop browser Frame 3", kidRollCallPropFrame3, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallPropRight, kdypRollCallPropBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+GOBCHUNK("RollCall Prop browser border 4", kidRollCallPropBorder4, gokkNoHitKids)
+	DEFAULT_POSITION(0, 0, 20)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame4)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropFrame4)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcp4.bmp",
+	kxpregRollCallPropBorder4, kypregRollCallPropBorder4)
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcp4e.bmp",
+	kxpregRollCallPropBorder4, kypregRollCallPropBorder4)
+REP_MBMPREG(CHID(kstBrowserSelected, krepDefault), "studio\bmp\rcp4s.bmp",
+	kxpregRollCallPropBorder4, kypregRollCallPropBorder4)
+CREATE_SCRIPT("Prop Rollcall border 4 create frame")
+	If(!FGobExists(kidRollCallPropFrame4));
+		CreateChildThis(kidRollCallPropFrame4, kidRollCallPropFrame4);
+		MoveAbsGob(kidRollCallPropFrame4, kdxpRollCallPropLeft, kdypRollCallPropTop);
+	End;
+ENDCHUNK												
+CHILD_SCRIPT("RollCall Prop enabled/selected border/frame 4 clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserSelect, kidRollCallProp, kidRollCallPropFrame4, 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Prop browser Frame 4", kidRollCallPropFrame4, kgokkRectNoHit)
+	DEFAULT_POSITION(0, 0, 30)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, chidNil, cidNil, kttRollCallPropFrame4)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserSelected, kcrsHand, chidNil, cidNil, kttRollCallPropFrame4)
+ENDCHUNK
+REP_RECT(CHID1(krepDefault), "thumb", 0, 0, kdxpRollCallPropRight, kdypRollCallPropBottom)
+REP_ANIM(CHID(kstBrowserInvisible, krepDefault), "Set state of parent border")
+	Cell(CHID1(krepDefault), 0, 0, 10);
+	ChangeStateGob(GidParThis(), StateThis());
+ENDCHUNK
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserEnabled, krepDefault))
+ADOPT_ANIM(LAST_ANIM, CHID(kstBrowserSelected, krepDefault))
+
+// No generic page up/down to be used here, so must create these btns explicitly.
+
+GOBCHUNK("RollCall Prop up arrow", kidRollCallPropUpArrow, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 10)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropUpArrow)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcpup.bmp",
+	kxpregRollCallPropUp, kypregRollCallPropUp)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\rcpupc.bmp",
+	kxpregRollCallPropUp, kypregRollCallPropUp)
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcpupd.bmp",
+	kxpregRollCallPropUp, kypregRollCallPropUp)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CHILD_SCRIPT("RollCall Prop up arrow clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserBack, kidRollCallProp, GidThis(), 0, 0, 0);
+ENDCHUNK
+
+GOBCHUNK("RollCall Prop down arrow", kidRollCallPropDownArrow, kgokkRectHit)
+	DEFAULT_POSITION(0, 0, 10)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserInvisible, kcrsArrow, chidNil, cidNil, cnoNil)
+	ACTION(fcustNil, fcustNil, fgrfstBrowserEnabled, kcrsHand, CHID(kstBrowserEnabled, kchidClick), cidNil, kttRollCallPropDownArrow)
+ENDCHUNK
+REP_MBMPREG(CHID(kstBrowserEnabled, krepDefault), "studio\bmp\rcpdwn.bmp",
+	kxpregRollCallPropDown, kypregRollCallPropDown)
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseUpOn))
+ADOPT_MBMP(LAST_MBMP, CHID(kstBrowserEnabled, krepMouseDnOff))
+REP_MBMPREG(CHID(kstBrowserEnabled, krepMouseDnOn), "studio\bmp\rcpdwnc.bmp",
+	kxpregRollCallPropDown, kypregRollCallPropDown)
+REP_MBMPREG(CHID(kstBrowserInvisible, krepDefault), "studio\bmp\rcpdwnd.bmp",
+	kxpregRollCallPropDown, kypregRollCallPropDown)
+ADOPT_WAVE(kcnoBrwzBtnWav, CHID(kstBrowserEnabled, krepClicked))
+CHILD_SCRIPT("RollCall Prop down arrow clicked", CHID(kstBrowserEnabled, kchidClick))
+	EnqueueCid(cidBrowserFwd, kidRollCallProp, GidThis(), 0, 0, 0);
+ENDCHUNK

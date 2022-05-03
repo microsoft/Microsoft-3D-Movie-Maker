@@ -1,0 +1,377 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// -----------------------------------------------------
+//	LOBBY.CHT
+//
+//	 Copyright (C) Microsoft Corporation 1995.
+//	 All Rights reserved.
+//
+// -----------------------------------------------------
+//	Module Intent:
+//
+//	Contains the kauai script code for the Lobby.
+//
+//
+// 	Revisions:
+// 
+// 	mm-dd-yy
+// 	??-??-94    *****         - Created
+// 	
+// -----------------------------------------------------
+
+// ------------------------------------------------------------------------
+// Stuff for View #1 of lobby
+// ------------------------------------------------------------------------
+
+WAVE_CHUNK( "building\sound\lobby\bingo.wav", kwavBingo )
+WAVE_CHUNK( "building\sound\lobby\04_logn3.wav", kwav04_logn3 )
+WAVE_CHUNK( "building\sound\lobby\VO57A.wav", kwavVO57A	)
+WAVE_CHUNK( "building\sound\lobby\VO57aa.wav", kwavVO57AA	)
+WAVE_CHUNK( "building\sound\lobby\VO58.wav", kwavVO58	)
+WAVE_CHUNK( "building\sound\lobby\VO59.wav", kwavVO59	)
+
+
+
+OBJECT( "lobby1: mczee!", kgobLobby1McZee, 111, kcrsHand1 )
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 1: Default creation state.  And the dispatch state.  
+	// Use the global kstEntry to decide which state to enter next.
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	
+	REP_ANIM( CHID( kst1, krepEnterAnimation ), "lobby1: McZee!")
+		ASSERT(GLOBAL(kstEntry) == 2 || GLOBAL(kstEntry) == 3 ||
+				GLOBAL(kstEntry) == 5);
+
+		fFirstLoop = fTrue;			// Initialistaion ( used in state 2 )
+
+		// The following flag will control whether or not mczee audio accompanies 
+		// balloon creation. ie. in toggling help on and off McZee doesn't keep starting!
+		// If set to false, it does and this is then set to TRUE.  If true, no audio
+		// This is reset each time you create the lobby object.
+		.f1sthelp=fTrue;	
+	   	.fLipsink = fFalse;
+
+		If( GLOBAL( fLobby1PS ) && GLOBAL( kstEntry ) == kst2 );// If this is the first time coming to this room
+			ChangeStateThis( kst3 );							// then see McZee's WILD and ZANEY entrance first.
+		Else;
+			ChangeStateThis(GLOBAL(kstEntry));
+		End;
+	ENDCHUNK
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// State 2:  The looping McZee state, where the help balloon pops.
+	// Click McZee: turns help on and off
+	// Exits:  If theatre door clicked : kgobLobby1->fExitLobby set if so
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	 
+	REP_ANIM( CHID( kst2, krepDefault ), "lobby1:Wait state. Entry 2 (from map).")
+		DEBUGCMD( PrintStr("Lobby Mz: State 2") );
+
+		Cell( kcell184, 0,0, 6);	 // This is needed for proper placement of the help balloon.
+
+		If( GLOBAL(fHelpOn) );
+			CreateHelpGob( kgobLobby1, ktpcLobbyTip );
+		Elif( GLOBAL( fLob1stHelp ) ); 
+			SETGLOBAL( fLob1stHelp, fFalse );
+ 			SETGLOBAL( fHelpOn, fTrue );
+			CreateHelpGob( kgobLobby1, ktpcLobbyTip );
+		End;
+		
+		fFirstLoop = fTrue;
+		While( !kgobLobby1->fExitLobby );
+			
+			// The waitng loop.
+
+			// The idle loop cycle here makes use of animation
+			// not specficly designed for looping.  The use of 
+			// cells for looping is as follows:
+			// Traverse the cells kcell184 to kcell199,	then
+			// kcell198 to kcell185.
+			// The lipsink animation starts after kcell199, it is
+			// kcell401 to kcell423,  these are the origional cells 157 to 179
+			// with lip sinking added and the reason its those particular cells
+			// is a somewhat long story.
+			// At the end of the lip sinking I pick up with cell 180
+			// to get smoothly back to cell 184 and the start of the looping
+			// cycle.
+
+			If( !fFirstLoop );
+				If( .fLipsink );
+				   	.fLipsink = fFalse;
+					cnt = kcell401;
+					VOICE( kwavVO59, ktpcVO59 );
+					While( cnt < kcell423 );
+						Cell( cnt++, 0, 0, 6);                                  
+					End;
+					Cell( kcell180, 0, 0, 7);                                  
+					Cell( kcell181, 0, 0, 8);                                  
+					Cell( kcell182, 0, 0, 8);                                  
+					Cell( kcell183, 0, 0, 7);                                  
+				Else;
+					cnt = kcell198;
+					While( cnt > kcell184 );
+						Cell( cnt--, 0, 0, 6);
+					End;
+				End;
+			End;
+			fFirstLoop = fFalse;
+ 
+			cnt = kcell184;
+			While( cnt < kcell200 );
+				Cell( cnt++, 0, 0, 6);                                  
+			End;
+
+
+			If( !kgobLobby1->fExitLobby );
+				// McZee randomly tosses the carpet bag in the air.
+				If( Rnd(100) < 20 );
+					While( cnt < kcell218 );
+						Cell( cnt++, 0, 0, 6);
+					End;
+
+					// If McZee is to remain in the looping state he must catch 
+					// the carpet bag on his foot.  This one frame makes a good catch
+					// animation.
+
+					If( !kgobLobby1->fExitLobby );	// This "If" is here because McZee could be clicked
+						Cell( kcell203, 0, 0, 6);	// in this part of the animation.			
+					End;
+				End;
+			Else;
+				Cell( kcell203, 0, 0, 6);
+				Cell( kcell5, 0, 0, 6);	  // fork217 cell
+				Cell( kcell217, 0, 0, 6);
+			End;
+
+			ENDVOICE();
+		End;
+
+
+		ChangeStateThis( kst6 );
+	ENDCHUNK
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// State 3: Uniride to loop position decision point
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	REP_ANIM( CHID( kst3, krepDefault  ), "lobby1. UniRide to loop position, entry point." )
+		DEBUGCMD( PrintStr("Lobby Mz: State 3") );
+		// fLobby1PS --- PS = Per Session.  See flowchart for gory details.
+		If( !GLOBAL( fLobby1PS ) );	 // Not the 1st time here this session.
+			DEBUGCMD( PrintStr("flag fLobby1PS = fFalse") );
+			If( GLOBAL( fMovie ) );
+				DEBUGCMD( PrintStr("flag fMovie = fTrue") );
+				PLAYMIDI( kmidTheatre );
+				DISABLEHOTSPOTS(kflgBuildingMin);
+				Cell( kcell178, 0,0, 6);
+				WAIT_FOR_TRANSITION();		
+
+				cnt = kcell178;
+				While( cnt < kcell218 );		 // Do a loop then go to the pass thru sequence.
+					Cell( cnt++, 0,0, 6);
+				End;
+
+				ChangeStateThis( kst6 );	
+			Else;
+				ChangeStateThis( kst2 );
+			End;
+		Else;									 // The 1st time in this room.
+			SETGLOBAL( fLobby1PS, fFalse );		 // Reset the flag and show animation.		
+			If( GLOBAL( fMovie ) );
+				DISABLEHOTSPOTS(kflgBuildingMin);
+				PLAYMIDI( kmidTheatre );		 // This is by design, for a nointerruptible animation
+			End;								 // play the MIDI of the place thats next.
+			cnt = kcell10;
+			Cell( kcell10, 0,0, 6);
+			WAIT_FOR_TRANSITION();		
+			While( cnt < kcell117 );
+				If( cnt == kcell31 );
+					VOICE( kwavVO57A, ktpcVO57A );
+				Elif( cnt == kcell57 );
+					VOICE( kwavVO57AA, ktpcVO57AA );
+				End;
+				Cell( cnt++, 0,0, 6);
+			End;
+
+			ENDVOICE();
+
+			If( GLOBAL( fMovie ) );
+
+				cnt = kcell202;
+				While( cnt < kcell218 );		 // Segway to the exit seqence.
+					Cell( cnt++, 0,0, 6);
+				End;
+
+				ChangeStateThis( kst6 );
+			Else;			
+				ChangeStateThis( kst4 );
+			End;
+		End;
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst4, krepDefault ), "lobby1: Lobby welcome.")
+		DEBUGCMD( PrintStr("Lobby Mz: State 4") );
+		cnt = kcell117;
+		Cell( kcell117, 0,0, 1);
+		WAIT_FOR_TRANSITION();		
+
+		VOICE( kwavVO58, ktpcVO58 );
+		While( cnt < kcell184 );
+			Cell( cnt++, 0,0, 6);
+		End;
+
+		ENDVOICE();
+
+		ChangeStateThis( kst2 );
+	ENDCHUNK
+ 	
+	REP_ANIM( CHID( kst5, krepDefault ), "lobby1: Pass thru")
+		DEBUGCMD( PrintStr("Lobby Mz: State 5") );
+		// ***** 9.4.95 - this is now an AVI sequence
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		PLAYMIDI( kmidTheatre );
+		Cell( kcell302, 0, 0, 1);
+		WAIT_FOR_TRANSITION();
+		CreateChildGob( kgobLobby1, kgobLobbyAVI, kgobLobbyAVI );
+
+		// delay while AVI queues up then watch it and proceed appropriately
+		Cell( kcell302, 0,0, 100 );
+		While( PlayingGob( kgobLobbyAVI ));
+			Cell( kcell302, 0, 0, 10 );	// poll at 1/6ths of a second
+		End; 
+		ENABLEHOTSPOTS(kflgBuildingAll);
+		NEXTPLACE1( kgobTheatre1, kst7 );
+	ENDCHUNK
+
+	REP_ANIM( CHID( kst6, krepDefault ), "lobby1: Exit state.")
+		DEBUGCMD( PrintStr("Lobby Mz: State 6") );
+		cnt = kcell219;
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		While( cnt < kcell260 );
+			Cell( cnt++, 0,0, 6);
+		End;
+		NEXTPLACE1( kgobTheatre1, kst5 );
+	ENDCHUNK
+
+	CLICK_SCRIPT("Clicked Mz, toggle help")
+		DEBUGCMD( PrintStr("Lobby Mz: Clicked") );
+		If( StateThis() != kst2 );	// If not in the wait state..
+			ChangeStateThis( kst2 );// go to the wait state.
+			SETGLOBAL( fHelpOn, fTrue );		
+		Elif( GLOBAL( fHelpOn ) );
+			SETGLOBAL( fHelpOn, fFalse );
+			DestroyGob( kgobBalloon1d );   // This destroys the balloon that holds the tip
+		Else;
+			SETGLOBAL( fHelpOn, fTrue );
+			CreateHelpGob( kgobLobby1, ktpcLobbyTip );
+		End;
+	ENDCHUNK
+
+	REP_PPMBMP( kcell5, "building\pbm\lobby\fork217.pbm" )
+ 	#include "mzlobby.seq" // include all mczee cells
+
+OBJECTREG("McZee 04logn3 - AVI ", kgobLobbyAVI, 0, 0, 999, kcrsArrow1)
+	REP_VIDEO( CHID1( krepDefault ), "04logn3.avi", fTrue )
+
+
+
+HELP_SCRIPT( ktpcLobbyTip )
+ 	If( _parm[0] == 0 );
+		If( kgobLobby1McZee->f1sthelp );
+			kgobLobby1McZee->fLipsink = fTrue;
+			kgobLobby1McZee->f1sthelp = fFalse;
+		End;
+		Exit();
+	Elif( _parm[0] == 1 );		// clicked "go to theatre"
+		DestroyGob( kgobBalloon1d );
+		DISABLEHOTSPOTS(kflgBuildingMin);
+		kgobLobby1->fExitLobby=fTrue;
+
+	Elif( _parm[0] == 2 );		// go to the snackbar.
+
+		// Don't need to DestroyGob here because the whole
+		// lobby object is being destroyed.
+
+		NEXTPLACE1( kgobSnackBar, kst1 );
+	End;
+ENDCHUNK
+	
+OBJECT( "theatre door", kgobLobby1Door, 33, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\lobby\lob1door.bmp", 0, 0 )
+	CLICK_SCRIPT( "theatre door clicked" )
+		If(	!kgobLobby1->fExitLobby );  	// Prevents repeat strikes
+			PLAYMIDI( kmidTheatre );
+			If( GLOBAL( fHelpOn ) );  			// If help is up, remove for exit, but don't change the flag.
+				DestroyGob( kgobBalloon1d );   	// If it was up it should be up in the next room.
+			End;
+			If( StateGob(kgobLobby1McZee) != kst2 );  // The user has asked to go to the theater during
+				NEXTPLACE1( kgobTheatre1, kst5 );	  // a string of animation sequences.  Stop the seqences
+			Else;									  // and go to the theater.
+				DISABLEHOTSPOTS(kflgBuildingMin);
+				kgobLobby1->fExitLobby=fTrue;  // This allows a smooth exit from the wait state.
+			End;	
+		End;
+	ENDCHUNK
+
+
+// poster 3 = bio page # 35
+OBJECT( "poster #3",  kgobLobby1Poster3, 45, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\lobby\poster3.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 35 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 35 );
+			BIO_CREATEBOOK( 35, fFalse, kgobLobby1 );
+		End;		
+	ENDCHUNK
+
+// poster 4 = bio page #36
+OBJECT( "poster #4",  kgobLobby1Poster4, 45, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\lobby\poster4.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 36 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 36 );
+			BIO_CREATEBOOK( 36, fFalse, kgobLobby1 );
+		End;		
+	ENDCHUNK
+
+// back view
+
+OBJECT( "lobby 2 doors",  kgobLobby2Doors, 22, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),"building\bitmaps\lobby\lob2door.bmp", 0, 0 ) 
+	CLICK_SCRIPT( "lobby2 doors clicked" )
+		NEXTPLACE1( kgobTicket1, kst1 );
+	ENDCHUNK
+
+OBJECT( "lobby2 map",  kgobLobby2Map, 44, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ), "building\bitmaps\lobby\lob2map.bmp", 0, 0 )
+	CLICK_SCRIPT( "lobby 2 map clicked" ) 
+		CreateChildGob( GET_CURRENTPLACE(), kgobMapMain, kgobMapMain );
+	ENDCHUNK
+
+OBJECT( "lobby2 exit", kgobLobby2Exit, 44, kcrsHand1 )
+	REP_RECT( CHID1( krepDefault ), "exit sign", 403, 187, 429, 204 )
+	CLICK_SCRIPT( "lobby 2 exit clicked" ) 
+		QUITAPP();
+	ENDCHUNK
+
+OBJECT( "Biopage 30 mask",  kgobLobby1m1, 0, kcrsHand1 )
+	REP_MASK( CHID1( krepDefault ),  "building\bitmaps\lobby\lobby1m1.bmp", 0, 0 )
+	CLICK_SCRIPT( "mask clicked" ) 
+		If(fBIO_AVAIL( 30 ) );
+			// Bio Page already found
+			PlaySoundThis(kctgWave, kwavBioAlreadyFound, 0, 0x00010000, 1, 0,
+					ksclBldgSound);
+		Else;
+			BIO_MARKFOUND( 30 );
+			BIO_CREATEBOOK( 30, fFalse, kgobLobby1 );
+		End;		
+	ENDCHUNK

@@ -1,0 +1,114 @@
+# Use this file to automatically declare rules for a group of targets.
+# Set the "SRC_DIR" variable to the appropriate directory, set OBJ_DIR
+# to the appropriate target directory and then include this file.
+
+# If the "LOCAL_BUILD" variable is defined and set to "1", this indicates that
+# we're already cd'd to the target directory.  This allows nmake to use a much
+# simpler set of make rules.
+
+#-Compile rules-------------------------------------------------------------
+
+
+!IF "$(LOCAL_BUILD)" != "1"
+
+!IF "$(LOCAL_BUILD)" != "0"
+
+{$(SRC_DIR)}.cpp.obj:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.obj
+
+{$(SRC_DIR)}.cpp.exe:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.exe
+
+{$(SRC_DIR)}.asm.obj:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.obj
+
+{$(SRC_DIR)}.rc.res:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.res
+
+{$(SRC_DIR)}.cht.chk:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.chk
+
+{$(SRC_DIR)}.cpp.i:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.i
+
+{$(SRC_DIR)}.cpp.cod:
+    @nmake /NOLOGO $(OBJ_DIR)\%|fF.cod
+
+!ENDIF # LOCAL_BUILD != 0
+
+
+{$(SRC_DIR)}.cpp{$(OBJ_DIR)}.obj:
+    !@echo Compiling $(TGT_NAME) Src... $<
+    $(CPP) $(CPPFLAGS) /Zi /Fd$(KAUAI_OBJ_DIR)\kauai.pdb /Fp$(KAUAI_OBJ_DIR)\kauai.pch /Fo$@ $(DEFS) $<
+    $(CHKERR)
+
+
+{$(SRC_DIR)}.c{$(OBJ_DIR)}.obj:
+    !@echo Compiling $(TGT_NAME) Src... $<
+    $(CPP) $(CPPFLAGS) /Zi /Fd$(KAUAI_OBJ_DIR)\kauai.pdb /Fp$(KAUAI_OBJ_DIR)\kauai.pch /Fo$@ $(DEFS) $<
+    $(CHKERR)
+
+
+{$(SRC_DIR)}.asm{$(OBJ_DIR)}.obj:
+    !@echo Compiling $(TGT_NAME) Assembly Src... $<
+    $(ASM) $(ASMFLAGS) /Fo$@ $(DEFS) $<
+    $(CHKERR)
+
+
+{$(SRC_DIR)}.rc{$(OBJ_DIR)}.res:
+    !@echo Compiling $(TGT_NAME) Resource... $<
+    $(RC) $(DEFS) /Fo$*.res $<
+    $(CHKERR)
+
+
+{$(SRC_DIR)}.cht{$(OBJ_DIR)}.chk:
+    cl /E -I%|pF $(DEFS) /Tp$< > $(OBJ_DIR)\$(@B).i
+    $(CHOMP) $(OBJ_DIR)\$(@B).i $*.chk
+    $(CHKERR)
+
+
+{$(SRC_DIR)}.cpp{$(OBJ_DIR)}.i:
+    !@echo Compiling $(TGT_NAME) Src... $<
+    $(CPP) /E $(DEFS) $< > $*.i
+    $(CHKERR)
+
+
+{$(SRC_DIR)}.cpp{$(OBJ_DIR)}.cod:
+    !@echo Compiling $(TGT_NAME) Src... $<
+    $(CPP) /FAcs $(CPPFLAGS) /Zi /Fd$(KAUAI_OBJ_DIR)\kauai.pdb /Fp$(KAUAI_OBJ_DIR)\kauai.pch $(DEFS) /Fa$*.cod  $<
+    $(CHKERR)
+
+
+!ELSE   # !LOCAL_BUILD
+
+
+{$(SRC_DIR)}.cpp.obj:
+    $(CPP) $(CPPFLAGS) /Zi /Fdkauai.pdb /Fpkauai.pch $(DEFS) $<
+    $(CHKERR)
+
+{$(SRC_DIR)}.c.obj:
+    $(CPP) $(CPPFLAGS) /Zi /Fdkauai.pdb /Fpkauai.pch $(DEFS) $<
+    $(CHKERR)
+
+{$(SRC_DIR)}.asm.obj:
+   $(ASM) $(ASMFLAGS) /Fo$@ $(DEFS) $<
+
+{$(SRC_DIR)}.rc.res:
+    $(RC) $(DEFS) /Fo$*.res $<
+    $(CHKERR)
+
+{$(SRC_DIR)}.cht.chk:
+    cl /P -I%|pF $(DEFS) /Tp$<
+    $(CHOMP) $(@B).i $*.chk
+    $(CHKERR)
+
+{$(SRC_DIR)}.cpp.i:
+    $(CPP) /P $(DEFS) $<
+    $(CHKERR)
+
+{$(SRC_DIR)}.cpp.cod:
+    $(CPP) /FAcs $(CPPFLAGS) /Zi /Fdkauai.pdb /Fpkauai.pch $(DEFS) /Fa%|fF.cod  $<
+    $(CHKERR)
+
+
+!ENDIF  # LOCAL_BUILD

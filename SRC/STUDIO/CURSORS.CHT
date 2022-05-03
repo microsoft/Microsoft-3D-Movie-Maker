@@ -1,0 +1,51 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+//
+// Studio cur
+//
+
+CURSORCHUNK( "studio\cur\repositi.cur", kcrsCompose ) 		// "Compose cursor"
+CURSORCHUNK( "studio\cur\squashst.cur", kcrsSquashStretch ) // "squashstretch"
+CURSORCHUNK( "studio\cur\sizevenl.cur", kcrsResize ) 		// "resize"
+CURSORCHUNK( "studio\cur\rotatex.cur", kcrsRotateX ) 		// "rotateX"
+CURSORCHUNK( "studio\cur\rotatey.cur", kcrsRotateY ) 		// "rotateY"
+CURSORCHUNK( "studio\cur\rotatez.cur", kcrsRotateZ ) 		// "rotateZ"
+CURSORCHUNK( "studio\cur\costume.cur", kcrsCostume ) 		// "costume"
+CURSORCHUNK( "studio\cur\repositi.cur", kcrsRecord ) 		// "motionfill"
+CURSORCHUNK( "studio\cur\hotspot.cur", kcrsTweak ) 		// "tweak"
+CURSORCHUNK( "studio\cur\normaliz.cur", kcrsNormalizeRot ) 	// "normalize"
+CURSORCHUNK( "studio\cur\default.cur", kcrsDefault ) 		// "Default"
+CURSORCHUNK( "studio\cur\repositi.cur", kcrsTboxMove ) 		// "TboxMove"
+CURSORCHUNK( "studio\cur\tboxvert.cur", kcrsTboxUpDown ) 	// "TboxUpDown"
+CURSORCHUNK( "studio\cur\tboxhor.cur", kcrsTboxLeftRight ) // "TboxLeftRight"
+CURSORCHUNK( "studio\cur\tboxfall.cur", kcrsTboxFalling ) 	// "TboxFalling"
+CURSORCHUNK( "studio\cur\tboxrise.cur", kcrsTboxRising ) 	// "TboxRising"
+CURSORCHUNK( "studio\cur\nukscen.cur", kcrsNuke ) 			// "Nuke"
+CURSORCHUNK( "studio\cur\creatbox.cur", kcrsTboxCreate ) 	// "TboxCreate"
+CURSORCHUNK( "studio\cur\ibeam.cur", kcrsIBeam ) 			// "IBeam"
+CURSORCHUNK( "studio\cur\cutactor.cur", kcrsCutObject ) 	// "CutObject"
+CURSORCHUNK( "studio\cur\copy.cur", kcrsCopyObject ) 		// "CopyObject"
+CURSORCHUNK( "studio\cur\copypath.cur", kcrsCopyRte ) 		// "CopyRte"
+CURSORCHUNK( "studio\cur\paste.cur", kcrsPasteObject ) 		// "PasteObject"
+CURSORCHUNK( "studio\cur\removaft.cur", kcrsSceneChop ) 	// "SceneChop"
+CURSORCHUNK( "studio\cur\cutext.cur", kcrsCutText ) 		//  "CutText"
+CURSORCHUNK( "studio\cur\copytext.cur", kcrsCopyText ) 		// "CopyText"
+CURSORCHUNK( "studio\cur\pastetex.cur", kcrsPasteText ) 	// "PasteText"
+CURSORCHUNK( "studio\cur\pastepth.cur", kcrsPasteRte ) 		// "PasteRte"
+CURSORCHUNK( "studio\cur\fontextc.cur", kcrsPaintText ) 	// "Paint Text"
+CURSORCHUNK( "studio\cur\textback.cur", kcrsFillBkgd ) 		// "Fill Text"
+CURSORCHUNK( "studio\cur\cur00001.cur", kcrsMatcher )       // kcrsMatcher
+CURSORCHUNK( "studio\cur\cur00002.cur", kcrsLooper )        // kcrsLooper
+CURSORCHUNK( "studio\cur\cur00003.cur", kcrsSounder )       // kcrsSounder
+CURSORCHUNK( "studio\cur\listen.cur", kcrsListener )      // kcrsListener
+CURSORCHUNK( "studio\cur\squashst.cur", kcrsSoonerLater )   // kcrsSoonerLater
+CURSORCHUNK( "studio\cur\repositi.cur", kcrsComposeAll ) 	// "Compose All cursor"
+CURSORCHUNK( "studio\cur\normaliz.cur", kcrsNormalizeSize ) // "Normalize size"
+CURSORCHUNK( "studio\cur\textback.cur", kcrsTboxStory )		// "Make a tbox into a story tbox"
+CURSORCHUNK( "studio\cur\textback.cur", kcrsTboxCredit )	// "Make a tbox into a credit tbox"
+CURSORCHUNK( "studio\cur\fontextc.cur", kcrsTboxFont )		// "Set font of a tbox"
+CURSORCHUNK( "studio\cur\fontextc.cur", kcrsTboxFontSize )	// "Set font size of a tbox"
+CURSORCHUNK( "studio\cur\fontextc.cur", kcrsTboxFontStyle )	// "Set font style of a tbox"
+CURSORCHUNK( "studio\cur\removbef.cur", kcrsSceneChopBack ) // "SceneChopBack"
+

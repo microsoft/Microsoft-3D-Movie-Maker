@@ -1,0 +1,278 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+// Help resource Chunky Text build file
+
+
+#define PACK PACK
+#include "kidgs.chh"
+#include "helpres.h"
+
+//STARTCHUNKY 
+
+HELP_MBMP(helppic1016_bmp, "studio\bmp\pic1016.bmp")
+HELP_MBMP(helppic1016d_bmp, "studio\bmp\pic1016d.bmp")
+HELP_MBMP(helppic1016r_bmp, "studio\bmp\pic1016r.bmp")
+HELP_MBMP(helppic1020_bmp, "studio\bmp\pic1020.bmp")
+HELP_MBMP(helppic1020d_bmp, "studio\bmp\pic1020d.bmp")
+HELP_MBMP(helppic1020r_bmp, "studio\bmp\pic1020r.bmp")
+HELP_MBMP(mbmpOkButton_bmp, "studio\bmp\okbtn1.bmp")
+HELP_MBMP(mbmpOkButtond_bmp, "studio\bmp\okbtn2.bmp")
+HELP_MBMP(mbmpOkButtonr_bmp, "studio\bmp\okbtn3.bmp")
+HELP_MBMP(mbmpQstButton_bmp, "studio\bmp\pic1016.bmp")
+HELP_MBMP(mbmpQstButtond_bmp, "studio\bmp\pic1016d.bmp")
+HELP_MBMP(mbmpQstButtonr_bmp, "studio\bmp\pic1016r.bmp")
+
+//////////
+ 
+//HELP_MBMP(mbmpSettingsCover, "covr1d.bmp")
+//HELP_MBMP(mbmpActorsCover     , "covr2d.bmp")
+//HELP_MBMP(mbmpSoundsCover     , "covr3d.bmp")
+//HELP_MBMP(mbmpTextsCover      , "covr4d.bmp")
+//HELP_MBMP(mbmpScrollbarsCover, "covr5d.bmp")
+//HELP_MBMP(mbmpPlaysCover      , "covr6d.bmp")
+//HELP_MBMP(mbmpUndosCover      , "covr7d.bmp")
+//HELP_MBMP(mbmpBooksCover      , "covr8d.bmp")
+//HELP_MBMP(mbmpDoors           , "door0.bmp")
+//HELP_MBMP(mbmpSettingsBackground, "1par.bmp")
+//HELP_MBMP(mbmpActorsBackground, "2par.bmp")
+//HELP_MBMP(mbmpSoundsBackground, "3par.bmp")
+//HELP_MBMP(mbmpTextsBackground, "4par.bmp")
+
+HELP_MBMP(mbmpCutWordBox, "studio\bmp\hpcutwbx.bmp")
+HELP_MBMP(mbmpHandCursor, "studio\bmp\hphndcur.bmp")
+HELP_MBMP(mbmpWordBoxCursor, "studio\bmp\hpwbcur.bmp")
+HELP_MBMP(mbmpLeannCancel, "studio\bmp\hplcanc.bmp")
+HELP_MBMP(mbmpLeannOk, "studio\bmp\hplok.bmp")
+HELP_MBMP(mbmpFOScrolling, "studio\bmp\hpscrl.bmp")
+HELP_MBMP(mbmpFONonScrolling, "studio\bmp\hpnscrl.bmp")
+HELP_MBMP(mbmpVolumeControl, "studio\bmp\hpvolctl.bmp")
+HELP_MBMP(mbmpForward, "studio\bmp\hpffw.bmp")
+HELP_MBMP(mbmpForwardEnd, "studio\bmp\hpffwe.bmp")
+HELP_MBMP(mbmpRewind, "studio\bmp\hpfrw.bmp")
+HELP_MBMP(mbmpRewindEnd, "studio\bmp\hpfrwe.bmp")
+HELP_MBMP(mbmpNukeIcon, "studio\bmp\hpnuke.bmp")
+HELP_MBMP(mbmpSoundRecord, "studio\bmp\hpsndrec.bmp")
+HELP_MBMP(mbmpSoundPlay, "studio\bmp\hpsndply.bmp")
+HELP_MBMP(mbmpCostChangeIcon, "studio\bmp\hpcstchg.bmp")
+HELP_MBMP(mbmpSceneSlider, "studio\bmp\hpscnsld.bmp")
+HELP_MBMP(mbmpFrameSlider, "studio\bmp\hpfrmsld.bmp")
+HELP_MBMP(mbmpSOTransition1, "studio\bmp\hpe3trn1.bmp")
+HELP_MBMP(mbmpSOTransition2, "studio\bmp\hpe3trn2.bmp")
+HELP_MBMP(mbmpSOTransition3, "studio\bmp\hpe3trn3.bmp")
+HELP_MBMP(mbmpSOTransition4, "studio\bmp\hpe3trn4.bmp")
+HELP_MBMP(mbmpRecordMic, "studio\bmp\hpsndmic.bmp")
+HELP_MBMP(mbmpPortfolioOpen, "studio\bmp\hpptopen.bmp")
+HELP_MBMP(mbmpPortfolioSaveAs, "studio\bmp\hpptsvas.bmp")
+HELP_MBMP(mbmpCCPRemoveBefore, "studio\bmp\hpccpreb.bmp")
+HELP_MBMP(mbmpCCPRemoveAfter, "studio\bmp\hpccprea.bmp")
+HELP_MBMP(mbmpCCPRemoveScene, "studio\bmp\hpccpres.bmp")
+HELP_MBMP(mbmpCCPRemoveObject, "studio\bmp\hpccprob.bmp")
+HELP_MBMP(mbmpActorActions, "studio\bmp\hpaction.bmp")
+
+HELP_MBMP( mbmpSceneChoices, "studio\bmp\hp1back.bmp" )
+
+HELP_MBMP( mbmpSettingsCameras, "studio\bmp\hp1view.bmp" )
+
+HELP_MBMP( mbmpActorsSelect, "studio\bmp\hp2arrw.bmp" )
+
+HELP_MBMP( mbmpActorsBiography, "studio\bmp\hp2bio.bmp" )
+
+HELP_MBMP( mbmpActorsCompose, "studio\bmp\hp2comp.bmp" )
+
+HELP_MBMP( mbmpActorsCostume, "studio\bmp\hp2cost.bmp" )
+
+HELP_MBMP( mbmpActorsNormalizeRot, "studio\bmp\hpp5norm.bmp" )
+
+// REVIEW THIS PLEASE!
+
+//#define mbmpBrwsAction                0x2001A
+//REP_MBMPREG(CHID(kstDefault, krepDefault), "2act01.bmp",
+
+HELP_MBMP( mbmpActorsRecordMode, "studio\bmp\hp2recd.bmp" )
+
+HELP_MBMP( mbmpActorsRotateX, "studio\bmp\hpp5rotx.bmp" )
+
+HELP_MBMP( mbmpActorsRotateY, "studio\bmp\hpp5roty.bmp" )
+
+HELP_MBMP( mbmpActorsRotateZ, "studio\bmp\hpp5rotz.bmp" )
+
+HELP_MBMP( mbmpActorsSooner     , "studio\bmp\hp2soon.bmp" )
+
+HELP_MBMP( mbmpActorsSquash     , "studio\bmp\hpp4sqsh.bmp" )
+
+HELP_MBMP( mbmpActorsShrink     , "studio\bmp\hpp4shrk.bmp" )
+
+HELP_MBMP( mbmpActorsXY         , "studio\bmp\hp2xy.bmp" )
+
+HELP_MBMP( mbmpActorsXZ         , "studio\bmp\hp2xys.bmp" )
+
+HELP_MBMP( mbmpActorsGround     , "studio\bmp\hp2zero.bmp" )
+
+// #define mbmpSoundsMixer              0x20025
+
+HELP_MBMP( mbmpSoundsPlayOnce, "studio\bmp\hp3sing.bmp" )
+
+HELP_MBMP( mbmpSoundsListen     , "studio\bmp\hp3ear.bmp" )
+
+// #define mbmpSoundsRecord             0x20028
+
+HELP_MBMP( mbmpSoundsLooping, "studio\bmp\hp3loop.bmp" )
+
+HELP_MBMP( mbmpSoundsAttachToCell, "studio\bmp\hp3rpt.bmp" )
+
+// #define mbmpSoundsClear              0x2002B
+
+HELP_MBMP( mbmpTextsBkgdColor, "studio\bmp\hp4back.bmp" )
+
+HELP_MBMP( mbmpTextsFontShape, "studio\bmp\hp4bold.bmp" )
+
+HELP_MBMP( mbmpTextsFontColor, "studio\bmp\hp4colr.bmp" )
+
+HELP_MBMP( mbmpTextsFont        , "studio\bmp\hp4font.bmp" )
+
+HELP_MBMP( mbmpTextsSelect      , "studio\bmp\hp4ins.bmp" )
+
+HELP_MBMP( mbmpTextsScroll      , "studio\bmp\hpp7scrl.bmp" )
+
+HELP_MBMP( mbmpTextsFontSize, "studio\bmp\hp4size.bmp" )
+
+HELP_MBMP( mbmpTextsStory       , "studio\bmp\hpp7nscr.bmp" )
+
+HELP_MBMP( mbmpBook                     , "studio\bmp\hpbook.bmp" )
+
+HELP_MBMP( mbmpMap                      , "studio\bmp\hpmap.bmp" )
+
+HELP_MBMP( mbmpCutCopyPaste     , "studio\bmp\hpccp.bmp" )
+
+HELP_MBMP( mbmpUndo                     , "studio\bmp\hpundo.bmp" )
+
+//HELP_MBMP( mbmpVolumeSlider   , "studio\bmp\hpvol.bmp" )
+
+HELP_MBMP( mbmpPlay                     , "studio\bmp\hpplay.bmp" )
+
+HELP_MBMP( mbmpPlayStop         , "studio\bmp\hpplays.bmp" )
+
+HELP_MBMP( mbmpSceneSorter      , "studio\bmp\hp1scen.bmp" )
+
+HELP_MBMP( mbmpPortfolio        , "studio\bmp\hpport.bmp" )
+
+HELP_MBMP( mbmpExit                     , "studio\bmp\hpexit.bmp" )
+
+//HELP_MBMP( mbmpBrwsBackground, "studio\bmp\hpbook1.bmp" )
+
+// HELP_MBMP( mbmpBrwsActor     , "studio\bmp\hpbook3.bmp" )
+
+//#define mbmpBrwsProp                  0x20040
+//#define mbmpBrwsThreeD                0x20041
+//#define mbmpSettingsBrowser   0x20042
+//#define mbmpBrwsBkSound               0x20043
+//#define mbmpBrwsFXSound               0x20044
+//#define mbmpBrwsMusSound              0x20045
+
+HELP_MBMP( mbmpTextsCreate      , "studio\bmp\hp4new.bmp" )
+
+//HELP_MBMP( mbmpPortsBackground, "studio\bmp\hpp1par.bmp" )
+
+//HELP_MBMP( mbmpPortsPortfolio, "studio\bmp\hpp1port.bmp" )
+
+HELP_MBMP( mbmpPortsNew         , "studio\bmp\hpp1new.bmp" )
+
+HELP_MBMP( mbmpPortsSave        , "studio\bmp\hpp1save.bmp" )
+
+HELP_MBMP( mbmpPausesMouse      , "studio\bmp\hp1mous.bmp" )
+
+HELP_MBMP( mbmpPausesClear      , "studio\bmp\hp1nops.bmp" )
+
+HELP_MBMP( mbmpPausesSound      , "studio\bmp\hp1note.bmp" )
+
+//HELP_MBMP( mbmpCCPBackground, "studio\bmp\hpp3par.bmp" )
+
+//HELP_MBMP( mbmpCCPSceneChopFwd, "studio\bmp\hpp3rmfw.bmp" )
+
+//HELP_MBMP( mbmpCCPSceneNuke   , "studio\bmp\hpp3rmsn.bmp" )
+
+//HELP_MBMP( mbmpCCPActorNuke   , "studio\bmp\hpp3rmac.bmp" )
+
+HELP_MBMP( mbmpCCPCopyRoute     , "studio\bmp\hpp3cppt.bmp" )
+
+HELP_MBMP( mbmpCCPPaste         , "studio\bmp\hpp3past.bmp" )
+
+HELP_MBMP( mbmpCCPCopy          , "studio\bmp\hpp3copy.bmp" )
+
+HELP_MBMP( mbmpCCPCut           , "studio\bmp\hpp3cut.bmp" )
+
+HELP_MBMP( mbmpGenericCancel, "studio\bmp\hpcancel.bmp" )
+
+HELP_MBMP( mbmpGenericOk        , "studio\bmp\hpokay.bmp" )
+
+HELP_MBMP( mbmpGenericPageFwd, "studio\bmp\hpfwd.bmp" )
+
+HELP_MBMP( mbmpGenericPageBack, "studio\bmp\hpbback.bmp" )
+
+//#define mbmpBrowserCancel     0x2005C
+//#define mbmpBrowserOk         0x2005D
+//#define mbmpBrowserPageFwd    0x2005E
+//#define mbmpBrowserPageBack   0x2005F
+//#define mbmpBrowserFrame              0x20060 //Next 0x100 are reserved
+//#define mbmpBrowserFrameLim   0x2015F
+
+//HELP_MBMP( mbmpCameraFrame    , "studio\bmp\hpframe2.bmp", 8 ,8 )
+
+//#define mbmpWorkspace         0x20161
+//#define mbmpBackground1               0x20162
+//#define mbmpBackground2               0x20163
+//#define mbmpBackground3               0x20164
+//#define mbmpBackground4               0x20165
+
+//HELP_MBMP( mbmpCCPSceneChopBack, "studio\bmp\hpp3rmbk.bmp" )
+
+HELP_MBMP( mbmpActorsContinue, "studio\bmp\hp2cont.bmp" )
+
+HELP_MBMP( mbmpActorsRotate     , "studio\bmp\hp2rot.bmp" )
+
+
+HELP_MBMP( mbmpActorsTransform, "studio\bmp\hp2tran.bmp" )
+
+// HELP_MBMP( mbmpRotateBackground, "studio\bmp\hpp5par.bmp" )
+
+// HELP_MBMP( mbmpTransformBackground, "studio\bmp\hpp4par.bmp" )
+
+// HELP_MBMP( mbmpScrollBackground, "studio\bmp\hpp7par.bmp" )
+
+HELP_MBMP( mbmpTextsScrollType, "studio\bmp\hp4scrl.bmp" )
+
+//#define mbmpBrowserObj                0x2016E
+//#define mbmpBrowserThumb              0x20170 //Next 0x100 are reserved
+//#define mbmpBrowserThumbLim   0X2026F
+
+HELP_MBMP( mbmpActorsRotateNorm, "studio\bmp\hpp5norm.bmp" )
+
+HELP_MBMP( mbmpActorsTransformNorm, "studio\bmp\hpp4norm.bmp" )
+
+//HELP_MBMP( mbmpBrwsSceneFrame, "studio\bmp\hpframe1.bmp", 8 ,8 )
+
+//#define mbmpBrwsActorFrame    0x20275 // CNO for Actor browser frame
+//#define mbmpBrwsMaterial              0x20276
+//#define mbmpBrwsCMaterial     0x20277
+//#define mbmpBrwsThreeD                0x20278
+//#define mbmpBrwsFonts         0x20279
+//#define mbmpBrwsForeColor     0x2027A
+//#define mbmpBrwsBackColor     0x2027B
+//#define mbmpBrwsTextSize              0x2027C
+
+HELP_MBMP( mbmpActorsBrowser, "studio\bmp\hp2actr.bmp" )
+
+HELP_MBMP( mbmpActorsPropBrowser, "studio\bmp\hp2prop.bmp" )
+
+HELP_MBMP( mbmpActorsSpletters, "studio\bmp\hp2splt.bmp" )
+
+HELP_MBMP( mbmpSoundsEfxBrowser, "studio\bmp\hp3horn.bmp" )
+
+HELP_MBMP( mbmpSoundsMicBrowser , "studio\bmp\hp3mike.bmp" )
+
+HELP_MBMP( mbmpSoundsMusicBrowser, "studio\bmp\hp3note.bmp" )
+
+HELP_MBMP( mbmpRedo, "studio\bmp\hpredo.bmp" )
+HELP_MBMP( mbmpNukeSound, "studio\bmp\hpp3rmsd.bmp" )
+

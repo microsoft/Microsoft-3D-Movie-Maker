@@ -1,0 +1,317 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "chedres.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "framedef.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+128 MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                cidNew
+        MENUITEM "&Open...\tCtrl+O",            cidOpen
+        MENUITEM "&Reopen",                     cidReopen
+        MENUITEM SEPARATOR
+        MENUITEM "New &Text",                   cidNewText
+        MENUITEM "Open T&ext...",               cidOpenText
+        MENUITEM SEPARATOR
+        MENUITEM "&Close\tCtrl+W",              cidClose
+        MENUITEM "Sa&ve and Close  \tCtrl+E",   cidSaveAndClose
+        MENUITEM "&Save\tCtrl+S",               cidSave
+        MENUITEM "Save &As...",                 cidSaveAs
+        MENUITEM "Save a Cop&y...",             cidSaveCopy
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tCtrl+Q",               cidQuit
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               cidUndo
+        MENUITEM "&Redo\tCtrl+A",               cidRedo
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                cidCut
+        MENUITEM "&Copy\tCtrl+C",               cidCopy
+        MENUITEM "&Paste\tCtrl+V",              cidPaste
+        MENUITEM "Paste Clo&ne\tCtrl+K",        cidPasteSpecial
+        MENUITEM "&Delete\tDel",                cidClear
+        MENUITEM SEPARATOR
+        MENUITEM "&Show Clipboard",             cidShowClipboard
+    END
+    POPUP "&Chunk"
+    BEGIN
+        MENUITEM "&New Chunk...",               cidAddChunk
+        MENUITEM "&Delete Chunk",               cidDeleteChunk
+        MENUITEM "&Undelete Chunk",             cidUndeleteChunk
+        MENUITEM "Clone Chunk\tCtrl+L",         cidCloneChunk
+        MENUITEM SEPARATOR
+        MENUITEM "Fil&ter...",                  cidFilterChunk
+        MENUITEM "&Edit Chunk Information...\tCtrl+Enter", cidEditChunkInfo
+        MENUITEM "C&hange CHID...\tCtrl+Enter", cidChangeChid
+        MENUITEM SEPARATOR
+        MENUITEM "&Add Child...",               cidAdoptChunk
+        MENUITEM "De&lete Child",               cidUnadoptChunk
+        MENUITEM SEPARATOR
+        MENUITEM "Pac&k / Unpack",              cidPack
+        MENUITEM "T&oggle Pack Flag",           cidTogglePack
+        MENUITEM SEPARATOR
+        MENUITEM "Import &Bitmap...",           cidAddMbmpChunk
+        MENUITEM "Import &Mask...",             cidAddMaskChunk
+        MENUITEM "Import &Picture...",          cidAddPicChunk
+        MENUITEM "Import &File...",             cidAddFileChunk
+        MENUITEM SEPARATOR
+        MENUITEM "Compile &Script...",          cidCompileInScript
+        MENUITEM "Assemble Sc&ript...",         cidCompilePostScript
+        MENUITEM SEPARATOR
+        MENUITEM "&Compile To Chunky File",     cidCompileChunky
+        MENUITEM "Compile Script (&GLOP)",      cidCompileScript
+        MENUITEM "Assemble Scr&ipt (GLOP)",     cidAssembleScript
+    END
+    POPUP "Edit &As"
+    BEGIN
+        MENUITEM "Use as &Color Table (GLCR)",  cidSetColorTable
+        MENUITEM "Run Script (GLO&P) (3MB)\tCtrl+R", cidTestScript
+        MENUITEM "R&un Script (GLOP)...\tCtrl+T", cidRunScriptCache
+        MENUITEM "&Disassemble Script (GLOP)",  cidDisassembleScript
+        MENUITEM SEPARATOR
+        MENUITEM "&Natural\tEnter",             cidEditNatural
+        MENUITEM "&Hex\tCtrl+H",                cidEditHex
+        MENUITEM SEPARATOR
+        MENUITEM "General &List (GL)",          cidEditGL
+        MENUITEM "Allocated L&ist (AL)",        cidEditAL
+        MENUITEM "General &Group (GG)",         cidEditGG
+        MENUITEM "Allocated G&roup (AG)",       cidEditAG
+        MENUITEM "General &String Table (GST)", cidEditGST
+        MENUITEM "Allocated S&tring Table (AST)", cidEditAST
+        MENUITEM SEPARATOR
+        MENUITEM "Picture (&META)",             cidEditPic
+        MENUITEM "Masked Bitmap (M&BMP)",       cidEditMbmp
+        MENUITEM "Play Sound (&WAVE or MIDI)",  cidPlaySound
+        MENUITEM "St&op Sound",                 cidStopSound
+    END
+    POPUP "&Item"
+    BEGIN
+        MENUITEM "&Insert",                     cidInsertItem
+        MENUITEM "&Add",                        cidAddItem
+        MENUITEM "&Delete",                     cidDeleteItem
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "_",                           cidChooseWnd
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "chedres.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""framedef.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""frame.rc""\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+dlidChunkInfo DIALOG DISCARDABLE  50, 50, 185, 71
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Chunk Info"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "&OK",1,111,9,50,14
+    PUSHBUTTON      "&Cancel",2,111,29,50,14
+    EDITTEXT        3,55,10,40,12,ES_AUTOHSCROLL
+    EDITTEXT        4,55,30,40,12,ES_AUTOHSCROLL
+    EDITTEXT        5,55,50,106,12,ES_AUTOHSCROLL
+    RTEXT           "CTG:",10,15,10,30,8
+    RTEXT           "CNO:",11,15,30,30,8
+    RTEXT           "Name:",12,18,52,28,8
+END
+
+dlidAdoptChunk DIALOG DISCARDABLE  50, 50, 201, 118
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Adopt Chunk"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "&OK",1,145,10,50,14
+    PUSHBUTTON      "&Cancel",2,145,30,50,14
+    EDITTEXT        3,80,10,40,12,ES_AUTOHSCROLL
+    EDITTEXT        4,80,30,40,12,ES_AUTOHSCROLL
+    EDITTEXT        5,80,55,40,12,ES_AUTOHSCROLL
+    EDITTEXT        6,80,75,40,12,ES_AUTOHSCROLL
+    EDITTEXT        7,80,95,40,12,ES_AUTOHSCROLL
+    RTEXT           "Parent CTG:",100,15,10,55,8
+    RTEXT           "Parent CNO:",101,15,30,55,8
+    RTEXT           "Child CTG:",102,15,55,55,8
+    RTEXT           "Child CNO:",dlidAdoptChunk,15,75,55,8
+    RTEXT           "CHID:",104,15,95,55,8
+END
+
+dlidGlbNew DIALOG DISCARDABLE  100, 100, 185, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "New GL/AL"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,6,50,14
+    PUSHBUTTON      "Cancel",2,129,25,50,14
+    EDITTEXT        3,70,40,43,12,ES_AUTOHSCROLL
+    LTEXT           "Enter the size (in bytes) of each element of the GL/AL.",
+                    4,10,10,113,20
+    RTEXT           "Size:",5,25,42,35,8
+END
+
+dlidGgbNew DIALOG DISCARDABLE  100, 100, 185, 78
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "New GG/AG"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,6,50,14
+    PUSHBUTTON      "Cancel",2,129,25,50,14
+    EDITTEXT        3,65,50,43,12,ES_AUTOHSCROLL
+    LTEXT           "Enter the size (in bytes) of the fixed-sized portion of each element of the GG/AG.",
+                    4,10,5,113,30
+    RTEXT           "Size:",5,25,52,35,8
+END
+
+dlidGstbNew DIALOG DISCARDABLE  100, 100, 185, 78
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "New GST/AST"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,129,6,50,14
+    PUSHBUTTON      "Cancel",2,129,25,50,14
+    EDITTEXT        3,70,50,43,12,ES_AUTOHSCROLL
+    LTEXT           "Enter the size (in LONGs) of the extra data for each element of the GST/AST.",
+                    4,10,10,113,30
+    RTEXT           "Size:",5,25,52,35,8
+END
+
+dlidChangeChid DIALOG DISCARDABLE  50, 50, 121, 42
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Change CHID"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "&OK",1,7,20,50,14
+    PUSHBUTTON      "&Cancel",2,63,20,50,14
+    EDITTEXT        3,57,4,40,12,ES_AUTOHSCROLL
+    RTEXT           "CHID:",10,14,6,39,8
+END
+
+dlidMbmp DIALOG DISCARDABLE  50, 50, 167, 69
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Masked Bitmap"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,26,50,50,14
+    PUSHBUTTON      "Cancel",2,91,50,50,14
+    EDITTEXT        3,122,3,40,12,ES_AUTOHSCROLL
+    EDITTEXT        4,35,33,40,12,ES_AUTOHSCROLL
+    EDITTEXT        5,106,32,40,12,ES_AUTOHSCROLL
+    LTEXT           "Transparent Pixel Value (0 ... 255):",10,3,4,119,13
+    LTEXT           "Reference Point [upper left is (0,0)]:",11,16,18,125,12
+    LTEXT           "X Pos:",12,9,34,25,7
+    LTEXT           "Y Pos:",13,81,34,24,7
+END
+
+dlidFilter DIALOG DISCARDABLE  100, 100, 185, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Filter Chunks"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,6,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,23,50,14
+    CONTROL         "Hide &Children",3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    13,10,94,10
+    CONTROL         "&Hide Listed Chunks",4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,29,94,10
+    EDITTEXT        5,34,56,132,12,ES_AUTOHSCROLL
+    RTEXT           "CTGs:",6,6,58,24,7
+END
+
+dlidScriptCache DIALOG DISCARDABLE  0, 0, 211, 56
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Run Script"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",1,155,6,50,14
+    PUSHBUTTON      "Cancel",2,155,23,50,14
+    EDITTEXT        3,85,17,40,12,ES_AUTOHSCROLL
+    RTEXT           "Cache Size (in KB):",4,12,19,71,9
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+acidMain ACCELERATORS DISCARDABLE 
+BEGIN
+    "A",            cidRedo,                VIRTKEY, CONTROL, NOINVERT
+    "C",            cidCopy,                VIRTKEY, CONTROL, NOINVERT
+    "E",            cidSaveAndClose,        VIRTKEY, CONTROL, NOINVERT
+    "H",            cidEditHex,             VIRTKEY, CONTROL, NOINVERT
+    "K",            cidPasteSpecial,        VIRTKEY, CONTROL, NOINVERT
+    "L",            cidCloneChunk,          VIRTKEY, CONTROL, NOINVERT
+    "N",            cidNew,                 VIRTKEY, CONTROL, NOINVERT
+    "O",            cidOpen,                VIRTKEY, CONTROL, NOINVERT
+    "Q",            cidQuit,                VIRTKEY, CONTROL, NOINVERT
+    "R",            cidTestScript,          VIRTKEY, CONTROL, NOINVERT
+    "S",            cidSave,                VIRTKEY, CONTROL, NOINVERT
+    "T",            cidRunScriptCache,      VIRTKEY, CONTROL, NOINVERT
+    "V",            cidPaste,               VIRTKEY, CONTROL, NOINVERT
+    "W",            cidClose,               VIRTKEY, CONTROL, NOINVERT
+    "X",            cidCut,                 VIRTKEY, CONTROL, NOINVERT
+    "Z",            cidUndo,                VIRTKEY, CONTROL, NOINVERT
+END
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "frame.rc"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

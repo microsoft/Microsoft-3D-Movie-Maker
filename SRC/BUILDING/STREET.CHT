@@ -1,0 +1,47 @@
+/* Copyright (c) Microsoft Corporation.
+   Licensed under the MIT License. */
+
+/*****************************************************************************
+*
+*  STREET.CHT
+*
+*  Copyright (C) Microsoft Corporation 1995.
+*  All Rights reserved.
+*
+******************************************************************************
+*
+*  Module Intent
+*
+*  Animations for the "street" (aka manhole) sequence
+* 
+******************************************************************************
+*
+*  Revision History:  Updated + added header 7/10/95 -*****
+*
+*****************************************************************************/
+
+// -----------------------------------------------------
+// Street scene place and objects
+// ---the street creates the McZee AVI object, then
+// polls until it's done.
+// -----------------------------------------------------
+OBJECTTY( "street", kgobStreet, 0, kcrsArrow1, gokkNoHitThis )
+REP_PPMBMP( kcell1, "building\pbm\street\street1.pbm" )
+REP_ANIM( CHID1( krepDefault ), "closet, default" )
+	SETGLOBAL( fTrans, fTrue );
+	SETPALETTE( kpalSocStreet );	// dissolve to new palette
+    Cell( kcell1, 0, 0, 60);   // draw + pause while dissolve o
+
+	SetColorTable( kpalSocStreet );	// make SURE the palette's set.
+	CreateChildThis( kgobStreetMcZee, kgobStreetMcZee );
+	Cell( kcell1, 0, 0, 30 );
+	
+	// look to see if the McZee gob is playing AVI
+	While( PlayingGob( kgobStreetMcZee ));
+		Cell( kcell1, 0, 0, 30 );	// poll at 1/2ths of a second
+	End; 													
+	NEXTPLACE1( kgobTicket1, kst1 );
+ENDCHUNK
+
+OBJECT( "street: McZee AVI",  kgobStreetMcZee, 10, kcrsArrow1 )
+REP_VIDEO( CHID1( krepDefault ), "mhole2.avi", fTrue )

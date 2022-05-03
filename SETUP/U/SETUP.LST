@@ -1,0 +1,39 @@
+[Windows 95 Params]
+	WndTitle    = Microsoft 3D Movie Maker Setup
+	WndMess     = Starting Microsoft 3D Movie Maker Setup ...
+	TmpDirSize  = 1400
+	TmpDirName  = ~msstexp
+	CmdLine     = acmsetup /Z 3dmsetup.dll /T setup.stf /S %s %s
+	DrvWinClass = Stuff-Shell
+	Require31   = This application requires a newer version of Microsoft Windows.
+	InsertCDMsg = Please hold down the SHIFT key while you insert the 3D Movie Maker disc in your CD-ROM drive. Wait 5 seconds, and then click OK.
+    InsertDiskMsg = Please insert your disk.
+
+[Windows 95 Files]
+	setup\acmsetup.exe = acmsetup.exe
+	setup\acmsetup.hlp = acmsetup.hlp
+	setup\mssetup.dll  = mssetup.dll
+	setup\setup.inf = setup.inf
+	setup\setup.stf = setup.stf
+	setup\3dmsetup.dll = 3dmsetup.dll
+
+
+[NT3.51 Intel Params]
+	WndTitle    = Microsoft 3D Movie Maker Setup
+	WndMess     = Starting Microsoft 3D Movie Maker Setup ...
+	TmpDirSize  = 1400
+	TmpDirName  = ~msstexp
+	CmdLine     = acmsetup /Z 3dmsetup.dll /T setup.stf /S %s %s
+	DrvWinClass = Stuff-Shell
+	Require31   = This application requires a newer version of Microsoft Windows.
+	InsertCDMsg = Please hold down the SHIFT key while you insert the 3D Movie Maker disc in your CD-ROM drive. Wait 5 seconds, and then click OK.
+    InsertDiskMsg = Please insert your disk.
+
+[NT3.51 Intel Files]
+	setup\acmsetup.exe = acmsetup.exe
+	setup\acmsetup.hlp = acmsetup.hlp
+	setup\mssetup.dll  = mssetup.dll
+	setup\setup.inf = setup.inf
+	setup\setup.stf = setup.stf
+	setup\3dmsetup.dll = 3dmsetup.dll
+	
