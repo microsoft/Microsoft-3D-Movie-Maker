@@ -7,7 +7,7 @@ under the [MIT license](LICENSE) as open source.
 
 ## Building instructions
 
-This project is unlikely to build successfully under modern hardware/software, but you can get started with compilation and get partial completed binaries. Here's what will get you going.
+This project is unlikely to build successfully under modern hardware/software, but you can get started with compilation and get partial completed binaries. Here's what will get you going. Thanks to Mac Sample for their work on getting this far!
 
 - Make sure this repo is checked out to a folder with a short name, ideally right on the root of a drive (i.e. C:\3d).
 - You will need Visual C++ 2.0's dev tools (located under MSVC20\BIN on its installer disk) on your path. Modern compilers dislike some of the pre C++98 conventions.
